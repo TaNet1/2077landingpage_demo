@@ -1,0 +1,1087 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AKURA (2077.AI) - AvatarX AI Virtual Employee</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Sora:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'Noto Sans SC', 'sans-serif'],
+                    },
+                    transitionDelay: {
+                        '100': '100ms', '200': '200ms', '300': '300ms',
+                        '400': '400ms', '500': '500ms', '700': '700ms',
+                    },
+                },
+            },
+        };
+    </script>
+    <style>
+        :root {
+            --brand-primary: #9255fe;
+            --brand-secondary: #ec00fa;
+            --bg-white: #ffffff;
+            --bg-accent: #f8fafc;
+        }
+
+        body {
+            font-family: 'Inter', 'Noto Sans SC', sans-serif;
+            background-color: var(--bg-white);
+            color: #1a1a1a;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        .font-sora { font-family: 'Sora', sans-serif; }
+
+        .gradient-text {
+            background: linear-gradient(135deg, var(--brand-primary), var(--brand-secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, var(--brand-primary), var(--brand-secondary));
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .card-glow:hover {
+            box-shadow: 0 20px 40px -15px rgba(146, 85, 254, 0.15);
+            transform: translateY(-8px);
+        }
+
+        .mouse-glow {
+            position: fixed;
+            width: 1000px;
+            height: 1000px;
+            background: radial-gradient(circle, rgba(146, 85, 254, 0.22) 0%, rgba(236, 0, 250, 0.12) 35%, rgba(146, 85, 254, 0.04) 60%, transparent 75%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+            transform: translate(-50%, -50%);
+            transition: width 0.3s, height 0.3s;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .parallax-item {
+            transition: transform 0.2s cubic-bezier(0.1, 0.5, 0.1, 1);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background: linear-gradient(90deg, var(--brand-primary), var(--brand-secondary));
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after { width: 100%; }
+
+        .magnetic-btn {
+            display: inline-block;
+            transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .floating { animation: float 6s ease-in-out infinite; }
+
+        .counter-val { font-variant-numeric: tabular-nums; }
+
+        .scene-card { perspective: 1000px; }
+        .scene-card-inner {
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+        }
+        .scene-card:hover .scene-card-inner {
+            transform: rotateY(180deg);
+        }
+        .card-front, .card-back {
+            backface-visibility: hidden;
+        }
+        .card-back {
+            transform: rotateY(180deg);
+        }
+    </style>
+</head>
+
+<body class="w-full min-h-screen selection:bg-purple-100">
+
+    <div id="mouseGlow" class="mouse-glow"></div>
+
+    <!-- Navbar -->
+    <nav class="fixed top-0 w-full z-50 transition-all duration-300 px-10 py-6" id="navbar">
+        <div class="max-w-7xl mx-auto flex justify-between items-center bg-white/40 backdrop-blur-md px-8 py-4 rounded-full border border-gray-100/50 shadow-sm">
+            <div class="flex items-center gap-2">
+                <div class="w-8 h-8 gradient-bg rounded-lg flex items-center justify-center">
+                    <i data-lucide="zap" class="text-white w-5 h-5"></i>
+                </div>
+                <span class="font-sora font-bold text-2xl tracking-tighter">AKURA<span class="text-xs ml-1 font-normal text-gray-400">2077.AI</span></span>
+            </div>
+
+            <div class="hidden md:flex items-center gap-10">
+                <a href="#hero" class="nav-link relative text-sm font-medium text-gray-700 hover:text-black transition-colors">首页 <span class="text-[10px] text-gray-400 font-normal">Home</span></a>
+                <a href="#products" class="nav-link relative text-sm font-medium text-gray-700 hover:text-black transition-colors">智能产品 <span class="text-[10px] text-gray-400 font-normal">Products</span></a>
+                <a href="#scenarios" class="nav-link relative text-sm font-medium text-gray-700 hover:text-black transition-colors">应用场景 <span class="text-[10px] text-gray-400 font-normal">Scenarios</span></a>
+                <a href="#tech" class="nav-link relative text-sm font-medium text-gray-700 hover:text-black transition-colors">核心技术 <span class="text-[10px] text-gray-400 font-normal">Tech</span></a>
+            </div>
+
+            <div class="flex items-center gap-4">
+                <button class="text-sm font-semibold text-gray-700 hover:text-black">登录</button>
+                <button class="magnetic-btn gradient-bg text-white px-6 py-2.5 rounded-full text-sm font-semibold shadow-lg shadow-purple-200 hover:shadow-purple-400 transition-all">
+                    立即预约演示
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section id="hero" class="relative pt-40 pb-20 px-10 overflow-hidden min-h-screen flex items-center">
+        <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center relative z-10">
+            <div class="reveal active">
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-50 text-purple-600 text-xs font-bold mb-6 border border-purple-100">
+                    <span class="w-2 h-2 rounded-full bg-purple-500 animate-pulse"></span>
+                    THE FUTURE OF WORKFORCE IS HERE
+                </div>
+                <h1 class="text-6xl lg:text-8xl font-sora font-bold leading-tight mb-6 tracking-tight">
+                    AvatarX <br>
+                    <span class="gradient-text">AI Virtual Employee</span>
+                </h1>
+                <p class="text-xl text-gray-500 max-w-lg mb-10 leading-relaxed">
+                    重新定义未来劳动力。AKURA 打造具有高度情感智能与专业能力的数字孪生员工，为您提供 7×24 小时的全场景智能服务支持。
+                </p>
+                <div class="flex flex-wrap gap-4">
+                    <button class="magnetic-btn bg-black text-white px-8 py-4 rounded-2xl font-bold flex items-center gap-3 hover:bg-gray-800 transition-all group">
+                        开始体验
+                        <i data-lucide="arrow-right" class="w-5 h-5 group-hover:translate-x-1 transition-transform"></i>
+                    </button>
+                    <div class="flex items-center gap-4 px-6 py-4 rounded-2xl border border-gray-100 bg-white/50">
+                        <div class="flex -space-x-2">
+                            <div class="w-8 h-8 rounded-full border-2 border-white bg-blue-400 flex items-center justify-center text-[10px] text-white">L</div>
+                            <div class="w-8 h-8 rounded-full border-2 border-white bg-purple-400 flex items-center justify-center text-[10px] text-white">S</div>
+                            <div class="w-8 h-8 rounded-full border-2 border-white bg-pink-400 flex items-center justify-center text-[10px] text-white">W</div>
+                        </div>
+                        <span class="text-sm font-medium text-gray-500"><span class="text-black font-bold">2k+</span> 企业已选择</span>
+                    </div>
+                </div>
+
+                <div class="mt-16 grid grid-cols-3 gap-8">
+                    <div>
+                        <div class="text-3xl font-sora font-bold counter-val" data-target="99.9">0</div>
+                        <div class="text-sm text-gray-400">语音识别率 (%)</div>
+                    </div>
+                    <div>
+                        <div class="text-3xl font-sora font-bold counter-val" data-target="150">0</div>
+                        <div class="text-sm text-gray-400">毫秒级响应速度</div>
+                    </div>
+                    <div>
+                        <div class="text-3xl font-sora font-bold counter-val" data-target="24">0</div>
+                        <div class="text-sm text-gray-400">多语种实时翻译</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="relative reveal active delay-200">
+                <div class="relative w-full aspect-square rounded-[40px] overflow-hidden group">
+                    <div class="absolute inset-0 bg-gradient-to-tr from-purple-100/50 to-pink-50/50"></div>
+
+                    <div class="w-full h-full bg-gray-100 flex items-center justify-center">
+                        <div class="relative w-4/5 h-4/5 rounded-3xl overflow-hidden shadow-2xl floating">
+                            <div class="absolute inset-0 bg-gradient-to-b from-gray-200 to-gray-300"></div>
+                            <div class="absolute inset-0 flex items-center justify-center flex-col text-gray-400">
+                                <i data-lucide="user" class="w-24 h-24 opacity-20"></i>
+                                <span class="text-xs tracking-widest mt-4">AVATARX CORE RENDER</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="absolute top-10 -left-6 glass-card p-4 rounded-2xl shadow-xl reveal delay-500 max-w-[200px]">
+                        <div class="flex items-center gap-3 mb-2">
+                            <div class="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center text-green-600">
+                                <i data-lucide="activity" class="w-4 h-4"></i>
+                            </div>
+                            <span class="text-xs font-bold">情感感知系统</span>
+                        </div>
+                        <p class="text-[10px] text-gray-500">实时分析用户情绪，提供更具温度的交互反馈。</p>
+                    </div>
+
+                    <div class="absolute bottom-20 -right-4 glass-card p-4 rounded-2xl shadow-xl reveal delay-700 max-w-[220px]">
+                        <div class="flex items-center gap-3 mb-2">
+                            <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600">
+                                <i data-lucide="layers" class="w-4 h-4"></i>
+                            </div>
+                            <span class="text-xs font-bold">多模态大模型</span>
+                        </div>
+                        <div class="space-y-1">
+                            <div class="w-full h-1 bg-gray-100 rounded-full overflow-hidden">
+                                <div class="w-[85%] h-full gradient-bg"></div>
+                            </div>
+                            <div class="w-full h-1 bg-gray-100 rounded-full overflow-hidden">
+                                <div class="w-[92%] h-full gradient-bg"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="absolute top-1/4 right-0 w-96 h-96 bg-purple-100/30 blur-3xl rounded-full"></div>
+        <div class="absolute bottom-1/4 -left-20 w-80 h-80 bg-pink-100/20 blur-3xl rounded-full"></div>
+    </section>
+
+    <!-- Trusted by -->
+    <section class="py-16 px-10 bg-white border-y border-gray-50">
+        <div class="max-w-7xl mx-auto">
+            <p class="text-center text-sm font-bold text-gray-400 uppercase tracking-widest mb-10 reveal">Trusted by leading enterprises worldwide</p>
+            <div class="grid grid-cols-2 md:grid-cols-6 gap-8 items-center opacity-60 reveal">
+                <div class="h-10 bg-gray-100 rounded-lg flex items-center justify-center text-xs font-bold text-gray-400">Tencent</div>
+                <div class="h-10 bg-gray-100 rounded-lg flex items-center justify-center text-xs font-bold text-gray-400">Alibaba</div>
+                <div class="h-10 bg-gray-100 rounded-lg flex items-center justify-center text-xs font-bold text-gray-400">PingAn</div>
+                <div class="h-10 bg-gray-100 rounded-lg flex items-center justify-center text-xs font-bold text-gray-400">ChinaMobile</div>
+                <div class="h-10 bg-gray-100 rounded-lg flex items-center justify-center text-xs font-bold text-gray-400">Baidu</div>
+                <div class="h-10 bg-gray-100 rounded-lg flex items-center justify-center text-xs font-bold text-gray-400">JD.com</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Core Capabilities -->
+    <section class="py-24 px-10 bg-slate-50 overflow-hidden">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-sm font-bold tracking-widest text-purple-600 mb-4 uppercase">Core Capabilities</h2>
+                <h3 class="text-5xl font-sora font-bold mb-6">全栈 AI 虚拟人能力矩阵</h3>
+                <p class="text-gray-500 max-w-2xl mx-auto">从形象克隆到知识推理，从情感感知到多终端部署，AKURA 提供端到端的数字员工技术闭环。</p>
+            </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="bg-white p-8 rounded-[32px] border border-gray-100 hover:border-purple-200 transition-all reveal">
+                    <div class="w-12 h-12 rounded-2xl bg-purple-50 flex items-center justify-center text-purple-600 mb-6">
+                        <i data-lucide="scan-face" class="w-6 h-6"></i>
+                    </div>
+                    <h4 class="text-lg font-bold mb-2">超写实形象克隆</h4>
+                    <p class="text-sm text-gray-500 leading-relaxed">基于 3D 扫描与神经网络渲染，1:1 还原真人外貌、微表情与肢体动作，肉眼难辨真伪。</p>
+                </div>
+                <div class="bg-white p-8 rounded-[32px] border border-gray-100 hover:border-blue-200 transition-all reveal delay-100">
+                    <div class="w-12 h-12 rounded-2xl bg-blue-50 flex items-center justify-center text-blue-600 mb-6">
+                        <i data-lucide="speech" class="w-6 h-6"></i>
+                    </div>
+                    <h4 class="text-lg font-bold mb-2">情感语音合成</h4>
+                    <p class="text-sm text-gray-500 leading-relaxed">非模板化 TTS，实时注入情绪参数，让数字人说话有抑扬顿挫，真正实现"声情并茂"。</p>
+                </div>
+                <div class="bg-white p-8 rounded-[32px] border border-gray-100 hover:border-pink-200 transition-all reveal delay-200">
+                    <div class="w-12 h-12 rounded-2xl bg-pink-50 flex items-center justify-center text-pink-600 mb-6">
+                        <i data-lucide="message-square-plus" class="w-6 h-6"></i>
+                    </div>
+                    <h4 class="text-lg font-bold mb-2">多轮意图推理</h4>
+                    <p class="text-sm text-gray-500 leading-relaxed">支持 50+ 轮超长上下文记忆，精准识别用户隐性需求，主动追问澄清，告别答非所问。</p>
+                </div>
+                <div class="bg-white p-8 rounded-[32px] border border-gray-100 hover:border-orange-200 transition-all reveal">
+                    <div class="w-12 h-12 rounded-2xl bg-orange-50 flex items-center justify-center text-orange-600 mb-6">
+                        <i data-lucide="eye" class="w-6 h-6"></i>
+                    </div>
+                    <h4 class="text-lg font-bold mb-2">视觉感知交互</h4>
+                    <p class="text-sm text-gray-500 leading-relaxed">搭载摄像头视觉模组，支持人脸识别、gaze tracking（视线追踪）与手势识别，实现"看"着用户说话。</p>
+                </div>
+                <div class="bg-white p-8 rounded-[32px] border border-gray-100 hover:border-indigo-200 transition-all reveal delay-100">
+                    <div class="w-12 h-12 rounded-2xl bg-indigo-50 flex items-center justify-center text-indigo-600 mb-6">
+                        <i data-lucide="file-stack" class="w-6 h-6"></i>
+                    </div>
+                    <h4 class="text-lg font-bold mb-2">企业知识大脑</h4>
+                    <p class="text-sm text-gray-500 leading-relaxed">支持 PDF、Word、Excel、网页等多格式文档秒级解析，自动构建可更新、可溯源的知识图谱。</p>
+                </div>
+                <div class="bg-white p-8 rounded-[32px] border border-gray-100 hover:border-emerald-200 transition-all reveal delay-200">
+                    <div class="w-12 h-12 rounded-2xl bg-emerald-50 flex items-center justify-center text-emerald-600 mb-6">
+                        <i data-lucide="plug-zap" class="w-6 h-6"></i>
+                    </div>
+                    <h4 class="text-lg font-bold mb-2">全渠道一键发布</h4>
+                    <p class="text-sm text-gray-500 leading-relaxed">同一份数字人资产，同步分发至 APP、小程序、网页、自助大屏、短视频直播间，多端体验一致。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How it works -->
+    <section class="py-32 px-10 bg-white">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-20 reveal">
+                <h2 class="text-sm font-bold tracking-widest text-purple-600 mb-4 uppercase">How it works</h2>
+                <h3 class="text-5xl font-sora font-bold mb-6">三步部署您的 AI 员工</h3>
+                <p class="text-gray-500 max-w-2xl mx-auto">无需复杂开发，最快 24 小时内即可让 AvatarX 在您的业务场景中上岗。</p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-12 relative">
+                <div class="absolute top-12 left-0 w-full h-0.5 bg-gray-100 hidden md:block"></div>
+                <div class="relative bg-white p-8 rounded-[32px] border border-gray-100 card-glow transition-all reveal">
+                    <div class="w-12 h-12 rounded-full gradient-bg text-white flex items-center justify-center font-bold text-lg mb-6 relative z-10">1</div>
+                    <h4 class="text-xl font-bold mb-3">形象定制</h4>
+                    <p class="text-sm text-gray-500 leading-relaxed">从库中选择或克隆真人形象，调整音色、服装与神态，打造符合品牌调性的数字人设。</p>
+                </div>
+                <div class="relative bg-white p-8 rounded-[32px] border border-gray-100 card-glow transition-all reveal delay-200">
+                    <div class="w-12 h-12 rounded-full gradient-bg text-white flex items-center justify-center font-bold text-lg mb-6 relative z-10">2</div>
+                    <h4 class="text-xl font-bold mb-3">知识录入</h4>
+                    <p class="text-sm text-gray-500 leading-relaxed">上传企业文档、FAQ、业务手册，AI 自动构建专属知识图谱，持续学习优化。</p>
+                </div>
+                <div class="relative bg-white p-8 rounded-[32px] border border-gray-100 card-glow transition-all reveal delay-400">
+                    <div class="w-12 h-12 rounded-full gradient-bg text-white flex items-center justify-center font-bold text-lg mb-6 relative z-10">3</div>
+                    <h4 class="text-xl font-bold mb-3">上线服务</h4>
+                    <p class="text-sm text-gray-500 leading-relaxed">一键发布至大屏、网页、APP 或小程序，多终端同步，数据看板实时监控服务质效。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products -->
+    <section id="products" class="py-32 px-10 bg-slate-50/50">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-20 reveal">
+                <h2 class="text-sm font-bold tracking-widest text-purple-600 mb-4 uppercase">Product Line</h2>
+                <h3 class="text-5xl font-sora font-bold mb-6">全系列智能终端</h3>
+                <p class="text-gray-500 max-w-2xl mx-auto">针对不同业务规模与使用场景，我们提供从轻量级到企业定制化的全套解决方案。</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white p-10 rounded-[40px] border border-gray-100 card-glow transition-all reveal">
+                    <div class="mb-8 w-14 h-14 rounded-2xl bg-slate-50 flex items-center justify-center text-gray-800">
+                        <i data-lucide="monitor" class="w-7 h-7"></i>
+                    </div>
+                    <div class="flex justify-between items-start mb-4">
+                        <h4 class="text-2xl font-bold font-sora">AvatarX <span class="gradient-text">PRO</span></h4>
+                        <span class="px-3 py-1 bg-gray-100 text-[10px] font-bold rounded-full">WEB BASE</span>
+                    </div>
+                    <p class="text-gray-500 text-sm mb-8 leading-relaxed">
+                        轻量级网页版数字人，即开即用。适用于网站客服、社交媒体助手等无需专业硬件支持的快速部署场景。
+                    </p>
+                    <ul class="space-y-4 mb-10">
+                        <li class="flex items-center gap-3 text-sm text-gray-600">
+                            <i data-lucide="check-circle-2" class="w-4 h-4 text-green-500"></i> API快速集成
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-gray-600">
+                            <i data-lucide="check-circle-2" class="w-4 h-4 text-green-500"></i> 低延迟云端渲染
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-gray-600">
+                            <i data-lucide="check-circle-2" class="w-4 h-4 text-green-500"></i> 标准语音库
+                        </li>
+                    </ul>
+                    <button class="w-full py-4 rounded-2xl border border-gray-100 font-bold hover:bg-black hover:text-white transition-all">了解详情</button>
+                </div>
+
+                <div class="bg-white p-10 rounded-[40px] border-2 border-purple-500/20 card-glow transition-all relative reveal delay-200">
+                    <div class="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 gradient-bg text-white text-[10px] font-bold rounded-full uppercase tracking-widest shadow-lg">Most Popular</div>
+                    <div class="mb-8 w-14 h-14 rounded-2xl bg-purple-50 flex items-center justify-center text-purple-600">
+                        <i data-lucide="cpu" class="w-7 h-7"></i>
+                    </div>
+                    <div class="flex justify-between items-start mb-4">
+                        <h4 class="text-2xl font-bold font-sora">AvatarX <span class="gradient-text">MAX</span></h4>
+                        <span class="px-3 py-1 bg-purple-100 text-purple-600 text-[10px] font-bold rounded-full uppercase">HARDWARE</span>
+                    </div>
+                    <p class="text-gray-500 text-sm mb-8 leading-relaxed">
+                        软硬件一体化旗舰产品。搭载高性能渲染引擎，支持 4K 超写实交互，专为高端展厅与实体门店打造。
+                    </p>
+                    <ul class="space-y-4 mb-10">
+                        <li class="flex items-center gap-3 text-sm text-gray-600">
+                            <i data-lucide="check-circle-2" class="w-4 h-4 text-purple-500"></i> 4K超写实渲染
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-gray-600">
+                            <i data-lucide="check-circle-2" class="w-4 h-4 text-purple-500"></i> 离线交互能力
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-gray-600">
+                            <i data-lucide="check-circle-2" class="w-4 h-4 text-purple-500"></i> 专属定制交互逻辑
+                        </li>
+                    </ul>
+                    <button class="w-full py-4 rounded-2xl gradient-bg text-white font-bold shadow-lg shadow-purple-200 hover:scale-[1.02] transition-all">购买方案</button>
+                </div>
+
+                <div class="bg-white p-10 rounded-[40px] border border-gray-100 card-glow transition-all reveal delay-400">
+                    <div class="mb-8 w-14 h-14 rounded-2xl bg-slate-50 flex items-center justify-center text-gray-800">
+                        <i data-lucide="globe" class="w-7 h-7"></i>
+                    </div>
+                    <div class="flex justify-between items-start mb-4">
+                        <h4 class="text-2xl font-bold font-sora">AvatarX <span class="gradient-text">PLUS</span></h4>
+                        <span class="px-3 py-1 bg-gray-100 text-[10px] font-bold rounded-full uppercase">ENTERPRISE</span>
+                    </div>
+                    <p class="text-gray-500 text-sm mb-8 leading-relaxed">
+                        深度定制的企业级解决方案。根据企业文化、岗位职责深度克隆数字身份，实现全业务流程的AI自动化。
+                    </p>
+                    <ul class="space-y-4 mb-10">
+                        <li class="flex items-center gap-3 text-sm text-gray-600">
+                            <i data-lucide="check-circle-2" class="w-4 h-4 text-green-500"></i> 1:1 真人形象克隆
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-gray-600">
+                            <i data-lucide="check-circle-2" class="w-4 h-4 text-green-500"></i> 企业知识库深度训练
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-gray-600">
+                            <i data-lucide="check-circle-2" class="w-4 h-4 text-green-500"></i> 私有化部署
+                        </li>
+                    </ul>
+                    <button class="w-full py-4 rounded-2xl border border-gray-100 font-bold hover:bg-black hover:text-white transition-all">联系专家</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Scenarios -->
+    <section id="scenarios" class="py-32 px-10">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-20 gap-8 reveal">
+                <div class="max-w-2xl">
+                    <h2 class="text-sm font-bold tracking-widest text-purple-600 mb-4 uppercase">Application Scenarios</h2>
+                    <h3 class="text-5xl font-sora font-bold">跨行业应用场景</h3>
+                </div>
+                <p class="text-gray-500 max-w-sm mb-2">无论是在线上的数字化空间，还是线下的实体商业，AvatarX 都能胜任各种角色。</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="scene-card h-80 w-full group cursor-pointer reveal">
+                    <div class="scene-card-inner relative w-full h-full shadow-lg rounded-[32px] overflow-hidden">
+                        <div class="card-front absolute inset-0 bg-gray-50 p-10 flex flex-col justify-between">
+                            <div class="w-12 h-12 rounded-full bg-white shadow-sm flex items-center justify-center text-purple-600">
+                                <i data-lucide="layout" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <h5 class="text-2xl font-bold mb-2">数字展厅</h5>
+                                <p class="text-sm text-gray-500">Smart Showroom</p>
+                            </div>
+                        </div>
+                        <div class="card-back absolute inset-0 gradient-bg p-10 text-white flex flex-col justify-center text-center">
+                            <h5 class="text-2xl font-bold mb-4">自动导览助手</h5>
+                            <p class="text-sm opacity-90 leading-relaxed mb-6">全天候为访客提供展品讲解、路径引导与互动问答，提升科技感与互动率。</p>
+                            <span class="text-xs font-bold underline cursor-pointer">案例研究 →</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="scene-card h-80 w-full group cursor-pointer reveal delay-100">
+                    <div class="scene-card-inner relative w-full h-full shadow-lg rounded-[32px] overflow-hidden">
+                        <div class="card-front absolute inset-0 bg-gray-50 p-10 flex flex-col justify-between">
+                            <div class="w-12 h-12 rounded-full bg-white shadow-sm flex items-center justify-center text-blue-600">
+                                <i data-lucide="heart-pulse" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <h5 class="text-2xl font-bold mb-2">医疗健康</h5>
+                                <p class="text-sm text-gray-500">Healthcare</p>
+                            </div>
+                        </div>
+                        <div class="card-back absolute inset-0 bg-blue-600 p-10 text-white flex flex-col justify-center text-center">
+                            <h5 class="text-2xl font-bold mb-4">智能导诊医生</h5>
+                            <p class="text-sm opacity-90 leading-relaxed mb-6">缓解挂号压力，进行初步病史搜集与就医导引，为病患提供温暖的陪伴体验。</p>
+                            <span class="text-xs font-bold underline cursor-pointer">案例研究 →</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="scene-card h-80 w-full group cursor-pointer reveal delay-200">
+                    <div class="scene-card-inner relative w-full h-full shadow-lg rounded-[32px] overflow-hidden">
+                        <div class="card-front absolute inset-0 bg-gray-50 p-10 flex flex-col justify-between">
+                            <div class="w-12 h-12 rounded-full bg-white shadow-sm flex items-center justify-center text-pink-600">
+                                <i data-lucide="plane" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <h5 class="text-2xl font-bold mb-2">酒店/机场</h5>
+                                <p class="text-sm text-gray-500">Hotel &amp; Airport</p>
+                            </div>
+                        </div>
+                        <div class="card-back absolute inset-0 bg-pink-600 p-10 text-white flex flex-col justify-center text-center">
+                            <h5 class="text-2xl font-bold mb-4">24/7 前台接待</h5>
+                            <p class="text-sm opacity-90 leading-relaxed mb-6">跨语种无缝沟通，处理登机手续、客房服务请求，通过极速反馈提升宾客满意度。</p>
+                            <span class="text-xs font-bold underline cursor-pointer">案例研究 →</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="scene-card h-80 w-full group cursor-pointer reveal delay-300">
+                    <div class="scene-card-inner relative w-full h-full shadow-lg rounded-[32px] overflow-hidden">
+                        <div class="card-front absolute inset-0 bg-gray-50 p-10 flex flex-col justify-between">
+                            <div class="w-12 h-12 rounded-full bg-white shadow-sm flex items-center justify-center text-orange-600">
+                                <i data-lucide="shopping-bag" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <h5 class="text-2xl font-bold mb-2">商业零售</h5>
+                                <p class="text-sm text-gray-500">Commercial &amp; Retail</p>
+                            </div>
+                        </div>
+                        <div class="card-back absolute inset-0 bg-orange-600 p-10 text-white flex flex-col justify-center text-center">
+                            <h5 class="text-2xl font-bold mb-4">虚拟金牌导购</h5>
+                            <p class="text-sm opacity-90 leading-relaxed mb-6">基于消费习惯提供个性化推荐，增强互动式购物体验，显著提升销售转化率。</p>
+                            <span class="text-xs font-bold underline cursor-pointer">案例研究 →</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="scene-card h-80 w-full group cursor-pointer reveal delay-400">
+                    <div class="scene-card-inner relative w-full h-full shadow-lg rounded-[32px] overflow-hidden">
+                        <div class="card-front absolute inset-0 bg-gray-50 p-10 flex flex-col justify-between">
+                            <div class="w-12 h-12 rounded-full bg-white shadow-sm flex items-center justify-center text-indigo-600">
+                                <i data-lucide="building-2" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <h5 class="text-2xl font-bold mb-2">政务大厅</h5>
+                                <p class="text-sm text-gray-500">Government Services</p>
+                            </div>
+                        </div>
+                        <div class="card-back absolute inset-0 bg-indigo-600 p-10 text-white flex flex-col justify-center text-center">
+                            <h5 class="text-2xl font-bold mb-4">政务引导专员</h5>
+                            <p class="text-sm opacity-90 leading-relaxed mb-6">简化政务办理流程，协助市民进行资料预审与窗口分流，打造智慧政务新范式。</p>
+                            <span class="text-xs font-bold underline cursor-pointer">案例研究 →</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="scene-card h-80 w-full group cursor-pointer reveal delay-500">
+                    <div class="scene-card-inner relative w-full h-full shadow-lg rounded-[32px] overflow-hidden">
+                        <div class="card-front absolute inset-0 bg-gray-50 p-10 flex flex-col justify-between">
+                            <div class="w-12 h-12 rounded-full bg-white shadow-sm flex items-center justify-center text-emerald-600">
+                                <i data-lucide="coins" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <h5 class="text-2xl font-bold mb-2">金融机构</h5>
+                                <p class="text-sm text-gray-500">Banking &amp; Finance</p>
+                            </div>
+                        </div>
+                        <div class="card-back absolute inset-0 bg-emerald-600 p-10 text-white flex flex-col justify-center text-center">
+                            <h5 class="text-2xl font-bold mb-4">虚拟客户经理</h5>
+                            <p class="text-sm opacity-90 leading-relaxed mb-6">提供专业的理财咨询、业务查询与反欺诈提示，确保持续、合规且优质的服务。</p>
+                            <span class="text-xs font-bold underline cursor-pointer">案例研究 →</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-32 px-10 bg-white">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-20 reveal">
+                <h2 class="text-sm font-bold tracking-widest text-purple-600 mb-4 uppercase">Testimonials</h2>
+                <h3 class="text-5xl font-sora font-bold mb-6">客户真实反馈</h3>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-slate-50 p-10 rounded-[40px] reveal">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center text-purple-600 font-bold">L</div>
+                        <div>
+                            <h5 class="font-bold">李总监</h5>
+                            <p class="text-xs text-gray-400">某头部金融机构 科技部</p>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-600 leading-relaxed">"AvatarX 的接入让我们的客服接待效率提升了 3 倍，客户在网点的平均等待时间从 15 分钟缩短到 3 分钟，体验改善非常明显。"</p>
+                </div>
+                <div class="bg-slate-50 p-10 rounded-[40px] reveal delay-100">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold">W</div>
+                        <div>
+                            <h5 class="font-bold">王经理</h5>
+                            <p class="text-xs text-gray-400">某三甲医院 门诊办</p>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-600 leading-relaxed">"导诊虚拟人不仅分流了大量重复咨询，还能在深夜为患者提供就诊指南，真正实现了医疗服务的 7×24 不间断。"</p>
+                </div>
+                <div class="bg-slate-50 p-10 rounded-[40px] reveal delay-200">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-12 h-12 rounded-full bg-pink-100 flex items-center justify-center text-pink-600 font-bold">Z</div>
+                        <div>
+                            <h5 class="font-bold">张CEO</h5>
+                            <p class="text-xs text-gray-400">某新零售品牌 创始人</p>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-600 leading-relaxed">"旗舰店的虚拟导购上线首月，互动转化率就提升了 40%，年轻消费者对这种科技感体验非常买账。"</p>
+                </div>
+            </div>
+            <div class="mt-16 flex justify-center gap-12 reveal">
+                <div class="text-center">
+                    <h4 class="text-4xl font-sora font-bold gradient-text">300%</h4>
+                    <p class="text-sm text-gray-400 mt-2">平均效率提升</p>
+                </div>
+                <div class="text-center">
+                    <h4 class="text-4xl font-sora font-bold gradient-text">40%</h4>
+                    <p class="text-sm text-gray-400 mt-2">人力成本降低</p>
+                </div>
+                <div class="text-center">
+                    <h4 class="text-4xl font-sora font-bold gradient-text">98%</h4>
+                    <p class="text-sm text-gray-400 mt-2">客户满意度</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Vision (dark) -->
+    <section class="py-32 px-10 bg-black text-white relative overflow-hidden">
+        <div class="absolute inset-0 opacity-20">
+            <div class="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_30%_30%,#9255fe_0%,transparent_40%)]"></div>
+            <div class="absolute bottom-0 right-0 w-full h-full bg-[radial-gradient(circle_at_70%_70%,#ec00fa_0%,transparent_40%)]"></div>
+        </div>
+
+        <div class="max-w-7xl mx-auto relative z-10 grid lg:grid-cols-2 gap-20 items-center">
+            <div class="reveal">
+                <h2 class="text-sm font-bold tracking-[0.2em] text-purple-400 mb-6 uppercase">Redefining The Workforce</h2>
+                <h3 class="text-5xl font-sora font-bold mb-8 leading-tight">不仅仅是数字人，<br>更是进化的生产力。</h3>
+                <p class="text-gray-400 text-lg leading-relaxed mb-10">
+                    AKURA 正在消除人机协作的边界。通过深度学习与大规模神经网络，我们的 AI 虚拟员工能够像真人一样感知、思考、并提供精准的服务，从而释放人类员工的创造力，将其投向更具战略价值的任务。
+                </p>
+                <div class="space-y-6">
+                    <div class="flex items-start gap-4">
+                        <div class="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center shrink-0">
+                            <i data-lucide="trending-up" class="w-6 h-6 text-purple-400"></i>
+                        </div>
+                        <div>
+                            <h6 class="font-bold mb-1">效率提升 300%</h6>
+                            <p class="text-sm text-gray-500">24/7 不间断工作，多任务并行处理能力，告别重复劳动效率瓶颈。</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4">
+                        <div class="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center shrink-0">
+                            <i data-lucide="shield-check" class="w-6 h-6 text-purple-400"></i>
+                        </div>
+                        <div>
+                            <h6 class="font-bold mb-1">合规与隐私安全</h6>
+                            <p class="text-sm text-gray-500">企业级安全架构，支持本地化部署，确保数据交互全程加密合规。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-6 reveal delay-300">
+                <div class="space-y-6">
+                    <div class="bg-white/5 backdrop-blur-lg p-8 rounded-[32px] border border-white/10 mt-12 hover:border-purple-500/50 transition-all cursor-default">
+                        <h4 class="text-4xl font-sora font-bold mb-2">10M+</h4>
+                        <p class="text-xs text-gray-500 uppercase tracking-widest font-bold">每日交互次数</p>
+                    </div>
+                    <div class="bg-white/5 backdrop-blur-lg p-8 rounded-[32px] border border-white/10 hover:border-purple-500/50 transition-all cursor-default">
+                        <h4 class="text-4xl font-sora font-bold mb-2">98%</h4>
+                        <p class="text-xs text-gray-500 uppercase tracking-widest font-bold">客户满意度评分</p>
+                    </div>
+                </div>
+                <div class="space-y-6">
+                    <div class="bg-white/5 backdrop-blur-lg p-8 rounded-[32px] border border-white/10 hover:border-purple-500/50 transition-all cursor-default">
+                        <h4 class="text-4xl font-sora font-bold mb-2">50+</h4>
+                        <p class="text-xs text-gray-500 uppercase tracking-widest font-bold">落地垂直行业</p>
+                    </div>
+                    <div class="bg-white/5 backdrop-blur-lg p-8 rounded-[32px] border border-white/10 mt-12 hover:border-purple-500/50 transition-all cursor-default">
+                        <h4 class="text-4xl font-sora font-bold mb-2">40%</h4>
+                        <p class="text-xs text-gray-500 uppercase tracking-widest font-bold">平均人力成本节省</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Core Technology -->
+    <section id="tech" class="py-32 px-10">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-20 reveal">
+                <h2 class="text-sm font-bold tracking-widest text-purple-600 mb-4 uppercase">Core Technology</h2>
+                <h3 class="text-5xl font-sora font-bold">驱动未来的核心动力</h3>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-10">
+                <div class="reveal text-center">
+                    <div class="w-20 h-20 bg-purple-50 rounded-3xl mx-auto mb-6 flex items-center justify-center text-purple-600 group hover:rotate-12 transition-transform">
+                        <i data-lucide="brain-circuit" class="w-10 h-10"></i>
+                    </div>
+                    <h5 class="font-bold mb-2">深度语义理解</h5>
+                    <p class="text-xs text-gray-500">自研大模型，支持上下文深度联想与复杂指令执行。</p>
+                </div>
+                <div class="reveal delay-100 text-center">
+                    <div class="w-20 h-20 bg-blue-50 rounded-3xl mx-auto mb-6 flex items-center justify-center text-blue-600 group hover:rotate-12 transition-transform">
+                        <i data-lucide="sparkles" class="w-10 h-10"></i>
+                    </div>
+                    <h5 class="font-bold mb-2">实时渲染引擎</h5>
+                    <p class="text-xs text-gray-500">毫秒级画面响应，呈现发丝级写实皮肤质感与自然神态。</p>
+                </div>
+                <div class="reveal delay-200 text-center">
+                    <div class="w-20 h-20 bg-pink-50 rounded-3xl mx-auto mb-6 flex items-center justify-center text-pink-600 group hover:rotate-12 transition-transform">
+                        <i data-lucide="mic-2" class="w-10 h-10"></i>
+                    </div>
+                    <h5 class="font-bold mb-2">情感克隆TTS</h5>
+                    <p class="text-xs text-gray-500">高度还原人类情绪波动，告别机械音，实现共情式对话。</p>
+                </div>
+                <div class="reveal delay-300 text-center">
+                    <div class="w-20 h-20 bg-orange-50 rounded-3xl mx-auto mb-6 flex items-center justify-center text-orange-600 group hover:rotate-12 transition-transform">
+                        <i data-lucide="database" class="w-10 h-10"></i>
+                    </div>
+                    <h5 class="font-bold mb-2">私有知识库</h5>
+                    <p class="text-xs text-gray-500">支持海量企业文档秒级录入，精准输出行业专业知识。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- News -->
+    <section class="py-32 px-10 bg-white">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-8 reveal">
+                <div>
+                    <h2 class="text-sm font-bold tracking-widest text-purple-600 mb-4 uppercase">News &amp; Insights</h2>
+                    <h3 class="text-4xl font-sora font-bold">最新动态与行业洞察</h3>
+                </div>
+                <a href="#" class="text-sm font-bold flex items-center gap-2 hover:text-purple-600 transition-colors">查看全部 <i data-lucide="arrow-right" class="w-4 h-4"></i></a>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="group cursor-pointer reveal">
+                    <div class="aspect-video bg-gray-100 rounded-[32px] mb-6 overflow-hidden">
+                        <div class="w-full h-full bg-gradient-to-tr from-purple-100 to-blue-50 group-hover:scale-105 transition-transform duration-500"></div>
+                    </div>
+                    <p class="text-xs text-purple-600 font-bold mb-2">2024.12.15</p>
+                    <h4 class="text-xl font-bold mb-3 group-hover:text-purple-600 transition-colors">AKURA 完成 B 轮融资，估值超 10 亿美元</h4>
+                    <p class="text-sm text-gray-500 leading-relaxed">本轮融资由顶级风投领投，资金将用于大模型研发与全球市场拓展...</p>
+                </div>
+                <div class="group cursor-pointer reveal delay-100">
+                    <div class="aspect-video bg-gray-100 rounded-[32px] mb-6 overflow-hidden">
+                        <div class="w-full h-full bg-gradient-to-tr from-pink-100 to-orange-50 group-hover:scale-105 transition-transform duration-500"></div>
+                    </div>
+                    <p class="text-xs text-purple-600 font-bold mb-2">2024.11.28</p>
+                    <h4 class="text-xl font-bold mb-3 group-hover:text-purple-600 transition-colors">发布 AvatarX 3.0：情感引擎重大升级</h4>
+                    <p class="text-sm text-gray-500 leading-relaxed">新增微表情识别与情绪反馈系统，让数字人的交互更加自然有温度...</p>
+                </div>
+                <div class="group cursor-pointer reveal delay-200">
+                    <div class="aspect-video bg-gray-100 rounded-[32px] mb-6 overflow-hidden">
+                        <div class="w-full h-full bg-gradient-to-tr from-emerald-100 to-teal-50 group-hover:scale-105 transition-transform duration-500"></div>
+                    </div>
+                    <p class="text-xs text-purple-600 font-bold mb-2">2024.10.10</p>
+                    <h4 class="text-xl font-bold mb-3 group-hover:text-purple-600 transition-colors">与某国有大行签署全面战略合作</h4>
+                    <p class="text-sm text-gray-500 leading-relaxed">首批 500 个网点将部署 AvatarX 虚拟客户经理，覆盖理财咨询与反欺诈提示...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Global Presence -->
+    <section class="py-32 px-10 bg-slate-50">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-20 reveal">
+                <h2 class="text-sm font-bold tracking-widest text-purple-600 mb-4 uppercase">Global Presence</h2>
+                <h3 class="text-5xl font-sora font-bold mb-6">服务网络遍布全球</h3>
+                <p class="text-gray-500 max-w-2xl mx-auto">无论您身在何处，AKURA 的专业团队与部署网络都能为您提供本地化的数字员工服务。</p>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-20 reveal">
+                <div class="text-center p-8 bg-white rounded-[32px] border border-gray-100">
+                    <h4 class="text-4xl font-sora font-bold gradient-text mb-2">12</h4>
+                    <p class="text-sm text-gray-500">全球 office 覆盖国家</p>
+                </div>
+                <div class="text-center p-8 bg-white rounded-[32px] border border-gray-100">
+                    <h4 class="text-4xl font-sora font-bold gradient-text mb-2">2000+</h4>
+                    <p class="text-sm text-gray-500">企业客户信赖之选</p>
+                </div>
+                <div class="text-center p-8 bg-white rounded-[32px] border border-gray-100">
+                    <h4 class="text-4xl font-sora font-bold gradient-text mb-2">500万+</h4>
+                    <p class="text-sm text-gray-500">每日人机交互轮次</p>
+                </div>
+                <div class="text-center p-8 bg-white rounded-[32px] border border-gray-100">
+                    <h4 class="text-4xl font-sora font-bold gradient-text mb-2">99.99%</h4>
+                    <p class="text-sm text-gray-500">核心服务可用性 SLA</p>
+                </div>
+            </div>
+            <div class="grid md:grid-cols-3 gap-6 reveal">
+                <div class="bg-white p-8 rounded-[32px] border border-gray-100">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                        <h5 class="font-bold">亚太总部 · 上海</h5>
+                    </div>
+                    <p class="text-sm text-gray-500">上海市浦东新区陆家嘴金融中心 T1 大厦 38 层，负责大中华区产品研发与客户成功。</p>
+                </div>
+                <div class="bg-white p-8 rounded-[32px] border border-gray-100">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-3 h-3 rounded-full bg-blue-500"></div>
+                        <h5 class="font-bold">北美中心 · 旧金山</h5>
+                    </div>
+                    <p class="text-sm text-gray-500">美国加利福尼亚州旧金山 SOMA 区，聚焦前沿 AI 算法研究与硅谷企业市场拓展。</p>
+                </div>
+                <div class="bg-white p-8 rounded-[32px] border border-gray-100">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-3 h-3 rounded-full bg-purple-500"></div>
+                        <h5 class="font-bold">欧洲分部 · 伦敦</h5>
+                    </div>
+                    <p class="text-sm text-gray-500">英国伦敦金融城，服务欧洲金融、零售与政务客户，提供 GDPR 合规的本地化方案。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact / CTA -->
+    <section class="py-32 px-10 bg-slate-50 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-20 items-center relative z-10">
+            <div class="reveal">
+                <h3 class="text-5xl font-sora font-bold mb-8">开启您的<br><span class="gradient-text">数字化转型之旅</span></h3>
+                <p class="text-gray-500 mb-12">留下您的联系方式，我们的顾问将在 24 小时内为您定制专属 AI 员工方案。</p>
+
+                <div class="space-y-8">
+                    <div class="flex items-center gap-6">
+                        <div class="w-10 h-10 rounded-full bg-white shadow-sm flex items-center justify-center text-purple-600">
+                            <i data-lucide="mail" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs text-gray-400 font-bold uppercase">邮件咨询</p>
+                            <p class="font-bold">contact@2077.ai</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-6">
+                        <div class="w-10 h-10 rounded-full bg-white shadow-sm flex items-center justify-center text-purple-600">
+                            <i data-lucide="phone" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs text-gray-400 font-bold uppercase">热线电话</p>
+                            <p class="font-bold">400-2077-888</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-6">
+                        <div class="w-10 h-10 rounded-full bg-white shadow-sm flex items-center justify-center text-purple-600">
+                            <i data-lucide="map-pin" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs text-gray-400 font-bold uppercase">总部地址</p>
+                            <p class="font-bold">上海市 浦东新区 陆家嘴金融中心 T1</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white p-12 rounded-[40px] shadow-2xl reveal delay-200">
+                <form class="space-y-6">
+                    <div class="grid grid-cols-2 gap-6">
+                        <div class="space-y-2">
+                            <label class="text-sm font-bold text-gray-700 ml-1">您的姓名</label>
+                            <input type="text" placeholder="请输入您的称呼" class="w-full bg-slate-50 border-none px-6 py-4 rounded-2xl focus:ring-2 focus:ring-purple-200 transition-all outline-none">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-sm font-bold text-gray-700 ml-1">联系电话</label>
+                            <input type="tel" placeholder="请输入手机号码" class="w-full bg-slate-50 border-none px-6 py-4 rounded-2xl focus:ring-2 focus:ring-purple-200 transition-all outline-none">
+                        </div>
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-sm font-bold text-gray-700 ml-1">公司名称</label>
+                        <input type="text" placeholder="您的企业或组织名称" class="w-full bg-slate-50 border-none px-6 py-4 rounded-2xl focus:ring-2 focus:ring-purple-200 transition-all outline-none">
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-sm font-bold text-gray-700 ml-1">咨询需求</label>
+                        <textarea rows="4" placeholder="请简述您的应用场景或定制需求..." class="w-full bg-slate-50 border-none px-6 py-4 rounded-2xl focus:ring-2 focus:ring-purple-200 transition-all outline-none resize-none"></textarea>
+                    </div>
+                    <button type="submit" class="w-full gradient-bg text-white py-5 rounded-2xl font-bold text-lg shadow-xl shadow-purple-200 hover:scale-[1.01] active:scale-[0.99] transition-all">
+                        立即提交申请
+                    </button>
+                    <p class="text-center text-xs text-gray-400">点击提交即代表您同意我们的《隐私协议》与《服务条款》</p>
+                </form>
+            </div>
+        </div>
+
+        <div class="absolute bottom-0 right-0 w-[500px] h-[500px] bg-purple-100/40 rounded-full blur-[100px] -mr-40 -mb-40"></div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="py-32 px-10 bg-white">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-20 reveal">
+                <h2 class="text-sm font-bold tracking-widest text-purple-600 mb-4 uppercase">FAQ</h2>
+                <h3 class="text-5xl font-sora font-bold mb-6">常见问题</h3>
+            </div>
+            <div class="space-y-4 reveal">
+                <details class="group bg-slate-50 rounded-3xl p-6 cursor-pointer transition-all hover:bg-white hover:shadow-lg border border-transparent hover:border-gray-100">
+                    <summary class="flex justify-between items-center font-bold list-none">
+                        <span>AvatarX 支持私有化部署吗？</span>
+                        <i data-lucide="chevron-down" class="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform"></i>
+                    </summary>
+                    <p class="text-sm text-gray-500 mt-4 leading-relaxed">当然支持。AvatarX PLUS 方案提供完整的本地化部署能力，数据不出域，满足金融、政务等对合规性要求极高的行业场景。</p>
+                </details>
+                <details class="group bg-slate-50 rounded-3xl p-6 cursor-pointer transition-all hover:bg-white hover:shadow-lg border border-transparent hover:border-gray-100">
+                    <summary class="flex justify-between items-center font-bold list-none">
+                        <span>定制一个数字人需要多长时间？</span>
+                        <i data-lucide="chevron-down" class="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform"></i>
+                    </summary>
+                    <p class="text-sm text-gray-500 mt-4 leading-relaxed">标准形象库选择可即时开通；真人形象克隆通常需要 3-5 个工作日完成建模与声音训练；深度业务定制方案根据知识库规模约为 2-4 周。</p>
+                </details>
+                <details class="group bg-slate-50 rounded-3xl p-6 cursor-pointer transition-all hover:bg-white hover:shadow-lg border border-transparent hover:border-gray-100">
+                    <summary class="flex justify-between items-center font-bold list-none">
+                        <span>可以对接我们现有的客服系统吗？</span>
+                        <i data-lucide="chevron-down" class="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform"></i>
+                    </summary>
+                    <p class="text-sm text-gray-500 mt-4 leading-relaxed">可以。我们提供标准 API 接口与 Webhook，支持无缝接入企业微信、钉钉、飞书、以及主流呼叫中心与工单系统。</p>
+                </details>
+                <details class="group bg-slate-50 rounded-3xl p-6 cursor-pointer transition-all hover:bg-white hover:shadow-lg border border-transparent hover:border-gray-100">
+                    <summary class="flex justify-between items-center font-bold list-none">
+                        <span>数字人支持哪些语言和方言？</span>
+                        <i data-lucide="chevron-down" class="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform"></i>
+                    </summary>
+                    <p class="text-sm text-gray-500 mt-4 leading-relaxed">目前支持中文（含粤语、四川话等主要方言）、英语、日语、韩语、法语、西班牙语等 24 种语言，并持续扩展中。</p>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-20 px-10 border-t border-gray-100">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-start gap-12 mb-20">
+                <div class="max-w-xs">
+                    <div class="flex items-center gap-2 mb-6">
+                        <div class="w-8 h-8 gradient-bg rounded-lg flex items-center justify-center">
+                            <i data-lucide="zap" class="text-white w-5 h-5"></i>
+                        </div>
+                        <span class="font-sora font-bold text-2xl tracking-tighter">AKURA</span>
+                    </div>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                        2077.AI 旗下品牌，致力于通过领先的 AI 渲染与理解技术，为全球企业打造卓越的数字化员工体验。
+                    </p>
+                    <div class="flex gap-4">
+                        <a href="#" class="w-10 h-10 rounded-full border border-gray-100 flex items-center justify-center text-gray-400 hover:text-purple-600 hover:border-purple-200 transition-all"><i data-lucide="github" class="w-5 h-5"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full border border-gray-100 flex items-center justify-center text-gray-400 hover:text-purple-600 hover:border-purple-200 transition-all"><i data-lucide="twitter" class="w-5 h-5"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full border border-gray-100 flex items-center justify-center text-gray-400 hover:text-purple-600 hover:border-purple-200 transition-all"><i data-lucide="linkedin" class="w-5 h-5"></i></a>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-16">
+                    <div>
+                        <h6 class="font-bold mb-6">产品中心</h6>
+                        <ul class="space-y-4 text-sm text-gray-400">
+                            <li><a href="#" class="hover:text-black transition-colors">AvatarX PRO</a></li>
+                            <li><a href="#" class="hover:text-black transition-colors">AvatarX MAX</a></li>
+                            <li><a href="#" class="hover:text-black transition-colors">AvatarX PLUS</a></li>
+                            <li><a href="#" class="hover:text-black transition-colors">开发者 API</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h6 class="font-bold mb-6">行业方案</h6>
+                        <ul class="space-y-4 text-sm text-gray-400">
+                            <li><a href="#" class="hover:text-black transition-colors">智慧金融</a></li>
+                            <li><a href="#" class="hover:text-black transition-colors">医疗导诊</a></li>
+                            <li><a href="#" class="hover:text-black transition-colors">高端零售</a></li>
+                            <li><a href="#" class="hover:text-black transition-colors">政务办公</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h6 class="font-bold mb-6">关于我们</h6>
+                        <ul class="space-y-4 text-sm text-gray-400">
+                            <li><a href="#" class="hover:text-black transition-colors">公司简介</a></li>
+                            <li><a href="#" class="hover:text-black transition-colors">新闻动态</a></li>
+                            <li><a href="#" class="hover:text-black transition-colors">加入我们</a></li>
+                            <li><a href="#" class="hover:text-black transition-colors">合作伙伴</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex flex-col md:flex-row justify-between items-center pt-10 border-t border-gray-50 text-gray-400 text-xs">
+                <p>© 2024 AKURA (2077.AI) Inc. All rights reserved.</p>
+                <div class="flex gap-8 mt-4 md:mt-0">
+                    <a href="#" class="hover:text-black transition-colors">隐私政策</a>
+                    <a href="#" class="hover:text-black transition-colors">服务协议</a>
+                    <a href="#" class="hover:text-black transition-colors">粤ICP备20772077号-1</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+
+        // Mouse-follow glow
+        const mouseGlow = document.getElementById('mouseGlow');
+        document.addEventListener('mousemove', (e) => {
+            mouseGlow.style.left = e.clientX + 'px';
+            mouseGlow.style.top = e.clientY + 'px';
+        });
+
+        // Magnetic buttons
+        const magneticBtns = document.querySelectorAll('.magnetic-btn');
+        magneticBtns.forEach(btn => {
+            btn.addEventListener('mousemove', (e) => {
+                const rect = btn.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                btn.style.transform = `translate(${x * 0.3}px, ${y * 0.5}px) scale(1.05)`;
+            });
+            btn.addEventListener('mouseleave', () => {
+                btn.style.transform = 'translate(0, 0) scale(1)';
+            });
+        });
+
+        // Scroll reveal
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1 });
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // Animated counters
+        const counterElements = document.querySelectorAll('.counter-val');
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const target = parseFloat(entry.target.getAttribute('data-target'));
+                    animateCounter(entry.target, target);
+                    counterObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+        counterElements.forEach(el => counterObserver.observe(el));
+
+        function animateCounter(el, target) {
+            let count = 0;
+            const duration = 2000;
+            const increment = target / (duration / 16);
+            const update = () => {
+                count += increment;
+                if (count < target) {
+                    el.innerText = count.toFixed(target % 1 === 0 ? 0 : 1);
+                    requestAnimationFrame(update);
+                } else {
+                    el.innerText = target;
+                }
+            };
+            update();
+        }
+
+        // Navbar scroll state
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            const inner = navbar.querySelector('div');
+            if (window.scrollY > 50) {
+                navbar.classList.add('py-4');
+                inner.classList.remove('bg-white/40');
+                inner.classList.add('bg-white/80', 'shadow-md');
+            } else {
+                navbar.classList.remove('py-4');
+                inner.classList.add('bg-white/40');
+                inner.classList.remove('bg-white/80', 'shadow-md');
+            }
+        });
+
+        // Parallax
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            document.querySelectorAll('.parallax-item').forEach(item => {
+                item.style.transform = `translateY(${scrolled * 0.1}px)`;
+            });
+        });
+    </script>
+</body>
+</html>

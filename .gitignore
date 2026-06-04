@@ -8,3 +8,8 @@ Thumbs.db
 
 # Logs
 *.log
+
+# Source renders (large 2160x3840 originals; web-optimized copies live in assets/)
+StartRoom_Post.*.png
+TakePhotos*.png
+20240923-181914.png

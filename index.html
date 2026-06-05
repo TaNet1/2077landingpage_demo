@@ -10,6 +10,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Sora:wght@400;600;700;800&family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <script>
         tailwind.config = {
             theme: {
@@ -96,15 +98,34 @@
 
         /* ---------- hero 3D avatar ---------- */
         .hero-visual { position: relative; perspective: 1200px; }
+        /* soft elliptical glow behind the figure */
         .orb {
-            position: absolute; width: 520px; height: 520px; border-radius: 50%;
-            background: radial-gradient(circle at 38% 32%, rgba(236, 0, 250, 0.28), rgba(146, 85, 254, 0.12) 55%, transparent 72%);
-            filter: blur(4px); animation: breathe 6s ease-in-out infinite;
+            position: absolute; width: 560px; height: 600px; border-radius: 50%;
+            background: radial-gradient(circle at 50% 42%, rgba(236, 0, 250, 0.22), rgba(146, 85, 254, 0.12) 48%, transparent 70%);
+            filter: blur(8px); animation: breathe 7s ease-in-out infinite;
         }
-        @keyframes breathe { 50% { transform: scale(1.06); } }
-        .ring { position: absolute; border-radius: 50%; border: 1px dashed rgba(146, 85, 254, 0.35); }
-        .ring.r1 { width: 580px; height: 580px; animation: spin 40s linear infinite; }
-        .ring.r2 { width: 470px; height: 470px; border-style: solid; border-color: rgba(236, 0, 250, 0.16); animation: spin 28s linear infinite reverse; }
+        @keyframes breathe { 50% { transform: scale(1.05); } }
+        /* concentric halo system */
+        .halo { position: absolute; border-radius: 50%; pointer-events: none; }
+        .halo-faint { border: 1px solid rgba(146, 85, 254, 0.12); }
+        .halo-faint.h1 { width: 600px; height: 600px; }
+        .halo-faint.h2 { width: 460px; height: 460px; border-color: rgba(236, 0, 250, 0.10); }
+        /* rotating gradient sweep ring (glowing arc) */
+        .halo-sweep {
+            width: 560px; height: 560px;
+            background: conic-gradient(from 0deg, transparent 0 58%, rgba(146, 85, 254, 0.55) 80%, rgba(236, 0, 250, 0.65) 93%, transparent 100%);
+            -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 2.5px), #000 calc(100% - 2.5px));
+                    mask: radial-gradient(farthest-side, transparent calc(100% - 2.5px), #000 calc(100% - 2.5px));
+            animation: spin 9s linear infinite;
+        }
+        /* dot orbiting along a ring */
+        .halo-orbit { width: 540px; height: 540px; animation: spin 16s linear infinite; }
+        .halo-orbit::before {
+            content: ''; position: absolute; top: -5px; left: 50%; transform: translateX(-50%);
+            width: 10px; height: 10px; border-radius: 50%;
+            background: linear-gradient(135deg, var(--brand-primary), var(--brand-secondary));
+            box-shadow: 0 0 14px rgba(146, 85, 254, 0.9);
+        }
         @keyframes spin { to { transform: rotate(360deg); } }
         .avatar-fig {
             position: relative; z-index: 3; width: 396px; height: 704px;
@@ -133,6 +154,8 @@
         .fc3 { bottom: 14px; right: 24px; animation: bob 5s ease-in-out infinite 1.6s; }
         .float-chip .t { color: #94a3b8; font-weight: 500; font-size: 11px; margin-bottom: 2px; }
         .float-chip .v { color: var(--brand-primary); font-size: 15px; }
+        .float-chip .t, .float-chip .v { transition: opacity 0.3s ease, transform 0.3s ease; }
+        .float-chip.swapping .t, .float-chip.swapping .v { opacity: 0; transform: translateY(-5px); }
         @keyframes bob { 50% { transform: translateY(-12px); } }
 
         /* ---------- product logic flow ---------- */
@@ -383,11 +406,82 @@
             .cap-desc { max-height: 160px; opacity: 1; margin-top: 12px; }
             .cap-prog { display: none; }
         }
+
+        /* ===== More elements ===== */
+        /* scroll progress bar */
+        .scroll-progress {
+            position: fixed; top: 0; left: 0; height: 3px; width: 100%; transform: scaleX(0); transform-origin: left; z-index: 70;
+            background: linear-gradient(90deg, var(--brand-primary), var(--brand-secondary), var(--cyan));
+            box-shadow: 0 0 12px rgba(146, 85, 254, 0.5);
+        }
+        /* decorative floating orbs (sit behind section content) */
+        .deco-orb { position: absolute; border-radius: 50%; filter: blur(72px); pointer-events: none; z-index: 0; }
+        @keyframes orbfloat { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(18px, -28px); } }
+        .deco-orb.anim { animation: orbfloat 14s ease-in-out infinite; }
+        /* tech keyword band */
+        .tech-band { overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent); mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent); }
+        .tech-track { display: flex; gap: 16px; width: max-content; animation: techscroll 34s linear infinite; }
+        .tech-band:hover .tech-track { animation-play-state: paused; }
+        @keyframes techscroll { to { transform: translateX(-50%); } }
+        .tech-pill {
+            display: inline-flex; align-items: center; gap: 9px; white-space: nowrap; font-weight: 600; font-size: 14px; color: #475569;
+            background: #fff; border: 1px solid #eef0f4; padding: 11px 22px; border-radius: 99px; box-shadow: 0 10px 26px -22px rgba(80, 30, 120, 0.5);
+            transition: color 0.3s, border-color 0.3s;
+        }
+        .tech-pill:hover { color: var(--brand-primary); border-color: #ead8fd; }
+        .tech-pill .dot { width: 7px; height: 7px; border-radius: 50%; background: linear-gradient(120deg, var(--brand-primary), var(--brand-secondary)); flex-shrink: 0; }
+
+        /* ===== Moat: expanding accordion + comparison ===== */
+        .moat-acc { display: flex; gap: 14px; height: 340px; }
+        .moat-acc-item {
+            --accent: #9255fe; position: relative; flex: 1; overflow: hidden; cursor: pointer; border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.1); background: rgba(255, 255, 255, 0.04);
+            transition: flex 0.55s cubic-bezier(.2,.8,.2,1), background 0.55s, border-color 0.55s;
+        }
+        .moat-acc-item.active { flex: 3.1; background: linear-gradient(160deg, rgba(255,255,255,.09), rgba(255,255,255,.02)); border-color: color-mix(in srgb, var(--accent) 55%, transparent); }
+        .moat-acc-item .acc-inner { position: absolute; inset: 0; padding: 28px; display: flex; flex-direction: column; }
+        .moat-acc-icon {
+            width: 54px; height: 54px; border-radius: 16px; display: grid; place-items: center; color: #fff; flex-shrink: 0;
+            background: linear-gradient(135deg, var(--accent), color-mix(in srgb, var(--accent) 45%, var(--brand-secondary)));
+            box-shadow: 0 14px 30px -10px color-mix(in srgb, var(--accent) 60%, transparent);
+        }
+        .moat-acc-num { position: absolute; top: 22px; right: 24px; font-family: 'Sora', sans-serif; font-weight: 800; font-size: 40px; color: rgba(255, 255, 255, 0.08); }
+        .acc-bottom { margin-top: auto; }
+        .acc-title { font-size: 20px; font-weight: 700; line-height: 1.25; }
+        .acc-sub { font-size: 12px; color: rgba(255, 255, 255, 0.5); margin-top: 4px; }
+        .acc-detail { max-height: 0; opacity: 0; overflow: hidden; transition: max-height 0.55s ease, opacity 0.45s ease; }
+        .moat-acc-item.active .acc-detail { max-height: 220px; opacity: 1; }
+        .acc-detail p { color: rgba(255, 255, 255, 0.6); font-size: 14px; line-height: 1.7; margin: 14px 0 14px; max-width: 420px; }
+        .acc-detail .accchips { display: flex; flex-wrap: wrap; gap: 8px; }
+        .acc-detail .accchip { font-size: 12px; font-weight: 600; color: rgba(255, 255, 255, 0.85); background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.14); padding: 6px 12px; border-radius: 99px; }
+
+        .moat-compare { border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 28px; overflow: hidden; background: rgba(255, 255, 255, 0.03); }
+        .cmp-row { display: grid; grid-template-columns: 1fr 1.35fr 1.35fr; align-items: center; }
+        .cmp-row + .cmp-row { border-top: 1px solid rgba(255, 255, 255, 0.08); }
+        .cmp-row > div { padding: 16px 24px; font-size: 14.5px; }
+        .cmp-head { background: rgba(255, 255, 255, 0.04); font-weight: 700; font-size: 13px; letter-spacing: 0.5px; color: rgba(255, 255, 255, 0.55); }
+        .cmp-head .cmp-akura { color: #fff; }
+        .cmp-feat { color: rgba(255, 255, 255, 0.85); font-weight: 600; }
+        .cmp-old { color: rgba(255, 255, 255, 0.42); display: flex; align-items: flex-start; gap: 9px; }
+        .cmp-new { color: rgba(255, 255, 255, 0.92); display: flex; align-items: flex-start; gap: 9px; background: linear-gradient(90deg, rgba(146, 85, 254, 0.12), transparent); }
+        .cmp-old .ic { color: #f87171; flex-shrink: 0; margin-top: 1px; }
+        .cmp-new .ic { color: #34d399; flex-shrink: 0; margin-top: 1px; }
+        @media (max-width: 760px) {
+            .moat-acc { flex-direction: column; height: auto; }
+            .moat-acc-item { flex: none; min-height: 76px; }
+            .moat-acc-item.active { min-height: 280px; }
+            .cmp-row { grid-template-columns: 1fr; }
+            .cmp-row > div { padding: 12px 18px; }
+            .cmp-head { display: none; }
+            .cmp-old::before { content: '传统拼装：'; color: rgba(255,255,255,.35); }
+            .cmp-new::before { content: 'AKURA：'; color: rgba(255,255,255,.5); }
+        }
     </style>
 </head>
 
 <body class="w-full min-h-screen selection:bg-purple-100">
 
+    <div class="scroll-progress" id="scrollProgress"></div>
     <div id="mouseGlow" class="mouse-glow"></div>
 
     <!-- Navbar -->
@@ -421,17 +515,17 @@
     <section id="hero" class="relative pt-40 pb-20 px-10 overflow-hidden min-h-screen flex items-center">
         <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center relative z-10">
             <div class="reveal active">
-                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-50 text-purple-600 text-xs font-bold mb-6 border border-purple-100">
+                <div class="hero-in inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-50 text-purple-600 text-xs font-bold mb-6 border border-purple-100">
                     <span class="w-2 h-2 rounded-full bg-purple-500 animate-pulse"></span>
                     3D AI 虚拟员工 · 软硬件一体解决方案
                 </div>
-                <h1 class="text-5xl lg:text-7xl font-sora font-bold leading-[1.1] mb-6 tracking-tight">
+                <h1 class="hero-in text-5xl lg:text-7xl font-sora font-bold leading-[1.1] mb-6 tracking-tight">
                     给你的商业空间，<br>配一位 <span class="gradient-text">7×24 在岗</span><br>的 AI 虚拟员工
                 </h1>
-                <p class="text-xl text-gray-500 max-w-lg mb-10 leading-relaxed">
+                <p class="hero-in text-xl text-gray-500 max-w-lg mb-10 leading-relaxed">
                     主动开口、智能交互、多语接待。从迎宾、导览到营销转化，一台设备替代多名人工，全年无休为您创造价值。
                 </p>
-                <div class="flex flex-wrap items-center gap-4">
+                <div class="hero-in flex flex-wrap items-center gap-4">
                     <a href="#contact" class="magnetic-btn bg-black text-white px-8 py-4 rounded-2xl font-bold flex items-center gap-3 hover:bg-gray-800 transition-all group">
                         联系商务
                         <i data-lucide="arrow-right" class="w-5 h-5 group-hover:translate-x-1 transition-transform"></i>
@@ -439,7 +533,7 @@
                     <a href="#scenarios" class="px-8 py-4 rounded-2xl font-bold text-gray-700 border border-gray-200 hover:border-gray-400 hover:text-black transition-all">查看应用场景</a>
                 </div>
 
-                <div class="mt-14 grid grid-cols-2 sm:grid-cols-4 gap-8">
+                <div class="hero-in mt-14 grid grid-cols-2 sm:grid-cols-4 gap-8">
                     <div>
                         <div class="text-3xl font-sora font-bold counter-val gradient-text" data-target="4" data-suffix="">0</div>
                         <div class="text-sm text-gray-400 mt-1">替代人工（名/台）</div>
@@ -459,10 +553,12 @@
                 </div>
             </div>
 
-            <div class="hero-visual h-[700px] flex items-center justify-center reveal active delay-200" id="heroVisual">
+            <div class="hero-visual h-[700px] flex items-center justify-center" id="heroVisual">
                 <div class="orb"></div>
-                <div class="ring r1"></div>
-                <div class="ring r2"></div>
+                <div class="halo halo-faint h1"></div>
+                <div class="halo halo-faint h2"></div>
+                <div class="halo halo-sweep"></div>
+                <div class="halo halo-orbit"></div>
                 <div class="avatar-fig" id="avatar">
                     <img class="avatar-slide active" src="assets/avatar-1.png" alt="AKURA AvatarX · 数字员工形象" draggable="false">
                     <img class="avatar-slide" src="assets/avatar-2.png" alt="AKURA AvatarX · 数字员工形象" draggable="false">
@@ -478,8 +574,8 @@
             </div>
         </div>
 
-        <div class="absolute top-1/4 right-0 w-96 h-96 bg-purple-100/30 blur-3xl rounded-full"></div>
-        <div class="absolute bottom-1/4 -left-20 w-80 h-80 bg-pink-100/20 blur-3xl rounded-full"></div>
+        <div id="heroBlob1" class="absolute top-1/4 right-0 w-96 h-96 bg-purple-100/30 blur-3xl rounded-full"></div>
+        <div id="heroBlob2" class="absolute bottom-1/4 -left-20 w-80 h-80 bg-pink-100/20 blur-3xl rounded-full"></div>
     </section>
 
     <!-- PAIN -->
@@ -744,8 +840,10 @@
     </section>
 
     <!-- Products -->
-    <section id="products" class="py-32 px-10 bg-white">
-        <div class="max-w-7xl mx-auto">
+    <section id="products" class="relative overflow-hidden py-32 px-10 bg-white">
+        <div class="deco-orb anim" style="width:340px;height:340px;background:rgba(146,85,254,.10);top:-60px;left:-80px"></div>
+        <div class="deco-orb anim" style="width:300px;height:300px;background:rgba(236,0,250,.08);bottom:-40px;right:-60px;animation-delay:-4s"></div>
+        <div class="max-w-7xl mx-auto relative z-10">
             <div class="text-center mb-20 reveal">
                 <h2 class="text-sm font-bold tracking-widest text-purple-600 mb-4 uppercase">Product Line</h2>
                 <h3 class="text-4xl md:text-5xl font-sora font-bold mb-6">全系列智能终端</h3>
@@ -805,69 +903,156 @@
     <!-- MOAT (dark, 全自研) -->
     <section id="moat" class="py-32 px-10 bg-black text-white relative overflow-hidden">
         <div class="absolute inset-0 opacity-20">
-            <div class="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_30%_30%,#9255fe_0%,transparent_40%)]"></div>
-            <div class="absolute bottom-0 right-0 w-full h-full bg-[radial-gradient(circle_at_70%_70%,#ec00fa_0%,transparent_40%)]"></div>
+            <div id="moatBg1" class="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_30%_30%,#9255fe_0%,transparent_40%)]"></div>
+            <div id="moatBg2" class="absolute bottom-0 right-0 w-full h-full bg-[radial-gradient(circle_at_70%_70%,#ec00fa_0%,transparent_40%)]"></div>
         </div>
         <div class="spotlight-beam"></div>
         <div class="meteors" id="meteors"></div>
 
-        <div class="max-w-7xl mx-auto relative z-10 grid lg:grid-cols-2 gap-20 items-center">
-            <div class="reveal">
-                <h2 class="text-sm font-bold tracking-[0.2em] mb-6 uppercase" style="color: var(--cyan)">为什么选择 AKURA</h2>
-                <h3 class="text-4xl md:text-5xl font-sora font-bold mb-8 leading-tight">Agent、运营平台、数字人、硬件<br>—— 全部自研，一家交付。</h3>
-                <p class="text-gray-400 text-lg leading-relaxed mb-8">
-                    市面上部署 AI 通常要整合 A+B+C+D 四家供应商，集成调试周期长、兼容性差、售后互相推诿。我们是少数同时具备四项自研能力的团队。
+        <div class="max-w-7xl mx-auto relative z-10">
+            <div class="max-w-3xl mb-14 reveal">
+                <h2 class="text-sm font-bold tracking-[0.2em] mb-5 uppercase" style="color: var(--cyan)">为什么选择 AKURA</h2>
+                <h3 class="text-4xl md:text-5xl font-sora font-bold mb-6 leading-tight">Agent、运营平台、数字人、硬件<br>—— 全部自研，一家交付。</h3>
+                <p class="text-gray-400 text-lg leading-relaxed">
+                    市面上部署一套 AI 数字人方案，通常要把智能体、运营后台、数字人形象与终端硬件分别交给 A+B+C+D 四家供应商拼装：集成调试周期长、接口互不兼容、版本互相掣肘、出了问题各方推诿。AKURA 是少数四项核心能力<strong class="text-white font-semibold">全部自研</strong>的团队 —— 从底层算法到终端整机，一个团队设计、一套标准交付。
                 </p>
-                <div class="flex flex-wrap gap-3 mb-10">
-                    <div class="flex items-center gap-2 bg-white/8 border border-white/15 px-5 py-2.5 rounded-full text-sm font-semibold"><span class="w-1.5 h-1.5 rounded-full" style="background: var(--cyan)"></span> AI Agent</div>
-                    <div class="flex items-center gap-2 bg-white/8 border border-white/15 px-5 py-2.5 rounded-full text-sm font-semibold"><span class="w-1.5 h-1.5 rounded-full" style="background: var(--cyan)"></span> 运营平台</div>
-                    <div class="flex items-center gap-2 bg-white/8 border border-white/15 px-5 py-2.5 rounded-full text-sm font-semibold"><span class="w-1.5 h-1.5 rounded-full" style="background: var(--cyan)"></span> 数字人形象</div>
-                    <div class="flex items-center gap-2 bg-white/8 border border-white/15 px-5 py-2.5 rounded-full text-sm font-semibold"><span class="w-1.5 h-1.5 rounded-full" style="background: var(--cyan)"></span> 自研硬件</div>
+            </div>
+
+            <!-- interactive expanding accordion -->
+            <div class="moat-acc reveal" id="moatAcc">
+                <div class="moat-acc-item active" style="--accent:#9255fe" data-acc>
+                    <div class="acc-inner">
+                        <div class="moat-acc-icon"><i data-lucide="brain-circuit" class="w-6 h-6"></i></div>
+                        <span class="moat-acc-num">01</span>
+                        <div class="acc-bottom">
+                            <div class="acc-title">AI Agent 决策大脑</div>
+                            <div class="acc-sub">自研智能体引擎</div>
+                            <div class="acc-detail">
+                                <p>把用户口语化需求转化为清晰指令，自主规划最优服务流程，支持超长多轮记忆与 RAG 检索增强，让"人找功能"变成"功能随人转"。</p>
+                                <div class="accchips"><span class="accchip">意图理解</span><span class="accchip">任务编排</span><span class="accchip">多轮记忆</span><span class="accchip">RAG 增强</span></div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="grid sm:grid-cols-3 gap-6 border-t border-white/10 pt-8">
-                    <div>
-                        <h6 class="font-bold mb-2 flex items-center gap-2"><i data-lucide="zap" class="w-4 h-4 text-purple-400"></i> 落地更快</h6>
-                        <p class="text-sm text-gray-500">无需多方对接，集成成本与周期大幅下降，开箱即用。</p>
+                <div class="moat-acc-item" style="--accent:#3b82f6" data-acc>
+                    <div class="acc-inner">
+                        <div class="moat-acc-icon"><i data-lucide="layout-dashboard" class="w-6 h-6"></i></div>
+                        <span class="moat-acc-num">02</span>
+                        <div class="acc-bottom">
+                            <div class="acc-title">运营管理平台</div>
+                            <div class="acc-sub">一站式可视化后台</div>
+                            <div class="acc-detail">
+                                <p>可视化配置数字人话术、知识库与导览路线，实时监控服务数据，沉淀客户高频需求与堵点，持续反哺策略优化。</p>
+                                <div class="accchips"><span class="accchip">可视化编排</span><span class="accchip">数据看板</span><span class="accchip">知识库管理</span><span class="accchip">A/B 优化</span></div>
+                            </div>
+                        </div>
                     </div>
-                    <div>
-                        <h6 class="font-bold mb-2 flex items-center gap-2"><i data-lucide="refresh-cw" class="w-4 h-4 text-purple-400"></i> 升级不卡版本</h6>
-                        <p class="text-sm text-gray-500">智能、交互与硬件同步推进，避免模块互相掣肘。</p>
+                </div>
+                <div class="moat-acc-item" style="--accent:#ec4899" data-acc>
+                    <div class="acc-inner">
+                        <div class="moat-acc-icon"><i data-lucide="scan-face" class="w-6 h-6"></i></div>
+                        <span class="moat-acc-num">03</span>
+                        <div class="acc-bottom">
+                            <div class="acc-title">数字人形象</div>
+                            <div class="acc-sub">4 万面游戏级建模</div>
+                            <div class="acc-detail">
+                                <p>自研超写实建模与神经渲染管线，语音 / 唇形 / 表情精准同步，支持真人 1:1 克隆与品牌 IP 定制，肉眼难辨真伪。</p>
+                                <div class="accchips"><span class="accchip">超写实渲染</span><span class="accchip">唇形同步</span><span class="accchip">情绪表情</span><span class="accchip">IP 定制</span></div>
+                            </div>
+                        </div>
                     </div>
-                    <div>
-                        <h6 class="font-bold mb-2 flex items-center gap-2"><i data-lucide="shield-check" class="w-4 h-4 text-purple-400"></i> 售后责任清晰</h6>
-                        <p class="text-sm text-gray-500">一家负责到底，告别供应商之间互相推诿。</p>
+                </div>
+                <div class="moat-acc-item" style="--accent:#10b981" data-acc>
+                    <div class="acc-inner">
+                        <div class="moat-acc-icon"><i data-lucide="cpu" class="w-6 h-6"></i></div>
+                        <span class="moat-acc-num">04</span>
+                        <div class="acc-bottom">
+                            <div class="acc-title">自研终端硬件</div>
+                            <div class="acc-sub">软硬一体整机</div>
+                            <div class="acc-detail">
+                                <p>从 10 麦克风阵列、双目摄像头到边缘算力与一体机整机，软硬协同调校，离线可用、稳定耐造，适配大屏 / 立式 / 机器人多形态。</p>
+                                <div class="accchips"><span class="accchip">麦克风阵列</span><span class="accchip">边缘算力</span><span class="accchip">一体机整机</span><span class="accchip">离线运行</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p class="text-sm text-gray-500 mt-4 mb-20 reveal flex items-center gap-2"><i data-lucide="mouse-pointer-click" class="w-4 h-4"></i> 悬停或点击，查看每一项自研能力的细节</p>
+
+            <!-- comparison -->
+            <div class="mb-16 reveal">
+                <h4 class="text-2xl md:text-3xl font-sora font-bold mb-6">拼装方案 vs 全栈自研，差距在每一个环节</h4>
+                <div class="moat-compare">
+                    <div class="cmp-row cmp-head">
+                        <div>对比维度</div>
+                        <div>传统多供应商拼装（A+B+C+D）</div>
+                        <div class="cmp-akura">AKURA 全栈自研</div>
+                    </div>
+                    <div class="cmp-row">
+                        <div class="cmp-feat">供应商数量</div>
+                        <div class="cmp-old"><i data-lucide="x" class="w-4 h-4 ic"></i>4+ 家分别采购，各管一段</div>
+                        <div class="cmp-new"><i data-lucide="check" class="w-4 h-4 ic"></i>1 家统一交付，单点对接</div>
+                    </div>
+                    <div class="cmp-row">
+                        <div class="cmp-feat">集成周期</div>
+                        <div class="cmp-old"><i data-lucide="x" class="w-4 h-4 ic"></i>数月反复联调、互相等待</div>
+                        <div class="cmp-new"><i data-lucide="check" class="w-4 h-4 ic"></i>开箱即用，最快 24 小时上线</div>
+                    </div>
+                    <div class="cmp-row">
+                        <div class="cmp-feat">系统兼容性</div>
+                        <div class="cmp-old"><i data-lucide="x" class="w-4 h-4 ic"></i>接口标准不一，模块互相掣肘</div>
+                        <div class="cmp-new"><i data-lucide="check" class="w-4 h-4 ic"></i>底层原生协同，性能无损</div>
+                    </div>
+                    <div class="cmp-row">
+                        <div class="cmp-feat">版本升级</div>
+                        <div class="cmp-old"><i data-lucide="x" class="w-4 h-4 ic"></i>任一方升级都可能卡版本</div>
+                        <div class="cmp-new"><i data-lucide="check" class="w-4 h-4 ic"></i>智能 / 交互 / 硬件同步迭代</div>
+                    </div>
+                    <div class="cmp-row">
+                        <div class="cmp-feat">售后责任</div>
+                        <div class="cmp-old"><i data-lucide="x" class="w-4 h-4 ic"></i>出问题各方互相推诿</div>
+                        <div class="cmp-new"><i data-lucide="check" class="w-4 h-4 ic"></i>一家负责到底，响应更快</div>
+                    </div>
+                    <div class="cmp-row">
+                        <div class="cmp-feat">数据安全</div>
+                        <div class="cmp-old"><i data-lucide="x" class="w-4 h-4 ic"></i>多方流转，链路风险高</div>
+                        <div class="cmp-new"><i data-lucide="check" class="w-4 h-4 ic"></i>本地化部署，全链路加密</div>
+                    </div>
+                    <div class="cmp-row">
+                        <div class="cmp-feat">综合成本</div>
+                        <div class="cmp-old"><i data-lucide="x" class="w-4 h-4 ic"></i>集成 + 维护 + 沟通成本高</div>
+                        <div class="cmp-new"><i data-lucide="check" class="w-4 h-4 ic"></i>TCO 显著更低，节省 40%+</div>
                     </div>
                 </div>
             </div>
 
-            <div class="grid grid-cols-2 gap-6 reveal delay-300">
-                <div class="space-y-6">
-                    <div class="bg-white/5 backdrop-blur-lg p-8 rounded-[32px] border border-white/10 mt-12 hover:border-purple-500/50 transition-all cursor-default">
-                        <h4 class="text-4xl font-sora font-bold mb-2">10万+</h4>
-                        <p class="text-xs text-gray-500 uppercase tracking-widest font-bold">日均服务触达</p>
-                    </div>
-                    <div class="bg-white/5 backdrop-blur-lg p-8 rounded-[32px] border border-white/10 hover:border-purple-500/50 transition-all cursor-default">
-                        <h4 class="text-4xl font-sora font-bold mb-2">98%</h4>
-                        <p class="text-xs text-gray-500 uppercase tracking-widest font-bold">客户满意度评分</p>
-                    </div>
+            <!-- stats -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 reveal">
+                <div class="bg-white/5 backdrop-blur-lg p-8 rounded-[32px] border border-white/10 hover:border-purple-500/50 transition-all cursor-default">
+                    <h4 class="text-4xl font-sora font-bold mb-2">10万+</h4>
+                    <p class="text-xs text-gray-500 uppercase tracking-widest font-bold">日均服务触达</p>
                 </div>
-                <div class="space-y-6">
-                    <div class="bg-white/5 backdrop-blur-lg p-8 rounded-[32px] border border-white/10 hover:border-purple-500/50 transition-all cursor-default">
-                        <h4 class="text-4xl font-sora font-bold mb-2">50+</h4>
-                        <p class="text-xs text-gray-500 uppercase tracking-widest font-bold">落地垂直行业</p>
-                    </div>
-                    <div class="bg-white/5 backdrop-blur-lg p-8 rounded-[32px] border border-white/10 mt-12 hover:border-purple-500/50 transition-all cursor-default">
-                        <h4 class="text-4xl font-sora font-bold mb-2">4 合 1</h4>
-                        <p class="text-xs text-gray-500 uppercase tracking-widest font-bold">全栈自研交付</p>
-                    </div>
+                <div class="bg-white/5 backdrop-blur-lg p-8 rounded-[32px] border border-white/10 hover:border-purple-500/50 transition-all cursor-default">
+                    <h4 class="text-4xl font-sora font-bold mb-2">98%</h4>
+                    <p class="text-xs text-gray-500 uppercase tracking-widest font-bold">客户满意度评分</p>
+                </div>
+                <div class="bg-white/5 backdrop-blur-lg p-8 rounded-[32px] border border-white/10 hover:border-purple-500/50 transition-all cursor-default">
+                    <h4 class="text-4xl font-sora font-bold mb-2">50+</h4>
+                    <p class="text-xs text-gray-500 uppercase tracking-widest font-bold">落地垂直行业</p>
+                </div>
+                <div class="bg-white/5 backdrop-blur-lg p-8 rounded-[32px] border border-white/10 hover:border-purple-500/50 transition-all cursor-default">
+                    <h4 class="text-4xl font-sora font-bold mb-2">4 合 1</h4>
+                    <p class="text-xs text-gray-500 uppercase tracking-widest font-bold">全栈自研交付</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- SCENARIOS (interactive tabs) -->
-    <section id="scenarios" class="py-32 px-10">
-        <div class="max-w-7xl mx-auto">
+    <section id="scenarios" class="relative overflow-hidden py-32 px-10">
+        <div class="deco-orb anim" style="width:360px;height:360px;background:rgba(59,130,246,.08);top:10%;right:-90px;animation-delay:-6s"></div>
+        <div class="deco-orb anim" style="width:280px;height:280px;background:rgba(236,0,250,.07);bottom:-30px;left:-70px;animation-delay:-2s"></div>
+        <div class="max-w-7xl mx-auto relative z-10">
             <div class="text-center mb-12 reveal">
                 <h2 class="text-sm font-bold tracking-widest text-purple-600 mb-4 uppercase">Application Scenarios</h2>
                 <h3 class="text-4xl md:text-5xl font-sora font-bold">为不同商业空间，量身定制的虚拟员工</h3>
@@ -1067,14 +1252,15 @@
     </section>
 
     <!-- CASES + logo marquee -->
-    <section id="cases" class="py-32 px-10 bg-slate-50">
-        <div class="max-w-7xl mx-auto">
+    <section id="cases" class="relative overflow-hidden py-32 px-10 bg-slate-50">
+        <div class="deco-orb anim" style="width:320px;height:320px;background:rgba(146,85,254,.09);top:0;right:-70px;animation-delay:-3s"></div>
+        <div class="max-w-7xl mx-auto relative z-10">
             <div class="text-center mb-14 reveal">
                 <h2 class="text-sm font-bold tracking-widest text-purple-600 mb-4 uppercase">行业落地</h2>
                 <h3 class="text-4xl md:text-5xl font-sora font-bold mb-6">已深度嵌入真实商业场景</h3>
                 <p class="text-gray-500 max-w-2xl mx-auto">AKURA AI Agent 虚拟人已落地文旅、商业、政企等场景，实现日均 10 万+ 次精准服务触达。</p>
             </div>
-            <div class="flex gap-5 overflow-x-auto pb-5 reveal" style="scroll-snap-type:x mandatory">
+            <div class="flex gap-5 pb-5 overflow-x-auto md:overflow-visible" id="caseTrack">
                 <div class="min-w-[280px] bg-white rounded-[28px] border border-gray-100 overflow-hidden card-glow transition-all" style="scroll-snap-align:start">
                     <div class="h-40 grid place-items-center text-6xl bg-gradient-to-br from-purple-100 to-blue-50">🏛️</div>
                     <div class="p-6"><h4 class="font-bold">北京颐和园</h4><p class="text-sm text-gray-400 mt-1.5">AI 文旅服务一体机 · 沉浸式导览</p></div>
@@ -1351,6 +1537,77 @@
     <script>
         lucide.createIcons();
 
+        // ===== GSAP (graceful fallback if CDN unavailable) =====
+        const useGSAP = !!(window.gsap && window.ScrollTrigger);
+        if (window.gsap) {
+            // Hero intro: staggered timeline for headline block + visual
+            gsap.timeline({ defaults: { ease: 'power3.out' } })
+                .from('#hero .hero-in', { y: 28, opacity: 0, duration: 0.8, stagger: 0.12, delay: 0.15 })
+                .from('#heroVisual', { opacity: 0, scale: 0.92, duration: 1.1 }, '-=0.7');
+        }
+        if (useGSAP) {
+            gsap.registerPlugin(ScrollTrigger);
+
+            // ---- Parallax (hero + dark moat) ----
+            const para = (sel, y, trig) => gsap.to(sel, { yPercent: y, ease: 'none',
+                scrollTrigger: { trigger: trig, start: 'top bottom', end: 'bottom top', scrub: true } });
+            gsap.to('#heroBlob1', { yPercent: 30, ease: 'none', scrollTrigger: { trigger: '#hero', start: 'top top', end: 'bottom top', scrub: true } });
+            gsap.to('#heroBlob2', { yPercent: -22, ease: 'none', scrollTrigger: { trigger: '#hero', start: 'top top', end: 'bottom top', scrub: true } });
+            gsap.to('#heroVisual', { yPercent: -9, ease: 'none', scrollTrigger: { trigger: '#hero', start: 'top top', end: 'bottom top', scrub: true } });
+            para('#moatBg1', 16, '#moat');
+            para('#moatBg2', -16, '#moat');
+
+            // ---- Top scroll-progress bar ----
+            gsap.to('#scrollProgress', { scaleX: 1, ease: 'none', scrollTrigger: { start: 0, end: 'max', scrub: 0.3 } });
+
+            // ---- Cases: horizontal scrub drift (desktop only) ----
+            const caseTrack = document.getElementById('caseTrack');
+            if (caseTrack && window.matchMedia('(min-width: 768px)').matches) {
+                const dist = () => Math.max(0, caseTrack.scrollWidth - caseTrack.parentElement.clientWidth + 40);
+                gsap.to(caseTrack, { x: () => -dist(), ease: 'none',
+                    scrollTrigger: { trigger: '#cases', start: 'top 65%', end: 'bottom top', scrub: 1, invalidateOnRefresh: true } });
+            }
+
+            // Recompute positions once heavy images have loaded (avoids stale triggers)
+            window.addEventListener('load', () => ScrollTrigger.refresh());
+
+            // ---- Scroll reveals: IntersectionObserver triggers, GSAP animates (robust) ----
+            gsap.set('.reveal:not(.active)', { opacity: 0, y: 30 });
+            const revIO = new IntersectionObserver((entries) => {
+                entries.forEach(e => {
+                    if (!e.isIntersecting) return;
+                    const el = e.target;
+                    const sibs = [...el.parentElement.children].filter(c => c.classList.contains('reveal') && !c.classList.contains('active'));
+                    const delay = Math.max(0, sibs.indexOf(el)) * 0.09;
+                    gsap.to(el, { opacity: 1, y: 0, duration: 0.85, ease: 'power3.out', delay });
+                    revIO.unobserve(el);
+                });
+            }, { threshold: 0.12 });
+            document.querySelectorAll('.reveal:not(.active)').forEach(el => revIO.observe(el));
+
+            // ---- Counters: IntersectionObserver triggers, GSAP tweens the number ----
+            const gcount = (el) => {
+                const target = parseFloat(el.dataset.target), pre = el.dataset.prefix || '', suf = el.dataset.suffix || '';
+                const dec = target % 1 !== 0 ? 1 : 0, o = { v: 0 };
+                gsap.to(o, { v: target, duration: 1.8, ease: 'power2.out',
+                    onUpdate: () => { el.textContent = pre + o.v.toFixed(dec) + suf; } });
+            };
+            const cntIO = new IntersectionObserver((entries) => {
+                entries.forEach(e => { if (e.isIntersecting) { gcount(e.target); cntIO.unobserve(e.target); } });
+            }, { threshold: 0.6 });
+            document.querySelectorAll('.counter-val, .wall-card span[data-target]').forEach(el => cntIO.observe(el));
+
+            // ---- Product-logic connector draws in (IO-triggered) ----
+            const lineEl = document.querySelector('.logic-line');
+            if (lineEl) {
+                gsap.set(lineEl, { scaleX: 0, transformOrigin: 'left center' });
+                const lio = new IntersectionObserver((entries) => {
+                    entries.forEach(e => { if (e.isIntersecting) { gsap.to(lineEl, { scaleX: 1, duration: 1.1, ease: 'power2.out' }); lio.disconnect(); } });
+                }, { threshold: 0.3 });
+                lio.observe(document.getElementById('logic'));
+            }
+        }
+
         // Mouse-follow glow
         const mouseGlow = document.getElementById('mouseGlow');
         document.addEventListener('mousemove', (e) => {
@@ -1369,13 +1626,15 @@
             btn.addEventListener('mouseleave', () => { btn.style.transform = 'translate(0, 0) scale(1)'; });
         });
 
-        // Scroll reveal
-        const revealObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
-        }, { threshold: 0.1 });
-        document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+        // Scroll reveal (fallback when GSAP unavailable)
+        if (!useGSAP) {
+            const revealObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
+            }, { threshold: 0.1 });
+            document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+        }
 
-        // Generic count-up (supports prefix / suffix)
+        // Generic count-up (supports prefix / suffix) — fallback path
         function countUp(el) {
             const target = parseFloat(el.dataset.target);
             const pre = el.dataset.prefix || '';
@@ -1391,21 +1650,23 @@
             };
             requestAnimationFrame(tick);
         }
-        // Hero stats
-        const heroStatObs = new IntersectionObserver((entries) => {
-            entries.forEach(e => { if (e.isIntersecting) { countUp(e.target); heroStatObs.unobserve(e.target); } });
-        }, { threshold: 0.5 });
-        document.querySelectorAll('.counter-val').forEach(el => heroStatObs.observe(el));
-        // Metrics wall spans
-        const wallObs = new IntersectionObserver((entries) => {
-            entries.forEach(e => {
-                if (e.isIntersecting) {
-                    e.target.querySelectorAll('span[data-target]').forEach(sp => countUp(sp));
-                    wallObs.unobserve(e.target);
-                }
-            });
-        }, { threshold: 0.5 });
-        document.querySelectorAll('.wall-card').forEach(c => wallObs.observe(c));
+        if (!useGSAP) {
+            // Hero stats
+            const heroStatObs = new IntersectionObserver((entries) => {
+                entries.forEach(e => { if (e.isIntersecting) { countUp(e.target); heroStatObs.unobserve(e.target); } });
+            }, { threshold: 0.5 });
+            document.querySelectorAll('.counter-val').forEach(el => heroStatObs.observe(el));
+            // Metrics wall spans
+            const wallObs = new IntersectionObserver((entries) => {
+                entries.forEach(e => {
+                    if (e.isIntersecting) {
+                        e.target.querySelectorAll('span[data-target]').forEach(sp => countUp(sp));
+                        wallObs.unobserve(e.target);
+                    }
+                });
+            }, { threshold: 0.5 });
+            document.querySelectorAll('.wall-card').forEach(c => wallObs.observe(c));
+        }
 
         // Scenario tabs
         const tabActive = ['gradient-bg', 'text-white', '!border-transparent', 'shadow-lg', 'shadow-purple-200'];
@@ -1421,6 +1682,48 @@
         }
         document.querySelectorAll('.scene-tab').forEach(tab => tab.addEventListener('click', () => setTab(tab.dataset.scene)));
         setTab('mall');
+
+        // Dynamic floating chips (content cycles like live telemetry)
+        (function () {
+            const data = {
+                fc1: [
+                    { t: '实时响应', v: '< 50ms' },
+                    { t: '语音识别', v: '99.9% 准确率' },
+                    { t: '并发接待', v: '1000+ 路' },
+                    { t: '渲染精度', v: '4K 超写实' }
+                ],
+                fc2: [
+                    { t: '主动迎宾', v: '您好，需要帮您找什么？' },
+                    { t: '智能导览', v: '前方 50 米即到 A 区' },
+                    { t: '业务办理', v: '已为您预填好表单' },
+                    { t: '跨语沟通', v: 'Hello! How can I help?' }
+                ],
+                fc3: [
+                    { t: '多语接待', v: '中 / 英 / 粤 / 阿' },
+                    { t: '方言支持', v: '四川 / 上海 / 闽南' },
+                    { t: '实时翻译', v: '日 / 韩 / 法 / 西' },
+                    { t: '语种覆盖', v: '24 种语言' }
+                ]
+            };
+            Object.keys(data).forEach((key, idx) => {
+                const el = document.querySelector('.' + key);
+                if (!el) return;
+                const tEl = el.querySelector('.t'), vEl = el.querySelector('.v');
+                const list = data[key];
+                let i = 0;
+                setTimeout(() => {
+                    setInterval(() => {
+                        i = (i + 1) % list.length;
+                        el.classList.add('swapping');
+                        setTimeout(() => {
+                            tEl.textContent = list[i].t;
+                            vEl.textContent = list[i].v;
+                            el.classList.remove('swapping');
+                        }, 300);
+                    }, 2800 + idx * 200);
+                }, 1200 + idx * 700);
+            });
+        })();
 
         // Avatar carousel (auto-rotate)
         (function () {
@@ -1485,7 +1788,7 @@
         })();
 
         // Infinite moving cards: duplicate track(s) for a seamless loop
-        ['tmTrack', 'painTrack'].forEach(id => {
+        ['tmTrack', 'painTrack', 'techTrack'].forEach(id => {
             const track = document.getElementById(id);
             if (track) track.innerHTML += track.innerHTML;
         });
@@ -1512,6 +1815,17 @@
             const stage = document.getElementById('capStage');
             if (stage) { stage.addEventListener('mouseenter', stop); stage.addEventListener('mouseleave', play); }
             set(0); play();
+        })();
+
+        // Moat: expanding accordion (hover/click to open)
+        (function () {
+            const items = Array.from(document.querySelectorAll('#moatAcc .moat-acc-item'));
+            if (!items.length) return;
+            const open = (i) => items.forEach((it, idx) => it.classList.toggle('active', idx === i));
+            items.forEach((it, i) => {
+                it.addEventListener('mouseenter', () => open(i));
+                it.addEventListener('click', () => open(i));
+            });
         })();
 
         // Floating action button

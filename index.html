@@ -215,6 +215,174 @@
             align-items: center; text-decoration: none; color: #1a1a1a; font-weight: 600; white-space: nowrap;
         }
         .fab-item b { color: var(--brand-primary); font-family: 'Sora', sans-serif; }
+
+        /* ===== Aceternity-inspired components ===== */
+
+        /* Card Spotlight: cursor-following radial glow + revealed dot grid */
+        .spotlight-card { position: relative; overflow: hidden; }
+        .spotlight-card::before {
+            content: ''; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; z-index: 0;
+            opacity: 0; transition: opacity 0.45s;
+            background:
+                radial-gradient(260px circle at var(--mx, 50%) var(--my, 50%), rgba(146, 85, 254, 0.12), transparent 65%);
+        }
+        .spotlight-card::after {
+            content: ''; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; z-index: 0;
+            opacity: 0; transition: opacity 0.45s;
+            background-image: radial-gradient(rgba(146, 85, 254, 0.5) 1px, transparent 1px);
+            background-size: 16px 16px;
+            -webkit-mask-image: radial-gradient(180px circle at var(--mx, 50%) var(--my, 50%), #000 0%, transparent 70%);
+            mask-image: radial-gradient(180px circle at var(--mx, 50%) var(--my, 50%), #000 0%, transparent 70%);
+        }
+        .spotlight-card:hover::before { opacity: 1; }
+        .spotlight-card:hover::after { opacity: 0.6; }
+        .spotlight-card > * { position: relative; z-index: 1; }
+
+        /* Meteors */
+        .meteors { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 1; }
+        .meteor {
+            position: absolute; top: -10%; width: 2px; height: 2px; border-radius: 50%;
+            background: #cbb4ff; box-shadow: 0 0 6px 1px rgba(203, 180, 255, 0.6);
+            transform: rotate(220deg); animation: meteor linear infinite;
+        }
+        .meteor::before {
+            content: ''; position: absolute; top: 50%; transform: translateY(-50%);
+            width: 70px; height: 1px; background: linear-gradient(90deg, #b79bff, transparent);
+        }
+        @keyframes meteor {
+            0% { transform: rotate(220deg) translateX(0); opacity: 1; }
+            70% { opacity: 1; }
+            100% { transform: rotate(220deg) translateX(-720px); opacity: 0; }
+        }
+
+        /* Spotlight conic beam */
+        .spotlight-beam {
+            position: absolute; top: -40%; left: -10%; width: 60%; height: 160%; z-index: 0; pointer-events: none;
+            background: conic-gradient(from 60deg at 50% 0%, rgba(146, 85, 254, 0.18), rgba(236, 0, 250, 0.10) 30%, transparent 60%);
+            filter: blur(30px); transform: rotate(-12deg); opacity: 0; animation: beamIn 1.4s ease forwards 0.2s;
+        }
+        @keyframes beamIn { to { opacity: 1; } }
+
+        /* Infinite moving cards (testimonials) */
+        .tm-marquee {
+            overflow: hidden;
+            -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+            mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+        }
+        .tm-track { display: flex; gap: 24px; width: max-content; animation: tmscroll 46s linear infinite; }
+        .tm-marquee:hover .tm-track { animation-play-state: paused; }
+        @keyframes tmscroll { to { transform: translateX(-50%); } }
+        .tm-card {
+            width: 400px; flex-shrink: 0; background: #fff; border: 1px solid #eef0f4; border-radius: 28px; padding: 34px;
+            box-shadow: 0 10px 30px -22px rgba(80, 30, 120, 0.4); transition: border-color 0.4s, transform 0.4s;
+        }
+        .tm-card:hover { border-color: #e9d8fd; transform: translateY(-4px); }
+        @media (max-width: 560px) { .tm-card { width: 320px; } }
+
+        /* Pain points marquee */
+        .pain-marquee {
+            overflow: hidden;
+            -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+            mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+        }
+        .pain-track { display: flex; gap: 26px; width: max-content; animation: tmscroll 52s linear infinite; padding: 18px 0; }
+        .pain-marquee:hover .pain-track { animation-play-state: paused; }
+        .pain-cardx {
+            --accent: #9255fe;
+            position: relative; width: 392px; flex-shrink: 0; overflow: hidden; isolation: isolate;
+            background: #fff; border: 1px solid #eef0f4; border-radius: 28px; padding: 38px 34px 34px;
+            box-shadow: 0 12px 34px -24px rgba(80, 30, 120, 0.4);
+            transition: transform 0.45s cubic-bezier(.2,.8,.2,1), box-shadow 0.45s, border-color 0.45s;
+        }
+        /* gradient border reveal */
+        .pain-cardx::before {
+            content: ''; position: absolute; inset: 0; border-radius: 28px; padding: 1.5px; z-index: -1; opacity: 0; transition: opacity 0.45s;
+            background: linear-gradient(135deg, var(--accent), var(--brand-secondary));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor; mask-composite: exclude;
+        }
+        /* soft corner glow */
+        .pain-cardx::after {
+            content: ''; position: absolute; top: -44px; right: -44px; width: 168px; height: 168px; border-radius: 50%; z-index: -1;
+            background: radial-gradient(circle, color-mix(in srgb, var(--accent) 24%, transparent), transparent 70%);
+            opacity: 0.45; transition: opacity 0.45s, transform 0.45s;
+        }
+        .pain-cardx:hover { transform: translateY(-10px); box-shadow: 0 34px 60px -26px rgba(80, 30, 120, 0.4); border-color: transparent; }
+        .pain-cardx:hover::before { opacity: 1; }
+        .pain-cardx:hover::after { opacity: 0.9; transform: scale(1.12); }
+        .pain-num {
+            position: absolute; top: 20px; right: 28px; font-family: 'Sora', sans-serif; font-weight: 800; font-size: 56px; line-height: 1; letter-spacing: -2px;
+            color: color-mix(in srgb, var(--accent) 15%, transparent); transition: color 0.45s;
+        }
+        .pain-cardx:hover .pain-num { color: color-mix(in srgb, var(--accent) 28%, transparent); }
+        .pain-ic {
+            position: relative; width: 60px; height: 60px; border-radius: 18px; display: grid; place-items: center; color: #fff;
+            background: linear-gradient(135deg, var(--accent), color-mix(in srgb, var(--accent) 45%, var(--brand-secondary)));
+            box-shadow: 0 14px 28px -10px color-mix(in srgb, var(--accent) 65%, transparent);
+            transition: transform 0.5s cubic-bezier(.2,.8,.2,1);
+        }
+        .pain-cardx:hover .pain-ic { transform: rotate(-6deg) scale(1.08); }
+        .pain-ic::after { content: ''; position: absolute; inset: -6px; border-radius: 22px; border: 2px solid color-mix(in srgb, var(--accent) 30%, transparent); opacity: 0; transition: 0.5s; }
+        .pain-cardx:hover .pain-ic::after { inset: -10px; opacity: 1; }
+        .pain-eyebrow { display: inline-block; margin: 24px 0 8px; font-family: 'Sora', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); }
+        .pain-cardx h4 { font-size: 20px; font-weight: 700; margin-bottom: 10px; letter-spacing: -0.2px; }
+        .pain-cardx p { font-size: 14px; color: #94a3b8; line-height: 1.78; }
+        @media (max-width: 560px) { .pain-cardx { width: 300px; } }
+
+        /* ===== Interactive capabilities showcase ===== */
+        .cap-wrap { display: grid; grid-template-columns: 0.92fr 1.08fr; gap: 44px; margin-top: 56px; align-items: start; }
+        .cap-list { display: flex; flex-direction: column; gap: 10px; }
+        .cap-item {
+            --accent: #9255fe; position: relative; cursor: pointer; padding: 18px 22px; border-radius: 20px;
+            border: 1px solid transparent; overflow: hidden;
+            transition: background 0.4s, border-color 0.4s, box-shadow 0.4s;
+        }
+        .cap-item:hover:not(.active) { background: #f1eefb; }
+        .cap-item.active { background: #fff; border-color: #eef0f4; box-shadow: 0 22px 46px -28px rgba(80, 30, 120, 0.5); }
+        .cap-row { display: flex; align-items: center; gap: 14px; }
+        .cap-mini { width: 44px; height: 44px; border-radius: 13px; display: grid; place-items: center; color: #64748b; background: #eef1f6; flex-shrink: 0; transition: 0.45s; }
+        .cap-item.active .cap-mini {
+            color: #fff; background: linear-gradient(135deg, var(--accent), color-mix(in srgb, var(--accent) 45%, var(--brand-secondary)));
+            box-shadow: 0 12px 24px -10px color-mix(in srgb, var(--accent) 60%, transparent); transform: rotate(-4deg);
+        }
+        .cap-item h4 { font-size: 18px; font-weight: 700; }
+        .cap-idx { font-family: 'Sora', sans-serif; font-weight: 800; font-size: 13px; color: #cbd5e1; margin-left: auto; transition: 0.4s; }
+        .cap-item.active .cap-idx { color: var(--accent); }
+        .cap-desc {
+            max-height: 0; opacity: 0; overflow: hidden; color: #94a3b8; font-size: 13.5px; line-height: 1.72; padding-left: 58px;
+            transition: max-height 0.55s cubic-bezier(.2,.8,.2,1), opacity 0.4s, margin-top 0.4s;
+        }
+        .cap-item.active .cap-desc { max-height: 140px; opacity: 1; margin-top: 12px; }
+        .cap-prog { position: absolute; left: 22px; right: 22px; bottom: 0; height: 3px; border-radius: 3px; background: #eef0f4; opacity: 0; transition: opacity 0.4s; }
+        .cap-item.active .cap-prog { opacity: 1; }
+        .cap-prog span { display: block; height: 100%; width: 0; border-radius: 3px; background: linear-gradient(90deg, var(--accent), var(--brand-secondary)); }
+        .cap-item.active .cap-prog span { animation: capfill 5s linear forwards; }
+        @keyframes capfill { to { width: 100%; } }
+
+        .cap-stage { position: sticky; top: 110px; height: 480px; border-radius: 34px; overflow: hidden; background: #0c0a18; box-shadow: 0 36px 70px -34px rgba(80, 30, 120, 0.6); }
+        .cap-stage::before { content: ''; position: absolute; inset: 0; background-image: radial-gradient(rgba(255,255,255,.06) 1px, transparent 1px); background-size: 22px 22px; }
+        .cap-panel {
+            --accent: #9255fe; position: absolute; inset: 0; padding: 46px; display: flex; flex-direction: column;
+            opacity: 0; transform: scale(1.03); pointer-events: none; transition: opacity 0.6s, transform 0.6s;
+        }
+        .cap-panel.active { opacity: 1; transform: scale(1); pointer-events: auto; }
+        .cap-panel .cap-glow { position: absolute; width: 380px; height: 380px; border-radius: 50%; top: -120px; right: -90px; filter: blur(20px); opacity: 0.55;
+            background: radial-gradient(circle, color-mix(in srgb, var(--accent) 55%, transparent), transparent 70%); }
+        .cap-bigic {
+            position: relative; width: 78px; height: 78px; border-radius: 22px; display: grid; place-items: center; color: #fff;
+            background: linear-gradient(135deg, var(--accent), color-mix(in srgb, var(--accent) 45%, var(--brand-secondary)));
+            box-shadow: 0 20px 44px -12px color-mix(in srgb, var(--accent) 70%, transparent);
+        }
+        .cap-bigic::after { content: ''; position: absolute; inset: -8px; border-radius: 28px; border: 2px solid color-mix(in srgb, var(--accent) 40%, transparent); }
+        .cap-chip { background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.14); color: rgba(255,255,255,.85); font-size: 12.5px; font-weight: 600; padding: 7px 14px; border-radius: 99px; }
+        @media (max-width: 900px) {
+            .cap-wrap { grid-template-columns: 1fr; gap: 14px; }
+            .cap-stage { display: none; }
+            .cap-item { background: #fff; border-color: #eef0f4; }
+            .cap-item .cap-mini { color: #fff; background: linear-gradient(135deg, var(--accent), color-mix(in srgb, var(--accent) 45%, var(--brand-secondary))); }
+            .cap-desc { max-height: 160px; opacity: 1; margin-top: 12px; }
+            .cap-prog { display: none; }
+        }
     </style>
 </head>
 
@@ -321,27 +489,57 @@
                 <h2 class="text-sm font-bold tracking-widest text-purple-600 mb-4 uppercase">商业空间的现实困境</h2>
                 <h3 class="text-4xl md:text-5xl font-sora font-bold">这些问题，每天都在消耗你的成本与口碑</h3>
             </div>
-            <div class="grid md:grid-cols-3 gap-6">
-                <div class="bg-white p-8 rounded-[32px] border border-gray-100 card-glow transition-all reveal">
-                    <div class="w-14 h-14 rounded-2xl bg-purple-50 flex items-center justify-center text-purple-600 mb-6">
-                        <i data-lucide="users" class="w-7 h-7"></i>
+            <div class="pain-marquee reveal">
+                <div class="pain-track" id="painTrack">
+                    <div class="pain-cardx" style="--accent:#9255fe">
+                        <span class="pain-num">01</span>
+                        <div class="pain-ic"><i data-lucide="users" class="w-7 h-7"></i></div>
+                        <span class="pain-eyebrow">Labor Cost</span>
+                        <h4>人力成本高，服务不均</h4>
+                        <p>招聘难、培训周期长，人力成本持续上涨；高峰期排长队，夜间与节假日服务能力直接断层。</p>
                     </div>
-                    <h4 class="text-xl font-bold mb-3">人力成本高，服务不均</h4>
-                    <p class="text-sm text-gray-500 leading-relaxed">招聘难、培训周期长，人力成本持续上涨；高峰期排长队，夜间与节假日服务能力断层。</p>
-                </div>
-                <div class="bg-white p-8 rounded-[32px] border border-gray-100 card-glow transition-all reveal delay-100">
-                    <div class="w-14 h-14 rounded-2xl bg-blue-50 flex items-center justify-center text-blue-600 mb-6">
-                        <i data-lucide="compass" class="w-7 h-7"></i>
+                    <div class="pain-cardx" style="--accent:#3b82f6">
+                        <span class="pain-num">02</span>
+                        <div class="pain-ic"><i data-lucide="compass" class="w-7 h-7"></i></div>
+                        <span class="pain-eyebrow">Wayfinding</span>
+                        <h4>寻路难，信息过载</h4>
+                        <p>大型综合体结构复杂，顾客常因迷路焦虑；海量商铺信息看不见、记不住，难筛出"最优解"。</p>
                     </div>
-                    <h4 class="text-xl font-bold mb-3">寻路难，信息过载</h4>
-                    <p class="text-sm text-gray-500 leading-relaxed">大型综合体结构复杂，顾客常因迷路焦虑；海量商铺信息看不见、记不住，难筛出"最优解"。</p>
-                </div>
-                <div class="bg-white p-8 rounded-[32px] border border-gray-100 card-glow transition-all reveal delay-200">
-                    <div class="w-14 h-14 rounded-2xl bg-pink-50 flex items-center justify-center text-pink-600 mb-6">
-                        <i data-lucide="trending-down" class="w-7 h-7"></i>
+                    <div class="pain-cardx" style="--accent:#ec4899">
+                        <span class="pain-num">03</span>
+                        <div class="pain-ic"><i data-lucide="trending-down" class="w-7 h-7"></i></div>
+                        <span class="pain-eyebrow">Conversion</span>
+                        <h4>营销转化链路长</h4>
+                        <p>纸质海报更新慢、互动差；运营方难以精准、动态触达目标客群，从问询到消费断层严重。</p>
                     </div>
-                    <h4 class="text-xl font-bold mb-3">营销转化链路长</h4>
-                    <p class="text-sm text-gray-500 leading-relaxed">纸质海报更新慢、互动差；运营方难以精准、动态触达目标客群，从问询到消费断层严重。</p>
+                    <div class="pain-cardx" style="--accent:#f97316">
+                        <span class="pain-num">04</span>
+                        <div class="pain-ic"><i data-lucide="clock-alert" class="w-7 h-7"></i></div>
+                        <span class="pain-eyebrow">Peak Hours</span>
+                        <h4>高峰拥堵，体验下滑</h4>
+                        <p>客流高峰时人工接待捉襟见肘，咨询排队、响应迟缓，顾客耐心被消耗，投诉与差评随之上升。</p>
+                    </div>
+                    <div class="pain-cardx" style="--accent:#6366f1">
+                        <span class="pain-num">05</span>
+                        <div class="pain-ic"><i data-lucide="user-x" class="w-7 h-7"></i></div>
+                        <span class="pain-eyebrow">Consistency</span>
+                        <h4>服务标准不一，质量飘忽</h4>
+                        <p>不同员工话术、专业度参差不齐，新人上手慢、老人流失快，服务体验难以稳定地标准化复制。</p>
+                    </div>
+                    <div class="pain-cardx" style="--accent:#10b981">
+                        <span class="pain-num">06</span>
+                        <div class="pain-ic"><i data-lucide="database-zap" class="w-7 h-7"></i></div>
+                        <span class="pain-eyebrow">Data</span>
+                        <h4>交互无沉淀，难以优化</h4>
+                        <p>线下服务过程难以记录与分析，客户高频需求、堵点与商机白白流失，运营决策缺少数据支撑。</p>
+                    </div>
+                    <div class="pain-cardx" style="--accent:#f43f5e">
+                        <span class="pain-num">07</span>
+                        <div class="pain-ic"><i data-lucide="languages" class="w-7 h-7"></i></div>
+                        <span class="pain-eyebrow">Multilingual</span>
+                        <h4>多语接待，沟通受阻</h4>
+                        <p>面对国际客群与方言用户，人工难以全语种覆盖，沟通效率低、信息易出错，服务半径受到限制。</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -419,36 +617,127 @@
                 <h3 class="text-4xl md:text-5xl font-sora font-bold mb-6">全栈 AI 虚拟人能力矩阵</h3>
                 <p class="text-gray-500 max-w-2xl mx-auto">从形象克隆到知识推理，从情感感知到多终端部署，AKURA 提供端到端的数字员工技术闭环。</p>
             </div>
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div class="bg-white p-8 rounded-[32px] border border-gray-100 hover:border-purple-200 transition-all reveal">
-                    <div class="w-12 h-12 rounded-2xl bg-purple-50 flex items-center justify-center text-purple-600 mb-6"><i data-lucide="scan-face" class="w-6 h-6"></i></div>
-                    <h4 class="text-lg font-bold mb-2">超写实形象克隆</h4>
-                    <p class="text-sm text-gray-500 leading-relaxed">基于 3D 扫描与神经网络渲染，1:1 还原真人外貌、微表情与肢体动作，肉眼难辨真伪。</p>
+            <div class="cap-wrap reveal">
+                <!-- selectable list -->
+                <div class="cap-list" id="capList">
+                    <div class="cap-item active" style="--accent:#9255fe">
+                        <div class="cap-row">
+                            <div class="cap-mini"><i data-lucide="scan-face" class="w-5 h-5"></i></div>
+                            <h4>超写实形象克隆</h4>
+                            <span class="cap-idx">01</span>
+                        </div>
+                        <p class="cap-desc">基于 3D 扫描与神经网络渲染，1:1 还原真人外貌、微表情与肢体动作，肉眼难辨真伪。</p>
+                        <div class="cap-prog"><span></span></div>
+                    </div>
+                    <div class="cap-item" style="--accent:#3b82f6">
+                        <div class="cap-row">
+                            <div class="cap-mini"><i data-lucide="speech" class="w-5 h-5"></i></div>
+                            <h4>情感语音合成</h4>
+                            <span class="cap-idx">02</span>
+                        </div>
+                        <p class="cap-desc">非模板化 TTS，实时注入情绪参数，让数字人说话有抑扬顿挫，真正实现"声情并茂"。</p>
+                        <div class="cap-prog"><span></span></div>
+                    </div>
+                    <div class="cap-item" style="--accent:#ec4899">
+                        <div class="cap-row">
+                            <div class="cap-mini"><i data-lucide="message-square-plus" class="w-5 h-5"></i></div>
+                            <h4>多轮意图推理</h4>
+                            <span class="cap-idx">03</span>
+                        </div>
+                        <p class="cap-desc">支持 50+ 轮超长上下文记忆，精准识别用户隐性需求，主动追问澄清，告别答非所问。</p>
+                        <div class="cap-prog"><span></span></div>
+                    </div>
+                    <div class="cap-item" style="--accent:#f97316">
+                        <div class="cap-row">
+                            <div class="cap-mini"><i data-lucide="eye" class="w-5 h-5"></i></div>
+                            <h4>视觉感知交互</h4>
+                            <span class="cap-idx">04</span>
+                        </div>
+                        <p class="cap-desc">搭载摄像头视觉模组，支持人脸识别、视线追踪与手势识别，实现"看"着用户说话。</p>
+                        <div class="cap-prog"><span></span></div>
+                    </div>
+                    <div class="cap-item" style="--accent:#6366f1">
+                        <div class="cap-row">
+                            <div class="cap-mini"><i data-lucide="file-stack" class="w-5 h-5"></i></div>
+                            <h4>企业知识大脑</h4>
+                            <span class="cap-idx">05</span>
+                        </div>
+                        <p class="cap-desc">支持 PDF、Word、Excel、网页等多格式文档秒级解析，自动构建可更新、可溯源的知识图谱。</p>
+                        <div class="cap-prog"><span></span></div>
+                    </div>
+                    <div class="cap-item" style="--accent:#10b981">
+                        <div class="cap-row">
+                            <div class="cap-mini"><i data-lucide="plug-zap" class="w-5 h-5"></i></div>
+                            <h4>全渠道一键发布</h4>
+                            <span class="cap-idx">06</span>
+                        </div>
+                        <p class="cap-desc">同一份数字人资产，同步分发至 APP、小程序、网页、自助大屏、短视频直播间，多端体验一致。</p>
+                        <div class="cap-prog"><span></span></div>
+                    </div>
                 </div>
-                <div class="bg-white p-8 rounded-[32px] border border-gray-100 hover:border-blue-200 transition-all reveal delay-100">
-                    <div class="w-12 h-12 rounded-2xl bg-blue-50 flex items-center justify-center text-blue-600 mb-6"><i data-lucide="speech" class="w-6 h-6"></i></div>
-                    <h4 class="text-lg font-bold mb-2">情感语音合成</h4>
-                    <p class="text-sm text-gray-500 leading-relaxed">非模板化 TTS，实时注入情绪参数，让数字人说话有抑扬顿挫，真正实现"声情并茂"。</p>
-                </div>
-                <div class="bg-white p-8 rounded-[32px] border border-gray-100 hover:border-pink-200 transition-all reveal delay-200">
-                    <div class="w-12 h-12 rounded-2xl bg-pink-50 flex items-center justify-center text-pink-600 mb-6"><i data-lucide="message-square-plus" class="w-6 h-6"></i></div>
-                    <h4 class="text-lg font-bold mb-2">多轮意图推理</h4>
-                    <p class="text-sm text-gray-500 leading-relaxed">支持 50+ 轮超长上下文记忆，精准识别用户隐性需求，主动追问澄清，告别答非所问。</p>
-                </div>
-                <div class="bg-white p-8 rounded-[32px] border border-gray-100 hover:border-orange-200 transition-all reveal">
-                    <div class="w-12 h-12 rounded-2xl bg-orange-50 flex items-center justify-center text-orange-600 mb-6"><i data-lucide="eye" class="w-6 h-6"></i></div>
-                    <h4 class="text-lg font-bold mb-2">视觉感知交互</h4>
-                    <p class="text-sm text-gray-500 leading-relaxed">搭载摄像头视觉模组，支持人脸识别、视线追踪与手势识别，实现"看"着用户说话。</p>
-                </div>
-                <div class="bg-white p-8 rounded-[32px] border border-gray-100 hover:border-indigo-200 transition-all reveal delay-100">
-                    <div class="w-12 h-12 rounded-2xl bg-indigo-50 flex items-center justify-center text-indigo-600 mb-6"><i data-lucide="file-stack" class="w-6 h-6"></i></div>
-                    <h4 class="text-lg font-bold mb-2">企业知识大脑</h4>
-                    <p class="text-sm text-gray-500 leading-relaxed">支持 PDF、Word、Excel、网页等多格式文档秒级解析，自动构建可更新、可溯源的知识图谱。</p>
-                </div>
-                <div class="bg-white p-8 rounded-[32px] border border-gray-100 hover:border-emerald-200 transition-all reveal delay-200">
-                    <div class="w-12 h-12 rounded-2xl bg-emerald-50 flex items-center justify-center text-emerald-600 mb-6"><i data-lucide="plug-zap" class="w-6 h-6"></i></div>
-                    <h4 class="text-lg font-bold mb-2">全渠道一键发布</h4>
-                    <p class="text-sm text-gray-500 leading-relaxed">同一份数字人资产，同步分发至 APP、小程序、网页、自助大屏、短视频直播间，多端体验一致。</p>
+
+                <!-- stage -->
+                <div class="cap-stage" id="capStage">
+                    <div class="cap-panel active" style="--accent:#9255fe">
+                        <div class="cap-glow"></div>
+                        <div class="cap-bigic"><i data-lucide="scan-face" class="w-9 h-9"></i></div>
+                        <div class="mt-auto">
+                            <span class="text-xs font-bold tracking-[0.2em] uppercase" style="color:#c4b5fd">Hyper-Real Cloning</span>
+                            <h3 class="text-3xl font-sora font-bold text-white mt-3 mb-3">超写实形象克隆</h3>
+                            <p class="text-white/55 leading-relaxed mb-6 max-w-md">基于 3D 扫描与神经网络渲染，1:1 还原真人外貌、微表情与肢体动作，肉眼难辨真伪。</p>
+                            <div class="flex flex-wrap gap-2.5"><span class="cap-chip">3D 扫描重建</span><span class="cap-chip">神经渲染</span><span class="cap-chip">微表情还原</span><span class="cap-chip">1:1 拟真</span></div>
+                        </div>
+                    </div>
+                    <div class="cap-panel" style="--accent:#3b82f6">
+                        <div class="cap-glow"></div>
+                        <div class="cap-bigic"><i data-lucide="speech" class="w-9 h-9"></i></div>
+                        <div class="mt-auto">
+                            <span class="text-xs font-bold tracking-[0.2em] uppercase" style="color:#93c5fd">Emotional TTS</span>
+                            <h3 class="text-3xl font-sora font-bold text-white mt-3 mb-3">情感语音合成</h3>
+                            <p class="text-white/55 leading-relaxed mb-6 max-w-md">非模板化 TTS，实时注入情绪参数，让数字人说话有抑扬顿挫，真正实现"声情并茂"。</p>
+                            <div class="flex flex-wrap gap-2.5"><span class="cap-chip">情绪参数注入</span><span class="cap-chip">非模板 TTS</span><span class="cap-chip">多音色</span><span class="cap-chip">声情并茂</span></div>
+                        </div>
+                    </div>
+                    <div class="cap-panel" style="--accent:#ec4899">
+                        <div class="cap-glow"></div>
+                        <div class="cap-bigic"><i data-lucide="message-square-plus" class="w-9 h-9"></i></div>
+                        <div class="mt-auto">
+                            <span class="text-xs font-bold tracking-[0.2em] uppercase" style="color:#f9a8d4">Intent Reasoning</span>
+                            <h3 class="text-3xl font-sora font-bold text-white mt-3 mb-3">多轮意图推理</h3>
+                            <p class="text-white/55 leading-relaxed mb-6 max-w-md">支持 50+ 轮超长上下文记忆，精准识别用户隐性需求，主动追问澄清，告别答非所问。</p>
+                            <div class="flex flex-wrap gap-2.5"><span class="cap-chip">50+ 轮记忆</span><span class="cap-chip">隐性需求识别</span><span class="cap-chip">主动澄清</span></div>
+                        </div>
+                    </div>
+                    <div class="cap-panel" style="--accent:#f97316">
+                        <div class="cap-glow"></div>
+                        <div class="cap-bigic"><i data-lucide="eye" class="w-9 h-9"></i></div>
+                        <div class="mt-auto">
+                            <span class="text-xs font-bold tracking-[0.2em] uppercase" style="color:#fdba74">Visual Perception</span>
+                            <h3 class="text-3xl font-sora font-bold text-white mt-3 mb-3">视觉感知交互</h3>
+                            <p class="text-white/55 leading-relaxed mb-6 max-w-md">搭载摄像头视觉模组，支持人脸识别、视线追踪与手势识别，实现"看"着用户说话。</p>
+                            <div class="flex flex-wrap gap-2.5"><span class="cap-chip">人脸识别</span><span class="cap-chip">视线追踪</span><span class="cap-chip">手势识别</span></div>
+                        </div>
+                    </div>
+                    <div class="cap-panel" style="--accent:#6366f1">
+                        <div class="cap-glow"></div>
+                        <div class="cap-bigic"><i data-lucide="file-stack" class="w-9 h-9"></i></div>
+                        <div class="mt-auto">
+                            <span class="text-xs font-bold tracking-[0.2em] uppercase" style="color:#a5b4fc">Knowledge Brain</span>
+                            <h3 class="text-3xl font-sora font-bold text-white mt-3 mb-3">企业知识大脑</h3>
+                            <p class="text-white/55 leading-relaxed mb-6 max-w-md">支持 PDF、Word、Excel、网页等多格式文档秒级解析，自动构建可更新、可溯源的知识图谱。</p>
+                            <div class="flex flex-wrap gap-2.5"><span class="cap-chip">多格式解析</span><span class="cap-chip">知识图谱</span><span class="cap-chip">可溯源</span><span class="cap-chip">秒级解析</span></div>
+                        </div>
+                    </div>
+                    <div class="cap-panel" style="--accent:#10b981">
+                        <div class="cap-glow"></div>
+                        <div class="cap-bigic"><i data-lucide="plug-zap" class="w-9 h-9"></i></div>
+                        <div class="mt-auto">
+                            <span class="text-xs font-bold tracking-[0.2em] uppercase" style="color:#6ee7b7">Omnichannel</span>
+                            <h3 class="text-3xl font-sora font-bold text-white mt-3 mb-3">全渠道一键发布</h3>
+                            <p class="text-white/55 leading-relaxed mb-6 max-w-md">同一份数字人资产，同步分发至 APP、小程序、网页、自助大屏、短视频直播间，多端体验一致。</p>
+                            <div class="flex flex-wrap gap-2.5"><span class="cap-chip">APP / 小程序</span><span class="cap-chip">大屏直播</span><span class="cap-chip">多端一致</span></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -519,6 +808,8 @@
             <div class="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_30%_30%,#9255fe_0%,transparent_40%)]"></div>
             <div class="absolute bottom-0 right-0 w-full h-full bg-[radial-gradient(circle_at_70%_70%,#ec00fa_0%,transparent_40%)]"></div>
         </div>
+        <div class="spotlight-beam"></div>
+        <div class="meteors" id="meteors"></div>
 
         <div class="max-w-7xl mx-auto relative z-10 grid lg:grid-cols-2 gap-20 items-center">
             <div class="reveal">
@@ -726,27 +1017,50 @@
                 <h2 class="text-sm font-bold tracking-widest text-purple-600 mb-4 uppercase">Testimonials</h2>
                 <h3 class="text-4xl md:text-5xl font-sora font-bold mb-6">客户真实反馈</h3>
             </div>
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="bg-slate-50 p-10 rounded-[40px] reveal">
-                    <div class="flex items-center gap-4 mb-6">
-                        <div class="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center text-purple-600 font-bold">L</div>
-                        <div><h5 class="font-bold">李总监</h5><p class="text-xs text-gray-400">某头部金融机构 科技部</p></div>
+            <div class="tm-marquee reveal">
+                <div class="tm-track" id="tmTrack">
+                    <div class="tm-card">
+                        <div class="flex items-center gap-4 mb-5">
+                            <div class="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center text-purple-600 font-bold">李</div>
+                            <div><h5 class="font-bold">李总监</h5><p class="text-xs text-gray-400">某头部金融机构 · 科技部</p></div>
+                        </div>
+                        <p class="text-sm text-gray-600 leading-relaxed">"AvatarX 的接入让我们的客服接待效率提升了 3 倍，客户在网点的平均等待时间从 15 分钟缩短到 3 分钟，体验改善非常明显。"</p>
                     </div>
-                    <p class="text-sm text-gray-600 leading-relaxed">"AvatarX 的接入让我们的客服接待效率提升了 3 倍，客户在网点的平均等待时间从 15 分钟缩短到 3 分钟，体验改善非常明显。"</p>
-                </div>
-                <div class="bg-slate-50 p-10 rounded-[40px] reveal delay-100">
-                    <div class="flex items-center gap-4 mb-6">
-                        <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold">W</div>
-                        <div><h5 class="font-bold">王经理</h5><p class="text-xs text-gray-400">某三甲医院 门诊办</p></div>
+                    <div class="tm-card">
+                        <div class="flex items-center gap-4 mb-5">
+                            <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold">王</div>
+                            <div><h5 class="font-bold">王经理</h5><p class="text-xs text-gray-400">某三甲医院 · 门诊办</p></div>
+                        </div>
+                        <p class="text-sm text-gray-600 leading-relaxed">"导诊虚拟人不仅分流了大量重复咨询，还能在深夜为患者提供就诊指南，真正实现了医疗服务的 7×24 不间断。"</p>
                     </div>
-                    <p class="text-sm text-gray-600 leading-relaxed">"导诊虚拟人不仅分流了大量重复咨询，还能在深夜为患者提供就诊指南，真正实现了医疗服务的 7×24 不间断。"</p>
-                </div>
-                <div class="bg-slate-50 p-10 rounded-[40px] reveal delay-200">
-                    <div class="flex items-center gap-4 mb-6">
-                        <div class="w-12 h-12 rounded-full bg-pink-100 flex items-center justify-center text-pink-600 font-bold">Z</div>
-                        <div><h5 class="font-bold">张 CEO</h5><p class="text-xs text-gray-400">某新零售品牌 创始人</p></div>
+                    <div class="tm-card">
+                        <div class="flex items-center gap-4 mb-5">
+                            <div class="w-12 h-12 rounded-full bg-pink-100 flex items-center justify-center text-pink-600 font-bold">张</div>
+                            <div><h5 class="font-bold">张 CEO</h5><p class="text-xs text-gray-400">某新零售品牌 · 创始人</p></div>
+                        </div>
+                        <p class="text-sm text-gray-600 leading-relaxed">"旗舰店的虚拟导购上线首月，互动转化率就提升了 40%，年轻消费者对这种科技感体验非常买账。"</p>
                     </div>
-                    <p class="text-sm text-gray-600 leading-relaxed">"旗舰店的虚拟导购上线首月，互动转化率就提升了 40%，年轻消费者对这种科技感体验非常买账。"</p>
+                    <div class="tm-card">
+                        <div class="flex items-center gap-4 mb-5">
+                            <div class="w-12 h-12 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 font-bold">陈</div>
+                            <div><h5 class="font-bold">陈主任</h5><p class="text-xs text-gray-400">某市政务服务中心</p></div>
+                        </div>
+                        <p class="text-sm text-gray-600 leading-relaxed">"政务大厅部署后，高频事项咨询基本由虚拟人承接，窗口排队明显缩短，市民办事体验和满意度都上了一个台阶。"</p>
+                    </div>
+                    <div class="tm-card">
+                        <div class="flex items-center gap-4 mb-5">
+                            <div class="w-12 h-12 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600 font-bold">林</div>
+                            <div><h5 class="font-bold">林经理</h5><p class="text-xs text-gray-400">某国际机场 · 运营部</p></div>
+                        </div>
+                        <p class="text-sm text-gray-600 leading-relaxed">"多语种接待能力解决了我们国际旅客的沟通痛点，航班、登机口、周边问询一站搞定，深夜时段也不掉线。"</p>
+                    </div>
+                    <div class="tm-card">
+                        <div class="flex items-center gap-4 mb-5">
+                            <div class="w-12 h-12 rounded-full bg-orange-100 flex items-center justify-center text-orange-600 font-bold">赵</div>
+                            <div><h5 class="font-bold">赵总</h5><p class="text-xs text-gray-400">某连锁酒店集团</p></div>
+                        </div>
+                        <p class="text-sm text-gray-600 leading-relaxed">"从大堂迎宾到客房服务引导，虚拟人帮我们标准化了服务流程，单店每年节省的人力成本相当可观。"</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1145,6 +1459,60 @@
                 inner.classList.remove('bg-white/80', 'shadow-md');
             }
         });
+
+        // Card Spotlight: track cursor position per card
+        document.querySelectorAll('.spotlight-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const r = card.getBoundingClientRect();
+                card.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+                card.style.setProperty('--my', (e.clientY - r.top) + 'px');
+            });
+        });
+
+        // Meteors: generate streaks with randomized position / timing
+        (function () {
+            const wrap = document.getElementById('meteors');
+            if (!wrap) return;
+            const N = 16;
+            for (let i = 0; i < N; i++) {
+                const m = document.createElement('span');
+                m.className = 'meteor';
+                m.style.left = Math.random() * 100 + '%';
+                m.style.animationDelay = (Math.random() * 6).toFixed(2) + 's';
+                m.style.animationDuration = (3 + Math.random() * 4).toFixed(2) + 's';
+                wrap.appendChild(m);
+            }
+        })();
+
+        // Infinite moving cards: duplicate track(s) for a seamless loop
+        ['tmTrack', 'painTrack'].forEach(id => {
+            const track = document.getElementById(id);
+            if (track) track.innerHTML += track.innerHTML;
+        });
+
+        // Interactive capabilities showcase (hover/click to select + auto-advance)
+        (function () {
+            const items = Array.from(document.querySelectorAll('#capList .cap-item'));
+            const panels = Array.from(document.querySelectorAll('#capStage .cap-panel'));
+            if (!items.length) return;
+            let cur = 0, timer = null;
+            const DURATION = 5000;
+            function set(i) {
+                cur = i;
+                items.forEach((it, idx) => it.classList.toggle('active', idx === i));
+                panels.forEach((p, idx) => p.classList.toggle('active', idx === i));
+            }
+            function play() { stop(); timer = setInterval(() => set((cur + 1) % items.length), DURATION); }
+            function stop() { if (timer) { clearInterval(timer); timer = null; } }
+            items.forEach((it, i) => {
+                it.addEventListener('mouseenter', () => { set(i); stop(); });
+                it.addEventListener('mouseleave', play);
+                it.addEventListener('click', () => set(i));
+            });
+            const stage = document.getElementById('capStage');
+            if (stage) { stage.addEventListener('mouseenter', stop); stage.addEventListener('mouseleave', play); }
+            set(0); play();
+        })();
 
         // Floating action button
         const fab = document.getElementById('fab');

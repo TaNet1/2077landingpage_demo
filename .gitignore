@@ -9,6 +9,16 @@ Thumbs.db
 # Logs
 *.log
 
+# Local version backups (preserved via git tags)
+index-v1-backup.html
+
+# Unused font files (only the 3 variable fonts referenced by the site are committed)
+font/**/static/
+font/Noto_Serif_SC/
+font/**/OFL.txt
+font/**/README.txt
+font/Raleway/Raleway-Italic-VariableFont_wght.ttf
+
 # Source renders (large 2160x3840 originals; web-optimized copies live in assets/)
 StartRoom_Post.*.png
 TakePhotos*.png

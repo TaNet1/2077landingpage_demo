@@ -3,20 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AKURA (2077.AI) - AvatarX AI 虚拟员工 · 软硬件一体解决方案</title>
+    <title>2077.AI - AI 虚拟员工 · 软硬件一体解决方案</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Sora:wght@400;600;700;800&family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="i18n.js"></script>
     <script>
         tailwind.config = {
             theme: {
                 extend: {
-                    fontFamily: { sans: ['Inter', 'Noto Sans SC', 'sans-serif'] },
+                    fontFamily: { sans: ['var(--font-main)', 'sans-serif'] },
                     transitionDelay: {
                         '100': '100ms', '200': '200ms', '300': '300ms',
                         '400': '400ms', '500': '500ms', '700': '700ms',
@@ -26,16 +27,25 @@
         };
     </script>
     <style>
+        /* Local fonts (variable, weights 100–900). font-display:swap shows fallback first. */
+        @font-face { font-family: 'Noto Sans SC'; src: url('font/Noto_Sans_SC/NotoSansSC-VariableFont_wght.ttf') format('truetype'); font-weight: 100 900; font-display: swap; }
+        @font-face { font-family: 'Noto Sans HK'; src: url('font/Noto_Sans_HK/NotoSansHK-VariableFont_wght.ttf') format('truetype'); font-weight: 100 900; font-display: swap; }
+        @font-face { font-family: 'Raleway'; src: url('font/Raleway/Raleway-VariableFont_wght.ttf') format('truetype'); font-weight: 100 900; font-display: swap; }
+
         :root {
             --brand-primary: #9255fe;
             --brand-secondary: #ec00fa;
             --cyan: #19c2e6;
             --bg-white: #ffffff;
             --bg-accent: #f8fafc;
+            /* default = Simplified Chinese */
+            --font-main: 'Noto Sans SC', system-ui, sans-serif;
         }
+        html[data-lang="zh-TW"] { --font-main: 'Noto Sans HK', system-ui, sans-serif; }
+        html[data-lang="en"] { --font-main: 'Raleway', system-ui, sans-serif; }
 
         body {
-            font-family: 'Inter', 'Noto Sans SC', sans-serif;
+            font-family: var(--font-main);
             background-color: var(--bg-white);
             color: #1a1a1a;
             overflow-x: hidden;
@@ -43,7 +53,8 @@
         }
         html { scroll-behavior: smooth; }
 
-        .font-sora { font-family: 'Sora', sans-serif; }
+        /* display headings keep Sora for Latin, fall back to the per-language font */
+        .font-sora { font-family: 'Sora', var(--font-main); }
 
         .gradient-text {
             background: linear-gradient(135deg, var(--brand-primary), var(--brand-secondary));
@@ -98,6 +109,8 @@
 
         /* ---------- hero 3D avatar ---------- */
         .hero-visual { position: relative; perspective: 1200px; }
+        /* prehide hero intro elements to avoid a flash before GSAP runs */
+        .hero-in, #heroVisual { opacity: 0; }
         /* soft elliptical glow behind the figure */
         .orb {
             position: absolute; width: 560px; height: 600px; border-radius: 50%;
@@ -431,6 +444,11 @@
         .tech-pill:hover { color: var(--brand-primary); border-color: #ead8fd; }
         .tech-pill .dot { width: 7px; height: 7px; border-radius: 50%; background: linear-gradient(120deg, var(--brand-primary), var(--brand-secondary)); flex-shrink: 0; }
 
+        /* language switcher */
+        .lang-opt { display: block; width: 100%; text-align: left; padding: 8px 12px; border-radius: 12px; font-size: 13px; font-weight: 600; color: #475569; transition: 0.2s; }
+        .lang-opt:hover { background: #f1eefb; color: var(--brand-primary); }
+        .lang-opt.active { background: linear-gradient(120deg, rgba(146, 85, 254, 0.12), rgba(236, 0, 250, 0.1)); color: var(--brand-primary); }
+
         /* ===== Moat: expanding accordion + comparison ===== */
         .moat-acc { display: flex; gap: 14px; height: 340px; }
         .moat-acc-item {
@@ -474,7 +492,7 @@
             .cmp-row > div { padding: 12px 18px; }
             .cmp-head { display: none; }
             .cmp-old::before { content: '传统拼装：'; color: rgba(255,255,255,.35); }
-            .cmp-new::before { content: 'AKURA：'; color: rgba(255,255,255,.5); }
+            .cmp-new::before { content: '2077.AI：'; color: rgba(255,255,255,.5); }
         }
     </style>
 </head>
@@ -486,25 +504,32 @@
 
     <!-- Navbar -->
     <nav class="fixed top-0 w-full z-50 transition-all duration-300 px-10 py-6" id="navbar">
-        <div class="max-w-7xl mx-auto flex justify-between items-center bg-white/40 backdrop-blur-md px-8 py-4 rounded-full border border-gray-100/50 shadow-sm">
-            <div class="flex items-center gap-2">
-                <div class="w-8 h-8 gradient-bg rounded-lg flex items-center justify-center">
-                    <i data-lucide="zap" class="text-white w-5 h-5"></i>
+        <div class="max-w-7xl mx-auto flex justify-between items-center gap-4 bg-white/40 backdrop-blur-md px-7 py-4 rounded-full border border-gray-100/50 shadow-sm">
+            <a href="#hero" class="flex items-center shrink-0">
+                <img src="assets/logo.png" alt="2077.AI" class="h-6 w-auto">
+            </a>
+
+            <div class="hidden md:flex items-center gap-4 lg:gap-5">
+                <a href="#hero" class="nav-link relative text-sm font-medium text-gray-700 hover:text-black transition-colors whitespace-nowrap">首页</a>
+                <a href="#pain" class="nav-link relative text-sm font-medium text-gray-700 hover:text-black transition-colors whitespace-nowrap">行业痛点</a>
+                <a href="#logic" class="nav-link relative text-sm font-medium text-gray-700 hover:text-black transition-colors whitespace-nowrap">产品逻辑</a>
+                <a href="#moat" class="nav-link relative text-sm font-medium text-gray-700 hover:text-black transition-colors whitespace-nowrap">核心优势</a>
+                <a href="#scenarios" class="nav-link relative text-sm font-medium text-gray-700 hover:text-black transition-colors whitespace-nowrap">应用场景</a>
+                <a href="#cases" class="nav-link relative text-sm font-medium text-gray-700 hover:text-black transition-colors whitespace-nowrap">落地案例</a>
+            </div>
+
+            <div class="flex items-center gap-3">
+                <div class="relative" id="langSwitch">
+                    <button class="w-10 h-10 flex items-center justify-center text-gray-600 hover:text-black rounded-full border border-gray-200 hover:border-gray-300 transition-all" id="langBtn" aria-haspopup="true" aria-label="切换语言 / Language">
+                        <i data-lucide="globe" class="w-[18px] h-[18px]"></i>
+                    </button>
+                    <div class="lang-menu absolute right-0 mt-2 w-36 bg-white rounded-2xl shadow-xl border border-gray-100 p-1.5 hidden" id="langMenu">
+                        <button class="lang-opt" data-lang="zh-CN">简体中文</button>
+                        <button class="lang-opt" data-lang="zh-TW">繁體中文</button>
+                        <button class="lang-opt" data-lang="en">English</button>
+                    </div>
                 </div>
-                <span class="font-sora font-bold text-2xl tracking-tighter">AKURA<span class="text-xs ml-1 font-normal text-gray-400">2077.AI</span></span>
-            </div>
-
-            <div class="hidden md:flex items-center gap-9">
-                <a href="#hero" class="nav-link relative text-sm font-medium text-gray-700 hover:text-black transition-colors">首页</a>
-                <a href="#pain" class="nav-link relative text-sm font-medium text-gray-700 hover:text-black transition-colors">行业痛点</a>
-                <a href="#logic" class="nav-link relative text-sm font-medium text-gray-700 hover:text-black transition-colors">产品逻辑</a>
-                <a href="#moat" class="nav-link relative text-sm font-medium text-gray-700 hover:text-black transition-colors">核心优势</a>
-                <a href="#scenarios" class="nav-link relative text-sm font-medium text-gray-700 hover:text-black transition-colors">应用场景</a>
-                <a href="#cases" class="nav-link relative text-sm font-medium text-gray-700 hover:text-black transition-colors">落地案例</a>
-            </div>
-
-            <div class="flex items-center gap-4">
-                <a href="#contact" class="magnetic-btn gradient-bg text-white px-6 py-2.5 rounded-full text-sm font-semibold shadow-lg shadow-purple-200 hover:shadow-purple-400 transition-all">
+                <a href="#contact" data-i18n-btn class="magnetic-btn gradient-bg text-white px-6 py-2.5 rounded-full text-sm font-semibold shadow-lg shadow-purple-200 hover:shadow-purple-400 transition-all whitespace-nowrap">
                     联系商务
                 </a>
             </div>
@@ -515,10 +540,6 @@
     <section id="hero" class="relative pt-40 pb-20 px-10 overflow-hidden min-h-screen flex items-center">
         <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center relative z-10">
             <div class="reveal active">
-                <div class="hero-in inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-50 text-purple-600 text-xs font-bold mb-6 border border-purple-100">
-                    <span class="w-2 h-2 rounded-full bg-purple-500 animate-pulse"></span>
-                    3D AI 虚拟员工 · 软硬件一体解决方案
-                </div>
                 <h1 class="hero-in text-5xl lg:text-7xl font-sora font-bold leading-[1.1] mb-6 tracking-tight">
                     给你的商业空间，<br>配一位 <span class="gradient-text">7×24 在岗</span><br>的 AI 虚拟员工
                 </h1>
@@ -539,7 +560,7 @@
                         <div class="text-sm text-gray-400 mt-1">替代人工（名/台）</div>
                     </div>
                     <div>
-                        <div class="text-3xl font-sora font-bold counter-val gradient-text" data-target="12" data-suffix="万">0</div>
+                        <div class="text-3xl font-sora font-bold gradient-text"><span class="counter-val" data-target="12">0</span>万</div>
                         <div class="text-sm text-gray-400 mt-1">单台年省成本（元）</div>
                     </div>
                     <div>
@@ -711,7 +732,7 @@
             <div class="text-center mb-16 reveal">
                 <h2 class="text-sm font-bold tracking-widest text-purple-600 mb-4 uppercase">Core Capabilities</h2>
                 <h3 class="text-4xl md:text-5xl font-sora font-bold mb-6">全栈 AI 虚拟人能力矩阵</h3>
-                <p class="text-gray-500 max-w-2xl mx-auto">从形象克隆到知识推理，从情感感知到多终端部署，AKURA 提供端到端的数字员工技术闭环。</p>
+                <p class="text-gray-500 max-w-2xl mx-auto">从形象克隆到知识推理，从情感感知到多终端部署，2077.AI 提供端到端的数字员工技术闭环。</p>
             </div>
             <div class="cap-wrap reveal">
                 <!-- selectable list -->
@@ -911,10 +932,10 @@
 
         <div class="max-w-7xl mx-auto relative z-10">
             <div class="max-w-3xl mb-14 reveal">
-                <h2 class="text-sm font-bold tracking-[0.2em] mb-5 uppercase" style="color: var(--cyan)">为什么选择 AKURA</h2>
+                <h2 class="text-sm font-bold tracking-[0.2em] mb-5 uppercase" style="color: var(--cyan)">为什么选择 2077.AI</h2>
                 <h3 class="text-4xl md:text-5xl font-sora font-bold mb-6 leading-tight">Agent、运营平台、数字人、硬件<br>—— 全部自研，一家交付。</h3>
                 <p class="text-gray-400 text-lg leading-relaxed">
-                    市面上部署一套 AI 数字人方案，通常要把智能体、运营后台、数字人形象与终端硬件分别交给 A+B+C+D 四家供应商拼装：集成调试周期长、接口互不兼容、版本互相掣肘、出了问题各方推诿。AKURA 是少数四项核心能力<strong class="text-white font-semibold">全部自研</strong>的团队 —— 从底层算法到终端整机，一个团队设计、一套标准交付。
+                    市面上部署一套 AI 数字人方案，通常要把智能体、运营后台、数字人形象与终端硬件分别交给 A+B+C+D 四家供应商拼装：集成调试周期长、接口互不兼容、版本互相掣肘、出了问题各方推诿。2077.AI 是少数四项核心能力<strong class="text-white font-semibold">全部自研</strong>的团队 —— 从底层算法到终端整机，一个团队设计、一套标准交付。
                 </p>
             </div>
 
@@ -986,7 +1007,7 @@
                     <div class="cmp-row cmp-head">
                         <div>对比维度</div>
                         <div>传统多供应商拼装（A+B+C+D）</div>
-                        <div class="cmp-akura">AKURA 全栈自研</div>
+                        <div class="cmp-akura">2077.AI 全栈自研</div>
                     </div>
                     <div class="cmp-row">
                         <div class="cmp-feat">供应商数量</div>
@@ -1258,7 +1279,7 @@
             <div class="text-center mb-14 reveal">
                 <h2 class="text-sm font-bold tracking-widest text-purple-600 mb-4 uppercase">行业落地</h2>
                 <h3 class="text-4xl md:text-5xl font-sora font-bold mb-6">已深度嵌入真实商业场景</h3>
-                <p class="text-gray-500 max-w-2xl mx-auto">AKURA AI Agent 虚拟人已落地文旅、商业、政企等场景，实现日均 10 万+ 次精准服务触达。</p>
+                <p class="text-gray-500 max-w-2xl mx-auto">2077.AI 的 AI Agent 虚拟人已落地文旅、商业、政企等场景，实现日均 10 万+ 次精准服务触达。</p>
             </div>
             <div class="flex gap-5 pb-5 overflow-x-auto md:overflow-visible" id="caseTrack">
                 <div class="min-w-[280px] bg-white rounded-[28px] border border-gray-100 overflow-hidden card-glow transition-all" style="scroll-snap-align:start">
@@ -1472,10 +1493,9 @@
             <div class="flex flex-col md:flex-row justify-between items-start gap-12 mb-16">
                 <div class="max-w-xs">
                     <div class="flex items-center gap-2 mb-6">
-                        <div class="w-8 h-8 gradient-bg rounded-lg flex items-center justify-center"><i data-lucide="zap" class="text-white w-5 h-5"></i></div>
-                        <span class="font-sora font-bold text-2xl tracking-tighter text-white">AKURA</span>
+                        <span class="font-sora font-extrabold text-2xl tracking-tight text-white">2077<span class="text-white/30">.</span><span class="gradient-text">AI</span></span>
                     </div>
-                    <p class="text-sm leading-relaxed mb-6">2077.AI 旗下品牌，为世界"智"造一亿劳动力。专注高度拟人化 AI 虚拟人的研发与应用。</p>
+                    <p class="text-sm leading-relaxed mb-6">2077.AI 致力于为世界"智"造一亿劳动力，专注高度拟人化 AI 虚拟人的研发与应用。</p>
                     <div class="flex gap-4">
                         <a href="#" class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-gray-400 hover:text-white hover:border-purple-400 transition-all"><i data-lucide="globe" class="w-5 h-5"></i></a>
                         <a href="#" class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-gray-400 hover:text-white hover:border-purple-400 transition-all"><i data-lucide="share-2" class="w-5 h-5"></i></a>
@@ -1514,7 +1534,7 @@
             </div>
 
             <div class="flex flex-col md:flex-row justify-between items-center pt-10 border-t border-white/10 text-xs">
-                <p>© 2025 AKURA (2077.AI) · 幻影未来 版权所有</p>
+                <p>© 2025 2077.AI · 幻影未来 版权所有</p>
                 <div class="flex gap-8 mt-4 md:mt-0">
                     <a href="#" class="hover:text-white transition-colors">隐私政策</a>
                     <a href="#" class="hover:text-white transition-colors">服务协议</a>
@@ -1540,10 +1560,13 @@
         // ===== GSAP (graceful fallback if CDN unavailable) =====
         const useGSAP = !!(window.gsap && window.ScrollTrigger);
         if (window.gsap) {
-            // Hero intro: staggered timeline for headline block + visual
+            // Hero intro: animate FROM the CSS-prehidden state (no flash-of-content)
             gsap.timeline({ defaults: { ease: 'power3.out' } })
-                .from('#hero .hero-in', { y: 28, opacity: 0, duration: 0.8, stagger: 0.12, delay: 0.15 })
-                .from('#heroVisual', { opacity: 0, scale: 0.92, duration: 1.1 }, '-=0.7');
+                .fromTo('#hero .hero-in', { y: 28, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, stagger: 0.12, delay: 0.15 })
+                .fromTo('#heroVisual', { opacity: 0, scale: 0.92 }, { opacity: 1, scale: 1, duration: 1.1 }, '-=0.7');
+        } else {
+            // No GSAP: reveal the prehidden hero elements immediately
+            document.querySelectorAll('#hero .hero-in, #heroVisual').forEach(el => { el.style.opacity = 1; });
         }
         if (useGSAP) {
             gsap.registerPlugin(ScrollTrigger);
@@ -1705,24 +1728,25 @@
                     { t: '语种覆盖', v: '24 种语言' }
                 ]
             };
+            const TR = (s) => (window.__i18nTr ? window.__i18nTr(s) : s);
+            const chips = [];
             Object.keys(data).forEach((key, idx) => {
                 const el = document.querySelector('.' + key);
                 if (!el) return;
                 const tEl = el.querySelector('.t'), vEl = el.querySelector('.v');
                 const list = data[key];
-                let i = 0;
+                const ctrl = { i: 0, render() { tEl.textContent = TR(list[this.i].t); vEl.textContent = TR(list[this.i].v); } };
+                chips.push(ctrl);
                 setTimeout(() => {
                     setInterval(() => {
-                        i = (i + 1) % list.length;
+                        ctrl.i = (ctrl.i + 1) % list.length;
                         el.classList.add('swapping');
-                        setTimeout(() => {
-                            tEl.textContent = list[i].t;
-                            vEl.textContent = list[i].v;
-                            el.classList.remove('swapping');
-                        }, 300);
+                        setTimeout(() => { ctrl.render(); el.classList.remove('swapping'); }, 300);
                     }, 2800 + idx * 200);
                 }, 1200 + idx * 700);
             });
+            // re-render current chips when language changes
+            window.__renderChips = () => chips.forEach(c => c.render());
         })();
 
         // Avatar carousel (auto-rotate)
@@ -1831,6 +1855,75 @@
         // Floating action button
         const fab = document.getElementById('fab');
         document.getElementById('fabMain').addEventListener('click', () => fab.classList.toggle('open'));
+
+        // ===== i18n: simplified / traditional Chinese + English (text-node translation) =====
+        (function () {
+            const I18N = window.__I18N_DICT || { 'zh-TW': {}, 'en': {} };
+            const LANG_NAMES = { 'zh-CN': '简体中文', 'zh-TW': '繁體中文', 'en': 'English' };
+            let CUR = 'zh-CN';
+
+            const snap = [];
+            const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
+                acceptNode(n) {
+                    const p = n.parentElement;
+                    if (!p) return NodeFilter.FILTER_REJECT;
+                    if (['SCRIPT', 'STYLE', 'NOSCRIPT'].includes(p.nodeName)) return NodeFilter.FILTER_REJECT;
+                    if (p.closest('#langSwitch') || p.closest('.float-chip')) return NodeFilter.FILTER_REJECT;
+                    if (p.classList && p.classList.contains('counter-val')) return NodeFilter.FILTER_REJECT;
+                    if (!n.nodeValue || !/[一-鿿]/.test(n.nodeValue)) return NodeFilter.FILTER_REJECT;
+                    return NodeFilter.FILTER_ACCEPT;
+                }
+            });
+            let node; while ((node = walker.nextNode())) snap.push({ node, zh: node.nodeValue });
+
+            function tr(zh, lang) {
+                if (lang === 'zh-CN') return zh;
+                const key = zh.trim();
+                const t = (I18N[lang] || {})[key];
+                return t == null ? zh : zh.replace(key, t);
+            }
+            window.__i18nTr = (s) => CUR === 'zh-CN' ? s : ((I18N[CUR] || {})[s] || s);
+            window.__dumpI18n = () => [...new Set(snap.map(s => s.zh.trim()))];
+
+            const VALID = ['zh-CN', 'zh-TW', 'en'];
+            function setLang(lang, persist) {
+                if (!VALID.includes(lang)) lang = 'zh-CN';
+                CUR = lang;
+                snap.forEach(({ node, zh }) => { node.nodeValue = tr(zh, lang); });
+                const el = document.documentElement;
+                el.lang = lang === 'en' ? 'en' : (lang === 'zh-TW' ? 'zh-Hant' : 'zh-Hans');
+                el.setAttribute('data-lang', lang); // drives per-language @font-face
+                document.querySelectorAll('.lang-opt').forEach(o => o.classList.toggle('active', o.dataset.lang === lang));
+                if (window.__renderChips) window.__renderChips();
+                if (persist) { try { localStorage.setItem('site-lang', lang); } catch (e) {} }
+            }
+            window.setSiteLang = (l) => setLang(l, true);
+
+            const btn = document.getElementById('langBtn'), menu = document.getElementById('langMenu');
+            if (btn) {
+                btn.addEventListener('click', (e) => { e.stopPropagation(); menu.classList.toggle('hidden'); });
+                document.addEventListener('click', () => menu.classList.add('hidden'));
+                document.querySelectorAll('.lang-opt').forEach(o => o.addEventListener('click', () => { setLang(o.dataset.lang, true); menu.classList.add('hidden'); }));
+            }
+
+            // Default language: saved choice wins; otherwise detect by IP region.
+            let saved = null; try { saved = localStorage.getItem('site-lang'); } catch (e) {}
+            if (saved && VALID.includes(saved)) {
+                setLang(saved, false);
+            } else {
+                setLang('zh-CN', false); // show immediately, then refine by region
+                fetch('https://ipapi.co/json/')
+                    .then(r => r.json())
+                    .then(d => {
+                        const cc = (d && d.country_code || '').toUpperCase();
+                        let lang = 'en';
+                        if (cc === 'CN') lang = 'zh-CN';
+                        else if (['HK', 'MO', 'TW'].includes(cc)) lang = 'zh-TW';
+                        setLang(lang, false); // auto-detected, not persisted (user can still switch)
+                    })
+                    .catch(() => {});
+            }
+        })();
     </script>
 </body>
 </html>

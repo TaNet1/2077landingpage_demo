@@ -228,11 +228,19 @@
         .scene-panel.active { display: grid; }
         @keyframes fade { from { opacity: 0; transform: translateY(14px); } }
 
-        /* ---------- logo marquee ---------- */
-        .logos { overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
-        .logo-track { display: flex; gap: 54px; width: max-content; animation: marquee 26s linear infinite; }
-        .logos:hover .logo-track { animation-play-state: paused; }
-        @keyframes marquee { to { transform: translateX(-50%); } }
+        /* ---------- logo cloud (two-row marquee) ---------- */
+        .lc-row { overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); }
+        .lc-track { display: flex; align-items: center; gap: 64px; width: max-content; }
+        .lc-track.right { animation: lc-right 50s linear infinite; }
+        .lc-track.left { animation: lc-left 50s linear infinite; }
+        .lc-row:hover .lc-track { animation-play-state: paused; }
+        @keyframes lc-right { from { transform: translateX(-50%); } to { transform: translateX(0); } }
+        @keyframes lc-left { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+        .lc-logo {
+            height: 38px; width: auto; max-width: 160px; object-fit: contain; flex-shrink: 0;
+            opacity: 0.7; transition: opacity 0.3s, transform 0.3s; user-select: none;
+        }
+        .lc-logo:hover { opacity: 1; transform: scale(1.06); }
 
         /* ---------- floating contact ---------- */
         .fab { position: fixed; right: 26px; bottom: 26px; z-index: 60; display: flex; flex-direction: column; gap: 12px; align-items: flex-end; }
@@ -384,11 +392,10 @@
         .cap-item h4 { font-size: 18px; font-weight: 700; }
         .cap-idx { font-family: 'Sora', sans-serif; font-weight: 800; font-size: 13px; color: #cbd5e1; margin-left: auto; transition: 0.4s; }
         .cap-item.active .cap-idx { color: var(--accent); }
-        .cap-desc {
-            max-height: 0; opacity: 0; overflow: hidden; color: #94a3b8; font-size: 13.5px; line-height: 1.72; padding-left: 58px;
-            transition: max-height 0.55s cubic-bezier(.2,.8,.2,1), opacity 0.4s, margin-top 0.4s;
-        }
-        .cap-item.active .cap-desc { max-height: 140px; opacity: 1; margin-top: 12px; }
+        /* On desktop the detail lives in the right-hand stage, so the list stays a fixed-height
+           menu (no per-item expansion) — the list height never changes, so auto-advance can't
+           make the page jump. The description re-appears only on mobile (where the stage is hidden). */
+        .cap-desc { display: none; color: #94a3b8; font-size: 13.5px; line-height: 1.72; padding-left: 58px; }
         .cap-prog { position: absolute; left: 22px; right: 22px; bottom: 0; height: 3px; border-radius: 3px; background: #eef0f4; opacity: 0; transition: opacity 0.4s; }
         .cap-item.active .cap-prog { opacity: 1; }
         .cap-prog span { display: block; height: 100%; width: 0; border-radius: 3px; background: linear-gradient(90deg, var(--accent), var(--brand-secondary)); }
@@ -416,7 +423,7 @@
             .cap-stage { display: none; }
             .cap-item { background: #fff; border-color: #eef0f4; }
             .cap-item .cap-mini { color: #fff; background: linear-gradient(135deg, var(--accent), color-mix(in srgb, var(--accent) 45%, var(--brand-secondary))); }
-            .cap-desc { max-height: 160px; opacity: 1; margin-top: 12px; }
+            .cap-desc { display: block; margin-top: 12px; }
             .cap-prog { display: none; }
         }
 
@@ -611,49 +618,49 @@
                     <div class="pain-cardx" style="--accent:#9255fe">
                         <span class="pain-num">01</span>
                         <div class="pain-ic"><i data-lucide="users" class="w-7 h-7"></i></div>
-                        <span class="pain-eyebrow">Labor Cost</span>
+                        <span class="pain-eyebrow">人力成本</span>
                         <h4>人力成本高，服务不均</h4>
                         <p>招聘难、培训周期长，人力成本持续上涨；高峰期排长队，夜间与节假日服务能力直接断层。</p>
                     </div>
                     <div class="pain-cardx" style="--accent:#3b82f6">
                         <span class="pain-num">02</span>
                         <div class="pain-ic"><i data-lucide="compass" class="w-7 h-7"></i></div>
-                        <span class="pain-eyebrow">Wayfinding</span>
+                        <span class="pain-eyebrow">寻路导航</span>
                         <h4>寻路难，信息过载</h4>
                         <p>大型综合体结构复杂，顾客常因迷路焦虑；海量商铺信息看不见、记不住，难筛出"最优解"。</p>
                     </div>
                     <div class="pain-cardx" style="--accent:#ec4899">
                         <span class="pain-num">03</span>
                         <div class="pain-ic"><i data-lucide="trending-down" class="w-7 h-7"></i></div>
-                        <span class="pain-eyebrow">Conversion</span>
+                        <span class="pain-eyebrow">营销转化</span>
                         <h4>营销转化链路长</h4>
                         <p>纸质海报更新慢、互动差；运营方难以精准、动态触达目标客群，从问询到消费断层严重。</p>
                     </div>
                     <div class="pain-cardx" style="--accent:#f97316">
                         <span class="pain-num">04</span>
                         <div class="pain-ic"><i data-lucide="clock-alert" class="w-7 h-7"></i></div>
-                        <span class="pain-eyebrow">Peak Hours</span>
+                        <span class="pain-eyebrow">高峰承载</span>
                         <h4>高峰拥堵，体验下滑</h4>
                         <p>客流高峰时人工接待捉襟见肘，咨询排队、响应迟缓，顾客耐心被消耗，投诉与差评随之上升。</p>
                     </div>
                     <div class="pain-cardx" style="--accent:#6366f1">
                         <span class="pain-num">05</span>
                         <div class="pain-ic"><i data-lucide="user-x" class="w-7 h-7"></i></div>
-                        <span class="pain-eyebrow">Consistency</span>
+                        <span class="pain-eyebrow">服务标准</span>
                         <h4>服务标准不一，质量飘忽</h4>
                         <p>不同员工话术、专业度参差不齐，新人上手慢、老人流失快，服务体验难以稳定地标准化复制。</p>
                     </div>
                     <div class="pain-cardx" style="--accent:#10b981">
                         <span class="pain-num">06</span>
                         <div class="pain-ic"><i data-lucide="database-zap" class="w-7 h-7"></i></div>
-                        <span class="pain-eyebrow">Data</span>
+                        <span class="pain-eyebrow">数据沉淀</span>
                         <h4>交互无沉淀，难以优化</h4>
                         <p>线下服务过程难以记录与分析，客户高频需求、堵点与商机白白流失，运营决策缺少数据支撑。</p>
                     </div>
                     <div class="pain-cardx" style="--accent:#f43f5e">
                         <span class="pain-num">07</span>
                         <div class="pain-ic"><i data-lucide="languages" class="w-7 h-7"></i></div>
-                        <span class="pain-eyebrow">Multilingual</span>
+                        <span class="pain-eyebrow">多语沟通</span>
                         <h4>多语接待，沟通受阻</h4>
                         <p>面对国际客群与方言用户，人工难以全语种覆盖，沟通效率低、信息易出错，服务半径受到限制。</p>
                     </div>
@@ -676,7 +683,7 @@
                 <div class="logic-card">
                     <span class="logic-num">01</span>
                     <div class="logic-icon"><i data-lucide="radar" class="w-7 h-7"></i></div>
-                    <span class="logic-tag">PERCEPTION · 感知</span>
+                    <span class="logic-tag">感知</span>
                     <h4>传感器精准感知</h4>
                     <p>10 麦克风阵列 + 双目摄像头，主动收音无需唤醒，空间降噪、讲话人追踪，让交互自然贴心。</p>
                     <div class="logic-chips">
@@ -690,7 +697,7 @@
                 <div class="logic-card">
                     <span class="logic-num">02</span>
                     <div class="logic-icon"><i data-lucide="brain-circuit" class="w-7 h-7"></i></div>
-                    <span class="logic-tag">DECISION · 决策</span>
+                    <span class="logic-tag">决策</span>
                     <h4>Agent 智慧决策</h4>
                     <p>把用户口语化需求转化为清晰指令，自主规划最优流程，让"人找功能"变成"功能随人转"。</p>
                     <div class="logic-chips">
@@ -704,7 +711,7 @@
                 <div class="logic-card">
                     <span class="logic-num">03</span>
                     <div class="logic-icon"><i data-lucide="message-circle-heart" class="w-7 h-7"></i></div>
-                    <span class="logic-tag">EXPRESSION · 表现</span>
+                    <span class="logic-tag">表现</span>
                     <h4>数字人温度传递</h4>
                     <p>4 万面游戏级建模，语音 / 唇形 / 表情精准同步，会共情、能亲和沟通的"有温度服务者"。</p>
                     <div class="logic-chips">
@@ -730,7 +737,7 @@
     <section class="py-24 px-10 bg-slate-50 overflow-hidden">
         <div class="max-w-7xl mx-auto">
             <div class="text-center mb-16 reveal">
-                <h2 class="text-sm font-bold tracking-widest text-purple-600 mb-4 uppercase">Core Capabilities</h2>
+                <h2 class="text-sm font-bold tracking-widest text-purple-600 mb-4 uppercase">核心能力</h2>
                 <h3 class="text-4xl md:text-5xl font-sora font-bold mb-6">全栈 AI 虚拟人能力矩阵</h3>
                 <p class="text-gray-500 max-w-2xl mx-auto">从形象克隆到知识推理，从情感感知到多终端部署，2077.AI 提供端到端的数字员工技术闭环。</p>
             </div>
@@ -799,7 +806,7 @@
                         <div class="cap-glow"></div>
                         <div class="cap-bigic"><i data-lucide="scan-face" class="w-9 h-9"></i></div>
                         <div class="mt-auto">
-                            <span class="text-xs font-bold tracking-[0.2em] uppercase" style="color:#c4b5fd">Hyper-Real Cloning</span>
+                            <span class="text-xs font-bold tracking-[0.2em] uppercase" style="color:#c4b5fd">超写实克隆</span>
                             <h3 class="text-3xl font-sora font-bold text-white mt-3 mb-3">超写实形象克隆</h3>
                             <p class="text-white/55 leading-relaxed mb-6 max-w-md">基于 3D 扫描与神经网络渲染，1:1 还原真人外貌、微表情与肢体动作，肉眼难辨真伪。</p>
                             <div class="flex flex-wrap gap-2.5"><span class="cap-chip">3D 扫描重建</span><span class="cap-chip">神经渲染</span><span class="cap-chip">微表情还原</span><span class="cap-chip">1:1 拟真</span></div>
@@ -809,7 +816,7 @@
                         <div class="cap-glow"></div>
                         <div class="cap-bigic"><i data-lucide="speech" class="w-9 h-9"></i></div>
                         <div class="mt-auto">
-                            <span class="text-xs font-bold tracking-[0.2em] uppercase" style="color:#93c5fd">Emotional TTS</span>
+                            <span class="text-xs font-bold tracking-[0.2em] uppercase" style="color:#93c5fd">情感语音</span>
                             <h3 class="text-3xl font-sora font-bold text-white mt-3 mb-3">情感语音合成</h3>
                             <p class="text-white/55 leading-relaxed mb-6 max-w-md">非模板化 TTS，实时注入情绪参数，让数字人说话有抑扬顿挫，真正实现"声情并茂"。</p>
                             <div class="flex flex-wrap gap-2.5"><span class="cap-chip">情绪参数注入</span><span class="cap-chip">非模板 TTS</span><span class="cap-chip">多音色</span><span class="cap-chip">声情并茂</span></div>
@@ -819,7 +826,7 @@
                         <div class="cap-glow"></div>
                         <div class="cap-bigic"><i data-lucide="message-square-plus" class="w-9 h-9"></i></div>
                         <div class="mt-auto">
-                            <span class="text-xs font-bold tracking-[0.2em] uppercase" style="color:#f9a8d4">Intent Reasoning</span>
+                            <span class="text-xs font-bold tracking-[0.2em] uppercase" style="color:#f9a8d4">意图推理</span>
                             <h3 class="text-3xl font-sora font-bold text-white mt-3 mb-3">多轮意图推理</h3>
                             <p class="text-white/55 leading-relaxed mb-6 max-w-md">支持 50+ 轮超长上下文记忆，精准识别用户隐性需求，主动追问澄清，告别答非所问。</p>
                             <div class="flex flex-wrap gap-2.5"><span class="cap-chip">50+ 轮记忆</span><span class="cap-chip">隐性需求识别</span><span class="cap-chip">主动澄清</span></div>
@@ -829,7 +836,7 @@
                         <div class="cap-glow"></div>
                         <div class="cap-bigic"><i data-lucide="eye" class="w-9 h-9"></i></div>
                         <div class="mt-auto">
-                            <span class="text-xs font-bold tracking-[0.2em] uppercase" style="color:#fdba74">Visual Perception</span>
+                            <span class="text-xs font-bold tracking-[0.2em] uppercase" style="color:#fdba74">视觉感知</span>
                             <h3 class="text-3xl font-sora font-bold text-white mt-3 mb-3">视觉感知交互</h3>
                             <p class="text-white/55 leading-relaxed mb-6 max-w-md">搭载摄像头视觉模组，支持人脸识别、视线追踪与手势识别，实现"看"着用户说话。</p>
                             <div class="flex flex-wrap gap-2.5"><span class="cap-chip">人脸识别</span><span class="cap-chip">视线追踪</span><span class="cap-chip">手势识别</span></div>
@@ -839,7 +846,7 @@
                         <div class="cap-glow"></div>
                         <div class="cap-bigic"><i data-lucide="file-stack" class="w-9 h-9"></i></div>
                         <div class="mt-auto">
-                            <span class="text-xs font-bold tracking-[0.2em] uppercase" style="color:#a5b4fc">Knowledge Brain</span>
+                            <span class="text-xs font-bold tracking-[0.2em] uppercase" style="color:#a5b4fc">知识大脑</span>
                             <h3 class="text-3xl font-sora font-bold text-white mt-3 mb-3">企业知识大脑</h3>
                             <p class="text-white/55 leading-relaxed mb-6 max-w-md">支持 PDF、Word、Excel、网页等多格式文档秒级解析，自动构建可更新、可溯源的知识图谱。</p>
                             <div class="flex flex-wrap gap-2.5"><span class="cap-chip">多格式解析</span><span class="cap-chip">知识图谱</span><span class="cap-chip">可溯源</span><span class="cap-chip">秒级解析</span></div>
@@ -849,7 +856,7 @@
                         <div class="cap-glow"></div>
                         <div class="cap-bigic"><i data-lucide="plug-zap" class="w-9 h-9"></i></div>
                         <div class="mt-auto">
-                            <span class="text-xs font-bold tracking-[0.2em] uppercase" style="color:#6ee7b7">Omnichannel</span>
+                            <span class="text-xs font-bold tracking-[0.2em] uppercase" style="color:#6ee7b7">全渠道发布</span>
                             <h3 class="text-3xl font-sora font-bold text-white mt-3 mb-3">全渠道一键发布</h3>
                             <p class="text-white/55 leading-relaxed mb-6 max-w-md">同一份数字人资产，同步分发至 APP、小程序、网页、自助大屏、短视频直播间，多端体验一致。</p>
                             <div class="flex flex-wrap gap-2.5"><span class="cap-chip">APP / 小程序</span><span class="cap-chip">大屏直播</span><span class="cap-chip">多端一致</span></div>
@@ -866,7 +873,7 @@
         <div class="deco-orb anim" style="width:300px;height:300px;background:rgba(236,0,250,.08);bottom:-40px;right:-60px;animation-delay:-4s"></div>
         <div class="max-w-7xl mx-auto relative z-10">
             <div class="text-center mb-20 reveal">
-                <h2 class="text-sm font-bold tracking-widest text-purple-600 mb-4 uppercase">Product Line</h2>
+                <h2 class="text-sm font-bold tracking-widest text-purple-600 mb-4 uppercase">产品矩阵</h2>
                 <h3 class="text-4xl md:text-5xl font-sora font-bold mb-6">全系列智能终端</h3>
                 <p class="text-gray-500 max-w-2xl mx-auto">针对不同业务规模与使用场景，我们提供从轻量级到企业定制化的全套解决方案。</p>
             </div>
@@ -1075,7 +1082,7 @@
         <div class="deco-orb anim" style="width:280px;height:280px;background:rgba(236,0,250,.07);bottom:-30px;left:-70px;animation-delay:-2s"></div>
         <div class="max-w-7xl mx-auto relative z-10">
             <div class="text-center mb-12 reveal">
-                <h2 class="text-sm font-bold tracking-widest text-purple-600 mb-4 uppercase">Application Scenarios</h2>
+                <h2 class="text-sm font-bold tracking-widest text-purple-600 mb-4 uppercase">应用场景</h2>
                 <h3 class="text-4xl md:text-5xl font-sora font-bold">为不同商业空间，量身定制的虚拟员工</h3>
             </div>
 
@@ -1220,7 +1227,7 @@
     <section class="py-32 px-10 bg-white">
         <div class="max-w-7xl mx-auto">
             <div class="text-center mb-20 reveal">
-                <h2 class="text-sm font-bold tracking-widest text-purple-600 mb-4 uppercase">Testimonials</h2>
+                <h2 class="text-sm font-bold tracking-widest text-purple-600 mb-4 uppercase">客户评价</h2>
                 <h3 class="text-4xl md:text-5xl font-sora font-bold mb-6">客户真实反馈</h3>
             </div>
             <div class="tm-marquee reveal">
@@ -1304,29 +1311,10 @@
                 </div>
             </div>
 
-            <div class="logos mt-16">
-                <div class="logo-track">
-                    <span class="font-sora font-bold text-xl text-gray-400">HUAWEI</span>
-                    <span class="font-sora font-bold text-xl text-gray-400">NVIDIA</span>
-                    <span class="font-sora font-bold text-xl text-gray-400">百度 Baidu</span>
-                    <span class="font-sora font-bold text-xl text-gray-400">腾讯音乐</span>
-                    <span class="font-sora font-bold text-xl text-gray-400">科大讯飞</span>
-                    <span class="font-sora font-bold text-xl text-gray-400">中国移动</span>
-                    <span class="font-sora font-bold text-xl text-gray-400">咪咕</span>
-                    <span class="font-sora font-bold text-xl text-gray-400">声网 Agora</span>
-                    <span class="font-sora font-bold text-xl text-gray-400">Rokid</span>
-                    <span class="font-sora font-bold text-xl text-gray-400">HKT</span>
-                    <span class="font-sora font-bold text-xl text-gray-400">HUAWEI</span>
-                    <span class="font-sora font-bold text-xl text-gray-400">NVIDIA</span>
-                    <span class="font-sora font-bold text-xl text-gray-400">百度 Baidu</span>
-                    <span class="font-sora font-bold text-xl text-gray-400">腾讯音乐</span>
-                    <span class="font-sora font-bold text-xl text-gray-400">科大讯飞</span>
-                    <span class="font-sora font-bold text-xl text-gray-400">中国移动</span>
-                    <span class="font-sora font-bold text-xl text-gray-400">咪咕</span>
-                    <span class="font-sora font-bold text-xl text-gray-400">声网 Agora</span>
-                    <span class="font-sora font-bold text-xl text-gray-400">Rokid</span>
-                    <span class="font-sora font-bold text-xl text-gray-400">HKT</span>
-                </div>
+            <!-- Logo cloud: two rows scrolling in opposite directions, populated from /logo_cloud at runtime -->
+            <div class="mt-16 space-y-7 reveal" id="logoCloud">
+                <div class="lc-row"><div class="lc-track right" id="lcRow1"></div></div>
+                <div class="lc-row"><div class="lc-track left" id="lcRow2"></div></div>
             </div>
         </div>
     </section>
@@ -1335,7 +1323,7 @@
     <section class="py-32 px-10 bg-white">
         <div class="max-w-7xl mx-auto">
             <div class="text-center mb-16 reveal">
-                <h2 class="text-sm font-bold tracking-widest text-purple-600 mb-4 uppercase">Strength &amp; Recognition</h2>
+                <h2 class="text-sm font-bold tracking-widest text-purple-600 mb-4 uppercase">实力与认可</h2>
                 <h3 class="text-4xl md:text-5xl font-sora font-bold mb-6">硬核实力，行业与权威双重认可</h3>
                 <p class="text-gray-500 max-w-2xl mx-auto">从底层算法到落地交付，持续的自研投入沉淀为专利壁垒与行业声誉，也获得了国家级资质背书。</p>
             </div>
@@ -1451,7 +1439,7 @@
     <section class="py-32 px-10 bg-white">
         <div class="max-w-4xl mx-auto">
             <div class="text-center mb-20 reveal">
-                <h2 class="text-sm font-bold tracking-widest text-purple-600 mb-4 uppercase">FAQ</h2>
+                <h2 class="text-sm font-bold tracking-widest text-purple-600 mb-4 uppercase">常见问答</h2>
                 <h3 class="text-4xl md:text-5xl font-sora font-bold mb-6">常见问题</h3>
             </div>
             <div class="space-y-4 reveal">
@@ -1850,6 +1838,51 @@
                 it.addEventListener('mouseenter', () => open(i));
                 it.addEventListener('click', () => open(i));
             });
+        })();
+
+        // Logo cloud: auto-load every image in /logo_cloud into two opposite-scrolling rows.
+        // Drop a new image into the folder and it shows up on reload — no code changes needed.
+        (function () {
+            const row1 = document.getElementById('lcRow1'), row2 = document.getElementById('lcRow2');
+            if (!row1 || !row2) return;
+            const IMG_RE = /\.(png|jpe?g|webp|svg|gif)$/i;
+            const makeImg = (file) => {
+                const img = document.createElement('img');
+                img.src = 'logo_cloud/' + encodeURIComponent(file);
+                img.alt = file.replace(/\.[^.]+$/, '');
+                img.className = 'lc-logo';
+                img.loading = 'lazy';
+                img.draggable = false;
+                img.onerror = () => img.remove();
+                return img;
+            };
+            const fill = (track, files) => { [...files, ...files].forEach(f => track.appendChild(makeImg(f))); };
+            const render = (files) => {
+                files = [...new Set(files)].filter(n => IMG_RE.test(n));
+                if (!files.length) { const c = document.getElementById('logoCloud'); if (c) c.style.display = 'none'; return; }
+                fill(row1, files);
+                fill(row2, [...files].reverse());
+            };
+            async function load() {
+                // 1) live directory listing (works with `npx serve` & most dev servers) — always reflects the folder
+                try {
+                    const r = await fetch('logo_cloud/', { cache: 'no-store' });
+                    if (r.ok) {
+                        const doc = new DOMParser().parseFromString(await r.text(), 'text/html');
+                        const files = [...doc.querySelectorAll('a')]
+                            .map(a => (a.getAttribute('title') || a.textContent || '').trim())
+                            .filter(n => IMG_RE.test(n));
+                        if (files.length) return render(files);
+                    }
+                } catch (e) {}
+                // 2) manifest.json fallback (for static hosts without directory listing, e.g. production)
+                try {
+                    const r = await fetch('logo_cloud/manifest.json', { cache: 'no-store' });
+                    if (r.ok) { const arr = await r.json(); if (Array.isArray(arr)) return render(arr); }
+                } catch (e) {}
+                render([]);
+            }
+            load();
         })();
 
         // Floating action button

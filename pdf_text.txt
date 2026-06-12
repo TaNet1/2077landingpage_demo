@@ -1,0 +1,469 @@
+ · AI 
+
+
+
+ 
+
+AI  --  Agent
+
+ · 
+
+01
+
+
+  ·  · 
+
+
+  AI · AGENT + 
+
+ AI Agent +  
+
+ AI 
+
+                    
+ Agent    +  +  +    AI 
+   · 
+
+ AI 
+
+ AI 
+
+                2077.AI 
+
+A + B + C + D    · 
+
+Agent SDK       Agent +  +  + 
+                
+""              ""
+                
+
+                 TCO  
+
+                      
+
+
+ · 
+
+
+
+01 · AGENT                            02 ·   03 ·    04 · 
+
+AI AGENT                              CMS    3D      
+
+                                             4       
+                                              IP     
+                                      
+                                              ·  ·    ·  · 
+BRAIN · PLANNING · MEMORY · TOOL USE   · 
+
+ Agent ·  ·  ·   ---- 
+ · 
+
+ · 
+
+
+
+ ·  Sino Group   · 
+
+2077.AI                
+                   ·   
+                       
+                       
+                       
+     
+
+     
+
+                  
+
+                  
+ · 
+
+ · 
+
+
+
+40 +  50 +  40 +
+
+            
+
+      CCTV  
+            
+ · 
+
+01
+
+
+  · CMS ·  ·  · 
+ · 
+
+ · 
+
+ AI 
+
+AI Agent                                ASR          TTS
+
+Agentic Work Flow + RAG    /            /  /         95% /
+ +  Agent                               90%          · AWS · Azure
+                          ""            <2          
+
+                                        ·            WebView
+
+4                         500+  /  /   Audio2Face   
+20+                                    BS            ---- 
+                                                    
+ · CMS 
+
+ · 
+
+
+
+         
+
+          /  / 
+          / 
+    
+
+         WebView 
+
+         
+         
+         API
+
+
+
+
+ AI 
+
+ ·          AI          
+
+            AI   Agent   WebView 
+ 95%                    
+                 
+
+                 CMS    
+
+4          "            
+500+  IP   """          
+                        
+3D  · IP 
+
+ · 
+
+
+
+4  /  / 20+ 500+ 
+ 
+ · 
+
+  · 
+
+
+
+ · 24·450*400*1720(MM)   · 75 · 1040*230*1996(MM)   · 55 OLED· 828*569*1862(MM)
+
+ Nano                    Pro                        Robo
+
+                        75  4K                      OLED +
+                                                   SLAM 
+    AI                                             
+
+ AGENT  CMS 
+ · 
+
+ · 
+
+
+
+  / H5  APP ---- 
+  Agent  CMS 
+
+        /H5  APP   Nano·Pro ·Robo
+
+                                   
+
+ Agent                             
+                                   
+                   CMS             
+ · 
+
+03
+
+
+  ·  · 
+
+
+
+
+
+
+       02        03   04
+
+                     
+
+ AI                  
+"                    
+"      60%-70%       
+
+ 
+
+
+
+""
+
+ 01 ·    02 ·     · 
+
+        "        ""
+""      """      ""
+        
+                 
+                  ---- 
+ 03 ·    04 · 
+                  · 
+         LED ""
+ /  /            
+         ROI 
+                  · 
+
+                 
+ 
+
+3D  ·  · 7×24H 
+
+
+
+                    
+
+        Mapxus   "  
+""               "  """"
+                 
+
+ ·                  
+
+ 95%                 CMS
+                    
+                    
+ ·  MAPXUS
+
+ ·                          7,500 + 3M +
+
+ Mapxus                       
+
+ Mapxus Anywhere  IMDF GIS  SDK 
+
+
+                            
+
+Wi-Fi  +  + AI   IMDF GIS    AI 
+ Wi-Fi           iOS  IoT   
+
+ CMS                         · SDK
+
+ POI                         UI
+                            SDK  Core SDK / API
+ · 
+
+ · 
+
+
+
+     POI 
+
+     
+
+     
+
+     
+
+     
+
+ /   
+
+ /   
+
+     
+ 
+
+CMS  · 
+
+
+
+            
+
+            
+            
+
+ ·          API 
+
+            
+            
+
+01  02  03  04
+
+            
+
+ ----   
+ ·  ·  
+
+ = 
+
+
+
+              
+                  ""
+          ·        
+         
+                  "XX "
+                    + +
+         
+                  ""
+                    · 
+
+  ·  ·  ·   Mapxus  API 
+ · 
+
+ · 
+
+
+
+               01   02      03  
+
+ 2F                             
+
+                                
+
+                                
+
+                    TOP         
+ /  /                           
+ /  /                           
+ /  /  /  /                     
+                    /  /        
+                   
+
+
+ ·  · 2F   · ONE NORTH   ·  · GF   ·  · GF
+            
+
+
+
+
+
+
+       
+
+1Nano  01 
+                     Nano 
+ 3 
+       02 3 
+                    CMS 
+
+       03  + 
+                    
+
+       04 
+                    
+ ·  /  / 
+
+
+
+
+
+                  
+
+ ·                ""
+
+ RAG      RAG     55  OLED + 10  + SLAM
+           +30%   
+ 3~4  /    7-12   
+ <1 
+                   ·  · 
+ ·  ·  ·   ·  · 
+ · 
+
+ ·  · 
+
+
+
+ ·    ·          · 
+
+·    ·          ·
+
+                AI
+     RAG        
+                RAG
+     30% 7-12   
+""
+ · 
+
+04
+
+
+  ·  · 
+
+
+"----"
+
+ ·  · 
+
+01 ·                                                                                                                                                                                                                                                                                     02 ·                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           03 · 
+
+                                                                                                                                                                                                                                                                                          ·                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              · 
+
+ +                                                                                                                                                                                                                                                                                       Agentic AI Work Flow                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
+                                                                                                                                                                                                                                                                                         LLM + RAG + FAQ                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 + 
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+                                                                                                                                                                                                                                                                                          50ms                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          RAG 
+                                                                                                                                                                                                                                                                                           
+95 %                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         500 +
+                                                                                                                                                                                                                                                                                      %  50 ms                                                                                                                                                                                                                                                                                                                 90 %                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                %
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            %                                                                                                                                                                                                                                                                                        %
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+             10 +
+
+             
+
+             
+             AI
+  &    
+  
+
+             
+
+       STEM  
+  
+
+
+
+
+01 ·   02 ·   03 ·   04 · 
+
+                     
+
+                     
+ 24                  
+       
+                · GET IN TOUCH
+
+               MOLLY
+               
+ 
+                                   / PHONE
+
+                           18676387250
+
+                                   / EMAIL
+
+                           Molly@2077.ai
+
+                                   / WECHAT
+
+                           18676387250
+
+                                   / WEBSITE
+
+                           WWW.2077.AI
+
+AI AGENT ·                                    
+

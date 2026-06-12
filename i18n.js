@@ -6,6 +6,10 @@ window.__I18N_DICT = {
     // nav
     '首页': '首頁', '行业痛点': '行業痛點', '产品逻辑': '產品邏輯', '核心优势': '核心優勢',
     '应用场景': '應用場景', '落地案例': '落地案例', '联系商务': '聯絡商務',
+    // eyebrows / kickers
+    '核心能力': '核心能力', '产品矩阵': '產品矩陣', '客户评价': '客戶評價', '实力与认可': '實力與認可', '常见问答': '常見問答',
+    '人力成本': '人力成本', '寻路导航': '尋路導航', '营销转化': '行銷轉化', '高峰承载': '高峰承載', '服务标准': '服務標準', '数据沉淀': '資料沉澱', '多语沟通': '多語溝通',
+    '超写实克隆': '超寫實複製', '情感语音': '情感語音', '意图推理': '意圖推理', '视觉感知': '視覺感知', '知识大脑': '知識大腦', '全渠道发布': '全通路發布',
     // hero
     '给你的商业空间，': '為你的商業空間，', '配一位': '配一位', '7×24 在岗': '7×24 在崗', '的 AI 虚拟员工': '的 AI 虛擬員工',
     '主动开口、智能交互、多语接待。从迎宾、导览到营销转化，一台设备替代多名人工，全年无休为您创造价值。': '主動開口、智慧互動、多語接待。從迎賓、導覽到行銷轉化，一台設備取代多名人力，全年無休為您創造價值。',
@@ -189,6 +193,10 @@ window.__I18N_DICT = {
     // nav
     '首页': 'Home', '行业痛点': 'Pain Points', '产品逻辑': 'Product', '核心优势': 'Why Us',
     '应用场景': 'Scenarios', '落地案例': 'Cases', '联系商务': 'Contact Sales',
+    // eyebrows / kickers (section headings render these uppercase via CSS)
+    '核心能力': 'Core Capabilities', '产品矩阵': 'Product Line', '客户评价': 'Testimonials', '实力与认可': 'Strength & Recognition', '常见问答': 'FAQ',
+    '人力成本': 'Labor Cost', '寻路导航': 'Wayfinding', '营销转化': 'Conversion', '高峰承载': 'Peak Hours', '服务标准': 'Consistency', '数据沉淀': 'Data', '多语沟通': 'Multilingual',
+    '超写实克隆': 'Hyper-Real Cloning', '情感语音': 'Emotional TTS', '意图推理': 'Intent Reasoning', '视觉感知': 'Visual Perception', '知识大脑': 'Knowledge Brain', '全渠道发布': 'Omnichannel',
     // hero
     '给你的商业空间，': 'Give your space', '配一位': 'a ', '7×24 在岗': '24/7 on-duty', '的 AI 虚拟员工': 'AI virtual employee',
     '主动开口、智能交互、多语接待。从迎宾、导览到营销转化，一台设备替代多名人工，全年无休为您创造价值。': 'Proactive speech, smart interaction and multilingual reception. From greeting and wayfinding to marketing conversion, one device replaces several staff and creates value around the clock.',
@@ -351,7 +359,7 @@ window.__I18N_DICT = {
     '您的姓名': 'Your name', '联系电话': 'Phone', '公司名称': 'Company', '咨询需求': 'Your needs', '立即提交申请': 'Submit request',
     '点击提交即代表您同意我们的《隐私协议》与《服务条款》': 'By submitting you agree to our Privacy Policy and Terms of Service.',
     // faq
-    '常见问题': 'FAQ', 'AvatarX 支持私有化部署吗？': 'Does AvatarX support on-premise deployment?',
+    '常见问题': 'Frequently asked questions', 'AvatarX 支持私有化部署吗？': 'Does AvatarX support on-premise deployment?',
     '当然支持。企业级方案提供完整的本地化部署能力，数据不出域，满足金融、政务等对合规性要求极高的行业场景。': 'Absolutely. The enterprise plan offers full on-premise deployment with data kept in-domain, meeting the strict compliance needs of finance, government and similar sectors.',
     '定制一个数字人需要多长时间？': 'How long does it take to build a digital human?',
     '标准形象库选择可即时开通；真人形象克隆通常需要 3-5 个工作日完成建模与声音训练；深度业务定制方案根据知识库规模约为 2-4 周。': 'Standard library avatars are available instantly; cloning a real person typically takes 3–5 business days for modeling and voice training; deep custom solutions take about 2–4 weeks depending on knowledge-base size.',

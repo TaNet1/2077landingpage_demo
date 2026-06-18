@@ -23,6 +23,22 @@
 
 ## 交接记录（倒序，最新在上）
 
+### 2026-06-18 · Codex：Parallax.js 尝试已撤回，交给 Claude 继续
+
+用户提出希望应用 Parallax.js 时差效果。Codex 曾短暂尝试在首屏 `#heroVisual` 上接入 `parallax.min.js`，把背景、遮罩和光晕拆成 `data-depth` 图层；随后用户要求撤回并交给 Claude 做。
+
+当前状态：
+
+- `index.html` 已撤回 Parallax.js CDN、`#heroParallaxScene` DOM、相关 CSS 和初始化脚本。
+- 首页首屏恢复为原来的静态 `StartRoom_Post.0180.png` 背景 + CSS 遮罩。
+- 产品矩阵没有再改动。
+
+给 Claude 的建议：
+
+- 如果继续做 Parallax.js，建议先和用户确认作用范围：首屏背景、导航浮窗、卡片/装饰层，还是全页面滚动视差。
+- 不要改现有“产品矩阵”结构；用户已明确说没让改这里。
+- 可优先只给首屏背景和装饰层加 Parallax.js，并保留 `prefers-reduced-motion` fallback。
+
 ### 2026-06-18 · Codex：撤回首页产品矩阵重构
 
 根据用户反馈，“产品矩阵”区块不是本轮要改的范围，已撤回上一轮对首页 `#products` 的结构性重构：

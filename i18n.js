@@ -209,7 +209,6 @@ window.__I18N_DICT = {
     '商务直线（Molly）': '商務專線（Molly）', '邮件咨询': '郵件諮詢', '总部地址': '總部地址', '深圳前海深港青年梦工场北区 C 栋 202': '深圳前海深港青年夢工場北區 C 棟 202',
     '您的姓名': '您的姓名', '联系电话': '聯絡電話', '邮箱地址': '電郵地址', '公司名称': '公司名稱', '咨询需求': '諮詢需求', '立即提交申请': '立即提交申請',
     '请输入您的称呼': '請輸入您的稱呼', '请输入手机号码': '請輸入手機號碼', '请输入邮箱地址': '請輸入電郵地址', '您的企业或组织名称': '您的企業或組織名稱', '请简述您的应用场景或定制需求...': '請簡述您的應用場景或客製需求...',
-    '点击提交即代表您同意我们的《隐私协议》与《服务条款》': '點擊提交即代表您同意我們的《隱私協議》與《服務條款》',
     // faq
     '常见问题': '常見問題', 'AvatarX 支持私有化部署吗？': 'AvatarX 支援私有化部署嗎？',
     '当然支持。企业级方案提供完整的本地化部署能力，数据不出域，满足金融、政务等对合规性要求极高的行业场景。': '當然支援。企業級方案提供完整的在地化部署能力，資料不出域，滿足金融、政務等對合規性要求極高的行業場景。',
@@ -437,7 +436,6 @@ window.__I18N_DICT = {
     '商务直线（Molly）': 'Business line (Molly)', '邮件咨询': 'Email', '总部地址': 'Headquarters', '深圳前海深港青年梦工场北区 C 栋 202': 'Rm 202, Bldg C North, Qianhai Youth Hub, Shenzhen',
     '您的姓名': 'Your name', '联系电话': 'Phone', '邮箱地址': 'Email address', '公司名称': 'Company', '咨询需求': 'Your needs', '立即提交申请': 'Submit request',
     '请输入您的称呼': 'Enter your name', '请输入手机号码': 'Enter your phone number', '请输入邮箱地址': 'Enter your email address', '您的企业或组织名称': 'Your company or organization', '请简述您的应用场景或定制需求...': 'Briefly describe your scenario or customization needs...',
-    '点击提交即代表您同意我们的《隐私协议》与《服务条款》': 'By submitting you agree to our Privacy Policy and Terms of Service.',
     // faq
     '常见问题': 'Frequently asked questions', 'AvatarX 支持私有化部署吗？': 'Does AvatarX support on-premise deployment?',
     '当然支持。企业级方案提供完整的本地化部署能力，数据不出域，满足金融、政务等对合规性要求极高的行业场景。': 'Absolutely. The enterprise plan offers full on-premise deployment with data kept in-domain, meeting the strict compliance needs of finance, government and similar sectors.',
@@ -858,7 +856,15 @@ Object.assign(window.__I18N_DICT['zh-TW'], {
   "查看 CMS": "查看 CMS",
   "硬件：幻真 Nano / Pro / Robo": "硬體：幻真 Nano / Pro / Robo",
   "软件：幻真": "軟體：幻真",
-  "软件：幻真CMS": "軟體：幻真CMS"
+  "软件：幻真CMS": "軟體：幻真CMS",
+  "软件先行，": "軟體先行，",
+  "硬件落地。": "硬體落地。",
+  "先用幻真软件和 CMS 管理好 AI 虚拟员工能力，再把它部署到 Nano、Pro、Robo 等终端，形成线上线下一致的服务体验。": "先用幻真軟體和 CMS 管理好 AI 虛擬員工能力，再把它部署到 Nano、Pro、Robo 等終端，形成線上線下一致的服務體驗。",
+  "AI 虚拟员工软件本体，承接主动迎宾、精准问答、智能导览、内容讲解和营销转化。它把 Agent、数字人、语音交互和业务流程封装成一套可复用能力。": "AI 虛擬員工軟體本體，承接主動迎賓、精準問答、智慧導覽、內容講解和行銷轉化。它把 Agent、數位人、語音互動和業務流程封裝成一套可複用能力。",
+  "统一配置知识库、话术策略、导览路线、营销内容、设备状态和服务数据。运营人员可以把内容一次维护，持续发布到不同终端。": "統一配置知識庫、話術策略、導覽路線、行銷內容、設備狀態和服務資料。營運人員可以把內容一次維護，持續發布到不同終端。",
+  "根据空间尺度和互动半径选择终端：Nano 适合轻量试点，Pro 适合旗舰大堂，Robo 适合移动讲解。三款硬件共享同一套幻真软件与 CMS。": "根據空間尺度和互動半徑選擇終端：Nano 適合輕量試點，Pro 適合旗艦大堂，Robo 適合移動講解。三款硬體共用同一套幻真軟體與 CMS。",
+  "查看硬件": "查看硬體",
+  "75 寸 4K 大屏": "75 吋 4K 大螢幕"
 });
 
 Object.assign(window.__I18N_DICT.en, {
@@ -894,5 +900,13 @@ Object.assign(window.__I18N_DICT.en, {
   "查看 CMS": "View CMS",
   "硬件：幻真 Nano / Pro / Robo": "Hardware: Huanzhen Nano / Pro / Robo",
   "软件：幻真": "Software: Huanzhen",
-  "软件：幻真CMS": "Software: HuanzhenCMS"
+  "软件：幻真CMS": "Software: HuanzhenCMS",
+  "软件先行，": "Software first,",
+  "硬件落地。": "hardware on site.",
+  "先用幻真软件和 CMS 管理好 AI 虚拟员工能力，再把它部署到 Nano、Pro、Robo 等终端，形成线上线下一致的服务体验。": "Manage AI virtual employee capabilities through Huanzhen software and CMS first, then deploy them to Nano, Pro and Robo terminals for a consistent online-offline service experience.",
+  "AI 虚拟员工软件本体，承接主动迎宾、精准问答、智能导览、内容讲解和营销转化。它把 Agent、数字人、语音交互和业务流程封装成一套可复用能力。": "The AI virtual employee software core, handling proactive greeting, precise Q&A, smart guidance, content narration and marketing conversion. It packages Agent, digital human, voice interaction and business workflows into reusable capabilities.",
+  "统一配置知识库、话术策略、导览路线、营销内容、设备状态和服务数据。运营人员可以把内容一次维护，持续发布到不同终端。": "Centrally configure knowledge bases, scripts, guide routes, marketing content, device status and service data. Operators maintain content once and keep publishing it to different terminals.",
+  "根据空间尺度和互动半径选择终端：Nano 适合轻量试点，Pro 适合旗舰大堂，Robo 适合移动讲解。三款硬件共享同一套幻真软件与 CMS。": "Choose terminals by space size and interaction range: Nano for lightweight pilots, Pro for flagship lobbies, and Robo for mobile narration. All three hardware products share the same Huanzhen software and CMS.",
+  "查看硬件": "View hardware",
+  "75 寸 4K 大屏": "75-inch 4K screen"
 });

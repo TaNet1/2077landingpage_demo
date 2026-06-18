@@ -90,17 +90,215 @@
         .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1); }
         .reveal.active { opacity: 1; transform: translateY(0); }
 
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            width: 0; height: 2px;
-            bottom: -4px; left: 0;
-            background: linear-gradient(90deg, var(--brand-primary), var(--brand-secondary));
-            transition: width 0.3s ease;
+        .site-nav-shell {
+            position: relative;
+            min-height: 68px;
+            border-radius: 9999px;
+            background: rgba(8, 13, 20, 0.58);
+            backdrop-filter: blur(22px) saturate(1.12);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            box-shadow: 0 22px 70px -38px rgba(0, 0, 0, 0.82), inset 0 1px 0 rgba(255,255,255,.08);
+            transition: background .22s ease, box-shadow .22s ease, border-color .22s ease;
         }
-        .nav-link:hover::after { width: 100%; }
+        #navbar {
+            padding-left: 36px !important;
+            padding-right: 26px !important;
+        }
+        .site-nav-shell.nav-scrolled {
+            background: rgba(255, 255, 255, 0.94);
+            border-color: rgba(15, 23, 42, 0.11);
+            box-shadow: 0 18px 54px -28px rgba(15, 23, 42, 0.38);
+        }
+        .nav-logo-mark { position: relative; display: block; width: 190px; height: 27px; }
+        .nav-logo-img { position: absolute; inset: 0; width: 100%; height: 100%; transition: opacity .22s ease; }
+        .nav-logo-light { opacity: 1; }
+        .nav-logo-dark { opacity: 0; }
+        .site-nav-shell.nav-scrolled .nav-logo-light { opacity: 0; }
+        .site-nav-shell.nav-scrolled .nav-logo-dark { opacity: 1; }
+        .nav-menu { display: flex; align-items: center; gap: 4px; }
+        .nav-group { position: relative; }
+        .nav-top {
+            display: inline-flex; align-items: center; gap: 6px; height: 42px;
+            padding: 0 12px; border-radius: 12px;
+            font-size: 14px; font-weight: 760; color: rgba(255,255,255,.86);
+            transition: background .18s ease, color .18s ease, box-shadow .18s ease;
+            white-space: nowrap;
+        }
+        .nav-top:hover, .nav-group:hover .nav-top {
+            color: #fff; background: rgba(255,255,255,.13); box-shadow: inset 0 0 0 1px rgba(255,255,255,.08);
+        }
+        .site-nav-shell.nav-scrolled .nav-top { color: #475569; }
+        .site-nav-shell.nav-scrolled .nav-top:hover,
+        .site-nav-shell.nav-scrolled .nav-group:hover .nav-top {
+            color: #0f172a; background: #f6f4fb; box-shadow: inset 0 0 0 1px rgba(15, 23, 42, 0.04);
+        }
+        .nav-icon-btn {
+            color: rgba(255,255,255,.9);
+            background: rgba(255,255,255,.08);
+            border: 1px solid rgba(255,255,255,.24);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,.08);
+        }
+        .nav-icon-btn:hover {
+            color: #fff; background: rgba(255,255,255,.15); border-color: rgba(255,255,255,.38);
+            transform: translateY(-1px);
+        }
+        .site-nav-shell.nav-scrolled .nav-icon-btn {
+            color: #334155; background: #fff; border-color: #e2e8f0; box-shadow: 0 8px 20px -18px rgba(15,23,42,.45);
+        }
+        .site-nav-shell.nav-scrolled .nav-icon-btn:hover { color: #0f172a; border-color: #cbd5e1; }
+        .nav-contact-btn {
+            min-height: 44px;
+            box-shadow: 0 16px 34px -16px rgba(236, 0, 250, .72), inset 0 1px 0 rgba(255,255,255,.22);
+        }
+        .nav-contact-btn:hover { box-shadow: 0 18px 42px -15px rgba(236, 0, 250, .9); transform: translateY(-1px); }
+        .nav-caret { opacity: .55; transition: transform .18s ease; }
+        .nav-group:hover .nav-caret { transform: rotate(180deg); }
+        /* mobile menu (below lg) */
+        .nav-mobile {
+            position: fixed; top: 82px; left: 16px; right: 16px; z-index: 49;
+            background: #fff; border: 1px solid #eef0f4; border-radius: 24px;
+            box-shadow: 0 30px 60px -24px rgba(80, 30, 120, .32); padding: 12px;
+            display: flex; flex-direction: column; gap: 4px;
+            opacity: 0; transform: translateY(-12px); pointer-events: none; transition: opacity .26s ease, transform .26s ease;
+        }
+        .nav-mobile.open { opacity: 1; transform: none; pointer-events: auto; }
+        .nav-mobile a { padding: 13px 16px; border-radius: 14px; font-weight: 600; color: #334155; font-size: 15px; transition: background .2s, color .2s; }
+        .nav-mobile a:hover { background: #f6f4fb; color: #000; }
+        .nav-mobile .nav-mobile-cta { margin-top: 6px; text-align: center; color: #fff; background: linear-gradient(135deg, var(--brand-primary), var(--brand-secondary)); }
+        .mega-menu {
+            position: absolute; top: calc(100% + 14px); left: 50%;
+            min-width: 620px; padding: 10px; border-radius: 14px;
+            background: rgba(255, 255, 255, 0.96);
+            border: 1px solid rgba(15, 23, 42, 0.08);
+            box-shadow: 0 24px 70px -30px rgba(15, 23, 42, 0.45), 0 10px 24px -18px rgba(146, 85, 254, 0.4);
+            opacity: 0; visibility: hidden; transform: translate(-50%, 8px) scale(.98);
+            transition: opacity .18s ease, transform .18s ease, visibility .18s ease;
+            pointer-events: none;
+        }
+        .mega-menu::before {
+            content: ''; position: absolute; left: 0; right: 0; top: -16px; height: 16px;
+        }
+        .nav-group:hover .mega-menu { opacity: 1; visibility: visible; transform: translate(-50%, 0) scale(1); pointer-events: auto; }
+        .mega-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; }
+        .mega-grid.one { grid-template-columns: 1fr; }
+        .mega-split { display: grid; grid-template-columns: 300px 1fr; gap: 12px; }
+        .mega-list { display: flex; flex-direction: column; gap: 4px; }
+        .mega-link {
+            display: grid; grid-template-columns: 38px 1fr; gap: 11px; align-items: start;
+            padding: 11px; border-radius: 8px; color: #0f172a;
+            transition: background .18s ease, transform .18s ease, box-shadow .18s ease;
+        }
+        .mega-link:hover { background: #f5f3fb; transform: translateY(-1px); box-shadow: inset 0 0 0 1px rgba(15,23,42,.04); }
+        .mega-icon {
+            width: 38px; height: 38px; border-radius: 8px; display: grid; place-items: center;
+            color: var(--brand-primary); background: linear-gradient(135deg, rgba(146, 85, 254, .12), rgba(236, 0, 250, .08));
+        }
+        .mega-link h5 { font-size: 14px; font-weight: 750; line-height: 1.2; margin-bottom: 4px; }
+        .mega-link p { font-size: 12px; line-height: 1.45; color: #64748b; }
+        .mega-preview {
+            position: relative; min-height: 236px; border-radius: 8px; overflow: hidden;
+            background: #0f1117; border: 1px solid rgba(15,23,42,.08);
+        }
+        .mega-preview-card {
+            position: absolute; inset: 0; display: none; padding: 18px;
+            color: #fff; background:
+                linear-gradient(180deg, rgba(15,17,23,.18), rgba(15,17,23,.86)),
+                radial-gradient(circle at 70% 20%, rgba(146,85,254,.38), transparent 34%),
+                #0f1117;
+        }
+        .mega-preview-card.active { display: flex; }
+        .mega-preview-visual {
+            position: absolute; inset: 0; opacity: .54; background-size: cover; background-position: center right;
+            filter: saturate(.9) contrast(1.02);
+        }
+        .mega-preview-copy { position: relative; z-index: 1; margin-top: auto; max-width: 300px; }
+        .mega-preview-copy h4 { font-size: 17px; font-weight: 800; margin-bottom: 7px; }
+        .mega-preview-copy p { color: rgba(255,255,255,.68); font-size: 12px; line-height: 1.55; }
+        .mega-preview-copy span {
+            display: inline-flex; margin-top: 12px; font-size: 11px; font-weight: 750;
+            color: #0f172a; background: #f4ffb7; padding: 7px 10px; border-radius: 999px;
+        }
+        .mega-split:has(.mega-option:hover) .mega-preview-card.active { display: none; }
+        .mega-split:has(.mega-option[data-preview="nano"]:hover) .preview-nano,
+        .mega-split:has(.mega-option[data-preview="pro"]:hover) .preview-pro,
+        .mega-split:has(.mega-option[data-preview="robo"]:hover) .preview-robo,
+        .mega-split:has(.mega-option[data-preview="mall"]:hover) .preview-mall,
+        .mega-split:has(.mega-option[data-preview="gov"]:hover) .preview-gov,
+        .mega-split:has(.mega-option[data-preview="tourism"]:hover) .preview-tourism,
+        .mega-split:has(.mega-option[data-preview="exhibit"]:hover) .preview-exhibit,
+        .mega-split:has(.mega-option[data-preview="hotel"]:hover) .preview-hotel,
+        .mega-split:has(.mega-option[data-preview="finance"]:hover) .preview-finance,
+        .mega-split:has(.mega-option[data-preview="sino"]:hover) .preview-sino,
+        .mega-split:has(.mega-option[data-preview="case-tourism"]:hover) .preview-case-tourism,
+        .mega-split:has(.mega-option[data-preview="about"]:hover) .preview-about,
+        .mega-split:has(.mega-option[data-preview="news"]:hover) .preview-news,
+        .mega-split:has(.mega-option[data-preview="contact"]:hover) .preview-contact { display: flex; }
+        .mega-note {
+            margin: 8px 2px 2px; padding: 10px 12px; border-radius: 13px;
+            background: #0f172a; color: rgba(255,255,255,.72); font-size: 12px; line-height: 1.5;
+        }
+        .mega-note b { color: #fff; }
 
         .magnetic-btn { display: inline-block; transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1); }
+
+        /* ---------- PIO-style video hero ---------- */
+        .hero-pio {
+            min-height: 100vh; padding: 0 40px; display: flex; align-items: flex-end;
+            background: #071016; color: #fff;
+        }
+        .hero-media {
+            position: absolute; inset: 0; z-index: 0; overflow: hidden;
+            background: #071016 url('StartRoom_Post.0180.png') 72% 12% / cover no-repeat;
+        }
+        .hero-media video, .hero-media img {
+            width: 100%; height: 100%; object-fit: cover; object-position: 72% 12%;
+            opacity: .92; filter: saturate(.88) contrast(1.04);
+        }
+        .hero-media::after {
+            content: ''; position: absolute; inset: 0;
+            background:
+                linear-gradient(90deg, rgba(5,10,15,.82) 0%, rgba(5,10,15,.48) 34%, rgba(5,10,15,.16) 68%, rgba(5,10,15,.42) 100%),
+                linear-gradient(0deg, rgba(5,10,15,.34), transparent 42%);
+        }
+        .hero-pio-wrap { position: relative; z-index: 1; width: 100%; max-width: none; margin: 0; padding-bottom: 104px; }
+        .hero-content { max-width: 760px; }
+        .hero-title-xl {
+            font-size: clamp(42px, 5.2vw, 78px); line-height: 1.08;
+            font-weight: 780; letter-spacing: 0; color: #fff;
+        }
+        .hero-title-xl .line { display: block; }
+        .hero-lead {
+            margin-top: 34px; max-width: 430px; color: rgba(255,255,255,.86);
+            font-size: 23px; font-weight: 650; line-height: 1.18;
+        }
+        .hero-actions { margin-top: 56px; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+        .hero-primary {
+            display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+            min-height: 58px; padding: 0 28px; border-radius: 4px;
+            color: #fff; background: linear-gradient(135deg, var(--brand-primary), var(--brand-secondary));
+            font-weight: 800; letter-spacing: .02em;
+            box-shadow: 0 18px 38px -18px rgba(236, 0, 250, .8), inset 0 1px 0 rgba(255,255,255,.22);
+            transition: transform .2s ease, box-shadow .2s ease;
+        }
+        .hero-primary:hover { transform: translateY(-2px); box-shadow: 0 22px 48px -18px rgba(236, 0, 250, .95), inset 0 1px 0 rgba(255,255,255,.26); }
+        .hero-scroll-cue {
+            position: absolute; right: 28px; bottom: 24px; z-index: 2;
+            width: 44px; height: 44px; border-radius: 999px;
+            display: grid; place-items: center; color: rgba(255,255,255,.72);
+            background: rgba(255,255,255,.14); backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,.12);
+        }
+        @media (max-width: 1100px) {
+            .mega-menu { min-width: 560px; }
+        }
+        @media (max-width: 760px) {
+            #navbar { padding-left: 22px !important; padding-right: 22px !important; }
+            .hero-pio { padding: 0 22px; }
+            .hero-pio-wrap { padding-bottom: 72px; }
+            .hero-title-xl { font-size: 42px; line-height: 1.12; }
+            .hero-lead { font-size: 20px; max-width: 320px; }
+            .hero-actions { margin-top: 40px; }
+        }
 
         @keyframes float { 0% { transform: translateY(0); } 50% { transform: translateY(-20px); } 100% { transform: translateY(0); } }
         .floating { animation: float 6s ease-in-out infinite; }
@@ -510,24 +708,149 @@
     <div id="mouseGlow" class="mouse-glow"></div>
 
     <!-- Navbar -->
-    <nav class="fixed top-0 w-full z-50 transition-all duration-300 px-10 py-6" id="navbar">
-        <div class="max-w-7xl mx-auto flex justify-between items-center gap-4 bg-white/40 backdrop-blur-md px-7 py-4 rounded-full border border-gray-100/50 shadow-sm">
-            <a href="#hero" class="flex items-center shrink-0">
-                <img src="assets/logo.png" alt="2077.AI" class="h-6 w-auto">
+    <nav class="fixed top-0 w-full z-50 transition-all duration-300 px-4 md:px-6 py-4" id="navbar">
+        <div class="site-nav-shell w-full max-w-none mx-0 flex justify-between items-center gap-5 px-7 py-3 rounded-full">
+            <a href="index.html" class="flex items-center shrink-0">
+                <span class="nav-logo-mark" aria-label="2077.AI">
+                    <img src="assets/logo.svg" alt="" class="nav-logo-img nav-logo-light">
+                    <img src="assets/logo-dark.svg" alt="" class="nav-logo-img nav-logo-dark">
+                </span>
             </a>
 
-            <div class="hidden md:flex items-center gap-4 lg:gap-5">
-                <a href="#hero" class="nav-link relative text-sm font-medium text-gray-700 hover:text-black transition-colors whitespace-nowrap">首页</a>
-                <a href="#pain" class="nav-link relative text-sm font-medium text-gray-700 hover:text-black transition-colors whitespace-nowrap">行业痛点</a>
-                <a href="#logic" class="nav-link relative text-sm font-medium text-gray-700 hover:text-black transition-colors whitespace-nowrap">产品逻辑</a>
-                <a href="#moat" class="nav-link relative text-sm font-medium text-gray-700 hover:text-black transition-colors whitespace-nowrap">核心优势</a>
-                <a href="#scenarios" class="nav-link relative text-sm font-medium text-gray-700 hover:text-black transition-colors whitespace-nowrap">应用场景</a>
-                <a href="#cases" class="nav-link relative text-sm font-medium text-gray-700 hover:text-black transition-colors whitespace-nowrap">落地案例</a>
+            <div class="hidden lg:flex nav-menu">
+                <a href="index.html" class="nav-top">首页</a>
+
+                <div class="nav-group">
+                    <a href="products.html" class="nav-top">产品矩阵 <i data-lucide="chevron-down" class="w-3.5 h-3.5 nav-caret"></i></a>
+                    <div class="mega-menu">
+                        <div class="mega-split">
+                            <div class="mega-list">
+                            <a href="products.html#nano" class="mega-link mega-option" data-preview="nano">
+                                <span class="mega-icon"><i data-lucide="tablet-smartphone" class="w-5 h-5"></i></span>
+                                <span><h5>幻真 Nano</h5><p>24 寸一体机，小空间快速部署的 AI 接待入口。</p></span>
+                            </a>
+                            <a href="products.html#pro" class="mega-link mega-option" data-preview="pro">
+                                <span class="mega-icon"><i data-lucide="monitor" class="w-5 h-5"></i></span>
+                                <span><h5>幻真 Pro</h5><p>75 寸 4K 大屏，面向大堂、展厅和旗舰点位。</p></span>
+                            </a>
+                            <a href="products.html#robo" class="mega-link mega-option" data-preview="robo">
+                                <span class="mega-icon"><i data-lucide="bot" class="w-5 h-5"></i></span>
+                                <span><h5>幻真 Robo</h5><p>透明 OLED 移动机器人，主动巡游讲解与迎宾。</p></span>
+                            </a>
+                            </div>
+                            <div class="mega-preview">
+                                <div class="mega-preview-card active preview-nano">
+                                    <div class="mega-preview-visual" style="background-image:url('StartRoom_Post.0180.png')"></div>
+                                    <div class="mega-preview-copy"><h4>轻量试点入口</h4><p>适合服务台、楼层入口和咨询点位，快速上线 AI 接待、问答和导览。</p><span>查看 Nano</span></div>
+                                </div>
+                                <div class="mega-preview-card preview-pro">
+                                    <div class="mega-preview-visual" style="background-image:url('TakePhotos.0772.png')"></div>
+                                    <div class="mega-preview-copy"><h4>旗舰视觉中心</h4><p>75 寸 4K 大屏承接大堂迎宾、展厅讲解和品牌内容展示。</p><span>查看 Pro</span></div>
+                                </div>
+                                <div class="mega-preview-card preview-robo">
+                                    <div class="mega-preview-visual" style="background-image:url('TakePhotos_panda.0080.png')"></div>
+                                    <div class="mega-preview-copy"><h4>移动讲解员</h4><p>透明 OLED + 自主巡航，适合展馆、景区和大型活动的主动服务。</p><span>查看 Robo</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="nav-group">
+                    <a href="solutions.html" class="nav-top">解决方案 <i data-lucide="chevron-down" class="w-3.5 h-3.5 nav-caret"></i></a>
+                    <div class="mega-menu" style="min-width: 720px;">
+                        <div class="mega-split">
+                            <div class="mega-list">
+                            <a href="solutions.html#mall" class="mega-link mega-option" data-preview="mall">
+                                <span class="mega-icon"><i data-lucide="building-2" class="w-5 h-5"></i></span>
+                                <span><h5>商业综合体</h5><p>迎宾、导购、找店、活动推荐与会员转化。</p></span>
+                            </a>
+                            <a href="solutions.html#gov" class="mega-link mega-option" data-preview="gov">
+                                <span class="mega-icon"><i data-lucide="landmark" class="w-5 h-5"></i></span>
+                                <span><h5>政务公共服务</h5><p>办事咨询、材料核验、窗口分流与数据合规。</p></span>
+                            </a>
+                            <a href="solutions.html#tourism" class="mega-link mega-option" data-preview="tourism">
+                                <span class="mega-icon"><i data-lucide="map" class="w-5 h-5"></i></span>
+                                <span><h5>文旅景区</h5><p>金牌导游、路线规划、文化讲解与游客互动。</p></span>
+                            </a>
+                            <a href="solutions.html#exhibit" class="mega-link mega-option" data-preview="exhibit">
+                                <span class="mega-icon"><i data-lucide="presentation" class="w-5 h-5"></i></span>
+                                <span><h5>展厅导览</h5><p>移动讲解员、多媒体联动和高频问题承接。</p></span>
+                            </a>
+                            <a href="solutions.html#hotel" class="mega-link mega-option" data-preview="hotel">
+                                <span class="mega-icon"><i data-lucide="plane" class="w-5 h-5"></i></span>
+                                <span><h5>酒店机场</h5><p>多语接待、航班/入住咨询与夜间服务补位。</p></span>
+                            </a>
+                            <a href="solutions.html#finance" class="mega-link mega-option" data-preview="finance">
+                                <span class="mega-icon"><i data-lucide="badge-dollar-sign" class="w-5 h-5"></i></span>
+                                <span><h5>银行金融</h5><p>VIP 接待、业务预审、知识库问答与合规部署。</p></span>
+                            </a>
+                            </div>
+                            <div class="mega-preview">
+                                <div class="mega-preview-card active preview-mall"><div class="mega-preview-visual" style="background-image:url('TakePhotos.0036.png')"></div><div class="mega-preview-copy"><h4>商业综合体优先场景</h4><p>从“找店问路”到活动推荐和会员转化，把商场前台变成可运营触点。</p><span>查看方案</span></div></div>
+                                <div class="mega-preview-card preview-gov"><div class="mega-preview-visual" style="background-image:url('20240923-181914.png')"></div><div class="mega-preview-copy"><h4>政务高频咨询分流</h4><p>私有化知识库、窗口分流、材料指引，降低人工重复答疑压力。</p><span>查看方案</span></div></div>
+                                <div class="mega-preview-card preview-tourism"><div class="mega-preview-visual" style="background-image:url('TakePhotos_panda.0080.png')"></div><div class="mega-preview-copy"><h4>主题化金牌导游</h4><p>景区 IP 形象承接路线、讲解、票务和周边推荐。</p><span>查看方案</span></div></div>
+                                <div class="mega-preview-card preview-exhibit"><div class="mega-preview-visual" style="background-image:url('TakePhotos_Boy.0770.png')"></div><div class="mega-preview-copy"><h4>展厅移动讲解</h4><p>多媒体联动、定点讲解和高频问答，让展厅服务标准化。</p><span>查看方案</span></div></div>
+                                <div class="mega-preview-card preview-hotel"><div class="mega-preview-visual" style="background-image:url('StartRoom_Post.0210.png')"></div><div class="mega-preview-copy"><h4>多语接待补位</h4><p>机场、酒店和会展空间的国际客群咨询与夜间服务。</p><span>查看方案</span></div></div>
+                                <div class="mega-preview-card preview-finance"><div class="mega-preview-visual" style="background-image:url('StartRoom_Post.0180.png')"></div><div class="mega-preview-copy"><h4>金融合规接待</h4><p>VIP 接待、业务预审、知识问答和本地化安全部署。</p><span>查看方案</span></div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="nav-group">
+                    <a href="cases.html" class="nav-top">落地案例 <i data-lucide="chevron-down" class="w-3.5 h-3.5 nav-caret"></i></a>
+                    <div class="mega-menu">
+                        <div class="mega-split">
+                            <div class="mega-list">
+                            <a href="cases.html#sino" class="mega-link mega-option" data-preview="sino">
+                                <span class="mega-icon"><i data-lucide="sparkles" class="w-5 h-5"></i></span>
+                                <span><h5>信和集团 · 中港城</h5><p>商业空间数字内容与 AI 接待统一入口。</p></span>
+                            </a>
+                            <a href="cases.html#tourism" class="mega-link mega-option" data-preview="case-tourism">
+                                <span class="mega-icon"><i data-lucide="landmark" class="w-5 h-5"></i></span>
+                                <span><h5>文旅与公共服务</h5><p>景区、消防教育基地、博物馆等多场景复制。</p></span>
+                            </a>
+                            </div>
+                            <div class="mega-preview">
+                                <div class="mega-preview-card active preview-sino"><div class="mega-preview-visual" style="background-image:url('TakePhotos.0036.png')"></div><div class="mega-preview-copy"><h4>旗舰商业案例</h4><p>用 AI 虚拟员工统一商场服务、活动和导览入口。</p><span>查看案例</span></div></div>
+                                <div class="mega-preview-card preview-case-tourism"><div class="mega-preview-visual" style="background-image:url('TakePhotos_panda.0080.png')"></div><div class="mega-preview-copy"><h4>多场景复制</h4><p>文旅、教育基地、展厅和公共服务的标准化落地。</p><span>查看案例</span></div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="nav-group">
+                    <a href="about.html" class="nav-top">关于我们 <i data-lucide="chevron-down" class="w-3.5 h-3.5 nav-caret"></i></a>
+                    <div class="mega-menu">
+                        <div class="mega-split">
+                            <div class="mega-list">
+                            <a href="about.html" class="mega-link mega-option" data-preview="about">
+                                <span class="mega-icon"><i data-lucide="info" class="w-5 h-5"></i></span>
+                                <span><h5>公司介绍</h5><p>新浪爱问前身背景，全栈自研 AI 虚拟员工团队。</p></span>
+                            </a>
+                            <a href="news.html" class="mega-link mega-option" data-preview="news">
+                                <span class="mega-icon"><i data-lucide="newspaper" class="w-5 h-5"></i></span>
+                                <span><h5>新闻动态</h5><p>品牌报道、产品更新、行业活动与公司里程碑。</p></span>
+                            </a>
+                            <a href="index.html#contact" class="mega-link mega-option" data-preview="contact">
+                                <span class="mega-icon"><i data-lucide="phone" class="w-5 h-5"></i></span>
+                                <span><h5>联系我们</h5><p>预约演示、商务合作和试点场景沟通。</p></span>
+                            </a>
+                            </div>
+                            <div class="mega-preview">
+                                <div class="mega-preview-card active preview-about"><div class="mega-preview-visual" style="background-image:url('StartRoom_Post.0180.png')"></div><div class="mega-preview-copy"><h4>新浪爱问背景</h4><p>从知识问答到 AI Agent，把内容理解能力带入线下服务场景。</p><span>了解我们</span></div></div>
+                                <div class="mega-preview-card preview-news"><div class="mega-preview-visual" style="background-image:url('TakePhotos_Boy.0100.png')"></div><div class="mega-preview-copy"><h4>产品与公司动态</h4><p>媒体报道、产品发布、展会活动和客户上线新闻。</p><span>查看动态</span></div></div>
+                                <div class="mega-preview-card preview-contact"><div class="mega-preview-visual" style="background-image:url('TakePhotos.0772.png')"></div><div class="mega-preview-copy"><h4>预约一次场景沟通</h4><p>告诉我们你的空间、客流和业务目标，评估适合的终端组合。</p><span>联系商务</span></div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div class="flex items-center gap-3">
                 <div class="relative" id="langSwitch">
-                    <button class="w-10 h-10 flex items-center justify-center text-gray-600 hover:text-black rounded-full border border-gray-200 hover:border-gray-300 transition-all" id="langBtn" aria-haspopup="true" aria-label="切换语言 / Language">
+                    <button class="nav-icon-btn w-11 h-11 flex items-center justify-center rounded-full transition-all" id="langBtn" aria-haspopup="true" aria-label="切换语言 / Language">
                         <i data-lucide="globe" class="w-[18px] h-[18px]"></i>
                     </button>
                     <div class="lang-menu absolute right-0 mt-2 w-36 bg-white rounded-2xl shadow-xl border border-gray-100 p-1.5 hidden" id="langMenu">
@@ -536,74 +859,50 @@
                         <button class="lang-opt" data-lang="en">English</button>
                     </div>
                 </div>
-                <a href="#contact" data-i18n-btn class="magnetic-btn gradient-bg text-white px-6 py-2.5 rounded-full text-sm font-semibold shadow-lg shadow-purple-200 hover:shadow-purple-400 transition-all whitespace-nowrap">
+                <a href="#contact" data-i18n-btn class="nav-contact-btn magnetic-btn gradient-bg text-white px-7 py-3 rounded-full text-sm font-semibold transition-all whitespace-nowrap hidden lg:inline-flex items-center">
                     联系商务
                 </a>
+                <button class="nav-icon-btn w-11 h-11 lg:hidden flex items-center justify-center rounded-full transition-all" id="navHamburger" aria-label="菜单 / Menu">
+                    <i data-lucide="menu" class="w-5 h-5"></i>
+                </button>
             </div>
         </div>
     </nav>
 
+    <!-- Mobile menu (below lg) -->
+    <div class="nav-mobile lg:hidden" id="navMobile">
+        <a href="index.html">首页</a>
+        <a href="products.html">产品矩阵</a>
+        <a href="solutions.html">解决方案</a>
+        <a href="cases.html">落地案例</a>
+        <a href="about.html">关于我们</a>
+        <a href="news.html">新闻动态</a>
+        <a href="index.html#contact" class="nav-mobile-cta">联系商务</a>
+    </div>
+
     <!-- Hero -->
-    <section id="hero" class="relative pt-40 pb-20 px-10 overflow-hidden min-h-screen flex items-center">
-        <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center relative z-10">
-            <div class="reveal active">
-                <h1 class="hero-in text-5xl lg:text-7xl font-sora font-bold leading-[1.1] mb-6 tracking-tight">
-                    给你的商业空间，<br>配一位 <span class="gradient-text">7×24 在岗</span><br>的 AI 虚拟员工
+    <section id="hero" class="hero-pio relative overflow-hidden">
+        <div class="hero-media" id="heroVisual" aria-hidden="true">
+            <img src="StartRoom_Post.0180.png" alt="">
+        </div>
+        <div class="hero-pio-wrap">
+            <div class="hero-content reveal active">
+                <h1 class="hero-in hero-title-xl font-sora">
+                    <span class="line">给你的商业空间，</span>
+                    <span class="line">配一位 <span class="gradient-text">7×24 在岗</span></span>
+                    <span class="line">的 AI 虚拟员工</span>
                 </h1>
-                <p class="hero-in text-xl text-gray-500 max-w-lg mb-10 leading-relaxed">
-                    主动开口、智能交互、多语接待。从迎宾、导览到营销转化，一台设备替代多名人工，全年无休为您创造价值。
+                <p class="hero-in hero-lead">
+                    主动迎宾、精准问答、智能导览、营销转化。让商业空间和公共服务场所拥有一位 7×24 小时在岗的虚拟员工。
                 </p>
-                <div class="hero-in flex flex-wrap items-center gap-4">
-                    <a href="#contact" class="magnetic-btn bg-black text-white px-8 py-4 rounded-2xl font-bold flex items-center gap-3 hover:bg-gray-800 transition-all group">
+                <div class="hero-in hero-actions">
+                    <a href="#contact" class="hero-primary magnetic-btn">
                         联系商务
-                        <i data-lucide="arrow-right" class="w-5 h-5 group-hover:translate-x-1 transition-transform"></i>
                     </a>
-                    <a href="#scenarios" class="px-8 py-4 rounded-2xl font-bold text-gray-700 border border-gray-200 hover:border-gray-400 hover:text-black transition-all">查看应用场景</a>
                 </div>
-
-                <div class="hero-in mt-14 grid grid-cols-2 sm:grid-cols-4 gap-8">
-                    <div>
-                        <div class="text-3xl font-sora font-bold counter-val gradient-text" data-target="4" data-suffix="">0</div>
-                        <div class="text-sm text-gray-400 mt-1">替代人工（名/台）</div>
-                    </div>
-                    <div>
-                        <div class="text-3xl font-sora font-bold gradient-text"><span class="counter-val" data-target="12">0</span>万</div>
-                        <div class="text-sm text-gray-400 mt-1">单台年省成本（元）</div>
-                    </div>
-                    <div>
-                        <div class="text-3xl font-sora font-bold counter-val gradient-text" data-target="30" data-suffix="%+">0</div>
-                        <div class="text-sm text-gray-400 mt-1">客户满意度提升</div>
-                    </div>
-                    <div>
-                        <div class="text-3xl font-sora font-bold counter-val gradient-text" data-target="95" data-suffix="%+">0</div>
-                        <div class="text-sm text-gray-400 mt-1">多语种识别准确率</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="hero-visual h-[700px] flex items-center justify-center" id="heroVisual">
-                <div class="orb"></div>
-                <div class="halo halo-faint h1"></div>
-                <div class="halo halo-faint h2"></div>
-                <div class="halo halo-sweep"></div>
-                <div class="halo halo-orbit"></div>
-                <div class="avatar-fig" id="avatar">
-                    <img class="avatar-slide active" src="assets/avatar-1.png" alt="AKURA AvatarX · 数字员工形象" draggable="false">
-                    <img class="avatar-slide" src="assets/avatar-2.png" alt="AKURA AvatarX · 数字员工形象" draggable="false">
-                    <img class="avatar-slide" src="assets/avatar-3.png" alt="AKURA AvatarX · 数字员工形象" draggable="false">
-                    <img class="avatar-slide" src="assets/avatar-5.png" alt="AKURA AvatarX · 数字员工形象" draggable="false">
-                    <img class="avatar-slide" src="assets/avatar-6.png" alt="AKURA AvatarX · 数字员工形象" draggable="false">
-                    <img class="avatar-slide" src="assets/avatar-4.png" alt="AKURA AvatarX · 数字员工形象" draggable="false">
-                    <img class="avatar-slide" src="assets/avatar-7.png" alt="AKURA AvatarX · 品牌 IP 形象" draggable="false">
-                </div>
-                <div class="float-chip fc1"><div class="t">实时响应</div><div class="v font-sora">&lt; 50ms</div></div>
-                <div class="float-chip fc2"><div class="t">主动迎宾</div><div class="v">您好，需要帮您找什么？</div></div>
-                <div class="float-chip fc3"><div class="t">多语接待</div><div class="v">中 / 英 / 粤 / 阿</div></div>
             </div>
         </div>
-
-        <div id="heroBlob1" class="absolute top-1/4 right-0 w-96 h-96 bg-purple-100/30 blur-3xl rounded-full"></div>
-        <div id="heroBlob2" class="absolute bottom-1/4 -left-20 w-80 h-80 bg-pink-100/20 blur-3xl rounded-full"></div>
+        <a href="#pain" class="hero-scroll-cue" aria-label="向下滚动"><i data-lucide="chevrons-down" class="w-5 h-5"></i></a>
     </section>
 
     <!-- PAIN -->
@@ -1770,15 +2069,11 @@
         // Navbar scroll state
         const navbar = document.getElementById('navbar');
         window.addEventListener('scroll', () => {
-            const inner = navbar.querySelector('div');
+            const inner = navbar.querySelector('.site-nav-shell');
             if (window.scrollY > 50) {
-                navbar.classList.add('py-4');
-                inner.classList.remove('bg-white/40');
-                inner.classList.add('bg-white/80', 'shadow-md');
+                if (inner) inner.classList.add('nav-scrolled');
             } else {
-                navbar.classList.remove('py-4');
-                inner.classList.add('bg-white/40');
-                inner.classList.remove('bg-white/80', 'shadow-md');
+                if (inner) inner.classList.remove('nav-scrolled');
             }
         });
 
@@ -1895,6 +2190,15 @@
         // Floating action button
         const fab = document.getElementById('fab');
         document.getElementById('fabMain').addEventListener('click', () => fab.classList.toggle('open'));
+
+        // Mobile hamburger menu
+        (function () {
+            const ham = document.getElementById('navHamburger'), mob = document.getElementById('navMobile');
+            if (!ham || !mob) return;
+            ham.addEventListener('click', (e) => { e.stopPropagation(); mob.classList.toggle('open'); });
+            document.addEventListener('click', () => mob.classList.remove('open'));
+            mob.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mob.classList.remove('open')));
+        })();
 
         // ===== i18n: simplified / traditional Chinese + English (text-node translation) =====
         (function () {

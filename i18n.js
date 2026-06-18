@@ -8,6 +8,9 @@ window.__I18N_DICT = {
     '应用场景': '應用場景', '落地案例': '落地案例', '联系商务': '聯絡商務',
     // eyebrows / kickers
     '核心能力': '核心能力', '产品矩阵': '產品矩陣', '客户评价': '客戶評價', '实力与认可': '實力與認可', '常见问答': '常見問答',
+    // multi-page nav + home hero (Codex restructure)
+    '解决方案': '解決方案', '关于我们': '關於我們', '新闻动态': '新聞動態',
+    '主动迎宾、精准问答、智能导览、营销转化。让商业空间和公共服务场所拥有一位 7×24 小时在岗的虚拟员工。': '主動迎賓、精準問答、智慧導覽、行銷轉化。讓商業空間和公共服務場所擁有一位 7×24 小時在崗的虛擬員工。',
     '人力成本': '人力成本', '寻路导航': '尋路導航', '营销转化': '行銷轉化', '高峰承载': '高峰承載', '服务标准': '服務標準', '数据沉淀': '資料沉澱', '多语沟通': '多語溝通',
     '超写实克隆': '超寫實複製', '情感语音': '情感語音', '意图推理': '意圖推理', '视觉感知': '視覺感知', '知识大脑': '知識大腦', '全渠道发布': '全通路發布',
     // products (real line)
@@ -231,6 +234,9 @@ window.__I18N_DICT = {
     '应用场景': 'Scenarios', '落地案例': 'Cases', '联系商务': 'Contact Sales',
     // eyebrows / kickers (section headings render these uppercase via CSS)
     '核心能力': 'Core Capabilities', '产品矩阵': 'Product Line', '客户评价': 'Testimonials', '实力与认可': 'Strength & Recognition', '常见问答': 'FAQ',
+    // multi-page nav + home hero (Codex restructure)
+    '解决方案': 'Solutions', '关于我们': 'About', '新闻动态': 'News',
+    '主动迎宾、精准问答、智能导览、营销转化。让商业空间和公共服务场所拥有一位 7×24 小时在岗的虚拟员工。': 'Proactive greeting, precise Q&A, smart guidance and marketing conversion — give your commercial and public spaces a virtual employee on duty 24/7.',
     '人力成本': 'Labor Cost', '寻路导航': 'Wayfinding', '营销转化': 'Conversion', '高峰承载': 'Peak Hours', '服务标准': 'Consistency', '数据沉淀': 'Data', '多语沟通': 'Multilingual',
     '超写实克隆': 'Hyper-Real Cloning', '情感语音': 'Emotional TTS', '意图推理': 'Intent Reasoning', '视觉感知': 'Visual Perception', '知识大脑': 'Knowledge Brain', '全渠道发布': 'Omnichannel',
     // products (real line)

@@ -21,19 +21,19 @@
                     <div class="mega-menu">
                         <div class="mega-split">
                             <div class="mega-list">
+                                <div class="mega-section-label">软件</div>
+                                <a href="products.html#huanzhen" class="mega-link mega-option" data-preview="huanzhen"><span class="mega-icon"><i data-lucide="sparkles" class="w-5 h-5"></i></span><span><h5>幻真</h5><p>AI 虚拟员工软件，承接问答、导览、讲解和营销转化。</p></span></a>
+                                <a href="products.html#cms" class="mega-link mega-option" data-preview="cms"><span class="mega-icon"><i data-lucide="layout-dashboard" class="w-5 h-5"></i></span><span><h5>幻真CMS</h5><p>统一管理知识库、话术、内容发布、设备和运营数据。</p></span></a>
                                 <div class="mega-section-label">硬件</div>
                                 <a href="products.html#nano" class="mega-link mega-option" data-preview="nano"><span class="mega-icon"><i data-lucide="tablet-smartphone" class="w-5 h-5"></i></span><span><h5>幻真 Nano</h5><p>24 寸一体机，小空间快速部署的 AI 接待入口。</p></span></a>
                                 <a href="products.html#pro" class="mega-link mega-option" data-preview="pro"><span class="mega-icon"><i data-lucide="monitor" class="w-5 h-5"></i></span><span><h5>幻真 Pro</h5><p>75 寸 4K 大屏，面向大堂、展厅和旗舰点位。</p></span></a>
                                 <a href="products.html#robo" class="mega-link mega-option" data-preview="robo"><span class="mega-icon"><i data-lucide="bot" class="w-5 h-5"></i></span><span><h5>幻真 Robo</h5><p>透明 OLED 移动机器人，主动巡游讲解与迎宾。</p></span></a>
-                                <div class="mega-section-label">软件</div>
-                                <a href="products.html#huanzhen" class="mega-link mega-option" data-preview="huanzhen"><span class="mega-icon"><i data-lucide="sparkles" class="w-5 h-5"></i></span><span><h5>幻真</h5><p>AI 虚拟员工软件，承接问答、导览、讲解和营销转化。</p></span></a>
-                                <a href="products.html#cms" class="mega-link mega-option" data-preview="cms"><span class="mega-icon"><i data-lucide="layout-dashboard" class="w-5 h-5"></i></span><span><h5>幻真CMS</h5><p>统一管理知识库、话术、内容发布、设备和运营数据。</p></span></a>
                             </div>
                             <div class="mega-preview">
-                                <div class="mega-preview-card active preview-nano"><div class="mega-preview-visual" style="background-image:url('StartRoom_Post.0180.png')"></div><div class="mega-preview-copy"><h4>轻量试点入口</h4><p>适合服务台、楼层入口和咨询点位，快速上线 AI 接待、问答和导览。</p><span>查看 Nano</span></div></div>
+                                <div class="mega-preview-card preview-nano"><div class="mega-preview-visual" style="background-image:url('StartRoom_Post.0180.png')"></div><div class="mega-preview-copy"><h4>轻量试点入口</h4><p>适合服务台、楼层入口和咨询点位，快速上线 AI 接待、问答和导览。</p><span>查看 Nano</span></div></div>
                                 <div class="mega-preview-card preview-pro"><div class="mega-preview-visual" style="background-image:url('TakePhotos.0772.png')"></div><div class="mega-preview-copy"><h4>旗舰视觉中心</h4><p>75 寸 4K 大屏承接大堂迎宾、展厅讲解和品牌内容展示。</p><span>查看 Pro</span></div></div>
                                 <div class="mega-preview-card preview-robo"><div class="mega-preview-visual" style="background-image:url('TakePhotos_panda.0080.png')"></div><div class="mega-preview-copy"><h4>移动讲解员</h4><p>透明 OLED + 自主巡航，适合展馆、景区和大型活动的主动服务。</p><span>查看 Robo</span></div></div>
-                                <div class="mega-preview-card preview-huanzhen"><div class="mega-preview-visual" style="background-image:url('TakePhotos_Boy.0770.png')"></div><div class="mega-preview-copy"><h4>虚拟员工软件</h4><p>把 Agent、数字人、语音交互和业务流程封装成可复用的软件能力，可部署到硬件和线上渠道。</p><span>查看幻真</span></div></div>
+                                <div class="mega-preview-card active preview-huanzhen"><div class="mega-preview-visual" style="background-image:url('TakePhotos_Boy.0770.png')"></div><div class="mega-preview-copy"><h4>虚拟员工软件</h4><p>把 Agent、数字人、语音交互和业务流程封装成可复用的软件能力，可部署到硬件和线上渠道。</p><span>查看幻真</span></div></div>
                                 <div class="mega-preview-card preview-cms"><div class="mega-preview-visual" style="background-image:url('20240923-181914.png')"></div><div class="mega-preview-copy"><h4>运营管理后台</h4><p>统一维护知识库、导览路线、营销内容、设备状态和服务数据，让虚拟员工可持续运营。</p><span>查看 CMS</span></div></div>
                             </div>
                         </div>

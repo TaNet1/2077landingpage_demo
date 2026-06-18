@@ -207,7 +207,8 @@ window.__I18N_DICT = {
     '为你的商业空间，': '為你的商業空間，', '配一位永不下班的 AI 员工': '配一位永不下班的 AI 員工',
     '直接联系我们的商务顾问，定制专属你场景的解决方案。我们将在 24 小时内响应。': '直接聯絡我們的商務顧問，量身打造專屬你場景的解決方案。我們將在 24 小時內回覆。',
     '商务直线（Molly）': '商務專線（Molly）', '邮件咨询': '郵件諮詢', '总部地址': '總部地址', '深圳前海深港青年梦工场北区 C 栋 202': '深圳前海深港青年夢工場北區 C 棟 202',
-    '您的姓名': '您的姓名', '联系电话': '聯絡電話', '公司名称': '公司名稱', '咨询需求': '諮詢需求', '立即提交申请': '立即提交申請',
+    '您的姓名': '您的姓名', '联系电话': '聯絡電話', '邮箱地址': '電郵地址', '公司名称': '公司名稱', '咨询需求': '諮詢需求', '立即提交申请': '立即提交申請',
+    '请输入您的称呼': '請輸入您的稱呼', '请输入手机号码': '請輸入手機號碼', '请输入邮箱地址': '請輸入電郵地址', '您的企业或组织名称': '您的企業或組織名稱', '请简述您的应用场景或定制需求...': '請簡述您的應用場景或客製需求...',
     '点击提交即代表您同意我们的《隐私协议》与《服务条款》': '點擊提交即代表您同意我們的《隱私協議》與《服務條款》',
     // faq
     '常见问题': '常見問題', 'AvatarX 支持私有化部署吗？': 'AvatarX 支援私有化部署嗎？',
@@ -434,7 +435,8 @@ window.__I18N_DICT = {
     '为你的商业空间，': 'For your commercial space,', '配一位永不下班的 AI 员工': 'an AI employee that never clocks out',
     '直接联系我们的商务顾问，定制专属你场景的解决方案。我们将在 24 小时内响应。': 'Talk to our business advisors and we will tailor a solution to your scenario. We respond within 24 hours.',
     '商务直线（Molly）': 'Business line (Molly)', '邮件咨询': 'Email', '总部地址': 'Headquarters', '深圳前海深港青年梦工场北区 C 栋 202': 'Rm 202, Bldg C North, Qianhai Youth Hub, Shenzhen',
-    '您的姓名': 'Your name', '联系电话': 'Phone', '公司名称': 'Company', '咨询需求': 'Your needs', '立即提交申请': 'Submit request',
+    '您的姓名': 'Your name', '联系电话': 'Phone', '邮箱地址': 'Email address', '公司名称': 'Company', '咨询需求': 'Your needs', '立即提交申请': 'Submit request',
+    '请输入您的称呼': 'Enter your name', '请输入手机号码': 'Enter your phone number', '请输入邮箱地址': 'Enter your email address', '您的企业或组织名称': 'Your company or organization', '请简述您的应用场景或定制需求...': 'Briefly describe your scenario or customization needs...',
     '点击提交即代表您同意我们的《隐私协议》与《服务条款》': 'By submitting you agree to our Privacy Policy and Terms of Service.',
     // faq
     '常见问题': 'Frequently asked questions', 'AvatarX 支持私有化部署吗？': 'Does AvatarX support on-premise deployment?',

@@ -75,6 +75,31 @@
             transform: translateY(-8px);
         }
 
+        #products.scroll-story {
+            min-height: 100vh;
+        }
+        .product-story-grid {
+            perspective: 1200px;
+        }
+        #products .product-story-card {
+            --scroll-y: 0px;
+            --hover-y: 0px;
+            --scroll-scale: 1;
+            transform: translateY(calc(var(--scroll-y) + var(--hover-y))) scale(var(--scroll-scale));
+            transform-origin: center bottom;
+            transition: box-shadow .2s ease, border-color .2s ease;
+            will-change: transform, opacity;
+        }
+        #products .product-story-card:hover {
+            --hover-y: -8px;
+            transform: translateY(calc(var(--scroll-y) + var(--hover-y))) scale(var(--scroll-scale));
+        }
+        @media (prefers-reduced-motion: reduce) {
+            #products .product-story-card {
+                transform: none !important;
+            }
+        }
+
         .mouse-glow {
             position: fixed;
             width: 1000px;
@@ -996,18 +1021,18 @@
     </section>
 
     <!-- Products -->
-    <section id="products" class="relative overflow-hidden py-32 px-10 bg-white">
+    <section id="products" class="relative overflow-hidden py-32 px-10 bg-white scroll-story">
         <div class="deco-orb anim" style="width:340px;height:340px;background:rgba(146,85,254,.10);top:-60px;left:-80px"></div>
         <div class="deco-orb anim" style="width:300px;height:300px;background:rgba(236,0,250,.08);bottom:-40px;right:-60px;animation-delay:-4s"></div>
         <div class="max-w-7xl mx-auto relative z-10">
-            <div class="text-center mb-20 reveal">
+            <div class="text-center mb-20 product-story-copy">
                 <h2 class="text-sm font-bold tracking-widest text-purple-600 mb-4 uppercase">产品矩阵</h2>
                 <h3 class="text-4xl md:text-5xl font-sora font-bold mb-6">一套软件，三款硬件形态</h3>
                 <p class="text-gray-500 max-w-2xl mx-auto">「幻真」按场景选形态，软件能力与表现完全一致 —— 三款硬件共享同一套 AGENT 内核与 CMS 后台。</p>
             </div>
 
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="bg-white p-10 rounded-[40px] border border-gray-100 card-glow transition-all reveal">
+            <div class="grid md:grid-cols-3 gap-8 product-story-grid">
+                <div class="bg-white p-10 rounded-[40px] border border-gray-100 card-glow transition-all product-story-card">
                     <div class="mb-8 w-14 h-14 rounded-2xl bg-slate-50 flex items-center justify-center text-gray-800"><i data-lucide="tablet-smartphone" class="w-7 h-7"></i></div>
                     <div class="flex justify-between items-start mb-4">
                         <h4 class="text-2xl font-bold font-sora">幻真 <span class="gradient-text">Nano</span></h4>
@@ -1022,7 +1047,7 @@
                     <a href="#contact" class="block text-center w-full py-4 rounded-2xl border border-gray-100 font-bold hover:bg-black hover:text-white transition-all">了解详情</a>
                 </div>
 
-                <div class="bg-white p-10 rounded-[40px] border-2 border-purple-500/20 card-glow transition-all relative reveal delay-200">
+                <div class="bg-white p-10 rounded-[40px] border-2 border-purple-500/20 card-glow transition-all relative product-story-card">
                     <div class="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 gradient-bg text-white text-[10px] font-bold rounded-full uppercase tracking-widest shadow-lg">旗舰首选</div>
                     <div class="mb-8 w-14 h-14 rounded-2xl bg-purple-50 flex items-center justify-center text-purple-600"><i data-lucide="monitor" class="w-7 h-7"></i></div>
                     <div class="flex justify-between items-start mb-4">
@@ -1038,7 +1063,7 @@
                     <a href="#contact" class="block text-center w-full py-4 rounded-2xl gradient-bg text-white font-bold shadow-lg shadow-purple-200 hover:scale-[1.02] transition-all">预约演示</a>
                 </div>
 
-                <div class="bg-white p-10 rounded-[40px] border border-gray-100 card-glow transition-all reveal delay-400">
+                <div class="bg-white p-10 rounded-[40px] border border-gray-100 card-glow transition-all product-story-card">
                     <div class="mb-8 w-14 h-14 rounded-2xl bg-slate-50 flex items-center justify-center text-gray-800"><i data-lucide="bot" class="w-7 h-7"></i></div>
                     <div class="flex justify-between items-start mb-4">
                         <h4 class="text-2xl font-bold font-sora">幻真 <span class="gradient-text">Robo</span></h4>
@@ -1544,7 +1569,7 @@
 
             <div class="bg-white p-12 rounded-[40px] shadow-2xl reveal delay-200">
                 <form class="space-y-6" onsubmit="return false;">
-                    <div class="grid grid-cols-2 gap-6">
+                    <div class="grid gap-6 md:grid-cols-3">
                         <div class="space-y-2">
                             <label class="text-sm font-bold text-gray-700 ml-1">您的姓名</label>
                             <input type="text" placeholder="请输入您的称呼" class="w-full bg-slate-50 border-none px-6 py-4 rounded-2xl focus:ring-2 focus:ring-purple-200 transition-all outline-none">
@@ -1552,6 +1577,10 @@
                         <div class="space-y-2">
                             <label class="text-sm font-bold text-gray-700 ml-1">联系电话</label>
                             <input type="tel" placeholder="请输入手机号码" class="w-full bg-slate-50 border-none px-6 py-4 rounded-2xl focus:ring-2 focus:ring-purple-200 transition-all outline-none">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-sm font-bold text-gray-700 ml-1">邮箱地址</label>
+                            <input type="email" placeholder="请输入邮箱地址" class="w-full bg-slate-50 border-none px-6 py-4 rounded-2xl focus:ring-2 focus:ring-purple-200 transition-all outline-none">
                         </div>
                     </div>
                     <div class="space-y-2">
@@ -1646,6 +1675,39 @@
                 const dist = () => Math.max(0, caseTrack.scrollWidth - caseTrack.parentElement.clientWidth + 40);
                 gsap.to(caseTrack, { x: () => -dist(), ease: 'none',
                     scrollTrigger: { trigger: '#cases', start: 'top 65%', end: 'bottom top', scrub: 1, invalidateOnRefresh: true } });
+            }
+
+            // ---- Product story: Custo-style pinned scroll progression on desktop ----
+            const productCards = gsap.utils.toArray('#products .product-story-card');
+            if (productCards.length) {
+                const mm = gsap.matchMedia();
+                mm.add('(min-width: 900px) and (prefers-reduced-motion: no-preference)', () => {
+                    gsap.set(productCards, { '--scroll-y': '96px', '--scroll-scale': 0.94, opacity: 0.42 });
+                    const storyTl = gsap.timeline({
+                        scrollTrigger: {
+                            trigger: '#products',
+                            start: 'top top',
+                            end: '+=115%',
+                            scrub: 0.9,
+                            pin: true,
+                            anticipatePin: 1,
+                            invalidateOnRefresh: true
+                        }
+                    });
+                    storyTl
+                        .fromTo('#products .product-story-copy', { y: 26, opacity: 0.72 }, { y: 0, opacity: 1, duration: 0.22, ease: 'none' }, 0)
+                        .to(productCards, { '--scroll-y': '0px', '--scroll-scale': 1, opacity: 1, stagger: 0.08, duration: 0.48, ease: 'none' }, 0.08)
+                        .to(productCards, { '--scroll-y': '-24px', stagger: 0.04, duration: 0.38, ease: 'none' }, 0.58)
+                        .to('#products .product-story-copy', { y: -18, duration: 0.28, ease: 'none' }, 0.68);
+
+                    return () => {
+                        gsap.set(productCards, { clearProps: 'opacity' });
+                        productCards.forEach(card => {
+                            card.style.removeProperty('--scroll-y');
+                            card.style.removeProperty('--scroll-scale');
+                        });
+                    };
+                });
             }
 
             // Recompute positions once heavy images have loaded (avoids stale triggers)

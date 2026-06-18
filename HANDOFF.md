@@ -5,26 +5,19 @@
 
 > ⚠️ **本文档为交接日志，谁动了项目谁就在「## 交接记录」最上方补一条**，写清：本次改了什么、为什么、还有什么没做、有什么坑。这样下一个接手的人（Claude 或 Codex）能无缝继续。
 
-## 🎯 下一棒任务（交给 Codex）：统一全站导航/页脚/i18n
+## 🎯 下一棒任务：浏览器视觉验收 + 继续内容精修
 
-用户已确认这块由 Codex 做。目标：**让 5 个子页面（products/solutions/cases/news/about）和首页 index.html 拥有完全一致的顶部导航、页脚，并且语言切换在子页面也能用。**
+全站导航 / 页脚 / i18n 已由 Codex 在 `024d1f7 Unify site navigation footer and i18n` 中完成并推送。下一棒不要再重复做这块，优先做以下事项：
 
-**为什么**：现在子页面是另一套简版 `.navbar`（在 `page.css` 里），没有汉堡菜单、没有语言切换、根本没引 `i18n.js`，所以在子页切中/繁/英完全无效，且和首页观感不一致。详见下方「2026-06-18 · Claude 接手复盘」里的分析。
+1. **浏览器视觉验收**：人工或 Claude 在真实浏览器里检查 6 个页面的导航、mega menu、语言切换、汉堡菜单、页脚、FAB。Codex 当前环境的内置浏览器自动化启动失败，只有 HTTP/语法/文本覆盖验证。
+2. **清理旧样式**：`index.html` 仍保留一批旧导航/页脚/FAB 的内联 CSS，`page.css` 仍保留旧 `.navbar` / `.footer` 样式；当前没有 DOM 使用，可后续清理。
+3. **补真实新闻内容**：`news.html` 仍是占位页，需要真实新闻标题、日期、媒体 logo、报道链接和现场图。
+4. **子页面视觉精修**：5 个子页面已可用，但仍是信息架构版，需要产品图、案例图、新闻素材和更细的响应式视觉打磨。
+5. **首屏视频素材替换**：首页仍使用 `StartRoom_Post.0180.png` 占位。用户后续给 `assets/hero-loop.mp4` / `assets/hero-poster.jpg` 后再替换。
 
-**验收标准**：
-1. 6 个页面顶部导航视觉、交互、断点（含汉堡菜单）完全一致。
-2. 每个页面右上角语言切换可用，点了之后**本页正文**真的会变中/繁/英（不只是导航）。
-3. 6 个页面页脚一致。
-4. 切英文/繁体时，子页面正文不再残留简体（新文案 key 都补进 `i18n.js`）。
+当前本地未提交项只剩 `.claude/launch.json` 和 `.claude/settings.local.json`，它们是 Claude 本地配置，Codex 没有纳入提交。
 
-**推荐实现（方案 A）**：把首页 `index.html` 里这几段抽成共享文件，所有页面引用：
-- `site.css`：共享样式（`.site-nav-shell`、`.nav-*`、`.mega-*`、`.nav-mobile`、`.fab`、`.lang-*`、`.reveal`、字体 @font-face、品牌变量等）。
-- `site.js`：把首页 `<body>` 末尾那段 `<script>` 整段搬过来（含 lucide、汉堡 toggle、语言切换、**i18n text-node 引擎**、FAB 等，大多已带 `if(!el)return` 守卫，子页缺元素不会报错）；并在最前面用 JS 把 **nav + footer + fab 的 HTML 模板**注入到每页的 `<div id="site-nav"></div>` / `<div id="site-footer"></div>` 占位里（注入要在 i18n 遍历之前，这样注入的导航/页脚也会被翻译）。
-- 每个页面 `<head>` 顺序：fonts → tailwind CDN + 内联 tailwind.config（`sans: ['var(--font-main)']` 等）→ lucide → gsap + ScrollTrigger → **`i18n.js`** → `<link rel="stylesheet" href="site.css">`；`<body>` 末尾 `<script src="site.js"></script>`。
-- ⚠️ 我（Claude）之前抽过半成品 `site.css`(493行)/`site.js`(578行)，但里面的 nav 是更早的旧设计，**不要直接用**；要按现在 index.html 里这版 `.site-nav-shell` + mega menu + 汉堡 重新整理后再用，或干脆重写。
-- i18n 字典 `i18n.js` 的 key 必须和 DOM 里中文文本**逐字一致**（含全角标点/空格）。可在页面控制台跑 `window.__dumpI18n()` 拿到当前页所有待翻译中文串，再补 `zh-TW`/`en`。
-
-做完每一步都在「## 交接记录」最上方补一条，并 commit & push。
+交接规则不变：谁继续改项目，谁就在「## 交接记录」最上方补一条，并 commit & push。
 
 ---
 
@@ -38,6 +31,7 @@
 - `index.html` 已移除重复的导航 DOM、页脚 DOM、FAB DOM，以及旧的内联导航滚动、FAB、汉堡和 i18n 脚本；首页保留自己的 GSAP、logo cloud、交互区脚本。
 - `products.html` / `solutions.html` / `cases.html` / `news.html` / `about.html` 已统一引入 `i18n.js`、`page.css`、`site.css`、`site.js`，并移除旧 `.navbar` / `.footer` / 单页 `lucide.createIcons()`。
 - `i18n.js` 追加了子页面正文和共享导航 hover 预览文案的 `zh-TW` / `en` 覆盖项。用脚本扫描过 5 个子页面正文和 `site.js` 注入文本，缺失项为 0。
+- 已提交并推送：`024d1f7 Unify site navigation footer and i18n`（远端 `main` 已更新）。
 
 验证：
 

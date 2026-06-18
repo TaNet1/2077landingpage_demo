@@ -33,14 +33,32 @@
 2. **桌面导航压紧**：`.nav-menu` gap 10→4，`.nav-top` padding `0 16`→`0 12`、gap 7→6，避免桌面下偏挤。
 3. **补 i18n**：`i18n.js` 加了 `解决方案 / 关于我们 / 新闻动态`（中/繁/英）以及首页副标题（Codex 新写的那句）。现导航三语一致：Home / Product Line / Solutions / Cases / About。
 
-#### 仍待做（按优先级）
+#### 已完成 · 首屏占位图裁切
 
-- **子页面 i18n**：products/solutions/cases/about/news 的正文还没接 i18n，切英文/繁体时子页仍是简体。需要把子页文案 key 也补进 `i18n.js`，并确保子页 `<head>` 引了 `i18n.js` 且 body 末尾有跑 i18n 的脚本（子页目前可能没有那段 text-node 翻译脚本——要确认）。
-- **mega menu 右侧预览文案** 也未 i18n。
-- **首屏占位图**：`StartRoom_Post.0180.png` 裁切难看（人物没头）。等视频前可先调 `object-position`/加暗化遮罩改善，或换张构图更好的图。
-- `news.html` 还是占位，需要真实新闻条目。
+`.hero-media` / `.hero-media img` 的 `object-position` 由 `center right` 改为 `72% 12%`，现在首屏人物露脸+上半身，不再「没头」。等用户给视频后按本文档底部规格替换即可。
+
+#### 已提交并推送
+
+以上导航 + 首屏改动 + Codex 的多页结构，已一起 commit & push：`7c5da46 Multi-page restructure (nav/subpages) + nav & hero fixes`（远端 GitHub 已更新）。`site.css`/`site.js`/`.claude/settings.local.json` 未纳入提交，仍是本地未跟踪。
+
+#### ⭐ 下一个最该做的：统一所有页面的导航/页脚/i18n（关键质量问题）
+
+**现状问题**：`index.html`（首页）和 5 个子页面是两套独立实现：
+- 首页导航 = `.site-nav-shell`（深色/浅色切换 + 汉堡 + 语言切换 + 完整 i18n 脚本），样式在 index.html 内联。
+- 子页面导航 = `.navbar`（`page.css` 里，较简版），**没有汉堡、没有语言切换、没引 `i18n.js`、没有 i18n 脚本** → 子页切语言完全无效，且与首页观感不一致。
+
+**推荐做法（二选一）**：
+- **方案 A（推荐，彻底）**：做一套共享头/尾。把首页那套「nav + footer + fab + 运行时脚本(含 i18n)」抽成 `site.js`（注入到每页的 `#site-nav` / `#site-footer` 占位）+ `site.css`（共享样式）。每个页面（含 index.html）都改成引用它们。这样所有页面 nav/footer/i18n 完全一致、只维护一处。注意：我之前已经抽了半成品 `site.css`(493行) / `site.js`(578行)，但里面的 nav 是更早的设计，需要按现在 Codex 这版（`.site-nav-shell` + mega menu + 汉堡）重写后再用，别直接套旧的。
+- **方案 B（省事）**：把首页的整段 nav/footer/fab/i18n 脚本复制进每个子页面，并给子页 `<head>` 引 `i18n.js`。缺点是 6 份重复、以后改一处要改六处。
+
+无论 A/B，都要把子页面正文文案 key 补进 `i18n.js`（中/繁/英），否则英文/繁体下子页正文还是简体。
+
+#### 其它待办
+
+- **mega menu 右侧预览文案** 未 i18n。
+- `news.html` 还是占位，需要真实新闻条目（标题/日期/媒体/链接/图）。
 - 子页面整体内容与响应式还要再精修。
-- `site.css` / `site.js`（我之前抽离的半成品，未被引用）——确认不用就删，别一直挂着。
+- `site.css` / `site.js`：要么按方案 A 重写后接上，要么删掉，别一直挂着。
 
 ---
 

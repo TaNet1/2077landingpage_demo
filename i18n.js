@@ -856,15 +856,7 @@ Object.assign(window.__I18N_DICT['zh-TW'], {
   "查看 CMS": "查看 CMS",
   "硬件：幻真 Nano / Pro / Robo": "硬體：幻真 Nano / Pro / Robo",
   "软件：幻真": "軟體：幻真",
-  "软件：幻真CMS": "軟體：幻真CMS",
-  "软件先行，": "軟體先行，",
-  "硬件落地。": "硬體落地。",
-  "先用幻真软件和 CMS 管理好 AI 虚拟员工能力，再把它部署到 Nano、Pro、Robo 等终端，形成线上线下一致的服务体验。": "先用幻真軟體和 CMS 管理好 AI 虛擬員工能力，再把它部署到 Nano、Pro、Robo 等終端，形成線上線下一致的服務體驗。",
-  "AI 虚拟员工软件本体，承接主动迎宾、精准问答、智能导览、内容讲解和营销转化。它把 Agent、数字人、语音交互和业务流程封装成一套可复用能力。": "AI 虛擬員工軟體本體，承接主動迎賓、精準問答、智慧導覽、內容講解和行銷轉化。它把 Agent、數位人、語音互動和業務流程封裝成一套可複用能力。",
-  "统一配置知识库、话术策略、导览路线、营销内容、设备状态和服务数据。运营人员可以把内容一次维护，持续发布到不同终端。": "統一配置知識庫、話術策略、導覽路線、行銷內容、設備狀態和服務資料。營運人員可以把內容一次維護，持續發布到不同終端。",
-  "根据空间尺度和互动半径选择终端：Nano 适合轻量试点，Pro 适合旗舰大堂，Robo 适合移动讲解。三款硬件共享同一套幻真软件与 CMS。": "根據空間尺度和互動半徑選擇終端：Nano 適合輕量試點，Pro 適合旗艦大堂，Robo 適合移動講解。三款硬體共用同一套幻真軟體與 CMS。",
-  "查看硬件": "查看硬體",
-  "75 寸 4K 大屏": "75 吋 4K 大螢幕"
+  "软件：幻真CMS": "軟體：幻真CMS"
 });
 
 Object.assign(window.__I18N_DICT.en, {
@@ -900,13 +892,5 @@ Object.assign(window.__I18N_DICT.en, {
   "查看 CMS": "View CMS",
   "硬件：幻真 Nano / Pro / Robo": "Hardware: Huanzhen Nano / Pro / Robo",
   "软件：幻真": "Software: Huanzhen",
-  "软件：幻真CMS": "Software: HuanzhenCMS",
-  "软件先行，": "Software first,",
-  "硬件落地。": "hardware on site.",
-  "先用幻真软件和 CMS 管理好 AI 虚拟员工能力，再把它部署到 Nano、Pro、Robo 等终端，形成线上线下一致的服务体验。": "Manage AI virtual employee capabilities through Huanzhen software and CMS first, then deploy them to Nano, Pro and Robo terminals for a consistent online-offline service experience.",
-  "AI 虚拟员工软件本体，承接主动迎宾、精准问答、智能导览、内容讲解和营销转化。它把 Agent、数字人、语音交互和业务流程封装成一套可复用能力。": "The AI virtual employee software core, handling proactive greeting, precise Q&A, smart guidance, content narration and marketing conversion. It packages Agent, digital human, voice interaction and business workflows into reusable capabilities.",
-  "统一配置知识库、话术策略、导览路线、营销内容、设备状态和服务数据。运营人员可以把内容一次维护，持续发布到不同终端。": "Centrally configure knowledge bases, scripts, guide routes, marketing content, device status and service data. Operators maintain content once and keep publishing it to different terminals.",
-  "根据空间尺度和互动半径选择终端：Nano 适合轻量试点，Pro 适合旗舰大堂，Robo 适合移动讲解。三款硬件共享同一套幻真软件与 CMS。": "Choose terminals by space size and interaction range: Nano for lightweight pilots, Pro for flagship lobbies, and Robo for mobile narration. All three hardware products share the same Huanzhen software and CMS.",
-  "查看硬件": "View hardware",
-  "75 寸 4K 大屏": "75-inch 4K screen"
+  "软件：幻真CMS": "Software: HuanzhenCMS"
 });

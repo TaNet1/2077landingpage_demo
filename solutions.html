@@ -9,23 +9,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="i18n.js"></script>
     <link rel="stylesheet" href="page.css">
+    <link rel="stylesheet" href="site.css">
 </head>
 <body>
-    <nav class="navbar"><div class="nav-shell"><a href="index.html" class="nav-logo"><img src="assets/logo-dark.svg" alt="2077.AI"></a><div class="nav-menu">
-        <a href="index.html" class="nav-top">首页</a>
-        <a href="products.html" class="nav-top">产品矩阵</a>
-        <div class="nav-group"><a href="solutions.html" class="nav-top">解决方案 <i data-lucide="chevron-down" class="w-3.5 h-3.5 nav-caret"></i></a><div class="mega-menu" style="min-width:560px;"><div class="mega-grid">
-            <a href="#mall" class="mega-link"><span class="mega-icon"><i data-lucide="building-2"></i></span><span><h5>商业综合体</h5><p>放在首位的核心场景。</p></span></a>
-            <a href="#gov" class="mega-link"><span class="mega-icon"><i data-lucide="landmark"></i></span><span><h5>政务公共服务</h5><p>咨询、分流、材料指引。</p></span></a>
-            <a href="#tourism" class="mega-link"><span class="mega-icon"><i data-lucide="map"></i></span><span><h5>文旅景区</h5><p>导览、讲解、路线推荐。</p></span></a>
-            <a href="#exhibit" class="mega-link"><span class="mega-icon"><i data-lucide="presentation"></i></span><span><h5>展厅导览</h5><p>移动讲解与内容联动。</p></span></a>
-            <a href="#hotel" class="mega-link"><span class="mega-icon"><i data-lucide="plane"></i></span><span><h5>酒店机场</h5><p>多语接待与夜间服务。</p></span></a>
-            <a href="#finance" class="mega-link"><span class="mega-icon"><i data-lucide="badge-dollar-sign"></i></span><span><h5>银行金融</h5><p>VIP 接待与合规问答。</p></span></a>
-        </div></div></div>
-        <a href="cases.html" class="nav-top">落地案例</a>
-        <a href="about.html" class="nav-top">关于我们</a>
-    </div><a href="index.html#contact" class="nav-cta gradient-bg">联系商务</a></div></nav>
+    <div id="site-nav"></div>
 
     <header class="page-hero">
         <div class="container">
@@ -65,8 +54,8 @@
         <div class="info-card"><h3>银行金融</h3><p>面向网点 VIP 接待、业务预审、理财产品介绍、排队分流和合规知识问答。</p></div>
         <div class="info-card"><h3>部署要求</h3><p>支持私有化知识库、本地化部署、数据隔离和权限审计，适配金融机构安全要求。</p></div>
     </div></section>
-
-    <footer class="footer"><div class="footer-inner"><b>2077.AI · 幻真</b><span>商业综合体 / 政务 / 文旅 / 展厅 / 酒店机场 / 金融</span></div></footer>
-    <script>lucide.createIcons();</script>
+    <div id="site-footer"></div>
+    <div id="site-fab"></div>
+    <script src="site.js"></script>
 </body>
 </html>

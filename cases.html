@@ -9,17 +9,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="i18n.js"></script>
     <link rel="stylesheet" href="page.css">
+    <link rel="stylesheet" href="site.css">
 </head>
 <body>
-    <nav class="navbar"><div class="nav-shell"><a href="index.html" class="nav-logo"><img src="assets/logo-dark.svg" alt="2077.AI"></a><div class="nav-menu">
-        <a href="index.html" class="nav-top">首页</a><a href="products.html" class="nav-top">产品矩阵</a><a href="solutions.html" class="nav-top">解决方案</a>
-        <div class="nav-group"><a href="cases.html" class="nav-top">落地案例 <i data-lucide="chevron-down" class="w-3.5 h-3.5 nav-caret"></i></a><div class="mega-menu"><div class="mega-grid one">
-            <a href="#sino" class="mega-link"><span class="mega-icon"><i data-lucide="sparkles"></i></span><span><h5>信和集团 · 中港城</h5><p>商业空间旗舰案例。</p></span></a>
-            <a href="#tourism" class="mega-link"><span class="mega-icon"><i data-lucide="landmark"></i></span><span><h5>文旅与公共服务</h5><p>景区、展厅、公共服务复制。</p></span></a>
-        </div></div></div>
-        <a href="about.html" class="nav-top">关于我们</a>
-    </div><a href="index.html#contact" class="nav-cta gradient-bg">联系商务</a></div></nav>
+    <div id="site-nav"></div>
 
     <header class="page-hero">
         <div class="container">
@@ -65,8 +60,8 @@
             </div>
         </div>
     </section>
-
-    <footer class="footer"><div class="footer-inner"><b>2077.AI · 幻真</b><span>落地案例与客户实践</span></div></footer>
-    <script>lucide.createIcons();</script>
+    <div id="site-footer"></div>
+    <div id="site-fab"></div>
+    <script src="site.js"></script>
 </body>
 </html>

@@ -1,0 +1,266 @@
+(function () {
+    const path = location.pathname.split('/').pop() || 'index.html';
+    const isIndex = path === 'index.html' || path === '';
+    const contactHref = isIndex ? '#contact' : 'index.html#contact';
+    const navShellMode = isIndex ? '' : ' nav-light';
+
+    const NAV = `
+    <nav class="fixed top-0 w-full z-50 transition-all duration-300 px-4 md:px-6 py-4" id="navbar">
+        <div class="site-nav-shell${navShellMode} w-full max-w-none mx-0 flex justify-between items-center gap-5 px-7 py-3 rounded-full">
+            <a href="index.html" class="flex items-center shrink-0">
+                <span class="nav-logo-mark" aria-label="2077.AI">
+                    <img src="assets/logo.svg" alt="" class="nav-logo-img nav-logo-light">
+                    <img src="assets/logo-dark.svg" alt="" class="nav-logo-img nav-logo-dark">
+                </span>
+            </a>
+
+            <div class="hidden lg:flex nav-menu">
+                <a href="index.html" class="nav-top">首页</a>
+                <div class="nav-group">
+                    <a href="products.html" class="nav-top">产品矩阵 <i data-lucide="chevron-down" class="w-3.5 h-3.5 nav-caret"></i></a>
+                    <div class="mega-menu">
+                        <div class="mega-split">
+                            <div class="mega-list">
+                                <a href="products.html#nano" class="mega-link mega-option" data-preview="nano"><span class="mega-icon"><i data-lucide="tablet-smartphone" class="w-5 h-5"></i></span><span><h5>幻真 Nano</h5><p>24 寸一体机，小空间快速部署的 AI 接待入口。</p></span></a>
+                                <a href="products.html#pro" class="mega-link mega-option" data-preview="pro"><span class="mega-icon"><i data-lucide="monitor" class="w-5 h-5"></i></span><span><h5>幻真 Pro</h5><p>75 寸 4K 大屏，面向大堂、展厅和旗舰点位。</p></span></a>
+                                <a href="products.html#robo" class="mega-link mega-option" data-preview="robo"><span class="mega-icon"><i data-lucide="bot" class="w-5 h-5"></i></span><span><h5>幻真 Robo</h5><p>透明 OLED 移动机器人，主动巡游讲解与迎宾。</p></span></a>
+                            </div>
+                            <div class="mega-preview">
+                                <div class="mega-preview-card active preview-nano"><div class="mega-preview-visual" style="background-image:url('StartRoom_Post.0180.png')"></div><div class="mega-preview-copy"><h4>轻量试点入口</h4><p>适合服务台、楼层入口和咨询点位，快速上线 AI 接待、问答和导览。</p><span>查看 Nano</span></div></div>
+                                <div class="mega-preview-card preview-pro"><div class="mega-preview-visual" style="background-image:url('TakePhotos.0772.png')"></div><div class="mega-preview-copy"><h4>旗舰视觉中心</h4><p>75 寸 4K 大屏承接大堂迎宾、展厅讲解和品牌内容展示。</p><span>查看 Pro</span></div></div>
+                                <div class="mega-preview-card preview-robo"><div class="mega-preview-visual" style="background-image:url('TakePhotos_panda.0080.png')"></div><div class="mega-preview-copy"><h4>移动讲解员</h4><p>透明 OLED + 自主巡航，适合展馆、景区和大型活动的主动服务。</p><span>查看 Robo</span></div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="nav-group">
+                    <a href="solutions.html" class="nav-top">解决方案 <i data-lucide="chevron-down" class="w-3.5 h-3.5 nav-caret"></i></a>
+                    <div class="mega-menu" style="min-width: 720px;">
+                        <div class="mega-split">
+                            <div class="mega-list">
+                                <a href="solutions.html#mall" class="mega-link mega-option" data-preview="mall"><span class="mega-icon"><i data-lucide="building-2" class="w-5 h-5"></i></span><span><h5>商业综合体</h5><p>迎宾、导购、找店、活动推荐与会员转化。</p></span></a>
+                                <a href="solutions.html#gov" class="mega-link mega-option" data-preview="gov"><span class="mega-icon"><i data-lucide="landmark" class="w-5 h-5"></i></span><span><h5>政务公共服务</h5><p>办事咨询、材料核验、窗口分流与数据合规。</p></span></a>
+                                <a href="solutions.html#tourism" class="mega-link mega-option" data-preview="tourism"><span class="mega-icon"><i data-lucide="map" class="w-5 h-5"></i></span><span><h5>文旅景区</h5><p>金牌导游、路线规划、文化讲解与游客互动。</p></span></a>
+                                <a href="solutions.html#exhibit" class="mega-link mega-option" data-preview="exhibit"><span class="mega-icon"><i data-lucide="presentation" class="w-5 h-5"></i></span><span><h5>展厅导览</h5><p>移动讲解员、多媒体联动和高频问题承接。</p></span></a>
+                                <a href="solutions.html#hotel" class="mega-link mega-option" data-preview="hotel"><span class="mega-icon"><i data-lucide="plane" class="w-5 h-5"></i></span><span><h5>酒店机场</h5><p>多语接待、航班/入住咨询与夜间服务补位。</p></span></a>
+                                <a href="solutions.html#finance" class="mega-link mega-option" data-preview="finance"><span class="mega-icon"><i data-lucide="badge-dollar-sign" class="w-5 h-5"></i></span><span><h5>银行金融</h5><p>VIP 接待、业务预审、知识库问答与合规部署。</p></span></a>
+                            </div>
+                            <div class="mega-preview">
+                                <div class="mega-preview-card active preview-mall"><div class="mega-preview-visual" style="background-image:url('TakePhotos.0036.png')"></div><div class="mega-preview-copy"><h4>商业综合体优先场景</h4><p>从“找店问路”到活动推荐和会员转化，把商场前台变成可运营触点。</p><span>查看方案</span></div></div>
+                                <div class="mega-preview-card preview-gov"><div class="mega-preview-visual" style="background-image:url('20240923-181914.png')"></div><div class="mega-preview-copy"><h4>政务高频咨询分流</h4><p>私有化知识库、窗口分流、材料指引，降低人工重复答疑压力。</p><span>查看方案</span></div></div>
+                                <div class="mega-preview-card preview-tourism"><div class="mega-preview-visual" style="background-image:url('TakePhotos_panda.0080.png')"></div><div class="mega-preview-copy"><h4>主题化金牌导游</h4><p>景区 IP 形象承接路线、讲解、票务和周边推荐。</p><span>查看方案</span></div></div>
+                                <div class="mega-preview-card preview-exhibit"><div class="mega-preview-visual" style="background-image:url('TakePhotos_Boy.0770.png')"></div><div class="mega-preview-copy"><h4>展厅移动讲解</h4><p>多媒体联动、定点讲解和高频问答，让展厅服务标准化。</p><span>查看方案</span></div></div>
+                                <div class="mega-preview-card preview-hotel"><div class="mega-preview-visual" style="background-image:url('StartRoom_Post.0210.png')"></div><div class="mega-preview-copy"><h4>多语接待补位</h4><p>机场、酒店和会展空间的国际客群咨询与夜间服务。</p><span>查看方案</span></div></div>
+                                <div class="mega-preview-card preview-finance"><div class="mega-preview-visual" style="background-image:url('StartRoom_Post.0180.png')"></div><div class="mega-preview-copy"><h4>金融合规接待</h4><p>VIP 接待、业务预审、知识问答和本地化安全部署。</p><span>查看方案</span></div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="nav-group">
+                    <a href="cases.html" class="nav-top">落地案例 <i data-lucide="chevron-down" class="w-3.5 h-3.5 nav-caret"></i></a>
+                    <div class="mega-menu">
+                        <div class="mega-split">
+                            <div class="mega-list">
+                                <a href="cases.html#sino" class="mega-link mega-option" data-preview="sino"><span class="mega-icon"><i data-lucide="sparkles" class="w-5 h-5"></i></span><span><h5>信和集团 · 中港城</h5><p>商业空间数字内容与 AI 接待统一入口。</p></span></a>
+                                <a href="cases.html#tourism" class="mega-link mega-option" data-preview="case-tourism"><span class="mega-icon"><i data-lucide="landmark" class="w-5 h-5"></i></span><span><h5>文旅与公共服务</h5><p>景区、消防教育基地、博物馆等多场景复制。</p></span></a>
+                            </div>
+                            <div class="mega-preview">
+                                <div class="mega-preview-card active preview-sino"><div class="mega-preview-visual" style="background-image:url('TakePhotos.0036.png')"></div><div class="mega-preview-copy"><h4>旗舰商业案例</h4><p>用 AI 虚拟员工统一商场服务、活动和导览入口。</p><span>查看案例</span></div></div>
+                                <div class="mega-preview-card preview-case-tourism"><div class="mega-preview-visual" style="background-image:url('TakePhotos_panda.0080.png')"></div><div class="mega-preview-copy"><h4>多场景复制</h4><p>文旅、教育基地、展厅和公共服务的标准化落地。</p><span>查看案例</span></div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="nav-group">
+                    <a href="about.html" class="nav-top">关于我们 <i data-lucide="chevron-down" class="w-3.5 h-3.5 nav-caret"></i></a>
+                    <div class="mega-menu">
+                        <div class="mega-split">
+                            <div class="mega-list">
+                                <a href="about.html" class="mega-link mega-option" data-preview="about"><span class="mega-icon"><i data-lucide="info" class="w-5 h-5"></i></span><span><h5>公司介绍</h5><p>新浪爱问前身背景，全栈自研 AI 虚拟员工团队。</p></span></a>
+                                <a href="news.html" class="mega-link mega-option" data-preview="news"><span class="mega-icon"><i data-lucide="newspaper" class="w-5 h-5"></i></span><span><h5>新闻动态</h5><p>品牌报道、产品更新、行业活动与公司里程碑。</p></span></a>
+                                <a href="${contactHref}" class="mega-link mega-option" data-preview="contact"><span class="mega-icon"><i data-lucide="phone" class="w-5 h-5"></i></span><span><h5>联系我们</h5><p>预约演示、商务合作和试点场景沟通。</p></span></a>
+                            </div>
+                            <div class="mega-preview">
+                                <div class="mega-preview-card active preview-about"><div class="mega-preview-visual" style="background-image:url('StartRoom_Post.0180.png')"></div><div class="mega-preview-copy"><h4>新浪爱问背景</h4><p>从知识问答到 AI Agent，把内容理解能力带入线下服务场景。</p><span>了解我们</span></div></div>
+                                <div class="mega-preview-card preview-news"><div class="mega-preview-visual" style="background-image:url('TakePhotos_Boy.0100.png')"></div><div class="mega-preview-copy"><h4>产品与公司动态</h4><p>媒体报道、产品发布、展会活动和客户上线新闻。</p><span>查看动态</span></div></div>
+                                <div class="mega-preview-card preview-contact"><div class="mega-preview-visual" style="background-image:url('TakePhotos.0772.png')"></div><div class="mega-preview-copy"><h4>预约一次场景沟通</h4><p>告诉我们你的空间、客流和业务目标，评估适合的终端组合。</p><span>联系商务</span></div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-3">
+                <div class="relative" id="langSwitch">
+                    <button class="nav-icon-btn w-11 h-11 flex items-center justify-center rounded-full transition-all" id="langBtn" aria-haspopup="true" aria-label="切换语言 / Language"><i data-lucide="globe" class="w-[18px] h-[18px]"></i></button>
+                    <div class="lang-menu absolute right-0 mt-2 w-36 bg-white rounded-2xl shadow-xl border border-gray-100 p-1.5 hidden" id="langMenu">
+                        <button class="lang-opt" data-lang="zh-CN">简体中文</button>
+                        <button class="lang-opt" data-lang="zh-TW">繁體中文</button>
+                        <button class="lang-opt" data-lang="en">English</button>
+                    </div>
+                </div>
+                <a href="${contactHref}" data-i18n-btn class="nav-contact-btn magnetic-btn gradient-bg text-white px-7 py-3 rounded-full text-sm font-semibold transition-all whitespace-nowrap hidden lg:inline-flex items-center">联系商务</a>
+                <button class="nav-icon-btn w-11 h-11 lg:hidden flex items-center justify-center rounded-full transition-all" id="navHamburger" aria-label="菜单 / Menu"><i data-lucide="menu" class="w-5 h-5"></i></button>
+            </div>
+        </div>
+    </nav>
+    <div class="nav-mobile lg:hidden" id="navMobile">
+        <a href="index.html">首页</a>
+        <a href="products.html">产品矩阵</a>
+        <a href="solutions.html">解决方案</a>
+        <a href="cases.html">落地案例</a>
+        <a href="about.html">关于我们</a>
+        <a href="news.html">新闻动态</a>
+        <a href="${contactHref}" class="nav-mobile-cta">联系商务</a>
+    </div>`;
+
+    const FOOTER = `
+    <footer class="site-footer">
+        <div class="site-footer-inner">
+            <div class="flex flex-col md:flex-row justify-between items-start gap-12 mb-16">
+                <div class="site-footer-brand">
+                    <div class="font-sora font-extrabold text-2xl tracking-tight text-white mb-6">2077<span class="text-white/30">.</span><span class="gradient-text">AI</span></div>
+                    <p class="text-sm leading-relaxed mb-6">2077.AI 致力于为世界"智"造一亿劳动力，专注高度拟人化 AI 虚拟人的研发与应用。</p>
+                    <div class="flex gap-4">
+                        <a href="#" class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-gray-400 hover:text-white hover:border-purple-400 transition-all"><i data-lucide="globe" class="w-5 h-5"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-gray-400 hover:text-white hover:border-purple-400 transition-all"><i data-lucide="share-2" class="w-5 h-5"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-gray-400 hover:text-white hover:border-purple-400 transition-all"><i data-lucide="send" class="w-5 h-5"></i></a>
+                    </div>
+                </div>
+                <div class="site-footer-grid">
+                    <div><h6>产品</h6><ul class="space-y-4 text-sm"><li><a href="products.html#nano">幻真 Nano 一体机</a></li><li><a href="products.html#pro">幻真 Pro 旗舰大屏</a></li><li><a href="products.html#robo">幻真 Robo 机器人</a></li><li><a href="products.html">幻真云 CMS 平台</a></li></ul></div>
+                    <div><h6>场景</h6><ul class="space-y-4 text-sm"><li><a href="solutions.html#mall">商业综合体</a></li><li><a href="solutions.html#gov">公共服务</a></li><li><a href="solutions.html#tourism">文旅景区</a></li><li><a href="solutions.html#exhibit">展厅导览</a></li></ul></div>
+                    <div><h6>联系我们</h6><ul class="space-y-4 text-sm"><li><a href="tel:18676387250">186 7638 7250</a></li><li><a href="mailto:Molly@2077.ai">Molly@2077.ai</a></li><li><a href="#">深圳前海深港青年梦工场北区 C 栋 202</a></li></ul></div>
+                </div>
+            </div>
+            <div class="flex flex-col md:flex-row justify-between items-center pt-10 border-t border-white/10 text-xs">
+                <p>© 2025 2077.AI · 幻影未来 版权所有</p>
+                <div class="flex gap-8 mt-4 md:mt-0"><a href="#">隐私政策</a><a href="#">服务协议</a><a href="#">粤ICP备20065272号-1</a></div>
+            </div>
+        </div>
+    </footer>`;
+
+    const FAB = `
+    <div class="fab" id="fab">
+        <div class="fab-menu">
+            <a href="tel:18676387250" class="fab-item"><i data-lucide="phone" class="w-4 h-4 text-purple-600"></i><div>电话咨询<br><b>186 7638 7250</b></div></a>
+            <a href="${contactHref}" class="fab-item"><i data-lucide="calendar-check" class="w-4 h-4 text-purple-600"></i><div>联系商务</div></a>
+            <a href="mailto:Molly@2077.ai" class="fab-item"><i data-lucide="mail" class="w-4 h-4 text-purple-600"></i><div>邮件联系</div></a>
+        </div>
+        <div class="fab-main" id="fabMain"><i data-lucide="message-circle" class="w-6 h-6"></i></div>
+    </div>`;
+
+    const navMount = document.getElementById('site-nav');
+    if (navMount) navMount.innerHTML = NAV;
+    const footerMount = document.getElementById('site-footer');
+    if (footerMount) footerMount.innerHTML = FOOTER;
+    const fabMount = document.getElementById('site-fab');
+    if (fabMount) fabMount.innerHTML = FAB;
+
+    function initSharedUi() {
+        if (window.lucide) window.lucide.createIcons();
+
+        const inner = document.querySelector('.site-nav-shell');
+        if (inner && !inner.classList.contains('nav-light')) {
+            const update = () => inner.classList.toggle('nav-scrolled', window.scrollY > 50);
+            update();
+            window.addEventListener('scroll', update, { passive: true });
+        }
+
+        const fab = document.getElementById('fab');
+        const fabMain = document.getElementById('fabMain');
+        if (fab && fabMain) fabMain.addEventListener('click', () => fab.classList.toggle('open'));
+
+        const ham = document.getElementById('navHamburger');
+        const mob = document.getElementById('navMobile');
+        if (ham && mob) {
+            ham.addEventListener('click', (e) => { e.stopPropagation(); mob.classList.toggle('open'); });
+            mob.addEventListener('click', (e) => e.stopPropagation());
+            document.addEventListener('click', () => mob.classList.remove('open'));
+            mob.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mob.classList.remove('open')));
+        }
+    }
+
+    function initI18n() {
+        if (window.__SITE_I18N_READY) return;
+        window.__SITE_I18N_READY = true;
+
+        const I18N = window.__I18N_DICT || { 'zh-TW': {}, 'en': {} };
+        let CUR = 'zh-CN';
+        const snap = [];
+        const attrSnap = [];
+        const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
+            acceptNode(n) {
+                const p = n.parentElement;
+                if (!p) return NodeFilter.FILTER_REJECT;
+                if (['SCRIPT', 'STYLE', 'NOSCRIPT'].includes(p.nodeName)) return NodeFilter.FILTER_REJECT;
+                if (p.closest('#langSwitch') || p.closest('.float-chip')) return NodeFilter.FILTER_REJECT;
+                if (p.classList && p.classList.contains('counter-val')) return NodeFilter.FILTER_REJECT;
+                if (!n.nodeValue || !/[一-鿿]/.test(n.nodeValue)) return NodeFilter.FILTER_REJECT;
+                return NodeFilter.FILTER_ACCEPT;
+            }
+        });
+        let node;
+        while ((node = walker.nextNode())) snap.push({ node, zh: node.nodeValue });
+        document.querySelectorAll('[placeholder], [aria-label]').forEach(el => {
+            ['placeholder', 'aria-label'].forEach(attr => {
+                const v = el.getAttribute(attr);
+                if (v && /[一-鿿]/.test(v)) attrSnap.push({ el, attr, zh: v });
+            });
+        });
+
+        function tr(zh, lang) {
+            if (lang === 'zh-CN') return zh;
+            const key = zh.trim();
+            const t = (I18N[lang] || {})[key];
+            return t == null ? zh : zh.replace(key, t);
+        }
+        window.__i18nTr = (s) => CUR === 'zh-CN' ? s : ((I18N[CUR] || {})[s] || s);
+        window.__dumpI18n = () => [...new Set([...snap.map(s => s.zh.trim()), ...attrSnap.map(s => s.zh.trim())])].filter(Boolean);
+
+        const VALID = ['zh-CN', 'zh-TW', 'en'];
+        function setLang(lang, persist) {
+            if (!VALID.includes(lang)) lang = 'zh-CN';
+            CUR = lang;
+            snap.forEach(({ node, zh }) => { node.nodeValue = tr(zh, lang); });
+            attrSnap.forEach(({ el, attr, zh }) => { el.setAttribute(attr, tr(zh, lang)); });
+            const el = document.documentElement;
+            el.lang = lang === 'en' ? 'en' : (lang === 'zh-TW' ? 'zh-Hant' : 'zh-Hans');
+            el.setAttribute('data-lang', lang);
+            document.querySelectorAll('.lang-opt').forEach(o => o.classList.toggle('active', o.dataset.lang === lang));
+            if (window.__renderChips) window.__renderChips();
+            if (persist) { try { localStorage.setItem('site-lang', lang); } catch (e) {} }
+        }
+        window.setSiteLang = (l) => setLang(l, true);
+
+        const btn = document.getElementById('langBtn');
+        const menu = document.getElementById('langMenu');
+        if (btn && menu) {
+            btn.addEventListener('click', (e) => { e.stopPropagation(); menu.classList.toggle('hidden'); });
+            menu.addEventListener('click', (e) => e.stopPropagation());
+            document.addEventListener('click', () => menu.classList.add('hidden'));
+            document.querySelectorAll('.lang-opt').forEach(o => o.addEventListener('click', () => { setLang(o.dataset.lang, true); menu.classList.add('hidden'); }));
+        }
+
+        let saved = null;
+        try { saved = localStorage.getItem('site-lang'); } catch (e) {}
+        if (saved && VALID.includes(saved)) {
+            setLang(saved, false);
+        } else {
+            setLang('zh-CN', false);
+            fetch('https://ipapi.co/json/')
+                .then(r => r.json())
+                .then(d => {
+                    const cc = (d && d.country_code || '').toUpperCase();
+                    let lang = 'en';
+                    if (cc === 'CN') lang = 'zh-CN';
+                    else if (['HK', 'MO', 'TW'].includes(cc)) lang = 'zh-TW';
+                    setLang(lang, false);
+                })
+                .catch(() => {});
+        }
+    }
+
+    initSharedUi();
+    initI18n();
+})();

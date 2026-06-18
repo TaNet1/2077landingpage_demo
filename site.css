@@ -106,6 +106,13 @@ body { font-family: var(--font-main); }
 .mega-grid.one { grid-template-columns: 1fr; }
 .mega-split { display: grid; grid-template-columns: 300px 1fr; gap: 12px; }
 .mega-list { display: flex; flex-direction: column; gap: 4px; }
+.mega-section-label {
+    margin: 8px 8px 4px;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: .08em;
+    color: #94a3b8;
+}
 .mega-link {
     display: grid; grid-template-columns: 38px 1fr; gap: 11px; align-items: start;
     padding: 11px; border-radius: 8px; color: #0f172a;
@@ -145,6 +152,8 @@ body { font-family: var(--font-main); }
 .mega-split:has(.mega-option[data-preview="nano"]:hover) .preview-nano,
 .mega-split:has(.mega-option[data-preview="pro"]:hover) .preview-pro,
 .mega-split:has(.mega-option[data-preview="robo"]:hover) .preview-robo,
+.mega-split:has(.mega-option[data-preview="huanzhen"]:hover) .preview-huanzhen,
+.mega-split:has(.mega-option[data-preview="cms"]:hover) .preview-cms,
 .mega-split:has(.mega-option[data-preview="mall"]:hover) .preview-mall,
 .mega-split:has(.mega-option[data-preview="gov"]:hover) .preview-gov,
 .mega-split:has(.mega-option[data-preview="tourism"]:hover) .preview-tourism,

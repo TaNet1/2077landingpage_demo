@@ -23,6 +23,26 @@
 
 ## 交接记录（倒序，最新在上）
 
+### 2026-06-18 · Codex：产品矩阵拆分硬件 / 软件
+
+根据用户最新要求，产品矩阵已从单一“终端形态”改为两层结构：
+
+- **硬件**：幻真 Nano、幻真 Pro、幻真 Robo。三者仍作为线下触点和空间呈现终端。
+- **软件**：幻真、幻真CMS。幻真是 AI 虚拟员工软件本体，幻真CMS 是知识库、话术、内容发布、设备和运营数据的管理后台。
+
+具体改动：
+
+- `products.html`：首屏文案改为“硬件终端 + 软件平台”，新增“硬件：三种终端形态”说明段，并把原底部软件概述升级为“软件：幻真与幻真CMS”双卡片。
+- `site.js`：产品矩阵 mega menu 增加“硬件 / 软件”分组，新增 `products.html#huanzhen` 和 `products.html#cms` 入口；页脚产品链接同步改为硬件与软件入口。
+- `site.css`：新增 `.mega-section-label`，并补 `huanzhen/cms` 两个预览卡 hover 规则。
+- `i18n.js`：补齐新增产品页和导航浮窗文案的繁体/英文翻译。
+
+验证：
+
+- `node --check site.js`、`node --check i18n.js` 通过。
+- 新增文案 i18n 缺失扫描为 `missing=0`。
+- `products.html`、`site.js`、`site.css`、`i18n.js` 在 `http://127.0.0.1:4178/` 下均返回 `200 OK`。
+
 ### 2026-06-18 · Codex 接手：统一全站导航 / 页脚 / i18n
 
 完成 Claude 留给 Codex 的「方案 A」收口：

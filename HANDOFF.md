@@ -7,7 +7,7 @@
 
 ## 🎯 当前两个待办（状态见下方 2026-06-19 交接记录）
 
-> 📌 **2026-06-19 进度速览**：任务 B（产品矩阵拆独立子页）已由 Codex 静态验收、修复 CSS 残留并准备提交；任务 A **已定方案但未动代码**（用户选「Lenis 平滑滚动 + 全站景深视差」），仍待后续实现。
+> 📌 **2026-06-19 进度速览**：任务 B（产品矩阵拆独立子页）已由 Codex 静态验收并提交；任务 A（Lenis 平滑滚动 + 全站景深视差）已由 Codex 接入首页，已做静态校验和本地 HTTP 校验，但仍建议下一棒做真实浏览器视觉验收。
 
 ### 任务 A：给网页加滚动视差（parallax），效果要对齐这两个参考站
 
@@ -81,6 +81,26 @@
 - 产品 mega menu 当前锚点是 `products.html#nano` / `#pro` / `#robo` / `#huanzhen` / `#cms`（任务 B 拆页后要改成各自独立页）。
 
 ## 交接记录（倒序，最新在上）
+
+### 2026-06-19 · Codex：接入首页 Lenis 平滑滚动与多区块景深视差
+
+接手 Claude/Codex 交接里的任务 A 后，按用户确认的「Lenis 平滑滚动 + 全站景深视差」方向做了首页实现，未改产品矩阵结构。
+
+本次改动：
+- `index.html` 头部新增 Lenis CDN：`https://unpkg.com/lenis@1.3.23/dist/lenis.css` 和 `lenis.min.js`。
+- 在首页主 GSAP 脚本中初始化 Lenis，并按 Lenis + ScrollTrigger 官方推荐方式打通：`lenis.on('scroll', ScrollTrigger.update)`、`gsap.ticker.add(time => lenis.raf(time * 1000))`、`gsap.ticker.lagSmoothing(0)`。这样现有 pinned 产品故事、案例横向 scrub、moat 视差不会和顺滑滚动脱节。
+- 新增 `prefers-reduced-motion` 降级：系统开启减少动态效果时，不启用 Lenis，也不跑新增的滚动视差。
+- 扩展首页多区块景深：首屏背景与文字反向轻微位移、痛点/产品逻辑/moat/应用场景/案例/联系表单等主要区块增加低幅度 `scrub` 位移；`moat` 背景层位移幅度略增强。
+- 保留原有产品矩阵三张硬件卡片和 pinned scroll timeline，只做滚动手感接入，没有再次重构内容。
+
+验证：
+- `node` 解析 `index.html` 内联脚本通过：`inline scripts ok: 2`。
+- `node --check site.js`、`node --check i18n.js` 均通过。
+- `http://127.0.0.1:4178/` 返回 `200 OK`。
+
+未完成 / 注意：
+- 真实浏览器截图级视觉验收仍未完成。Codex 内置浏览器在当前 Windows 沙箱中仍报 `CreateProcessAsUserW failed: 5`，无法启动；建议 Claude 或用户在浏览器里重点检查：滚动是否足够顺滑、产品矩阵 pin 是否抖动、顶部导航回到首屏是否仍保持胶囊位置、移动端是否没有过度视差。
+- 如果用户觉得“视差感还不够像 custo.io”，下一步优先调 `para(...)` 的 yPercent / scrub 数值，不要先改产品矩阵结构。
 
 ### 2026-06-19 · Codex：验收并收口产品独立子页任务 B
 

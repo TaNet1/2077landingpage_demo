@@ -10,6 +10,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="https://unpkg.com/lenis@1.3.23/dist/lenis.css">
+    <script src="https://unpkg.com/lenis@1.3.23/dist/lenis.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <script src="i18n.js"></script>
@@ -52,6 +54,9 @@
             scroll-behavior: smooth;
         }
         html { scroll-behavior: smooth; }
+        .lenis.lenis-smooth { scroll-behavior: auto !important; }
+        .lenis.lenis-smooth body { scroll-behavior: auto !important; }
+        .lenis.lenis-stopped { overflow: clip; }
 
         /* display headings keep Sora for Latin, fall back to the per-language font */
         .font-sora { font-family: 'Sora', var(--font-main); }
@@ -77,6 +82,20 @@
 
         #products.scroll-story {
             min-height: 100vh;
+        }
+        .hero-media,
+        .hero-pio-wrap,
+        .product-story-copy,
+        .deco-orb,
+        #moatBg1,
+        #moatBg2 {
+            will-change: transform;
+        }
+        @media (prefers-reduced-motion: reduce) {
+            html,
+            body {
+                scroll-behavior: auto !important;
+            }
         }
         .product-story-grid {
             perspective: 1200px;
@@ -1643,6 +1662,7 @@
 
     <script>
         // ===== GSAP (graceful fallback if CDN unavailable) =====
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         const useGSAP = !!(window.gsap && window.ScrollTrigger);
         if (window.gsap) {
             // Hero intro: animate FROM the CSS-prehidden state (no flash-of-content)
@@ -1654,23 +1674,51 @@
             document.querySelectorAll('#hero .hero-in, #heroVisual').forEach(el => { el.style.opacity = 1; });
         }
         if (useGSAP) {
-            gsap.registerPlugin(ScrollTrigger);
+            const ST = window.ScrollTrigger;
+            gsap.registerPlugin(ST);
+
+            // Lenis keeps the wheel feeling smooth while ScrollTrigger remains the source of truth.
+            if (window.Lenis && !prefersReducedMotion) {
+                const lenis = new Lenis({
+                    lerp: 0.085,
+                    wheelMultiplier: 0.9,
+                    touchMultiplier: 1.05,
+                    anchors: { offset: -96, duration: 1.05 },
+                    autoResize: true
+                });
+                window.__siteLenis = lenis;
+                lenis.on('scroll', ST.update);
+                gsap.ticker.add((time) => {
+                    lenis.raf(time * 1000);
+                });
+                gsap.ticker.lagSmoothing(0);
+            }
 
             // ---- Parallax (hero + dark moat) ----
-            const para = (sel, y, trig) => gsap.to(sel, { yPercent: y, ease: 'none',
-                scrollTrigger: { trigger: trig, start: 'top bottom', end: 'bottom top', scrub: true } });
-            gsap.to('#heroBlob1', { yPercent: 30, ease: 'none', scrollTrigger: { trigger: '#hero', start: 'top top', end: 'bottom top', scrub: true } });
-            gsap.to('#heroBlob2', { yPercent: -22, ease: 'none', scrollTrigger: { trigger: '#hero', start: 'top top', end: 'bottom top', scrub: true } });
-            gsap.to('#heroVisual', { yPercent: -9, ease: 'none', scrollTrigger: { trigger: '#hero', start: 'top top', end: 'bottom top', scrub: true } });
-            para('#moatBg1', 16, '#moat');
-            para('#moatBg2', -16, '#moat');
+            if (!prefersReducedMotion) {
+                const para = (sel, y, trig, start = 'top bottom', end = 'bottom top', scrub = 1.15) => {
+                    if (!document.querySelector(sel)) return;
+                    gsap.to(sel, { yPercent: y, ease: 'none',
+                        scrollTrigger: { trigger: trig, start, end, scrub, invalidateOnRefresh: true } });
+                };
+                para('#heroVisual', -12, '#hero', 'top top', 'bottom top', 1.1);
+                para('#hero .hero-pio-wrap', 14, '#hero', 'top top', 'bottom top', 1.25);
+                para('#pain > .max-w-7xl', -5, '#pain');
+                para('#logic > .max-w-7xl', 5, '#logic');
+                para('#moatBg1', 20, '#moat');
+                para('#moatBg2', -20, '#moat');
+                para('#moat > .max-w-7xl', 5, '#moat');
+                para('#scenarios > .max-w-7xl', -6, '#scenarios');
+                para('#cases > .max-w-7xl', 5, '#cases');
+                para('#contact > .max-w-7xl', -5, '#contact');
+            }
 
             // ---- Top scroll-progress bar ----
             gsap.to('#scrollProgress', { scaleX: 1, ease: 'none', scrollTrigger: { start: 0, end: 'max', scrub: 0.3 } });
 
             // ---- Cases: horizontal scrub drift (desktop only) ----
             const caseTrack = document.getElementById('caseTrack');
-            if (caseTrack && window.matchMedia('(min-width: 768px)').matches) {
+            if (caseTrack && !prefersReducedMotion && window.matchMedia('(min-width: 768px)').matches) {
                 const dist = () => Math.max(0, caseTrack.scrollWidth - caseTrack.parentElement.clientWidth + 40);
                 gsap.to(caseTrack, { x: () => -dist(), ease: 'none',
                     scrollTrigger: { trigger: '#cases', start: 'top 65%', end: 'bottom top', scrub: 1, invalidateOnRefresh: true } });

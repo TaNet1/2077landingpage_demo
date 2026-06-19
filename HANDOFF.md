@@ -82,6 +82,24 @@
 
 ## 交接记录（倒序，最新在上）
 
+### 2026-06-19 · Codex：把视差效果铺到所有实际页面
+
+用户要求“每个页面都要做视差效果”。本次在不改页面信息结构的前提下，把任务 A 从首页扩展到全部实际页面：
+- 页面范围：`products.html`、`solutions.html`、`cases.html`、`news.html`、`about.html`、`product-huanzhen.html`、`product-cms.html`、`product-nano.html`、`product-pro.html`、`product-robo.html`。首页 `index.html` 已在上一轮单独接入，未重复初始化。
+- 以上子页面 `<head>` 统一补入 Lenis / GSAP / ScrollTrigger CDN，供共享 `site.js` 使用。
+- `site.js` 新增 `initPageMotion()`：仅在非首页运行；初始化 Lenis 并与 ScrollTrigger 同步；按 `prefers-reduced-motion` 做降级；为 `.page-hero` 和 `.section` 动态注入非交互式景深层；给页面主体、section 容器、产品图做轻量滚动位移；给卡片做透明度/模糊入场，不写卡片 transform，避免覆盖原有 hover 上浮。
+- `page.css` 新增 Lenis 基础样式、通用 `.page-parallax-layer` 景深层、section/hero 的定位与 reduced-motion 降级样式。
+
+验证：
+- `node --check site.js`、`node --check i18n.js` 均通过。
+- `page.css` 大括号平衡检查通过。
+- 子页面依赖检查通过：10 个实际子页面都包含 `lenis@1.3.23` 与 `ScrollTrigger.min.js`。
+- 编码烟测通过：检查未发现 `�?` 替换字符。注意：第一次批量写入时 PowerShell 默认编码曾导致页面中文异常，已从 `HEAD` 恢复页面原文后用显式 UTF-8 重新插入依赖。
+- 本地 HTTP 检查：`/`、`/products.html`、`/solutions.html`、`/cases.html`、`/news.html`、`/about.html`、5 个 `product-*.html` 均返回 `200 OK`。
+
+未完成 / 注意：
+- 真实浏览器视觉验收仍未做，原因同上一条：Codex 内置浏览器在当前 Windows 沙箱中无法启动。建议后续人工重点检查子页面滚动是否过度、卡片 hover 是否仍自然、锚点跳转是否因 Lenis offset 符合导航高度。
+
 ### 2026-06-19 · Codex：接入首页 Lenis 平滑滚动与多区块景深视差
 
 接手 Claude/Codex 交接里的任务 A 后，按用户确认的「Lenis 平滑滚动 + 全站景深视差」方向做了首页实现，未改产品矩阵结构。

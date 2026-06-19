@@ -93,10 +93,14 @@
 - **「落地案例」重做**：横向漂移(`#caseTrack`) → 大气 3×2 卡片网格(`.cases-grid`/`.case-tile`)，每卡顶部 16:9 视觉位(现 emoji+渐变占位)，整卡链接到案例页(信和→case-sino、消防→case-fire-education，其余→cases.html)。`#caseTrack` id 已移除→ 首页 GSAP 里的 caseTrack scrub 守卫跳过。
 - **视差力度按用户要求加大**（上一条记录的数值再上调）：`index.html` 首页 `para()`（heroVisual -22、hero 文字 22、moatBg ±40、内容区 ±11~13）；`site.js` `initPageMotion()`（hero 容器 18 / 光晕 -38、section 容器 ±10 / 光晕 ±42、产品图 -18）。
 
+大气版式已推到全部子页（2026-06-19 续）：
+- 在 `page.css` 末尾追加「大气版式 pass」块，覆盖所有子页（products、5 个产品页、solutions/cases/news/about 及 detail-page.js 渲染的 16 个详情页）。`.container` 去掉宽度限制对齐导航栏(36/26)、`.section`/`.page-hero` 上下留白加大、`.section-title`/`.lead`/`.section-copy`/`h1` 字号放大。
+- **坑（已解决，务必知道）**：子页加载了 Tailwind CDN，它的 `.container` 工具类(`max-width:1280px`)会盖过 page.css 里普通的 `.container` 规则。所以宽度对齐必须用更高优先级选择器 `.page-hero > .container, .section > .container { max-width:none }` 才生效。
+- 实测 1440 屏：products / 产品页 / solution-mall(detail-page.js) 的 hero 与 section 容器都是 left36/right41，与导航栏完全一致，无横向溢出、无 console error。
+
 未完成 / 待办：
 - **客户评价**段仍是横向跑马灯（用户选择保留）。
-- 大气版式目前**只在首页**；用户认可后需把同套尺度推到 products + 5 个产品页 + solutions/cases/about 等子页。
-- **用户报的一个 bug 未修**：「为什么选择 2077.AI」(moat 区块)底部某处间距太紧，用户说看附件但附件没传到 Claude；待用户重发截图或文字定位后再修。
+- bug #4（moat 底部间距）用户已说「没了，不用管」。
 - 用户会提供：产品矩阵 3 张 16:9 产品图、案例真实图。
 
 ### 2026-06-19 · Claude：浏览器验收视差（任务 A），未改代码

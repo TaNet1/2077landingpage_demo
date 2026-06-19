@@ -7,7 +7,7 @@
 
 ## 🎯 当前两个待办（状态见下方 2026-06-19 交接记录）
 
-> 📌 **2026-06-19 进度速览**：任务 B（产品矩阵拆独立子页）已由 Codex 静态验收并提交；任务 A（Lenis 平滑滚动 + 全站景深视差）已由 Codex 接入首页，已做静态校验和本地 HTTP 校验，但仍建议下一棒做真实浏览器视觉验收。
+> 📌 **2026-06-19 进度速览**：任务 B（产品矩阵拆独立子页）已由 Codex 静态验收并提交；任务 A（Lenis 平滑滚动 + 全站景深视差）已由 Codex 接入首页+全部子页。**2026-06-19 Claude 已用浏览器做真实滚动验收：首页 #products pin 段在 Lenis 下不抖动、景深层随滚动正常位移、文字未被光晕遮挡、卡片入场正常、无 console 报错 —— 视差实现可用且手感克制。** 详见最下方「Claude：浏览器验收视差」一条。
 
 ### 任务 A：给网页加滚动视差（parallax），效果要对齐这两个参考站
 
@@ -81,6 +81,40 @@
 - 产品 mega menu 当前锚点是 `products.html#nano` / `#pro` / `#robo` / `#huanzhen` / `#cms`（任务 B 拆页后要改成各自独立页）。
 
 ## 交接记录（倒序，最新在上）
+
+### 2026-06-19 · Claude：首页大气版式 pass + 痛点/案例区块重做 + 视差加大
+
+用户反馈「首图以外的内容偏窄、小气，区块表现形式重复」，要求版式更大气、内容区宽度对齐导航栏、并参考 pio.com / custo.io / on.energy。本轮**只改 `index.html`（首页内联 style + 痛点/案例两段 DOM）和 `site.js`（子页视差力度）**，已浏览器验收、无 console error、无横向溢出。
+
+- **内容区对齐导航栏**：首页内联 style 末尾新增「大气版式 pass」块。去掉各 section `.max-w-7xl` 的 1280 居中限制（`max-width:none`），区块左右内边距改成与导航栏一致（`body>section:not(#hero)` padding 36/26）。实测 1440 屏内容区 left36/right41，与 `.site-nav-shell` 完全一致。
+- **大气尺度**：区块主标题 `h3.text-4xl.font-sora` 放大到 `clamp(2.75rem,4.6vw,5.25rem)`、字距收紧；区块上下 padding `clamp(8rem,10.5vw,13.5rem)`；导语放大加宽。移动端有降级。
+- **产品矩阵预留 3 个 16:9 图位**：3 张 `.product-story-card` 顶部各加 `.product-shot`（`aspect-ratio:16/9` 占位，标注「幻真 XXX · 16:9」）。**用户会给 16:9 图**；替换时取消卡内 `<!-- <img src="assets/product-nano.jpg"...> -->` 注释并删占位 `<span>` 即可。
+- **「行业痛点」重做**：横向跑马灯(`.pain-marquee`/`.pain-track`) → 静态 bento 网格(`.pain-bento`，4 列、首张 `.pain-cardx` 跨 2 列，7 张铺满 2 行)。复用原 `.pain-cardx` 样式。注意：marquee 复制脚本里仍列了 `painTrack`，但该 id 已移除→ `if(track)` 守卫跳过，无副作用。
+- **「落地案例」重做**：横向漂移(`#caseTrack`) → 大气 3×2 卡片网格(`.cases-grid`/`.case-tile`)，每卡顶部 16:9 视觉位(现 emoji+渐变占位)，整卡链接到案例页(信和→case-sino、消防→case-fire-education，其余→cases.html)。`#caseTrack` id 已移除→ 首页 GSAP 里的 caseTrack scrub 守卫跳过。
+- **视差力度按用户要求加大**（上一条记录的数值再上调）：`index.html` 首页 `para()`（heroVisual -22、hero 文字 22、moatBg ±40、内容区 ±11~13）；`site.js` `initPageMotion()`（hero 容器 18 / 光晕 -38、section 容器 ±10 / 光晕 ±42、产品图 -18）。
+
+未完成 / 待办：
+- **客户评价**段仍是横向跑马灯（用户选择保留）。
+- 大气版式目前**只在首页**；用户认可后需把同套尺度推到 products + 5 个产品页 + solutions/cases/about 等子页。
+- **用户报的一个 bug 未修**：「为什么选择 2077.AI」(moat 区块)底部某处间距太紧，用户说看附件但附件没传到 Claude；待用户重发截图或文字定位后再修。
+- 用户会提供：产品矩阵 3 张 16:9 产品图、案例真实图。
+
+### 2026-06-19 · Claude：浏览器验收视差（任务 A），未改代码
+
+用户让我检查 Codex 做的视差是否合适。用本地预览（`localhost:4181` 静态服务）做了真实浏览器滚动验收，**仅验收、未改任何代码**。
+
+验收结论（视差实现可用、手感克制）：
+- **首页 index.html**：Lenis 平滑滚动生效；13 个 ScrollTrigger，`#products` 仍是 pinned；滚到产品矩阵段时 section `rect.top` 在 +300/+700px 两个位置都稳定为 0，**pin 在 Lenis 下不抖动、不脱节**；无 console error（只有 Tailwind CDN 生产提示，预期内）。
+- **子页面 products.html**：Lenis 生效（anchors offset -96 处理了导航高度）；每个 `.page-hero/.section` 注入 1 个 `.page-parallax-layer` 紫色光晕，滚动时景深层 `translateY` 随滚动变化（如 dark 段 -64→-79px），首屏层与文字反向位移；**`.container` 是 `position:relative;z-index:1`，光晕层是 `z-index:0`，文字不会被光晕盖住**；`.overview-card/.feature-card` 入场 opacity/blur 正常恢复到 1 / blur(0)，未覆盖原 hover 上浮。
+- ~~整体景深位移幅度偏小而克制~~ → **用户反馈"克制了一点"，已按要求调大力度并重新浏览器验收（见下）。**
+
+**2026-06-19 后续：按用户要求调大视差力度（仅改数值，未动结构）：**
+- `index.html` 首页 `para()`：`#heroVisual` -12→**-22**、`#hero .hero-pio-wrap` 14→**22**、`#moatBg1/2` ±20→**±40**、各内容区 `.max-w-7xl` ±5/6→**±11~13**。
+- `site.js` `initPageMotion()`：hero 容器 10→**18**、hero 光晕层 -18→**-38**、section 容器 ±5→**±10**、section 光晕层 ±22→**±42**、产品图 -10→**-18**。
+- 重新验收：首页 `#heroVisual` 在滚动 400px 内位移约 50px（背景明显慢于前景文字），`#products` pin 仍稳定在 top:0 不抖；子页 dark 段光晕层相对位移翻倍（~21px）；hero 背景上移后底部无露黑缝、与下一段衔接干净；无 console error。`node --check site.js` + 首页内联脚本解析通过。
+- 若以后还要再加强/减弱，直接调这些 `para()` 的 yPercent 即可。
+
+未做：移动端真机滚动手感、reduced-motion 真机验证（代码路径已正确 guard，CSS 也隐藏了光晕层）。
 
 ### 2026-06-19 · Codex：解决方案 / 落地案例 / 关于我们条目拆独立子页面
 

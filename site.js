@@ -316,15 +316,15 @@
 
         const hero = document.querySelector('.page-hero');
         if (hero) {
-            para(hero.querySelector('.container'), 10, hero, 'top top', 'bottom top', 1.2);
-            para(hero.querySelector('.page-parallax-layer'), -18, hero, 'top top', 'bottom top', 1.1);
+            para(hero.querySelector('.container'), 18, hero, 'top top', 'bottom top', 1.2);
+            para(hero.querySelector('.page-parallax-layer'), -38, hero, 'top top', 'bottom top', 1.1);
         }
 
         document.querySelectorAll('.section').forEach((section, idx) => {
             const container = section.querySelector(':scope > .container');
             const layer = section.querySelector(':scope > .page-parallax-layer');
-            para(container, idx % 2 ? -5 : 5, section);
-            para(layer, idx % 2 ? 22 : -22, section);
+            para(container, idx % 2 ? -10 : 10, section);
+            para(layer, idx % 2 ? 42 : -42, section);
         });
 
         gsap.utils.toArray('.overview-card, .feature-card, .info-card, .related-card').forEach((card, idx) => {
@@ -343,7 +343,7 @@
 
         gsap.utils.toArray('.product-card img, .overview-media img').forEach((img) => {
             const trigger = img.closest('.section') || img;
-            para(img, -10, trigger);
+            para(img, -18, trigger);
         });
 
         window.addEventListener('load', () => ST.refresh());

@@ -82,6 +82,28 @@
 
 ## 交接记录（倒序，最新在上）
 
+### 2026-06-19 · Codex：解决方案 / 落地案例 / 关于我们条目拆独立子页面
+
+用户要求「解决方案、落地案例和关于我们里的每一条都要有单独的子页面」。本次按当前页面实际展示的条目补齐独立 URL，并尽量避免重复复制大量 HTML：
+- 新增共享详情渲染脚本：`detail-page.js`。每个详情页通过 `body data-detail="..."` 指定内容 key，正文由该脚本渲染；页面仍复用 `site.js` 的导航、页脚、FAB、语言切换和子页视差。
+- 新增 6 个解决方案详情页：`solution-mall.html`、`solution-gov.html`、`solution-tourism.html`、`solution-exhibit.html`、`solution-hotel.html`、`solution-finance.html`。
+- 新增 4 个落地案例详情页：`case-sino.html`、`case-fire-education.html`、`case-museum-exhibit.html`、`case-scenic-center.html`。
+- 新增 6 个关于我们详情页：`about-background.html`、`about-agent.html`、`about-avatar.html`、`about-cms.html`、`about-hardware.html`、`about-mission.html`。
+- `site.js` 中 mega menu / footer 的旧锚点链接已改成独立页面链接，例如 `solutions.html#mall` -> `solution-mall.html`，`cases.html#sino` -> `case-sino.html`，关于我们里的公司介绍入口 -> `about-background.html`。
+- `site.js` 新增 `initOverviewDetailLinks()`：在 `solutions.html`、`cases.html`、`about.html` 的对应条目下自动追加「查看独立页面」按钮，避免大改原页面结构。
+
+验证：
+- `node --check site.js`、`node --check detail-page.js`、`node --check i18n.js` 均通过。
+- 16 个新增详情页在 `http://127.0.0.1:4178/` 下均返回 `200 OK`。
+- `detail-page.js` 引用的 16 个图片资源均存在。
+- 本地 href 扫描通过：排除 JS 模板占位符后，未发现缺失的本地页面链接。
+- 编码烟测通过：未发现 Unicode 替换字符。
+
+未完成 / 注意：
+- 新增详情页目前用现有图片占位，后续用户提供真实项目图、现场图、产品图后应替换。
+- `detail-page.js` 里的新增中文文案尚未补完整 `zh-TW/en` 字典；当前页面可运行，但切换语言时这些新详情正文仍会保持简体中文。后续如要完善多语言，优先补 `detail-page.js` 中新增文案的 i18n key。
+- 仍未做真实浏览器截图级视觉验收；Codex 内置浏览器在当前 Windows 沙箱里仍无法启动。
+
 ### 2026-06-19 · Codex：把视差效果铺到所有实际页面
 
 用户要求“每个页面都要做视差效果”。本次在不改页面信息结构的前提下，把任务 A 从首页扩展到全部实际页面：

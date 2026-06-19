@@ -44,12 +44,12 @@
                     <div class="mega-menu" style="min-width: 720px;">
                         <div class="mega-split">
                             <div class="mega-list">
-                                <a href="solutions.html#mall" class="mega-link mega-option" data-preview="mall"><span class="mega-icon"><i data-lucide="building-2" class="w-5 h-5"></i></span><span><h5>商业综合体</h5><p>迎宾、导购、找店、活动推荐与会员转化。</p></span></a>
-                                <a href="solutions.html#gov" class="mega-link mega-option" data-preview="gov"><span class="mega-icon"><i data-lucide="landmark" class="w-5 h-5"></i></span><span><h5>政务公共服务</h5><p>办事咨询、材料核验、窗口分流与数据合规。</p></span></a>
-                                <a href="solutions.html#tourism" class="mega-link mega-option" data-preview="tourism"><span class="mega-icon"><i data-lucide="map" class="w-5 h-5"></i></span><span><h5>文旅景区</h5><p>金牌导游、路线规划、文化讲解与游客互动。</p></span></a>
-                                <a href="solutions.html#exhibit" class="mega-link mega-option" data-preview="exhibit"><span class="mega-icon"><i data-lucide="presentation" class="w-5 h-5"></i></span><span><h5>展厅导览</h5><p>移动讲解员、多媒体联动和高频问题承接。</p></span></a>
-                                <a href="solutions.html#hotel" class="mega-link mega-option" data-preview="hotel"><span class="mega-icon"><i data-lucide="plane" class="w-5 h-5"></i></span><span><h5>酒店机场</h5><p>多语接待、航班/入住咨询与夜间服务补位。</p></span></a>
-                                <a href="solutions.html#finance" class="mega-link mega-option" data-preview="finance"><span class="mega-icon"><i data-lucide="badge-dollar-sign" class="w-5 h-5"></i></span><span><h5>银行金融</h5><p>VIP 接待、业务预审、知识库问答与合规部署。</p></span></a>
+                                <a href="solution-mall.html" class="mega-link mega-option" data-preview="mall"><span class="mega-icon"><i data-lucide="building-2" class="w-5 h-5"></i></span><span><h5>商业综合体</h5><p>迎宾、导购、找店、活动推荐与会员转化。</p></span></a>
+                                <a href="solution-gov.html" class="mega-link mega-option" data-preview="gov"><span class="mega-icon"><i data-lucide="landmark" class="w-5 h-5"></i></span><span><h5>政务公共服务</h5><p>办事咨询、材料核验、窗口分流与数据合规。</p></span></a>
+                                <a href="solution-tourism.html" class="mega-link mega-option" data-preview="tourism"><span class="mega-icon"><i data-lucide="map" class="w-5 h-5"></i></span><span><h5>文旅景区</h5><p>金牌导游、路线规划、文化讲解与游客互动。</p></span></a>
+                                <a href="solution-exhibit.html" class="mega-link mega-option" data-preview="exhibit"><span class="mega-icon"><i data-lucide="presentation" class="w-5 h-5"></i></span><span><h5>展厅导览</h5><p>移动讲解员、多媒体联动和高频问题承接。</p></span></a>
+                                <a href="solution-hotel.html" class="mega-link mega-option" data-preview="hotel"><span class="mega-icon"><i data-lucide="plane" class="w-5 h-5"></i></span><span><h5>酒店机场</h5><p>多语接待、航班/入住咨询与夜间服务补位。</p></span></a>
+                                <a href="solution-finance.html" class="mega-link mega-option" data-preview="finance"><span class="mega-icon"><i data-lucide="badge-dollar-sign" class="w-5 h-5"></i></span><span><h5>银行金融</h5><p>VIP 接待、业务预审、知识库问答与合规部署。</p></span></a>
                             </div>
                             <div class="mega-preview">
                                 <div class="mega-preview-card active preview-mall"><div class="mega-preview-visual" style="background-image:url('TakePhotos.0036.png')"></div><div class="mega-preview-copy"><h4>商业综合体优先场景</h4><p>从“找店问路”到活动推荐和会员转化，把商场前台变成可运营触点。</p><span>查看方案</span></div></div>
@@ -67,8 +67,8 @@
                     <div class="mega-menu">
                         <div class="mega-split">
                             <div class="mega-list">
-                                <a href="cases.html#sino" class="mega-link mega-option" data-preview="sino"><span class="mega-icon"><i data-lucide="sparkles" class="w-5 h-5"></i></span><span><h5>信和集团 · 中港城</h5><p>商业空间数字内容与 AI 接待统一入口。</p></span></a>
-                                <a href="cases.html#tourism" class="mega-link mega-option" data-preview="case-tourism"><span class="mega-icon"><i data-lucide="landmark" class="w-5 h-5"></i></span><span><h5>文旅与公共服务</h5><p>景区、消防教育基地、博物馆等多场景复制。</p></span></a>
+                                <a href="case-sino.html" class="mega-link mega-option" data-preview="sino"><span class="mega-icon"><i data-lucide="sparkles" class="w-5 h-5"></i></span><span><h5>信和集团 · 中港城</h5><p>商业空间数字内容与 AI 接待统一入口。</p></span></a>
+                                <a href="case-fire-education.html" class="mega-link mega-option" data-preview="case-tourism"><span class="mega-icon"><i data-lucide="landmark" class="w-5 h-5"></i></span><span><h5>文旅与公共服务</h5><p>景区、消防教育基地、博物馆等多场景复制。</p></span></a>
                             </div>
                             <div class="mega-preview">
                                 <div class="mega-preview-card active preview-sino"><div class="mega-preview-visual" style="background-image:url('TakePhotos.0036.png')"></div><div class="mega-preview-copy"><h4>旗舰商业案例</h4><p>用 AI 虚拟员工统一商场服务、活动和导览入口。</p><span>查看案例</span></div></div>
@@ -82,7 +82,7 @@
                     <div class="mega-menu">
                         <div class="mega-split">
                             <div class="mega-list">
-                                <a href="about.html" class="mega-link mega-option" data-preview="about"><span class="mega-icon"><i data-lucide="info" class="w-5 h-5"></i></span><span><h5>公司介绍</h5><p>新浪爱问前身背景，全栈自研 AI 虚拟员工团队。</p></span></a>
+                                <a href="about-background.html" class="mega-link mega-option" data-preview="about"><span class="mega-icon"><i data-lucide="info" class="w-5 h-5"></i></span><span><h5>公司介绍</h5><p>新浪爱问前身背景，全栈自研 AI 虚拟员工团队。</p></span></a>
                                 <a href="news.html" class="mega-link mega-option" data-preview="news"><span class="mega-icon"><i data-lucide="newspaper" class="w-5 h-5"></i></span><span><h5>新闻动态</h5><p>品牌报道、产品更新、行业活动与公司里程碑。</p></span></a>
                                 <a href="${contactHref}" class="mega-link mega-option" data-preview="contact"><span class="mega-icon"><i data-lucide="phone" class="w-5 h-5"></i></span><span><h5>联系我们</h5><p>预约演示、商务合作和试点场景沟通。</p></span></a>
                             </div>
@@ -135,7 +135,7 @@
                 </div>
                 <div class="site-footer-grid">
                     <div><h6>产品</h6><ul class="space-y-4 text-sm"><li><a href="product-nano.html">硬件：幻真 Nano / Pro / Robo</a></li><li><a href="product-huanzhen.html">软件：幻真</a></li><li><a href="product-cms.html">软件：幻真CMS</a></li><li><a href="products.html">产品矩阵</a></li></ul></div>
-                    <div><h6>场景</h6><ul class="space-y-4 text-sm"><li><a href="solutions.html#mall">商业综合体</a></li><li><a href="solutions.html#gov">公共服务</a></li><li><a href="solutions.html#tourism">文旅景区</a></li><li><a href="solutions.html#exhibit">展厅导览</a></li></ul></div>
+                    <div><h6>场景</h6><ul class="space-y-4 text-sm"><li><a href="solution-mall.html">商业综合体</a></li><li><a href="solution-gov.html">公共服务</a></li><li><a href="solution-tourism.html">文旅景区</a></li><li><a href="solution-exhibit.html">展厅导览</a></li></ul></div>
                     <div><h6>联系我们</h6><ul class="space-y-4 text-sm"><li><a href="tel:18676387250">186 7638 7250</a></li><li><a href="mailto:Molly@2077.ai">Molly@2077.ai</a></li><li><a href="#">深圳前海深港青年梦工场北区 C 栋 202</a></li></ul></div>
                 </div>
             </div>
@@ -349,7 +349,51 @@
         window.addEventListener('load', () => ST.refresh());
     }
 
+    function initOverviewDetailLinks() {
+        const addButton = (host, href, label) => {
+            if (!host || host.querySelector(`[href="${href}"]`)) return;
+            const wrap = document.createElement('div');
+            wrap.className = 'hero-actions';
+            wrap.innerHTML = `<a href="${href}" class="btn btn-ghost">${label}</a>`;
+            host.appendChild(wrap);
+        };
+
+        if (path === 'solutions.html') {
+            [
+                ['#mall .container', 'solution-mall.html', '查看商业综合体方案'],
+                ['#gov .container > div:first-child', 'solution-gov.html', '查看政务公共服务方案'],
+                ['#tourism .info-card:first-child', 'solution-tourism.html', '查看文旅景区方案'],
+                ['#exhibit .info-card:first-child', 'solution-exhibit.html', '查看展厅导览方案'],
+                ['#hotel .info-card:first-child', 'solution-hotel.html', '查看酒店机场方案'],
+                ['#finance .info-card:first-child', 'solution-finance.html', '查看银行金融方案']
+            ].forEach(([selector, href, label]) => addButton(document.querySelector(selector), href, label));
+        }
+
+        if (path === 'cases.html') {
+            addButton(document.querySelector('#sino .container > div:first-child'), 'case-sino.html', '查看信和集团案例');
+            const cards = document.querySelectorAll('#tourism .info-card');
+            [
+                ['case-fire-education.html', '查看消防教育基地案例'],
+                ['case-museum-exhibit.html', '查看博物馆 / 展馆案例'],
+                ['case-scenic-center.html', '查看景区游客中心案例']
+            ].forEach(([href, label], idx) => addButton(cards[idx], href, label));
+        }
+
+        if (path === 'about.html') {
+            addButton(document.querySelector('.section .grid-2 > div:first-child'), 'about-background.html', '查看公司背景');
+            const capabilityCards = document.querySelectorAll('.section.soft .info-card');
+            [
+                ['about-agent.html', '查看 Agent 能力'],
+                ['about-avatar.html', '查看数字人系统'],
+                ['about-cms.html', '查看 CMS 平台'],
+                ['about-hardware.html', '查看终端硬件']
+            ].forEach(([href, label], idx) => addButton(capabilityCards[idx], href, label));
+            addButton(document.querySelector('.section.dark .container'), 'about-mission.html', '查看我们要解决的问题');
+        }
+    }
+
     initSharedUi();
     initI18n();
+    initOverviewDetailLinks();
     initPageMotion();
 })();

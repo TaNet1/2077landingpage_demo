@@ -5,23 +5,93 @@
 
 > ⚠️ **本文档为交接日志，谁动了项目谁就在「## 交接记录」最上方补一条**，写清：本次改了什么、为什么、还有什么没做、有什么坑。这样下一个接手的人（Claude 或 Codex）能无缝继续。
 
-## 🎯 下一棒任务：浏览器视觉验收 + 继续内容精修
+## 🎯 当前两个待办（用户 2026-06-18 最新指派，未开始）
 
-全站导航 / 页脚 / i18n 已由 Codex 在 `024d1f7 Unify site navigation footer and i18n` 中完成并推送。下一棒不要再重复做这块，优先做以下事项：
+### 任务 A：给网页加滚动视差（parallax），效果要对齐这两个参考站
 
-1. **浏览器视觉验收**：人工或 Claude 在真实浏览器里检查 6 个页面的导航、mega menu、语言切换、汉堡菜单、页脚、FAB。Codex 当前环境的内置浏览器自动化启动失败，只有 HTTP/语法/文本覆盖验证。
-2. **清理旧样式**：`index.html` 仍保留一批旧导航/页脚/FAB 的内联 CSS，`page.css` 仍保留旧 `.navbar` / `.footer` 样式；当前没有 DOM 使用，可后续清理。
-3. **补真实新闻内容**：`news.html` 仍是占位页，需要真实新闻标题、日期、媒体 logo、报道链接和现场图。
-4. **子页面视觉精修**：5 个子页面已可用，但仍是信息架构版，需要产品图、案例图、新闻素材和更细的响应式视觉打磨。
-5. **首屏视频素材替换**：首页仍使用 `StartRoom_Post.0180.png` 占位。用户后续给 `assets/hero-loop.mp4` / `assets/hero-poster.jpg` 后再替换。
+- 参考站 1：`https://custo.io/`
+- 参考站 2：`https://cayenneblackedition.com/porsche-co/?ref=onepagelove`
+- 用户原话强调：「请你多确认几遍，确保实现出来的效果是和这两个网站一致的。」→ 必须先**真实观察**这两个站的滚动行为，再实现，别凭空猜。
 
-当前本地未提交项只剩 `.claude/launch.json` 和 `.claude/settings.local.json`，它们是 Claude 本地配置，Codex 没有纳入提交。
+**⚠️ 当前最大障碍（务必先解决）**：
+- Claude 的内置浏览器（Claude-in-Chrome 扩展）虽然能连上，但 `navigate` 到这两个域名都被策略拦截：报 `Navigation to this domain is not allowed`（custo.io 和 cayenneblackedition.com 都被挡）。
+- WebFetch 拿不到 JS 驱动的滚动行为（它只转 markdown，给的结论是「没用 parallax 库」，不可信）。
+- **所以下一棒要先想办法看到参考站的真实效果**，可选：① 让用户手动滚动这两个站并截几张不同滚动位置的图发过来；② 用户录一段滚动的屏幕录像；③ 用户用文字描述具体效果（哪层动得慢、是否 pin、是否平滑滚动 Lenis 之类）；④ 换一个不被拦截的方式打开（比如用户自己 Chrome 打开后用扩展读取，或换 onepagelove 的介绍页）。
+- 这两个站大体都是「**滚动景深视差**」类：背景图/产品层比前景文字滚得慢，营造层次感，外加偏顺滑的滚动体感。但**具体节奏和是否 pin 必须实测确认**，不要直接拍脑袋实现。
+
+**实现建议（确认效果后再动手）**：项目已引入 GSAP + ScrollTrigger（首页 `index.html` 内联脚本里），优先用它做 `scrub` 视差（多层 `data-depth`/不同 `yPercent` 速度）；如需更顺滑可考虑 Lenis 平滑滚动；务必保留 `prefers-reduced-motion` 降级。
+
+### 任务 B：产品矩阵「每一项」拆成独立子页面（先搭框架）
+
+用户原话：「产品矩阵里的内容，我需要每一项都有一个单独的子页面，而不是所有的产品都在同一页里介绍。你先把框架弄好，如果内容不够，需要的素材我后面会给你。」
+
+- 现在 `products.html`（103 行）把**所有产品挤在一页**：软件段 `#huanzhen`（幻真）+ `#cms`（幻真CMS），硬件段 `#nano` / `#pro` / `#robo`。
+- 目标：**每个产品一个独立页面**，例如 `product-nano.html` / `product-pro.html` / `product-robo.html` / `product-huanzhen.html` / `product-cms.html`（命名随意但要统一）。`products.html` 改成「产品总览」，每张卡片点进去到对应子页。
+- 还要同步改 mega menu 和页脚里的产品链接（在 `site.js` 的注入模板里，把 `products.html#nano` 等锚点改成各自独立页 `product-nano.html`）。
+- **每个新产品子页都要复用统一框架**（见下方「## 子页面统一框架模板」），即 `#site-nav` / `#site-footer` / `#site-fab` 占位 + `<head>` 引 fonts/tailwind/lucide/i18n.js/page.css/site.css + body 末 `site.js`。
+- 新页文案 key 记得补进 `i18n.js`（中/繁/英），否则切语言残留简体。
+- 用户说素材不够会后补，所以**先搭好框架和信息架构**，图先用现有 `assets/avatar-*.png` 占位。
+
+### 其余较低优先（沿用之前）
+
+- 浏览器视觉验收 6 个页面；清理 `index.html`/`page.css` 里旧的 `.navbar`/`.footer`/FAB 死 CSS；`news.html` 补真实新闻；首屏 `StartRoom_Post.0180.png` 等用户给视频再换（规格见文末）。
+
+当前本地未提交项：`.claude/launch.json`（Claude 把 preview 端口改成 4181，因 4178 被 Codex 的 python 占着）、`.claude/settings.local.json`。这些是本地配置，按惯例不提交。
 
 交接规则不变：谁继续改项目，谁就在「## 交接记录」最上方补一条，并 commit & push。
 
 ---
 
+## 子页面统一框架模板（建新子页/产品页直接照抄）
+
+所有子页面都用这套骨架（已由 Codex 统一）。`site.js` 会把导航/页脚/FAB 注入到三个占位 div，i18n 会自动翻译页内中文文本节点：
+
+```html
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>页面标题 - 2077.AI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="i18n.js"></script>
+    <link rel="stylesheet" href="page.css">
+    <link rel="stylesheet" href="site.css">
+    <!-- 如果该页要做 parallax，再加： gsap + ScrollTrigger 两个 CDN -->
+</head>
+<body>
+    <div id="site-nav"></div>
+    <!-- 页面正文：用 page.css 里的类 .page-hero / .container / .eyebrow / .section(.dark/.soft)
+         / .section-title / .section-copy / .info-card / .product-card / .grid-2 / .tag-list>.tag
+         / .metric-row>.metric / .gradient-text 等 -->
+    <div id="site-footer"></div>
+    <div id="site-fab"></div>
+    <script src="site.js"></script>
+</body>
+</html>
+```
+
+- 导航/页脚/产品链接的 HTML 模板**都在 `site.js` 里**（注入字符串）。要改导航项、mega menu 预览、页脚链接，改 `site.js`。
+- 产品 mega menu 当前锚点是 `products.html#nano` / `#pro` / `#robo` / `#huanzhen` / `#cms`（任务 B 拆页后要改成各自独立页）。
+
 ## 交接记录（倒序，最新在上）
+
+### 2026-06-18 · Claude 接手（仅梳理，未改功能）
+
+本次主要是接手梳理 + 处理用户新指派的两个任务（任务 A 视差 / 任务 B 产品拆页，见顶部）。已做：
+
+- 通读 HANDOFF，确认 Codex 已在 `024d1f7` 完成全站导航/页脚/i18n 统一（`site.js` 注入式），6 页共用。
+- 读了 `products.html`（103 行）现状：软件段 `#huanzhen`/`#cms` + 硬件段 `#nano`/`#pro`/`#robo` 全在一页，这是任务 B 要拆的。
+- **任务 A 卡在「看不到参考站」**：Claude-in-Chrome 能连上，但 `custo.io` 和 `cayenneblackedition.com` 两个域名都被 `navigate` 策略拦截（`Navigation to this domain is not allowed`）；WebFetch 取不到 JS 滚动行为。详见顶部任务 A 的「最大障碍」与可选解法。
+- 本次**没有改任何代码**（除本 HANDOFF）。`git` 没有新功能提交。
+
+下一棒（无论新开的 Claude 会话还是 Codex）：先解决任务 A 的「看到参考站」问题，或直接先做任务 B（产品拆页框架，不依赖参考站）。
+
+
 
 ### 2026-06-18 · Codex：Parallax.js 尝试已撤回，交给 Claude 继续
 

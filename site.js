@@ -22,12 +22,12 @@
                         <div class="mega-split">
                             <div class="mega-list">
                                 <div class="mega-section-label">软件</div>
-                                <a href="products.html#huanzhen" class="mega-link mega-option" data-preview="huanzhen"><span class="mega-icon"><i data-lucide="sparkles" class="w-5 h-5"></i></span><span><h5>幻真</h5><p>AI 虚拟员工软件，承接问答、导览、讲解和营销转化。</p></span></a>
-                                <a href="products.html#cms" class="mega-link mega-option" data-preview="cms"><span class="mega-icon"><i data-lucide="layout-dashboard" class="w-5 h-5"></i></span><span><h5>幻真CMS</h5><p>统一管理知识库、话术、内容发布、设备和运营数据。</p></span></a>
+                                <a href="product-huanzhen.html" class="mega-link mega-option" data-preview="huanzhen"><span class="mega-icon"><i data-lucide="sparkles" class="w-5 h-5"></i></span><span><h5>幻真</h5><p>AI 虚拟员工软件，承接问答、导览、讲解和营销转化。</p></span></a>
+                                <a href="product-cms.html" class="mega-link mega-option" data-preview="cms"><span class="mega-icon"><i data-lucide="layout-dashboard" class="w-5 h-5"></i></span><span><h5>幻真CMS</h5><p>统一管理知识库、话术、内容发布、设备和运营数据。</p></span></a>
                                 <div class="mega-section-label">硬件</div>
-                                <a href="products.html#nano" class="mega-link mega-option" data-preview="nano"><span class="mega-icon"><i data-lucide="tablet-smartphone" class="w-5 h-5"></i></span><span><h5>幻真 Nano</h5><p>24 寸一体机，小空间快速部署的 AI 接待入口。</p></span></a>
-                                <a href="products.html#pro" class="mega-link mega-option" data-preview="pro"><span class="mega-icon"><i data-lucide="monitor" class="w-5 h-5"></i></span><span><h5>幻真 Pro</h5><p>75 寸 4K 大屏，面向大堂、展厅和旗舰点位。</p></span></a>
-                                <a href="products.html#robo" class="mega-link mega-option" data-preview="robo"><span class="mega-icon"><i data-lucide="bot" class="w-5 h-5"></i></span><span><h5>幻真 Robo</h5><p>透明 OLED 移动机器人，主动巡游讲解与迎宾。</p></span></a>
+                                <a href="product-nano.html" class="mega-link mega-option" data-preview="nano"><span class="mega-icon"><i data-lucide="tablet-smartphone" class="w-5 h-5"></i></span><span><h5>幻真 Nano</h5><p>24 寸一体机，小空间快速部署的 AI 接待入口。</p></span></a>
+                                <a href="product-pro.html" class="mega-link mega-option" data-preview="pro"><span class="mega-icon"><i data-lucide="monitor" class="w-5 h-5"></i></span><span><h5>幻真 Pro</h5><p>75 寸 4K 大屏，面向大堂、展厅和旗舰点位。</p></span></a>
+                                <a href="product-robo.html" class="mega-link mega-option" data-preview="robo"><span class="mega-icon"><i data-lucide="bot" class="w-5 h-5"></i></span><span><h5>幻真 Robo</h5><p>透明 OLED 移动机器人，主动巡游讲解与迎宾。</p></span></a>
                             </div>
                             <div class="mega-preview">
                                 <div class="mega-preview-card preview-nano"><div class="mega-preview-visual" style="background-image:url('StartRoom_Post.0180.png')"></div><div class="mega-preview-copy"><h4>轻量试点入口</h4><p>适合服务台、楼层入口和咨询点位，快速上线 AI 接待、问答和导览。</p><span>查看 Nano</span></div></div>
@@ -134,7 +134,7 @@
                     </div>
                 </div>
                 <div class="site-footer-grid">
-                    <div><h6>产品</h6><ul class="space-y-4 text-sm"><li><a href="products.html#nano">硬件：幻真 Nano / Pro / Robo</a></li><li><a href="products.html#huanzhen">软件：幻真</a></li><li><a href="products.html#cms">软件：幻真CMS</a></li><li><a href="products.html">产品矩阵</a></li></ul></div>
+                    <div><h6>产品</h6><ul class="space-y-4 text-sm"><li><a href="product-nano.html">硬件：幻真 Nano / Pro / Robo</a></li><li><a href="product-huanzhen.html">软件：幻真</a></li><li><a href="product-cms.html">软件：幻真CMS</a></li><li><a href="products.html">产品矩阵</a></li></ul></div>
                     <div><h6>场景</h6><ul class="space-y-4 text-sm"><li><a href="solutions.html#mall">商业综合体</a></li><li><a href="solutions.html#gov">公共服务</a></li><li><a href="solutions.html#tourism">文旅景区</a></li><li><a href="solutions.html#exhibit">展厅导览</a></li></ul></div>
                     <div><h6>联系我们</h6><ul class="space-y-4 text-sm"><li><a href="tel:18676387250">186 7638 7250</a></li><li><a href="mailto:Molly@2077.ai">Molly@2077.ai</a></li><li><a href="#">深圳前海深港青年梦工场北区 C 栋 202</a></li></ul></div>
                 </div>

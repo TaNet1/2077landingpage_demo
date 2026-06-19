@@ -5,7 +5,9 @@
 
 > ⚠️ **本文档为交接日志，谁动了项目谁就在「## 交接记录」最上方补一条**，写清：本次改了什么、为什么、还有什么没做、有什么坑。这样下一个接手的人（Claude 或 Codex）能无缝继续。
 
-## 🎯 当前两个待办（用户 2026-06-18 最新指派，未开始）
+## 🎯 当前两个待办（状态见下方 2026-06-19 交接记录）
+
+> 📌 **2026-06-19 进度速览**：任务 B（产品矩阵拆独立子页）已由 Codex 静态验收、修复 CSS 残留并准备提交；任务 A **已定方案但未动代码**（用户选「Lenis 平滑滚动 + 全站景深视差」），仍待后续实现。
 
 ### 任务 A：给网页加滚动视差（parallax），效果要对齐这两个参考站
 
@@ -21,7 +23,7 @@
 
 **实现建议（确认效果后再动手）**：项目已引入 GSAP + ScrollTrigger（首页 `index.html` 内联脚本里），优先用它做 `scrub` 视差（多层 `data-depth`/不同 `yPercent` 速度）；如需更顺滑可考虑 Lenis 平滑滚动；务必保留 `prefers-reduced-motion` 降级。
 
-### 任务 B：产品矩阵「每一项」拆成独立子页面（先搭框架）
+### 任务 B：产品矩阵「每一项」拆成独立子页面（先搭框架）✅
 
 用户原话：「产品矩阵里的内容，我需要每一项都有一个单独的子页面，而不是所有的产品都在同一页里介绍。你先把框架弄好，如果内容不够，需要的素材我后面会给你。」
 
@@ -79,6 +81,50 @@
 - 产品 mega menu 当前锚点是 `products.html#nano` / `#pro` / `#robo` / `#huanzhen` / `#cms`（任务 B 拆页后要改成各自独立页）。
 
 ## 交接记录（倒序，最新在上）
+
+### 2026-06-19 · Codex：验收并收口产品独立子页任务 B
+
+接手 Claude 未提交的任务 B 改动后完成静态验收和小修：
+
+- 保留并验收 5 个新增产品页：`product-huanzhen.html`、`product-cms.html`、`product-nano.html`、`product-pro.html`、`product-robo.html`。
+- `products.html` 已作为产品总览页，软件 / 硬件卡片都跳到对应独立页。
+- `site.js` 中产品 mega menu 和页脚产品链接已指向 `product-*.html`，未发现旧 `products.html#nano/#pro/#robo/#huanzhen/#cms` 残留。
+- 修复 `page.css` 末尾一段重复响应式规则和多余 `}`，并确认 CSS 大括号平衡。
+- 静态验收：`node --check site.js`、`node --check i18n.js` 通过；6 个产品相关页面 + `site.js/page.css/i18n.js` 在 `http://127.0.0.1:4178/` 下均返回 `200 OK`；产品页正文 i18n 扫描 `missingCount=0`；内部本地 href 和图片资源均存在。
+
+未完成：
+
+- 真实浏览器视觉验收仍未做。本地没有 Playwright 包，Codex 内置浏览器此前在 Windows 沙箱下不可用；下一棒如有浏览器能力，建议再人工检查 products 总览、5 个子页、mega menu hover 和语言切换。
+
+### 2026-06-19 · Claude 交接（任务 B 框架已做完代码，未验收未提交；任务 A 已定方案未动手）
+
+用户额度用尽，让 Codex 接力。**本轮所有改动都还在工作区，未 commit、未 push，也未做浏览器视觉验收。** 下一棒请先验收再提交。
+
+#### 任务 A（视差）——已定方案，未写任何代码
+
+- 用户本轮明确说「截图不用发了，你来做视差」，并通过选项确认方案：**Lenis 平滑滚动 + 全站多层景深视差**（不是只首屏、也不是只加 scrub 不加平滑滚动）。
+- 即：引入 Lenis 接管滚轮做丝滑惯性滚动，并在首屏 / moat / 产品矩阵等多区块加 `data-depth` 多层景深（背景慢、前景快），对齐 custo.io + cayenne 两个参考站的共同手感。
+- **关键坑（务必处理）**：首页 `index.html` 已有一套 GSAP ScrollTrigger（首屏/moat 的 `scrub` 视差、`#products` 的 **pinned** 产品故事 timeline、`#cases` 横向 scrub）。接 Lenis 必须用 `lenis.on('scroll', ScrollTrigger.update)` + `gsap.ticker.add(t => lenis.raf(t*1000))` + `gsap.ticker.lagSmoothing(0)` 打通，否则 pin 和 scrub 会错位/抖动。务必保留 `prefers-reduced-motion` 降级（reduced 时不启用 Lenis）。现有 GSAP CDN 在 `index.html:13-14`，GSAP 主脚本块在 `index.html` 约 1645-1750 行。
+- 子页面（products / product-* 等）目前没有 GSAP，如要给子页也加视差需另引 CDN；建议先把首页做好确认手感，再决定是否铺到子页。
+
+#### 任务 B（产品矩阵拆独立子页）——框架已做完，待验收
+
+已完成（**未验收/未提交**）：
+
+- **新增 5 个独立产品子页**（套用统一框架模板，含 `#site-nav`/`#site-footer`/`#site-fab` + 引 fonts/tailwind/lucide/i18n.js/page.css/site.css + 末尾 site.js）：
+  - `product-huanzhen.html`（软件·幻真）、`product-cms.html`（软件·幻真CMS）
+  - `product-nano.html`、`product-pro.html`、`product-robo.html`（硬件）
+  - 每页结构：page-hero（含「联系商务」+「返回产品矩阵」按钮）→ 产品总览(product-card)→ 核心能力(feature-grid)→ 适用场景/点位(grid-3) 或 多端部署 → 规格/模块(dark + spec-list)→ 关联产品(related-grid)。图先用 `assets/avatar-*.png` 占位（用户说素材后补）。
+- **`products.html` 改为产品总览页**：软件段(dark, 2 张 overview-card)+ 硬件段(soft, 3 张 overview-card)，每张卡片点进对应 `product-*.html`，底部保留 metric-row。
+- **`page.css` 末尾新增一组组件样式**：`.btn/.btn-primary/.btn-ghost`、`.hero-actions`、`.feature-grid/.feature-card/.feature-ico`、`.spec-list/.spec-row`、`.related-grid/.related-card`、`.overview-grid/.overview-card` 及其 1020px 响应式收拢。
+- **`site.js` 已改链接**：mega menu 里 5 个产品锚点 `products.html#huanzhen/#cms/#nano/#pro/#robo` → 各自独立页 `product-*.html`；页脚「产品」列的硬件/软件链接也改为 `product-nano.html / product-huanzhen.html / product-cms.html`（「产品矩阵」仍指向 `products.html` 总览）。mega menu 右侧预览卡（preview-*）和 `data-preview` 逻辑没动，仍正常。
+- **`i18n.js` 已补全翻译**：末尾追加两个 `Object.assign` 块（zh-TW + en），共补 138 条新页面文案。用脚本扫描 6 个产品页（products + 5 子页），现仅剩 6 个 `<title>` 字符串「未翻译」——这是预期的，因为 site.js 的 i18n walker 只遍历 `document.body`，`<head>` 里的 `<title>` 本来就不翻译。术语已对齐现有字典：数字人→數位人、智能→智慧、营销→行銷、数据→資料、运营→營運、交互→互動、超写实克隆→超寫實複製/Hyper-Real Cloning 等。
+- 已校验：`node --check i18n.js` 通过。`node --check site.js` 我还没跑完就被打断（改动只是替换了几个 href 字符串，风险极低，但下一棒最好补跑一次确认）。
+
+下一棒（Codex）建议顺序：
+1. `node --check site.js` 补确认；启动本地服务，**浏览器验收任务 B**：products.html 总览卡片能点进 5 个子页、子页排版正常、mega menu/页脚链接都跳新页、**切英文/繁体时 5 个子页正文不残留简体**（重点看 hero、spec-list、feature-card）。
+2. 验收 OK 后 commit & push（任务 B 这批：products.html、product-*.html ×5、page.css、site.js、i18n.js）。
+3. 再开始任务 A（按上面「任务 A」方案做 Lenis + 景深，注意 ScrollTrigger 打通那段坑）。
 
 ### 2026-06-18 · Claude 接手（仅梳理，未改功能）
 

@@ -344,7 +344,7 @@
         .chat-set { display: none; }
         .chat-set.active { display: flex; flex-direction: column; justify-content: flex-end; height: 100%; }
         .chat-msg {
-            max-width: 85%; border-radius: 18px;
+            max-width: 85%; flex-shrink: 0; border-radius: 18px;
             background: rgba(28, 22, 18, 0.42); backdrop-filter: blur(14px) saturate(1.1);
             border: 1px solid rgba(255, 255, 255, 0.16);
             box-shadow: 0 18px 50px -28px rgba(0,0,0,.7), inset 0 1px 0 rgba(255,255,255,.06);
@@ -379,14 +379,18 @@
         .chat-card { max-width: 92%; }
         /* messages are revealed one-by-one via the .show class (JS); each grows in smoothly */
         .chat-msg.show { opacity: 1; max-height: 320px; margin-top: 10px; padding: 10px 15px 12px; transform: translateY(0) scale(1); filter: blur(0); }
-        /* status bubbles: 进行中 -> 完成 transition */
+        /* status bubbles: 进行中 -> 完成 transition (keyed on the message's .done) */
         .chat-status .st-done-ic, .chat-status .st-done-txt { display: none; }
-        .chat-status.done .st-load-ic, .chat-status.done .st-load-txt { display: none; }
-        .chat-status.done .st-done-ic, .chat-status.done .st-done-txt { display: inline-flex; align-items: center; }
-        .chat-status:not(.done) { color: rgba(255,255,255,.82); }
-        .chat-status.done { color: #34d399; }
+        .chat-msg.done .st-load-ic, .chat-msg.done .st-load-txt { display: none; }
+        .chat-msg.done .st-done-ic, .chat-msg.done .st-done-txt { display: inline-flex; align-items: center; }
+        .chat-status { color: rgba(255,255,255,.82); transition: color .4s ease; }
+        .chat-msg.done .chat-status { color: #34d399; }
         .chat-status .st-load-ic { color: var(--cyan); animation: stspin .9s linear infinite; transform-origin: center; }
         @keyframes stspin { to { transform: rotate(360deg); } }
+        /* the planned route is hidden until planning completes (.done) */
+        .route-reveal { max-height: 0; opacity: 0; margin-top: 0; overflow: hidden;
+            transition: max-height .55s cubic-bezier(.16,1,.3,1), opacity .5s ease, margin-top .5s ease; }
+        .chat-msg.done .route-reveal { max-height: 160px; opacity: 1; margin-top: 11px; }
         @media (max-width: 1024px) { .hero-chat { display: none; } }
         @media (prefers-reduced-motion: reduce) {
             .chat-msg { transition: opacity .2s ease; }
@@ -899,9 +903,11 @@
                 </div>
                 <div class="chat-msg agent chat-card">
                     <div class="chat-card-head"><i data-lucide="route"></i>室内导航路线</div>
-                    <div class="route-steps"><span>当前位置</span><b>›</b><span>3 号扶梯</span><b>›</b><span>B1 西区</span><b>›</b><span>7-Eleven</span></div>
-                    <div class="route-meta"><i data-lucide="footprints" class="w-3 h-3"></i>约 120 米 · 步行 2 分钟</div>
-                    <div class="chat-status chat-foot"><i data-lucide="loader-circle" class="st-load-ic"></i><i data-lucide="check-circle-2" class="st-done-ic"></i><span class="st-load-txt">路线规划中</span><span class="st-done-txt">路线规划完成</span></div>
+                    <div class="chat-status"><i data-lucide="loader-circle" class="st-load-ic"></i><i data-lucide="check-circle-2" class="st-done-ic"></i><span class="st-load-txt">路线规划中</span><span class="st-done-txt">路线规划完成</span></div>
+                    <div class="route-reveal">
+                        <div class="route-steps"><span>当前位置</span><b>›</b><span>3 号扶梯</span><b>›</b><span>B1 西区</span><b>›</b><span>7-Eleven</span></div>
+                        <div class="route-meta"><i data-lucide="footprints" class="w-3 h-3"></i>约 120 米 · 步行 2 分钟</div>
+                    </div>
                 </div>
                 <div class="chat-msg user">
                     <div class="chat-head">女士A</div>
@@ -934,9 +940,11 @@
                 </div>
                 <div class="chat-msg agent chat-card">
                     <div class="chat-card-head"><i data-lucide="route"></i>室内导航路线</div>
-                    <div class="route-steps"><span>当前位置</span><b>›</b><span>取号区</span><b>›</b><span>3 号窗口</span></div>
-                    <div class="route-meta"><i data-lucide="footprints" class="w-3 h-3"></i>约 30 米 · 步行 1 分钟</div>
-                    <div class="chat-status chat-foot"><i data-lucide="loader-circle" class="st-load-ic"></i><i data-lucide="check-circle-2" class="st-done-ic"></i><span class="st-load-txt">路线规划中</span><span class="st-done-txt">路线规划完成</span></div>
+                    <div class="chat-status"><i data-lucide="loader-circle" class="st-load-ic"></i><i data-lucide="check-circle-2" class="st-done-ic"></i><span class="st-load-txt">路线规划中</span><span class="st-done-txt">路线规划完成</span></div>
+                    <div class="route-reveal">
+                        <div class="route-steps"><span>当前位置</span><b>›</b><span>取号区</span><b>›</b><span>3 号窗口</span></div>
+                        <div class="route-meta"><i data-lucide="footprints" class="w-3 h-3"></i>约 30 米 · 步行 1 分钟</div>
+                    </div>
                 </div>
             </div>
             <div class="chat-set" data-scene="exhibit">
@@ -1881,13 +1889,11 @@
             function play(set) {
                 timers.forEach(clearTimeout); timers = [];
                 const msgs = Array.from(set.querySelectorAll('.chat-msg'));
-                msgs.forEach(m => m.classList.remove('show'));
-                set.querySelectorAll('.chat-status').forEach(s => s.classList.remove('done'));
+                msgs.forEach(m => { m.classList.remove('show'); m.classList.remove('done'); });
                 msgs.forEach(function (m, idx) {
                     timers.push(setTimeout(function () {
                         m.classList.add('show');
-                        const st = m.querySelector('.chat-status');
-                        if (st) timers.push(setTimeout(function () { st.classList.add('done'); }, 1100));
+                        if (m.querySelector('.chat-status')) timers.push(setTimeout(function () { m.classList.add('done'); }, 1100));
                     }, 200 + idx * STEP));
                 });
             }

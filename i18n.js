@@ -1214,3 +1214,57 @@ Object.assign(window.__I18N_DICT.en, {
   "大概需要多久？": "How long will it take?",
   "精华路线约 20 分钟，全程由我为您讲解。": "The highlights route is about 20 minutes, with narration all the way."
 });
+
+/* hero chat overlay v2: generic names + 7-Eleven mall scene with route/shop cards */
+Object.assign(window.__I18N_DICT['zh-TW'], {
+  "同学A": "同學A",
+  "请问去 7-Eleven 怎么走？": "請問去 7-Eleven 怎麼走？",
+  "7-Eleven 在 B1 层西区，靠近 3 号扶梯口。从这里乘扶梯下一层后左转即到。现在为您提供从当前位置前往 7-Eleven 的室内导航路线，请您查看。": "7-Eleven 在 B1 層西區，靠近 3 號扶梯口。從這裡乘扶梯下一層後左轉即到。現在為您提供從目前位置前往 7-Eleven 的室內導航路線，請您查看。",
+  "室内导航路线": "室內導航路線",
+  "当前位置": "目前位置",
+  "3 号扶梯": "3 號扶梯",
+  "B1 西区": "B1 西區",
+  "约 120 米 · 步行 2 分钟": "約 120 公尺 · 步行 2 分鐘",
+  "B1 层有什么好吃的？": "B1 層有什麼好吃的？",
+  "B1 以快餐、茶饮和正餐为主。为您推荐几类热门选择，下面是具体商铺清单。": "B1 以速食、茶飲和正餐為主。為您推薦幾類熱門選擇，下面是具體商鋪清單。",
+  "B1 美食推荐": "B1 美食推薦",
+  "茶饮": "茶飲",
+  "快餐": "速食",
+  "杨国福麻辣烫": "楊國福麻辣燙"
+});
+Object.assign(window.__I18N_DICT.en, {
+  "女士A": "Ms. A",
+  "先生A": "Mr. A",
+  "同学A": "Student A",
+  "请问去 7-Eleven 怎么走？": "How do I get to 7-Eleven?",
+  "7-Eleven 在 B1 层西区，靠近 3 号扶梯口。从这里乘扶梯下一层后左转即到。现在为您提供从当前位置前往 7-Eleven 的室内导航路线，请您查看。": "7-Eleven is in the west area of B1, near escalator 3. Take the escalator down one level and turn left. Here is an indoor navigation route from your current location to 7-Eleven, please take a look.",
+  "室内导航路线": "Indoor route",
+  "当前位置": "You are here",
+  "3 号扶梯": "Escalator 3",
+  "B1 西区": "B1 west",
+  "约 120 米 · 步行 2 分钟": "About 120 m · 2 min walk",
+  "B1 层有什么好吃的？": "What is good to eat on B1?",
+  "B1 以快餐、茶饮和正餐为主。为您推荐几类热门选择，下面是具体商铺清单。": "B1 is mainly fast food, drinks and casual dining. Here are a few popular picks, with the shop list below.",
+  "B1 美食推荐": "B1 food picks",
+  "霸王茶姬": "Chagee",
+  "茶饮": "Drinks",
+  "肯德基": "KFC",
+  "快餐": "Fast food",
+  "杨国福麻辣烫": "Yang Guofu Malatang",
+  "正餐": "Dining"
+});
+
+/* hero chat v3: status bubbles + G-floor food answer */
+Object.assign(window.__I18N_DICT['zh-TW'], {
+  "G 层有什么好吃的？": "G 層有什麼好吃的？",
+  "G 层汇聚了多家特色餐厅，为您提供丰富的美食选择。这里有港式点心名店添好运、美式快餐麦当劳和肯德基、经典扒房 OUTBACK STEAKHOUSE、精品咖啡 Starbucks，以及奶茶饮品霸王茶姬等。现在为您提供该楼层的美食列表，希望能够帮到您。": "G 層匯聚了多家特色餐廳，為您提供豐富的美食選擇。這裡有港式點心名店添好運、美式速食麥當勞和肯德基、經典扒房 OUTBACK STEAKHOUSE、精品咖啡 Starbucks，以及奶茶飲品霸王茶姬等。現在為您提供該樓層的美食列表，希望能夠幫到您。",
+  "路线规划完成": "路線規劃完成",
+  "美食店铺列表已展示": "美食店鋪列表已顯示"
+});
+
+Object.assign(window.__I18N_DICT.en, {
+  "G 层有什么好吃的？": "What is good to eat on floor G?",
+  "G 层汇聚了多家特色餐厅，为您提供丰富的美食选择。这里有港式点心名店添好运、美式快餐麦当劳和肯德基、经典扒房 OUTBACK STEAKHOUSE、精品咖啡 Starbucks，以及奶茶饮品霸王茶姬等。现在为您提供该楼层的美食列表，希望能够帮到您。": "Floor G brings together many specialty restaurants for a rich choice of food. You will find the Cantonese dim sum favorite Tim Ho Wan, fast food at McDonald's and KFC, the classic steakhouse OUTBACK STEAKHOUSE, premium coffee at Starbucks, and tea drinks like Chagee. Here is the food list for this floor, hope it helps.",
+  "路线规划完成": "Route planned",
+  "美食店铺列表已展示": "Food shop list shown"
+});

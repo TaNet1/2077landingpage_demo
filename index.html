@@ -336,14 +336,14 @@
         /* ---------- hero chat overlay (Sierra-style, 3 scenes rotating) ---------- */
         .hero-chat {
             position: absolute; z-index: 2; pointer-events: none;
-            right: clamp(24px, 4vw, 72px); bottom: clamp(108px, 16vh, 188px);
-            width: min(440px, 40vw);
+            right: clamp(22px, 4vw, 60px); bottom: clamp(72px, 9vh, 116px);
+            width: min(480px, 42vw);
         }
-        .chat-set { display: none; flex-direction: column; gap: 14px; }
+        .chat-set { display: none; flex-direction: column; gap: 9px; }
         .chat-set.active { display: flex; }
         .chat-msg {
             opacity: 0; transform: translateY(18px);
-            max-width: 100%; padding: 14px 18px 16px; border-radius: 22px;
+            max-width: 100%; padding: 10px 15px 12px; border-radius: 18px;
             background: rgba(28, 22, 18, 0.42); backdrop-filter: blur(14px) saturate(1.1);
             border: 1px solid rgba(255, 255, 255, 0.16);
             box-shadow: 0 18px 50px -28px rgba(0,0,0,.7), inset 0 1px 0 rgba(255,255,255,.06);
@@ -351,16 +351,31 @@
         }
         .chat-msg.agent { align-self: flex-end; border-bottom-right-radius: 8px; }
         .chat-msg.user { align-self: flex-start; border-bottom-left-radius: 8px; background: rgba(40, 32, 27, 0.46); }
-        .chat-head { display: flex; align-items: center; gap: 8px; margin-bottom: 7px; font-size: 13px; font-weight: 700; color: rgba(255,255,255,.78); }
+        .chat-head { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; font-size: 12px; font-weight: 700; color: rgba(255,255,255,.72); }
         .chat-av, .chat-ic { width: 22px; height: 22px; border-radius: 999px; display: grid; place-items: center; font-size: 11px; font-weight: 800; color: #fff; flex-shrink: 0; }
         .chat-av { background: var(--c, #f59e0b); }
         .chat-ic { background: linear-gradient(135deg, var(--brand-primary), var(--brand-secondary)); }
-        .chat-msg p { margin: 0; font-size: 15px; line-height: 1.45; font-weight: 500; }
-        .chat-set.active .chat-msg { animation: chatIn .55s cubic-bezier(.2,.8,.2,1) forwards; }
+        .chat-msg p { margin: 0; font-size: 13.5px; line-height: 1.42; font-weight: 500; }
+        .chat-av i, .chat-ic i { width: 12px; height: 12px; }
+        /* function bubbles: route card + shop list */
+        .chat-card .chat-card-head { display: flex; align-items: center; gap: 7px; font-size: 12.5px; font-weight: 800; color: rgba(255,255,255,.92); margin-bottom: 9px; }
+        .chat-card .chat-card-head i { width: 15px; height: 15px; color: var(--cyan); }
+        .route-steps { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+        .route-steps span { font-size: 12.5px; font-weight: 650; padding: 4px 9px; border-radius: 999px; background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.16); }
+        .route-steps b { opacity: .5; font-weight: 400; }
+        .route-meta { margin-top: 10px; font-size: 12px; color: rgba(255,255,255,.62); display: flex; align-items: center; gap: 6px; }
+        .chat-status { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 750; color: #34d399; }
+        .chat-status i { width: 16px; height: 16px; flex-shrink: 0; }
+        .chat-card .chat-foot { margin-top: 9px; padding-top: 9px; border-top: 1px solid rgba(255,255,255,.1); }
+        .chat-status-only { padding: 11px 16px; }
+        .route-meta { margin-top: 8px; }
+        .chat-set.active .chat-msg { animation: chatIn .5s cubic-bezier(.2,.8,.2,1) forwards; }
         .chat-set.active .chat-msg:nth-child(1) { animation-delay: .15s; }
-        .chat-set.active .chat-msg:nth-child(2) { animation-delay: .85s; }
-        .chat-set.active .chat-msg:nth-child(3) { animation-delay: 1.7s; }
-        .chat-set.active .chat-msg:nth-child(4) { animation-delay: 2.5s; }
+        .chat-set.active .chat-msg:nth-child(2) { animation-delay: .8s; }
+        .chat-set.active .chat-msg:nth-child(3) { animation-delay: 1.5s; }
+        .chat-set.active .chat-msg:nth-child(4) { animation-delay: 2.2s; }
+        .chat-set.active .chat-msg:nth-child(5) { animation-delay: 2.9s; }
+        .chat-set.active .chat-msg:nth-child(6) { animation-delay: 3.6s; }
         @keyframes chatIn { to { opacity: 1; transform: translateY(0); } }
         @media (max-width: 1024px) { .hero-chat { display: none; } }
         @media (prefers-reduced-motion: reduce) {
@@ -864,55 +879,64 @@
         <div class="hero-chat" id="heroChat" aria-hidden="true">
             <div class="chat-set active" data-scene="mall">
                 <div class="chat-msg user">
-                    <div class="chat-head"><span class="chat-av" style="--c:#f59e0b">王</span>王女士</div>
-                    <p>请问优衣库怎么走？</p>
+                    <div class="chat-head">女士A</div>
+                    <p>请问去 7-Eleven 怎么走？</p>
                 </div>
                 <div class="chat-msg agent">
-                    <div class="chat-head"><span class="chat-ic"><i data-lucide="sparkles" class="w-3 h-3"></i></span>幻真</div>
-                    <p>优衣库在 3 楼东区，乘扶梯上去右转就到～</p>
+                    <div class="chat-head">幻真</div>
+                    <p>7-Eleven 在 B1 层西区，靠近 3 号扶梯口。从这里乘扶梯下一层后左转即到。现在为您提供从当前位置前往 7-Eleven 的室内导航路线，请您查看。</p>
+                </div>
+                <div class="chat-msg agent chat-card">
+                    <div class="chat-card-head"><i data-lucide="route"></i>室内导航路线</div>
+                    <div class="route-steps"><span>当前位置</span><b>›</b><span>3 号扶梯</span><b>›</b><span>B1 西区</span><b>›</b><span>7-Eleven</span></div>
+                    <div class="route-meta"><i data-lucide="footprints" class="w-3 h-3"></i>约 120 米 · 步行 2 分钟</div>
+                    <div class="chat-status chat-foot"><i data-lucide="check-circle-2"></i>路线规划完成</div>
                 </div>
                 <div class="chat-msg user">
-                    <div class="chat-head"><span class="chat-av" style="--c:#f59e0b">王</span>王女士</div>
-                    <p>今天有什么活动吗？</p>
+                    <div class="chat-head">女士A</div>
+                    <p>G 层有什么好吃的？</p>
                 </div>
                 <div class="chat-msg agent">
-                    <div class="chat-head"><span class="chat-ic"><i data-lucide="sparkles" class="w-3 h-3"></i></span>幻真</div>
-                    <p>中庭正在做会员日，满 300 减 50，我帮您领张券吧。</p>
+                    <div class="chat-head">幻真</div>
+                    <p>G 层汇聚了多家特色餐厅，为您提供丰富的美食选择。这里有港式点心名店添好运、美式快餐麦当劳和肯德基、经典扒房 OUTBACK STEAKHOUSE、精品咖啡 Starbucks，以及奶茶饮品霸王茶姬等。现在为您提供该楼层的美食列表，希望能够帮到您。</p>
+                </div>
+                <div class="chat-msg agent chat-card chat-status-only">
+                    <div class="chat-status"><i data-lucide="check-circle-2"></i>美食店铺列表已展示</div>
                 </div>
             </div>
             <div class="chat-set" data-scene="gov">
                 <div class="chat-msg user">
-                    <div class="chat-head"><span class="chat-av" style="--c:#3b82f6">李</span>李先生</div>
+                    <div class="chat-head">先生A</div>
                     <p>办居住证需要带哪些材料？</p>
                 </div>
                 <div class="chat-msg agent">
-                    <div class="chat-head"><span class="chat-ic"><i data-lucide="sparkles" class="w-3 h-3"></i></span>幻真</div>
+                    <div class="chat-head">幻真</div>
                     <p>需要身份证、居住证明和近期照片，我已为您列好清单。</p>
                 </div>
                 <div class="chat-msg user">
-                    <div class="chat-head"><span class="chat-av" style="--c:#3b82f6">李</span>李先生</div>
+                    <div class="chat-head">先生A</div>
                     <p>在几号窗口办理？</p>
                 </div>
                 <div class="chat-msg agent">
-                    <div class="chat-head"><span class="chat-ic"><i data-lucide="sparkles" class="w-3 h-3"></i></span>幻真</div>
+                    <div class="chat-head">幻真</div>
                     <p>3 号窗口，当前排队 2 人，预计等候 5 分钟。</p>
                 </div>
             </div>
             <div class="chat-set" data-scene="exhibit">
                 <div class="chat-msg user">
-                    <div class="chat-head"><span class="chat-av" style="--c:#10b981">陈</span>陈同学</div>
+                    <div class="chat-head">同学A</div>
                     <p>这次展览有什么必看的？</p>
                 </div>
                 <div class="chat-msg agent">
-                    <div class="chat-head"><span class="chat-ic"><i data-lucide="sparkles" class="w-3 h-3"></i></span>幻真</div>
+                    <div class="chat-head">幻真</div>
                     <p>推荐先看 A 区的核心展项，我可以带您过去。</p>
                 </div>
                 <div class="chat-msg user">
-                    <div class="chat-head"><span class="chat-av" style="--c:#10b981">陈</span>陈同学</div>
+                    <div class="chat-head">同学A</div>
                     <p>大概需要多久？</p>
                 </div>
                 <div class="chat-msg agent">
-                    <div class="chat-head"><span class="chat-ic"><i data-lucide="sparkles" class="w-3 h-3"></i></span>幻真</div>
+                    <div class="chat-head">幻真</div>
                     <p>精华路线约 20 分钟，全程由我为您讲解。</p>
                 </div>
             </div>

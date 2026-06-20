@@ -1177,3 +1177,40 @@ Object.assign(window.__I18N_DICT.en, {
   "数据": "Data",
   "咨询量、高频问题与转化效果分析": "Analysis of inquiry volume, frequent questions and conversion"
 });
+
+/* nav label tweaks: 关于我们→关于, 公司介绍→团队 */
+Object.assign(window.__I18N_DICT['zh-TW'], { "关于": "關於", "团队": "團隊" });
+Object.assign(window.__I18N_DICT.en, { "关于": "About", "团队": "Team" });
+
+/* hero chat overlay (3 scenes) */
+Object.assign(window.__I18N_DICT['zh-TW'], {
+  "陈同学": "陳同學",
+  "请问优衣库怎么走？": "請問優衣庫怎麼走？",
+  "优衣库在 3 楼东区，乘扶梯上去右转就到～": "優衣庫在 3 樓東區，搭扶梯上去右轉就到～",
+  "今天有什么活动吗？": "今天有什麼活動嗎？",
+  "中庭正在做会员日，满 300 减 50，我帮您领张券吧。": "中庭正在舉辦會員日，滿 300 減 50，我幫您領張券吧。",
+  "办居住证需要带哪些材料？": "辦居住證需要帶哪些材料？",
+  "需要身份证、居住证明和近期照片，我已为您列好清单。": "需要身分證、居住證明和近期照片，我已為您列好清單。",
+  "在几号窗口办理？": "在幾號窗口辦理？",
+  "3 号窗口，当前排队 2 人，预计等候 5 分钟。": "3 號窗口，目前排隊 2 人，預計等候 5 分鐘。",
+  "这次展览有什么必看的？": "這次展覽有什麼必看的？",
+  "推荐先看 A 区的核心展项，我可以带您过去。": "推薦先看 A 區的核心展項，我可以帶您過去。",
+  "精华路线约 20 分钟，全程由我为您讲解。": "精華路線約 20 分鐘，全程由我為您講解。"
+});
+Object.assign(window.__I18N_DICT.en, {
+  "王女士": "Ms. Wang",
+  "李先生": "Mr. Li",
+  "陈同学": "Chen",
+  "请问优衣库怎么走？": "How do I get to Uniqlo?",
+  "优衣库在 3 楼东区，乘扶梯上去右转就到～": "Uniqlo is in the east wing on level 3 — take the escalator up and turn right.",
+  "今天有什么活动吗？": "Any promotions today?",
+  "中庭正在做会员日，满 300 减 50，我帮您领张券吧。": "The atrium is running a member day: spend 300, save 50. Let me grab you a voucher.",
+  "办居住证需要带哪些材料？": "What documents do I need for a residence permit?",
+  "需要身份证、居住证明和近期照片，我已为您列好清单。": "Your ID, proof of residence and a recent photo — I have the checklist ready for you.",
+  "在几号窗口办理？": "Which counter handles it?",
+  "3 号窗口，当前排队 2 人，预计等候 5 分钟。": "Counter 3 — 2 people in line, about a 5-minute wait.",
+  "这次展览有什么必看的？": "What is a must-see at this exhibition?",
+  "推荐先看 A 区的核心展项，我可以带您过去。": "I would start with the key pieces in Zone A — I can take you there.",
+  "大概需要多久？": "How long will it take?",
+  "精华路线约 20 分钟，全程由我为您讲解。": "The highlights route is about 20 minutes, with narration all the way."
+});

@@ -78,11 +78,11 @@
                     </div>
                 </div>
                 <div class="nav-group">
-                    <a href="about.html" class="nav-top">关于我们 <i data-lucide="chevron-down" class="w-3.5 h-3.5 nav-caret"></i></a>
+                    <a href="about.html" class="nav-top">关于 <i data-lucide="chevron-down" class="w-3.5 h-3.5 nav-caret"></i></a>
                     <div class="mega-menu">
                         <div class="mega-split">
                             <div class="mega-list">
-                                <a href="about-background.html" class="mega-link mega-option" data-preview="about"><span class="mega-icon"><i data-lucide="info" class="w-5 h-5"></i></span><span><h5>公司介绍</h5><p>新浪爱问前身背景，全栈自研 AI 虚拟员工团队。</p></span></a>
+                                <a href="about-background.html" class="mega-link mega-option" data-preview="about"><span class="mega-icon"><i data-lucide="info" class="w-5 h-5"></i></span><span><h5>团队</h5><p>新浪爱问前身背景，全栈自研 AI 虚拟员工团队。</p></span></a>
                                 <a href="news.html" class="mega-link mega-option" data-preview="news"><span class="mega-icon"><i data-lucide="newspaper" class="w-5 h-5"></i></span><span><h5>新闻动态</h5><p>品牌报道、产品更新、行业活动与公司里程碑。</p></span></a>
                                 <a href="${contactHref}" class="mega-link mega-option" data-preview="contact"><span class="mega-icon"><i data-lucide="phone" class="w-5 h-5"></i></span><span><h5>联系我们</h5><p>预约演示、商务合作和试点场景沟通。</p></span></a>
                             </div>
@@ -115,7 +115,7 @@
         <a href="products.html">产品矩阵</a>
         <a href="solutions.html">解决方案</a>
         <a href="cases.html">落地案例</a>
-        <a href="about.html">关于我们</a>
+        <a href="about.html">关于</a>
         <a href="news.html">新闻动态</a>
         <a href="${contactHref}" class="nav-mobile-cta">联系商务</a>
     </div>`;

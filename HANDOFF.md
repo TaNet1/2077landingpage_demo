@@ -82,6 +82,15 @@
 
 ## 交接记录（倒序，最新在上）
 
+### 2026-06-19 · Claude：导航文案微调 + 首图加 Sierra 式对话气泡（三场景轮播）
+
+- **导航文案**：`site.js` 把导航主项「关于我们」→「关于」（nav-top + 移动端两处），mega menu 里「公司介绍」→「团队」。`i18n.js` 补了 `关于`(關於/About)、`团队`(團隊/Team)。
+- **首图对话气泡**（参考 sierra.ai 首图右下的对话演示）：`index.html` 首屏 `#hero` 右下新增 `#heroChat` 玻璃气泡叠层，做了 3 套场景（`data-scene` = mall 商超 / gov 政务 / exhibit 展厅），每套 2 轮(4 条)对话(用户↔幻真)，CSS `chatIn` 逐条入场动画。**每 10s 自动切到下一套**（主内联脚本顶部一个 setInterval IIFE，切 `.chat-set.active`）。用户会自行让首图视频时长与之对齐。
+  - CSS 在 `.hero-scroll-cue` 规则后那段 `/* hero chat overlay */`；`@media(max-width:1024px)` 下隐藏；`prefers-reduced-motion` 关动画。
+  - 对话文案已补 `i18n.js`(zh-TW/en)，切语言不残留简体。
+  - 改文案/轮数：直接编辑 `#heroChat` 里的 `.chat-set`；切换节奏改那个 `setInterval` 的 10000。
+- 验收：1440 屏首图右下气泡正常轮播、无 console error、无横向溢出；导航三语 Home/Product Line/Solutions/Cases/About 一致，下拉「团队/Team/團隊」。
+
 ### 2026-06-19 · Claude：首页大气版式 pass + 痛点/案例区块重做 + 视差加大
 
 用户反馈「首图以外的内容偏窄、小气，区块表现形式重复」，要求版式更大气、内容区宽度对齐导航栏、并参考 pio.com / custo.io / on.energy。本轮**只改 `index.html`（首页内联 style + 痛点/案例两段 DOM）和 `site.js`（子页视差力度）**，已浏览器验收、无 console error、无横向溢出。

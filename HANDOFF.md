@@ -82,6 +82,19 @@
 
 ## 交接记录（倒序，最新在上）
 
+### 2026-06-19 · Claude：重做「关于 / 团队」页（about-background.html）
+
+用户要求把「团队」页（导航 关于 → `about-background.html`）重做成完整的关于页：首屏像首页那种（但背景是静态图片、无对话气泡组件），并参考 meetjamie.ai/about 的结构，纳入公司现有官网 withufuture.com/about 的内容。
+
+- **`about-background.html` 从 detail-page.js 模板页改成独立完整页**：不再用 `data-detail`/`#detail-root`/`detail-page.js`（detail-page.js 里的 `about-background` 数据项已成死数据，无害，留着）。页内自带 `<style>`。
+- **首屏**：自定义 `.about-hero`，静态背景图 `StartRoom_Post.0210.png` + 深色渐变遮罩，左下大标语「为世界『智』造 / 一亿服务劳动力」+ 双 CTA，**无对话气泡**，风格对齐首页 hero。
+- **内容结构**（参考 meetjamie + 公司官网）：使命/愿景 → 我们的来历(新浪爱问→2077) → 全栈自研四能力(Agent/数字人/CMS/硬件，卡片链到 about-agent/avatar/cms/hardware) → 价值观(客户至上/协作共赢/科技引领) → 团队构成(5 个角色卡，用 avatar 占位，无真实姓名) → 实力与认可(华为VR大赛/NVIDIA/洲明灯云奖/多项知识产权 + 数据条) → 联系我们(电话/邮箱/地址)。
+- 真实信息取自 withufuture.com/about：使命「为世界提供一亿服务劳动力」、愿景「硬件+软件+服务+内容生态圈」、价值观、团队构成、获奖、地址电话邮箱。
+- i18n：`i18n.js` 末尾追加该页全部文案的 zh-TW/en（扫描 missing 仅剩 `<title>`，head 内不翻译，符合预期）。
+- 验收：1440 屏逐段截图正常，内容区对齐导航栏(36/41)、无横向溢出、无 console error，中/英切换正常。
+- 备注：首屏用的 `StartRoom_Post.0210.png` 是 8.7MB 大图（与首页同量级），首次截图偶发超时，刷新后正常；后续若要提速可压缩首屏图。
+
+
 ### 2026-06-19 · Claude：导航文案微调 + 首图加 Sierra 式对话气泡（三场景轮播）
 
 - **导航文案**：`site.js` 把导航主项「关于我们」→「关于」（nav-top + 移动端两处），mega menu 里「公司介绍」→「团队」。`i18n.js` 补了 `关于`(關於/About)、`团队`(團隊/Team)。

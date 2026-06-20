@@ -758,7 +758,7 @@
         section .text-center.mb-16 { margin-bottom: clamp(4rem, 5vw, 6rem); }
         section .text-center.mb-20 { margin-bottom: clamp(4.5rem, 5.5vw, 6.5rem); }
         /* 6) 产品矩阵：每张产品卡顶部预留 16:9 产品图位（用户后续提供图片替换 img src 即可） */
-        .product-shot { position: relative; width: 100%; aspect-ratio: 16 / 9; border-radius: 24px; overflow: hidden; margin-bottom: 30px; background: linear-gradient(135deg, #f4efff, #fdeffb); display: grid; place-items: center; border: 1px solid rgba(146,85,254,.12); }
+        .product-shot { position: relative; aspect-ratio: 9 / 16; height: clamp(320px, 30vw, 460px); width: auto; max-width: 100%; margin: 0 auto 30px; border-radius: 24px; overflow: hidden; background: linear-gradient(135deg, #f4efff, #fdeffb); display: grid; place-items: center; border: 1px solid rgba(146,85,254,.12); }
         .product-shot span { font-size: 12px; font-weight: 800; letter-spacing: .18em; color: #b7a6e0; }
         .product-shot img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
         /* 7) 行业痛点：横向跑马灯 → 静态 bento 网格（首张大卡跨 2 列，7 张铺满 2 行） */
@@ -1102,7 +1102,7 @@
 
             <div class="grid md:grid-cols-3 gap-8 product-story-grid">
                 <div class="bg-white p-10 rounded-[40px] border border-gray-100 card-glow transition-all product-story-card">
-                    <div class="product-shot"><span>幻真 NANO · 16:9</span><!-- <img src="assets/product-nano.jpg" alt="幻真 Nano"> --></div>
+                    <div class="product-shot"><span>幻真 NANO · 9:16</span><!-- <img src="assets/product-nano.jpg" alt="幻真 Nano"> --></div>
                     <div class="mb-8 w-14 h-14 rounded-2xl bg-slate-50 flex items-center justify-center text-gray-800"><i data-lucide="tablet-smartphone" class="w-7 h-7"></i></div>
                     <div class="flex justify-between items-start mb-4">
                         <h4 class="text-2xl font-bold font-sora">幻真 <span class="gradient-text">Nano</span></h4>
@@ -1119,7 +1119,7 @@
 
                 <div class="bg-white p-10 rounded-[40px] border-2 border-purple-500/20 card-glow transition-all relative product-story-card">
                     <div class="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 gradient-bg text-white text-[10px] font-bold rounded-full uppercase tracking-widest shadow-lg z-10">旗舰首选</div>
-                    <div class="product-shot"><span>幻真 PRO · 16:9</span><!-- <img src="assets/product-pro.jpg" alt="幻真 Pro"> --></div>
+                    <div class="product-shot"><span>幻真 PRO · 9:16</span><!-- <img src="assets/product-pro.jpg" alt="幻真 Pro"> --></div>
                     <div class="mb-8 w-14 h-14 rounded-2xl bg-purple-50 flex items-center justify-center text-purple-600"><i data-lucide="monitor" class="w-7 h-7"></i></div>
                     <div class="flex justify-between items-start mb-4">
                         <h4 class="text-2xl font-bold font-sora">幻真 <span class="gradient-text">Pro</span></h4>
@@ -1135,7 +1135,7 @@
                 </div>
 
                 <div class="bg-white p-10 rounded-[40px] border border-gray-100 card-glow transition-all product-story-card">
-                    <div class="product-shot"><span>幻真 ROBO · 16:9</span><!-- <img src="assets/product-robo.jpg" alt="幻真 Robo"> --></div>
+                    <div class="product-shot"><span>幻真 ROBO · 9:16</span><!-- <img src="assets/product-robo.jpg" alt="幻真 Robo"> --></div>
                     <div class="mb-8 w-14 h-14 rounded-2xl bg-slate-50 flex items-center justify-center text-gray-800"><i data-lucide="bot" class="w-7 h-7"></i></div>
                     <div class="flex justify-between items-start mb-4">
                         <h4 class="text-2xl font-bold font-sora">幻真 <span class="gradient-text">Robo</span></h4>

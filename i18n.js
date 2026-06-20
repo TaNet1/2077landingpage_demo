@@ -1282,3 +1282,12 @@ Object.assign(window.__I18N_DICT.en, {
   "3 号窗口": "Counter 3",
   "约 30 米 · 步行 1 分钟": "About 30 m · 1 min walk"
 });
+
+/* hero chat v5: status loading->done labels */
+Object.assign(window.__I18N_DICT['zh-TW'], {
+  "路线规划中": "路線規劃中"
+});
+Object.assign(window.__I18N_DICT.en, {
+  "路线规划中": "Planning route",
+  "正在整理美食列表": "Gathering food list"
+});

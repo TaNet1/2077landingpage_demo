@@ -342,14 +342,19 @@
             mask-image: linear-gradient(180deg, transparent 0, #000 15%, #000 100%);
         }
         .chat-set { display: none; }
-        .chat-set.active { display: flex; flex-direction: column; justify-content: flex-end; gap: 9px; height: 100%; }
+        .chat-set.active { display: flex; flex-direction: column; justify-content: flex-end; height: 100%; }
         .chat-msg {
-            display: none; opacity: 0; transform: translateY(14px);
-            max-width: 85%; padding: 10px 15px 12px; border-radius: 18px;
+            max-width: 85%; border-radius: 18px;
             background: rgba(28, 22, 18, 0.42); backdrop-filter: blur(14px) saturate(1.1);
             border: 1px solid rgba(255, 255, 255, 0.16);
             box-shadow: 0 18px 50px -28px rgba(0,0,0,.7), inset 0 1px 0 rgba(255,255,255,.06);
             color: #fff;
+            /* collapsed until revealed — grows in smoothly, pushing older bubbles up */
+            opacity: 0; max-height: 0; margin-top: 0; padding: 0 15px; overflow: hidden;
+            transform: translateY(8px) scale(.985); filter: blur(5px);
+            transition: max-height .6s cubic-bezier(.16,1,.3,1), margin-top .6s cubic-bezier(.16,1,.3,1),
+                        opacity .55s ease, transform .6s cubic-bezier(.16,1,.3,1),
+                        padding .45s ease, filter .55s ease;
         }
         .chat-msg.agent { align-self: flex-end; border-bottom-right-radius: 8px; }
         .chat-msg.user { align-self: flex-start; border-bottom-left-radius: 8px; background: rgba(40, 32, 27, 0.46); }
@@ -372,12 +377,20 @@
         .chat-status-only { padding: 11px 16px; }
         .route-meta { margin-top: 8px; }
         .chat-card { max-width: 92%; }
-        /* messages are revealed one-by-one via the .show class (JS), newest sticks to the bottom */
-        .chat-msg.show { display: block; animation: chatIn .5s cubic-bezier(.2,.8,.2,1) forwards; }
-        @keyframes chatIn { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+        /* messages are revealed one-by-one via the .show class (JS); each grows in smoothly */
+        .chat-msg.show { opacity: 1; max-height: 320px; margin-top: 10px; padding: 10px 15px 12px; transform: translateY(0) scale(1); filter: blur(0); }
+        /* status bubbles: 进行中 -> 完成 transition */
+        .chat-status .st-done-ic, .chat-status .st-done-txt { display: none; }
+        .chat-status.done .st-load-ic, .chat-status.done .st-load-txt { display: none; }
+        .chat-status.done .st-done-ic, .chat-status.done .st-done-txt { display: inline-flex; align-items: center; }
+        .chat-status:not(.done) { color: rgba(255,255,255,.82); }
+        .chat-status.done { color: #34d399; }
+        .chat-status .st-load-ic { color: var(--cyan); animation: stspin .9s linear infinite; transform-origin: center; }
+        @keyframes stspin { to { transform: rotate(360deg); } }
         @media (max-width: 1024px) { .hero-chat { display: none; } }
         @media (prefers-reduced-motion: reduce) {
-            .chat-msg.show { animation: none; opacity: 1; transform: none; }
+            .chat-msg { transition: opacity .2s ease; }
+            .chat-status .st-load-ic { animation: none; }
         }
         @media (max-width: 1100px) {
             .mega-menu { min-width: 560px; }
@@ -888,7 +901,7 @@
                     <div class="chat-card-head"><i data-lucide="route"></i>室内导航路线</div>
                     <div class="route-steps"><span>当前位置</span><b>›</b><span>3 号扶梯</span><b>›</b><span>B1 西区</span><b>›</b><span>7-Eleven</span></div>
                     <div class="route-meta"><i data-lucide="footprints" class="w-3 h-3"></i>约 120 米 · 步行 2 分钟</div>
-                    <div class="chat-status chat-foot"><i data-lucide="check-circle-2"></i>路线规划完成</div>
+                    <div class="chat-status chat-foot"><i data-lucide="loader-circle" class="st-load-ic"></i><i data-lucide="check-circle-2" class="st-done-ic"></i><span class="st-load-txt">路线规划中</span><span class="st-done-txt">路线规划完成</span></div>
                 </div>
                 <div class="chat-msg user">
                     <div class="chat-head">女士A</div>
@@ -899,7 +912,7 @@
                     <p>G 层汇聚了多家特色餐厅，为您提供丰富的美食选择。这里有港式点心名店添好运、美式快餐麦当劳和肯德基、经典扒房 OUTBACK STEAKHOUSE、精品咖啡 Starbucks，以及奶茶饮品霸王茶姬等。现在为您提供该楼层的美食列表，希望能够帮到您。</p>
                 </div>
                 <div class="chat-msg agent chat-card chat-status-only">
-                    <div class="chat-status"><i data-lucide="check-circle-2"></i>美食店铺列表已展示</div>
+                    <div class="chat-status"><i data-lucide="loader-circle" class="st-load-ic"></i><i data-lucide="check-circle-2" class="st-done-ic"></i><span class="st-load-txt">正在整理美食列表</span><span class="st-done-txt">美食店铺列表已展示</span></div>
                 </div>
             </div>
             <div class="chat-set" data-scene="gov">
@@ -923,7 +936,7 @@
                     <div class="chat-card-head"><i data-lucide="route"></i>室内导航路线</div>
                     <div class="route-steps"><span>当前位置</span><b>›</b><span>取号区</span><b>›</b><span>3 号窗口</span></div>
                     <div class="route-meta"><i data-lucide="footprints" class="w-3 h-3"></i>约 30 米 · 步行 1 分钟</div>
-                    <div class="chat-status chat-foot"><i data-lucide="check-circle-2"></i>路线规划完成</div>
+                    <div class="chat-status chat-foot"><i data-lucide="loader-circle" class="st-load-ic"></i><i data-lucide="check-circle-2" class="st-done-ic"></i><span class="st-load-txt">路线规划中</span><span class="st-done-txt">路线规划完成</span></div>
                 </div>
             </div>
             <div class="chat-set" data-scene="exhibit">
@@ -1869,8 +1882,13 @@
                 timers.forEach(clearTimeout); timers = [];
                 const msgs = Array.from(set.querySelectorAll('.chat-msg'));
                 msgs.forEach(m => m.classList.remove('show'));
+                set.querySelectorAll('.chat-status').forEach(s => s.classList.remove('done'));
                 msgs.forEach(function (m, idx) {
-                    timers.push(setTimeout(function () { m.classList.add('show'); }, 200 + idx * STEP));
+                    timers.push(setTimeout(function () {
+                        m.classList.add('show');
+                        const st = m.querySelector('.chat-status');
+                        if (st) timers.push(setTimeout(function () { st.classList.add('done'); }, 1100));
+                    }, 200 + idx * STEP));
                 });
             }
             let i = 0;

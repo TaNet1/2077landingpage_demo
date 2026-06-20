@@ -1268,3 +1268,17 @@ Object.assign(window.__I18N_DICT.en, {
   "路线规划完成": "Route planned",
   "美食店铺列表已展示": "Food shop list shown"
 });
+
+/* hero chat v4: gov scene route card */
+Object.assign(window.__I18N_DICT['zh-TW'], {
+  "3 号窗口，当前排队 2 人，预计等候 5 分钟。现在为您提供前往该窗口的导航路线，希望能够帮助到您。": "3 號窗口，目前排隊 2 人，預計等候 5 分鐘。現在為您提供前往該窗口的導航路線，希望能夠幫助到您。",
+  "取号区": "取號區",
+  "3 号窗口": "3 號窗口",
+  "约 30 米 · 步行 1 分钟": "約 30 公尺 · 步行 1 分鐘"
+});
+Object.assign(window.__I18N_DICT.en, {
+  "3 号窗口，当前排队 2 人，预计等候 5 分钟。现在为您提供前往该窗口的导航路线，希望能够帮助到您。": "Counter 3 — 2 people in line, about a 5-minute wait. Here is a route to the counter, hope it helps.",
+  "取号区": "Ticket area",
+  "3 号窗口": "Counter 3",
+  "约 30 米 · 步行 1 分钟": "About 30 m · 1 min walk"
+});

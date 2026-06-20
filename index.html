@@ -336,14 +336,16 @@
         /* ---------- hero chat overlay (Sierra-style, 3 scenes rotating) ---------- */
         .hero-chat {
             position: absolute; z-index: 2; pointer-events: none;
-            right: clamp(22px, 4vw, 60px); bottom: clamp(72px, 9vh, 116px);
-            width: min(480px, 42vw);
+            right: clamp(22px, 4vw, 60px); bottom: clamp(64px, 9vh, 112px);
+            width: min(480px, 42vw); height: clamp(320px, 44vh, 440px); overflow: hidden;
+            -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 15%, #000 100%);
+            mask-image: linear-gradient(180deg, transparent 0, #000 15%, #000 100%);
         }
-        .chat-set { display: none; flex-direction: column; gap: 9px; }
-        .chat-set.active { display: flex; }
+        .chat-set { display: none; }
+        .chat-set.active { display: flex; flex-direction: column; justify-content: flex-end; gap: 9px; height: 100%; }
         .chat-msg {
-            opacity: 0; transform: translateY(18px);
-            max-width: 100%; padding: 10px 15px 12px; border-radius: 18px;
+            display: none; opacity: 0; transform: translateY(14px);
+            max-width: 85%; padding: 10px 15px 12px; border-radius: 18px;
             background: rgba(28, 22, 18, 0.42); backdrop-filter: blur(14px) saturate(1.1);
             border: 1px solid rgba(255, 255, 255, 0.16);
             box-shadow: 0 18px 50px -28px rgba(0,0,0,.7), inset 0 1px 0 rgba(255,255,255,.06);
@@ -369,17 +371,13 @@
         .chat-card .chat-foot { margin-top: 9px; padding-top: 9px; border-top: 1px solid rgba(255,255,255,.1); }
         .chat-status-only { padding: 11px 16px; }
         .route-meta { margin-top: 8px; }
-        .chat-set.active .chat-msg { animation: chatIn .5s cubic-bezier(.2,.8,.2,1) forwards; }
-        .chat-set.active .chat-msg:nth-child(1) { animation-delay: .15s; }
-        .chat-set.active .chat-msg:nth-child(2) { animation-delay: .8s; }
-        .chat-set.active .chat-msg:nth-child(3) { animation-delay: 1.5s; }
-        .chat-set.active .chat-msg:nth-child(4) { animation-delay: 2.2s; }
-        .chat-set.active .chat-msg:nth-child(5) { animation-delay: 2.9s; }
-        .chat-set.active .chat-msg:nth-child(6) { animation-delay: 3.6s; }
-        @keyframes chatIn { to { opacity: 1; transform: translateY(0); } }
+        .chat-card { max-width: 92%; }
+        /* messages are revealed one-by-one via the .show class (JS), newest sticks to the bottom */
+        .chat-msg.show { display: block; animation: chatIn .5s cubic-bezier(.2,.8,.2,1) forwards; }
+        @keyframes chatIn { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
         @media (max-width: 1024px) { .hero-chat { display: none; } }
         @media (prefers-reduced-motion: reduce) {
-            .chat-set.active .chat-msg { animation: none; opacity: 1; transform: none; }
+            .chat-msg.show { animation: none; opacity: 1; transform: none; }
         }
         @media (max-width: 1100px) {
             .mega-menu { min-width: 560px; }
@@ -919,7 +917,13 @@
                 </div>
                 <div class="chat-msg agent">
                     <div class="chat-head">幻真</div>
-                    <p>3 号窗口，当前排队 2 人，预计等候 5 分钟。</p>
+                    <p>3 号窗口，当前排队 2 人，预计等候 5 分钟。现在为您提供前往该窗口的导航路线，希望能够帮助到您。</p>
+                </div>
+                <div class="chat-msg agent chat-card">
+                    <div class="chat-card-head"><i data-lucide="route"></i>室内导航路线</div>
+                    <div class="route-steps"><span>当前位置</span><b>›</b><span>取号区</span><b>›</b><span>3 号窗口</span></div>
+                    <div class="route-meta"><i data-lucide="footprints" class="w-3 h-3"></i>约 30 米 · 步行 1 分钟</div>
+                    <div class="chat-status chat-foot"><i data-lucide="check-circle-2"></i>路线规划完成</div>
                 </div>
             </div>
             <div class="chat-set" data-scene="exhibit">
@@ -1853,18 +1857,32 @@
     <script src="site.js"></script>
 
     <script>
-        // ===== Hero chat overlay: rotate the 3 scenes every 10s =====
+        // ===== Hero chat overlay: rotate 3 scenes (10s each); reveal bubbles one-by-one =====
         (function () {
             const chat = document.getElementById('heroChat');
             if (!chat) return;
             const sets = Array.from(chat.querySelectorAll('.chat-set'));
-            if (sets.length < 2) return;
+            if (!sets.length) return;
+            const STEP = 1400, CYCLE = 10000;
+            let timers = [];
+            function play(set) {
+                timers.forEach(clearTimeout); timers = [];
+                const msgs = Array.from(set.querySelectorAll('.chat-msg'));
+                msgs.forEach(m => m.classList.remove('show'));
+                msgs.forEach(function (m, idx) {
+                    timers.push(setTimeout(function () { m.classList.add('show'); }, 200 + idx * STEP));
+                });
+            }
             let i = 0;
+            sets.forEach((s, idx) => s.classList.toggle('active', idx === 0));
+            play(sets[0]);
+            if (sets.length < 2) return;
             setInterval(function () {
                 sets[i].classList.remove('active');
                 i = (i + 1) % sets.length;
                 sets[i].classList.add('active');
-            }, 10000);
+                play(sets[i]);
+            }, CYCLE);
         })();
 
         // ===== GSAP (graceful fallback if CDN unavailable) =====

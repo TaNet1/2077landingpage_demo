@@ -109,7 +109,14 @@
         .contact-item b { display: block; font-family: 'Sora', var(--font-main); font-size: 15px; color: #fff; }
         .contact-item span { font-size: 12px; color: rgba(255,255,255,.5); }
 
+        /* partner logo wall */
+        .logo-wall { display: grid; grid-template-columns: repeat(6, 1fr); gap: 16px; margin-top: 44px; }
+        .lw-cell { height: 84px; display: grid; place-items: center; padding: 14px 18px; border-radius: 14px; background: #fff; border: 1px solid #ededed; }
+        .lw-cell img { max-width: 100%; max-height: 44px; object-fit: contain; filter: grayscale(1); opacity: .6; transition: filter .25s ease, opacity .25s ease; }
+        .lw-cell:hover img { filter: grayscale(0); opacity: 1; }
+        @media (max-width: 1100px) { .logo-wall { grid-template-columns: repeat(5, 1fr); } }
         @media (max-width: 900px) {
+            .logo-wall { grid-template-columns: repeat(3, 1fr); }
             .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 36px 28px; }
             .story-grid, .pillar-grid, .award-grid { grid-template-columns: 1fr; }
             .belief { grid-template-columns: 1fr; gap: 10px; }
@@ -118,6 +125,7 @@
             .about-hero { padding: 0 22px; min-height: 74vh; }
             .about-hero-wrap { padding-top: 128px; }
             .ed { padding-left: 22px; padding-right: 22px; }
+            .logo-wall { grid-template-columns: repeat(2, 1fr); }
         }
     </style>
 </head>
@@ -130,10 +138,6 @@
             <div class="h-eyebrow">关于 2077.AI · 幻影未来</div>
             <h1>为世界「智」造<br><span class="gradient-text">一亿服务劳动力</span></h1>
             <p>2077.AI（幻影未来）专注高度拟人化 AI 虚拟人的研发与应用。我们用 Agent、数字人、CMS 与终端硬件，让每一个商业空间和公共服务场所，都拥有一位 7×24 在岗的 AI 虚拟员工。</p>
-            <div class="h-actions">
-                <a href="index.html#contact" class="ebtn ebtn-primary">联系我们</a>
-                <a href="products.html" class="ebtn ebtn-ghost-light">查看产品矩阵</a>
-            </div>
         </div>
     </header>
 
@@ -240,6 +244,15 @@
         </div>
     </section>
 
+    <!-- PARTNERS -->
+    <section class="ed alt">
+        <div class="ed-wrap">
+            <div class="ed-eyebrow">Partners · 合作伙伴</div>
+            <h2 class="ed-h2">与众多企业与机构共建服务生态</h2>
+            <div class="logo-wall" id="partnerWall"></div>
+        </div>
+    </section>
+
     <!-- CTA -->
     <section class="ed">
         <div class="ed-wrap">
@@ -262,6 +275,37 @@
 
     <div id="site-footer"></div>
     <div id="site-fab"></div>
+    <script>
+        // Partner logo wall: auto-load every image in /logo_cloud (dir listing -> manifest fallback)
+        (function () {
+            const wall = document.getElementById('partnerWall');
+            if (!wall) return;
+            const IMG_RE = /\.(png|jpe?g|webp|svg|gif)$/i;
+            const render = (files) => {
+                files = [...new Set(files)].filter(n => IMG_RE.test(n));
+                if (!files.length) { const s = wall.closest('section'); if (s) s.style.display = 'none'; return; }
+                wall.innerHTML = files.map(f =>
+                    `<div class="lw-cell"><img src="logo_cloud/${encodeURIComponent(f)}" alt="${f.replace(/\.[^.]+$/, '')}" loading="lazy" draggable="false" onerror="this.closest('.lw-cell').remove()"></div>`
+                ).join('');
+            };
+            async function load() {
+                try {
+                    const r = await fetch('logo_cloud/', { cache: 'no-store' });
+                    if (r.ok) {
+                        const doc = new DOMParser().parseFromString(await r.text(), 'text/html');
+                        const files = [...doc.querySelectorAll('a')].map(a => (a.getAttribute('title') || a.textContent || '').trim()).filter(n => IMG_RE.test(n));
+                        if (files.length) return render(files);
+                    }
+                } catch (e) {}
+                try {
+                    const r = await fetch('logo_cloud/manifest.json', { cache: 'no-store' });
+                    if (r.ok) { const arr = await r.json(); if (Array.isArray(arr)) return render(arr); }
+                } catch (e) {}
+                render([]);
+            }
+            load();
+        })();
+    </script>
     <script src="site.js"></script>
 </body>
 </html>

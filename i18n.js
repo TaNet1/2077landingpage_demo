@@ -1421,3 +1421,13 @@ Object.assign(window.__I18N_DICT.en, {
   "深圳 · 前海深港青年梦工场": "Shenzhen · Qianhai Youth Dream Factory",
   "北区 C 栋 202": "Block C, Room 202, North Zone"
 });
+
+/* about page: partner wall */
+Object.assign(window.__I18N_DICT['zh-TW'], {
+  "Partners · 合作伙伴": "Partners · 合作夥伴",
+  "与众多企业与机构共建服务生态": "與眾多企業與機構共建服務生態"
+});
+Object.assign(window.__I18N_DICT.en, {
+  "Partners · 合作伙伴": "Partners",
+  "与众多企业与机构共建服务生态": "Building a service ecosystem with enterprises and institutions"
+});

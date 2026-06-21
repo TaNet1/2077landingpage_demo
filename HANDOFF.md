@@ -82,6 +82,15 @@
 
 ## 交接记录（倒序，最新在上）
 
+### 2026-06-19 · Claude：关于页改成 meetjamie 式「浅色编辑风」
+
+用户反馈上一版「没参考给的网站设计」。我用 Claude-in-Chrome 实测了 meetjamie.ai/about 的真实设计 token（截图会冻结，改用 JS 读 computed style）：**浅色底 `#fafafa`、近黑文字 `#191919`、干净系统无衬线、标题中等字重(500-600 而非 800)、超大轻字重数字(60px/-1.5px tracking)、圆角图卡、紫色强调 `#946bf5`、大量留白**。之前那版是深色+重渐变卡片，正好相反。
+
+本轮把 `about-background.html` 正文整体改成这套浅色编辑风（首屏仍是用户要的"首页式深色静态图 hero、无对话"）：
+- body 浅底 `#fafafa`；自定义 `.ed` 编辑式区块、`.ed-h2`(Sora 600)、`.stat .num`(超大轻字重数字)、`.belief`(带分隔线的编号信条行)、`.vision-statement`(大字使命)、`.pillar/.tcard/.award`(浅色圆角卡)、结尾 `.cta-panel`(深色圆角面板，桥接到深色页脚)。紫色强调统一 `#8b5cf6`。
+- 文案全部沿用上一版（i18n 直接复用，scan missing 仅 `<title>`，无需新增翻译）。
+- 验收：浅色编辑风逐段截图正常、无 console error、无横向溢出；preview 环境 `prefers-reduced-motion:reduce` 故该页 Lenis 不启用（设计内降级，真机正常）。
+
 ### 2026-06-19 · Claude：重做「关于 / 团队」页（about-background.html）
 
 用户要求把「团队」页（导航 关于 → `about-background.html`）重做成完整的关于页：首屏像首页那种（但背景是静态图片、无对话气泡组件），并参考 meetjamie.ai/about 的结构，纳入公司现有官网 withufuture.com/about 的内容。

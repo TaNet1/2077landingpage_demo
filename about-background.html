@@ -17,223 +17,245 @@
     <link rel="stylesheet" href="page.css">
     <link rel="stylesheet" href="site.css">
     <style>
-        /* ---------- about hero (homepage-style, static image, no chat) ---------- */
-        .about-hero {
-            position: relative; min-height: 84vh; display: flex; align-items: flex-end;
-            overflow: hidden; background: #071016; color: #fff; padding: 0 36px;
-        }
-        .about-hero::before {
-            content: ''; position: absolute; inset: 0; z-index: 0;
-            background: #071016 url('StartRoom_Post.0210.png') center 28% / cover no-repeat;
-            opacity: .92; filter: saturate(.9) contrast(1.03);
-        }
-        .about-hero::after {
-            content: ''; position: absolute; inset: 0; z-index: 0;
-            background:
-                linear-gradient(90deg, rgba(5,9,14,.86) 0%, rgba(5,9,14,.5) 42%, rgba(5,9,14,.2) 78%, rgba(5,9,14,.42) 100%),
-                linear-gradient(0deg, rgba(5,9,14,.62), transparent 46%);
-        }
-        .about-hero-wrap { position: relative; z-index: 1; width: 100%; padding: 160px 0 clamp(84px, 10vh, 128px); }
-        .about-hero .eyebrow { color: #c9b3ff; }
-        .about-hero h1 {
-            margin: 18px 0 0; font-family: 'Sora', var(--font-main);
-            font-size: clamp(44px, 6vw, 92px); line-height: 1.02; font-weight: 800; letter-spacing: -.02em; color: #fff;
-        }
-        .about-hero p { margin-top: 26px; max-width: 640px; font-size: clamp(17px, 1.4vw, 22px); line-height: 1.7; color: rgba(255,255,255,.86); }
-        .about-hero .hero-actions { margin-top: 38px; }
-        .btn-ghost-light { color: #fff; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.28); }
-        .btn-ghost-light:hover { background: rgba(255,255,255,.16); border-color: rgba(255,255,255,.5); color: #fff; transform: translateY(-2px); }
+        /* ===== editorial about page (light, inspired by meetjamie.ai/about) ===== */
+        body { background: #fafafa; color: #191919; }
 
-        /* mission statement band */
-        .mission-statement {
-            font-family: 'Sora', var(--font-main); font-weight: 800; letter-spacing: -.02em;
-            font-size: clamp(30px, 3.6vw, 56px); line-height: 1.22; max-width: 18ch;
-        }
-        .mission-sub { margin-top: 28px; max-width: 720px; color: var(--muted); font-size: clamp(16px, 1.2vw, 19px); line-height: 1.8; }
+        /* ---- hero: homepage-style, static image, no chat ---- */
+        .about-hero { position: relative; min-height: 82vh; display: flex; align-items: flex-end; overflow: hidden; background: #070b11; color: #fff; padding: 0 36px; }
+        .about-hero::before { content: ''; position: absolute; inset: 0; z-index: 0; background: #070b11 url('StartRoom_Post.0210.png') center 26% / cover no-repeat; opacity: .92; filter: saturate(.92) contrast(1.03); }
+        .about-hero::after { content: ''; position: absolute; inset: 0; z-index: 0; background: linear-gradient(90deg, rgba(5,8,13,.86) 0%, rgba(5,8,13,.5) 44%, rgba(5,8,13,.18) 80%, rgba(5,8,13,.4) 100%), linear-gradient(0deg, rgba(5,8,13,.6), transparent 48%); }
+        .about-hero-wrap { position: relative; z-index: 1; width: 100%; max-width: 1240px; margin: 0 auto; padding: 160px 0 clamp(80px, 10vh, 120px); }
+        .about-hero .h-eyebrow { color: #c7b6ff; font-weight: 650; font-size: 14px; letter-spacing: .04em; }
+        .about-hero h1 { margin: 18px 0 0; font-family: 'Sora', var(--font-main); font-size: clamp(46px, 6vw, 92px); line-height: 1.02; font-weight: 700; letter-spacing: -.03em; color: #fff; }
+        .about-hero p { margin-top: 26px; max-width: 600px; font-size: clamp(17px, 1.35vw, 21px); line-height: 1.65; color: rgba(255,255,255,.84); }
+        .about-hero .h-actions { margin-top: 38px; display: flex; flex-wrap: wrap; gap: 12px; }
 
-        /* value cards */
-        .value-card { border: 1px solid var(--line); border-radius: 16px; padding: 32px 30px; background: #fff; transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease; }
-        .value-card:hover { transform: translateY(-5px); box-shadow: 0 30px 56px -36px rgba(80,30,120,.42); border-color: rgba(146,85,254,.4); }
-        .value-card .v-num { font-family: 'Sora', var(--font-main); font-size: 13px; font-weight: 800; letter-spacing: .14em; color: var(--brand-primary); }
-        .value-card h3 { margin: 16px 0 10px; font-size: 23px; }
-        .value-card p { margin: 0; color: var(--muted); font-size: 15px; line-height: 1.75; }
+        /* buttons */
+        .ebtn { display: inline-flex; align-items: center; gap: 8px; height: 52px; padding: 0 26px; border-radius: 12px; font-weight: 700; font-size: 15px; transition: transform .2s ease, box-shadow .2s ease, background .2s ease, border-color .2s ease, color .2s ease; }
+        .ebtn-primary { color: #fff; background: #8b5cf6; box-shadow: 0 16px 32px -16px rgba(139,92,246,.7); }
+        .ebtn-primary:hover { background: #7c4dff; transform: translateY(-2px); }
+        .ebtn-dark { color: #fff; background: #191919; }
+        .ebtn-dark:hover { background: #000; transform: translateY(-2px); }
+        .ebtn-line { color: #191919; background: transparent; border: 1px solid #d9d9d9; }
+        .ebtn-line:hover { border-color: #191919; transform: translateY(-2px); }
+        .ebtn-ghost-light { color: #fff; background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.28); }
+        .ebtn-ghost-light:hover { background: rgba(255,255,255,.18); transform: translateY(-2px); }
 
-        /* team cards */
+        /* editorial section frame */
+        .ed { padding: clamp(76px, 9vw, 132px) 36px; }
+        .ed-wrap { max-width: 1240px; margin: 0 auto; }
+        .ed.alt { background: #ffffff; }
+        .ed-eyebrow { display: inline-block; color: #8b5cf6; font-weight: 650; font-size: 14px; letter-spacing: .02em; margin-bottom: 20px; }
+        .ed-h2 { margin: 0; font-family: 'Sora', var(--font-main); font-size: clamp(30px, 3.6vw, 48px); font-weight: 600; line-height: 1.08; letter-spacing: -.025em; color: #191919; }
+        .ed-h2.big { font-size: clamp(34px, 4.4vw, 60px); }
+        .ed-sub { margin-top: 22px; max-width: 760px; font-size: clamp(17px, 1.3vw, 20px); line-height: 1.7; color: #565656; }
+
+        /* hairline divider */
+        .ed-rule { border: 0; border-top: 1px solid #e8e8e8; margin: 0; }
+
+        /* stats band */
+        .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; }
+        .stat .num { font-family: 'Sora', var(--font-main); font-size: clamp(46px, 5.4vw, 76px); font-weight: 500; letter-spacing: -.045em; line-height: 1; color: #191919; }
+        .stat .lab { margin-top: 14px; font-size: 14px; line-height: 1.5; color: #7a7a7a; }
+
+        /* two-column story */
+        .story-grid { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: clamp(32px, 5vw, 80px); align-items: start; }
+        .story-grid p { font-size: clamp(16px, 1.15vw, 18px); line-height: 1.8; color: #4d4d4d; margin: 0 0 20px; }
+        .story-grid p:last-child { margin-bottom: 0; }
+
+        /* belief rows */
+        .belief { display: grid; grid-template-columns: 80px 1fr; gap: 24px; padding: 34px 0; border-top: 1px solid #e8e8e8; align-items: start; }
+        .belief:last-child { border-bottom: 1px solid #e8e8e8; }
+        .belief-num { font-family: 'Sora', var(--font-main); font-size: 18px; font-weight: 600; color: #8b5cf6; }
+        .belief h3 { margin: 0 0 10px; font-family: 'Sora', var(--font-main); font-size: clamp(22px, 2.2vw, 30px); font-weight: 600; letter-spacing: -.02em; color: #191919; }
+        .belief p { margin: 0; font-size: clamp(15px, 1.1vw, 17px); line-height: 1.75; color: #565656; max-width: 720px; }
+
+        /* big vision statement */
+        .vision-statement { font-family: 'Sora', var(--font-main); font-size: clamp(28px, 3.4vw, 52px); font-weight: 600; line-height: 1.18; letter-spacing: -.02em; color: #191919; max-width: 20ch; }
+
+        /* pillar cards */
+        .pillar-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+        .pillar { display: block; padding: 32px; border-radius: 18px; background: #fff; border: 1px solid #ececec; transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease; }
+        .pillar:hover { transform: translateY(-4px); box-shadow: 0 30px 60px -38px rgba(40,30,80,.3); border-color: #d9ccff; }
+        .pillar .p-ic { width: 46px; height: 46px; border-radius: 12px; display: grid; place-items: center; color: #8b5cf6; background: #f1ebff; margin-bottom: 18px; }
+        .pillar h3 { margin: 0 0 8px; font-family: 'Sora', var(--font-main); font-size: 20px; font-weight: 600; color: #191919; }
+        .pillar p { margin: 0; font-size: 14.5px; line-height: 1.7; color: #666; }
+
+        /* team */
         .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 18px; }
-        .team-card { text-align: center; padding: 30px 20px; border-radius: 16px; border: 1px solid var(--line); background: #fff; transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease; }
-        .team-card:hover { transform: translateY(-5px); box-shadow: 0 28px 52px -34px rgba(80,30,120,.42); border-color: rgba(146,85,254,.4); }
-        .team-card img { width: 88px; height: 88px; border-radius: 999px; object-fit: cover; display: block; margin: 0 auto 18px; box-shadow: 0 16px 32px -16px rgba(80,30,120,.55); }
-        .team-card h4 { margin: 0 0 5px; font-size: 17px; }
-        .team-card p { margin: 0; font-size: 13px; color: var(--muted); line-height: 1.6; }
+        .tcard { text-align: center; padding: 30px 20px; border-radius: 18px; background: #fff; border: 1px solid #ececec; transition: transform .25s ease, box-shadow .25s ease; }
+        .tcard:hover { transform: translateY(-4px); box-shadow: 0 26px 50px -36px rgba(40,30,80,.3); }
+        .tcard img { width: 84px; height: 84px; border-radius: 999px; object-fit: cover; display: block; margin: 0 auto 16px; }
+        .tcard h4 { margin: 0 0 5px; font-family: 'Sora', var(--font-main); font-size: 16px; font-weight: 600; color: #191919; }
+        .tcard p { margin: 0; font-size: 13px; line-height: 1.6; color: #777; }
 
-        /* awards */
-        .award-card { display: flex; align-items: flex-start; gap: 14px; border: 1px solid var(--line); border-radius: 14px; padding: 20px 22px; background: #fff; }
-        .award-card .a-ic { flex-shrink: 0; width: 42px; height: 42px; border-radius: 11px; display: grid; place-items: center; color: var(--brand-primary); background: linear-gradient(135deg, rgba(146,85,254,.12), rgba(236,0,250,.08)); }
-        .award-card h4 { margin: 0 0 4px; font-size: 16px; }
-        .award-card p { margin: 0; font-size: 13px; color: var(--muted); line-height: 1.6; }
+        /* awards row */
+        .award-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+        .award { display: flex; gap: 14px; align-items: flex-start; padding: 22px 24px; border-radius: 16px; background: #fff; border: 1px solid #ececec; }
+        .award .a-ic { flex-shrink: 0; width: 42px; height: 42px; border-radius: 11px; display: grid; place-items: center; color: #8b5cf6; background: #f1ebff; }
+        .award h4 { margin: 0 0 4px; font-family: 'Sora', var(--font-main); font-size: 16px; font-weight: 600; color: #191919; }
+        .award p { margin: 0; font-size: 13.5px; line-height: 1.6; color: #6a6a6a; }
 
-        /* contact band */
-        .contact-row { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 34px; }
-        .contact-item { display: flex; align-items: center; gap: 12px; padding: 16px 22px; border-radius: 14px; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12); }
-        .contact-item i { color: var(--cyan); }
-        .contact-item b { display: block; color: #fff; font-family: 'Sora', var(--font-main); font-size: 15px; }
-        .contact-item span { font-size: 12px; color: rgba(255,255,255,.55); }
+        /* dark CTA panel (bridges to footer) */
+        .cta-panel { position: relative; overflow: hidden; border-radius: 28px; background: #13151c; color: #fff; padding: clamp(48px, 6vw, 80px); }
+        .cta-panel::after { content: ''; position: absolute; top: -120px; right: -80px; width: 360px; height: 360px; border-radius: 50%; background: radial-gradient(circle, rgba(139,92,246,.4), transparent 68%); }
+        .cta-panel .ed-eyebrow { color: #c7b6ff; }
+        .cta-panel h2 { position: relative; margin: 0; font-family: 'Sora', var(--font-main); font-size: clamp(28px, 3.4vw, 50px); font-weight: 600; line-height: 1.12; letter-spacing: -.02em; }
+        .cta-panel p { position: relative; margin: 20px 0 0; max-width: 620px; font-size: clamp(16px, 1.2vw, 19px); line-height: 1.7; color: rgba(255,255,255,.72); }
+        .cta-panel .h-actions { position: relative; margin-top: 34px; display: flex; flex-wrap: wrap; gap: 12px; }
+        .contact-row { position: relative; display: flex; flex-wrap: wrap; gap: 30px; margin-top: 40px; padding-top: 32px; border-top: 1px solid rgba(255,255,255,.12); }
+        .contact-item { display: flex; align-items: center; gap: 12px; }
+        .contact-item i { color: #19c2e6; }
+        .contact-item b { display: block; font-family: 'Sora', var(--font-main); font-size: 15px; color: #fff; }
+        .contact-item span { font-size: 12px; color: rgba(255,255,255,.5); }
 
+        @media (max-width: 900px) {
+            .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 36px 28px; }
+            .story-grid, .pillar-grid, .award-grid { grid-template-columns: 1fr; }
+            .belief { grid-template-columns: 1fr; gap: 10px; }
+        }
         @media (max-width: 760px) {
-            .about-hero { padding: 0 22px; min-height: 76vh; }
-            .about-hero-wrap { padding-top: 130px; }
+            .about-hero { padding: 0 22px; min-height: 74vh; }
+            .about-hero-wrap { padding-top: 128px; }
+            .ed { padding-left: 22px; padding-right: 22px; }
         }
     </style>
 </head>
 <body>
     <div id="site-nav"></div>
 
-    <!-- HERO -->
+    <!-- HERO (homepage-style, static image, no chat) -->
     <header class="about-hero">
         <div class="about-hero-wrap">
-            <div class="eyebrow">关于 2077.AI · 幻影未来</div>
+            <div class="h-eyebrow">关于 2077.AI · 幻影未来</div>
             <h1>为世界「智」造<br><span class="gradient-text">一亿服务劳动力</span></h1>
             <p>2077.AI（幻影未来）专注高度拟人化 AI 虚拟人的研发与应用。我们用 Agent、数字人、CMS 与终端硬件，让每一个商业空间和公共服务场所，都拥有一位 7×24 在岗的 AI 虚拟员工。</p>
-            <div class="hero-actions">
-                <a href="index.html#contact" class="btn btn-primary">联系我们</a>
-                <a href="products.html" class="btn btn-ghost-light">查看产品矩阵</a>
+            <div class="h-actions">
+                <a href="index.html#contact" class="ebtn ebtn-primary">联系我们</a>
+                <a href="products.html" class="ebtn ebtn-ghost-light">查看产品矩阵</a>
             </div>
         </div>
     </header>
 
-    <!-- MISSION / VISION -->
-    <section class="section">
-        <div class="container">
-            <div class="eyebrow">Mission · 我们的使命</div>
-            <p class="mission-statement">为世界「智」造一亿服务劳动力，让 AI 虚拟员工成为真实空间里的新基础设施。</p>
-            <p class="mission-sub">我们致力于打造「硬件 + 软件 + 服务 + 内容」一体化的智能服务生态圈，把重复、长时、跨语言的服务工作交给高度拟人化的 AI 虚拟人，让企业和公共机构把人力释放到更有价值的事情上。</p>
+    <!-- STATS -->
+    <section class="ed">
+        <div class="ed-wrap">
+            <div class="stats-grid">
+                <div class="stat"><div class="num gradient-text">1 亿</div><div class="lab">服务虚拟劳动力目标</div></div>
+                <div class="stat"><div class="num">4 项</div><div class="lab">核心能力全栈自研</div></div>
+                <div class="stat"><div class="num">7×24</div><div class="lab">全天候在岗服务</div></div>
+                <div class="stat"><div class="num">多场景</div><div class="lab">商业 / 政务 / 文旅 / 展厅</div></div>
+            </div>
         </div>
     </section>
 
-    <!-- ORIGIN STORY -->
-    <section class="section soft">
-        <div class="container">
-            <div class="eyebrow">Our Story · 我们的来历</div>
-            <h2 class="section-title">从新浪爱问，到 2077.AI</h2>
-            <div class="grid-2" style="align-items:center; gap:48px;">
+    <!-- WHY WE EXIST / story -->
+    <section class="ed alt">
+        <div class="ed-wrap">
+            <div class="story-grid">
                 <div>
-                    <p class="section-copy" style="margin-bottom:20px;">2077.AI 的前身是新浪爱问。新浪爱问的核心基因，是知识连接与问题解答 —— 用技术把海量信息整理成人人可问、有问必答的服务。</p>
-                    <p class="section-copy" style="margin-bottom:20px;">我们延续这一背景，把「问答能力」升级为能听、能想、能说、能执行的 AI Agent，并通过数字人与智能终端，把它带入商业、政务、文旅和展厅等真实空间。</p>
-                    <p class="section-copy" style="margin-bottom:0;">从线上知识服务到线下服务现场，关键是让 AI 真正具备稳定交付、内容运营与终端部署的能力 —— 这正是 2077.AI 在做的事。</p>
+                    <div class="ed-eyebrow">Our Story · 我们的来历</div>
+                    <h2 class="ed-h2">从新浪爱问，到 2077.AI</h2>
                 </div>
-                <div class="info-card" style="padding:0; overflow:hidden;">
-                    <img src="TakePhotos_Boy.0770.png" alt="2077.AI 数字人" style="width:100%; height:380px; object-fit:cover; display:block;">
+                <div>
+                    <p>2077.AI 的前身是新浪爱问。新浪爱问的核心基因，是知识连接与问题解答 —— 用技术把海量信息整理成人人可问、有问必答的服务。</p>
+                    <p>我们延续这一背景，把「问答能力」升级为能听、能想、能说、能执行的 AI Agent，并通过数字人与智能终端，把它带入商业、政务、文旅和展厅等真实空间。</p>
+                    <p>从线上知识服务到线下服务现场，关键是让 AI 真正具备稳定交付、内容运营与终端部署的能力 —— 这正是 2077.AI 在做的事。</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- WHAT WE BUILD (full-stack) -->
-    <section class="section dark">
-        <div class="container">
-            <div class="eyebrow">What We Build · 全栈自研</div>
-            <h2 class="section-title">Agent、数字人、CMS、硬件，一家交付</h2>
-            <p class="section-copy">一个可上线的 AI 虚拟员工，需要同时具备决策大脑、形象表现、运营后台和终端载体。2077.AI 选择四项核心能力全部自研，减少多供应商拼装带来的调试、版本与责任边界问题。</p>
-            <div class="feature-grid cols-2" style="margin-top:8px;">
-                <a href="about-agent.html" class="feature-card">
-                    <div class="feature-ico"><i data-lucide="brain-circuit" class="w-6 h-6"></i></div>
-                    <h3>AI Agent 决策大脑</h3>
-                    <p>理解口语化需求，调用知识库与业务流程，支持多轮对话与 RAG 检索增强。</p>
-                </a>
-                <a href="about-avatar.html" class="feature-card">
-                    <div class="feature-ico"><i data-lucide="scan-face" class="w-6 h-6"></i></div>
-                    <h3>数字人表现系统</h3>
-                    <p>超写实建模与神经渲染，语音、唇形、表情精准同步，支持品牌 IP 与真人克隆。</p>
-                </a>
-                <a href="about-cms.html" class="feature-card">
-                    <div class="feature-ico"><i data-lucide="layout-dashboard" class="w-6 h-6"></i></div>
-                    <h3>运营 CMS 平台</h3>
-                    <p>配置话术、知识库、导览路线与营销内容，让虚拟员工可发布、可复盘、可持续运营。</p>
-                </a>
-                <a href="about-hardware.html" class="feature-card">
-                    <div class="feature-ico"><i data-lucide="cpu" class="w-6 h-6"></i></div>
-                    <h3>终端硬件与部署</h3>
-                    <p>从 Nano 一体机、Pro 大屏到 Robo 移动机器人，软硬协同把 AI 员工带到服务现场。</p>
-                </a>
+    <!-- WHAT WE BELIEVE / values -->
+    <section class="ed">
+        <div class="ed-wrap">
+            <div class="ed-eyebrow">Values · 价值观</div>
+            <h2 class="ed-h2 big" style="margin-bottom:48px;">我们如何做事</h2>
+            <div class="belief">
+                <div class="belief-num">01</div>
+                <div><h3>客户至上，服务卓越</h3><p>从真实场景出发，关注可落地、可运营的服务效果，而不是一次性的演示惊艳。</p></div>
+            </div>
+            <div class="belief">
+                <div class="belief-num">02</div>
+                <div><h3>协作共赢，共创未来</h3><p>与客户和生态伙伴长期协作，把硬件、软件、服务与内容拼成完整解决方案。</p></div>
+            </div>
+            <div class="belief">
+                <div class="belief-num">03</div>
+                <div><h3>科技引领，创新驱动</h3><p>坚持核心技术自研，用持续的算法与产品创新，构筑长期壁垒。</p></div>
             </div>
         </div>
     </section>
 
-    <!-- CORE VALUES -->
-    <section class="section">
-        <div class="container">
-            <div class="eyebrow">Values · 价值观</div>
-            <h2 class="section-title">我们如何做事</h2>
-            <div class="grid-3" style="margin-top:8px;">
-                <div class="value-card">
-                    <div class="v-num">01</div>
-                    <h3>客户至上，服务卓越</h3>
-                    <p>从真实场景出发，关注可落地、可运营的服务效果，而不是一次性的演示惊艳。</p>
-                </div>
-                <div class="value-card">
-                    <div class="v-num">02</div>
-                    <h3>协作共赢，共创未来</h3>
-                    <p>与客户和生态伙伴长期协作，把硬件、软件、服务与内容拼成完整解决方案。</p>
-                </div>
-                <div class="value-card">
-                    <div class="v-num">03</div>
-                    <h3>科技引领，创新驱动</h3>
-                    <p>坚持核心技术自研，用持续的算法与产品创新，构筑长期壁垒。</p>
-                </div>
+    <!-- WHERE WE ARE GOING / mission-vision -->
+    <section class="ed alt">
+        <div class="ed-wrap">
+            <div class="ed-eyebrow">Mission · 我们的使命</div>
+            <p class="vision-statement">为世界「智」造一亿服务劳动力，让 AI 虚拟员工成为真实空间里的新基础设施。</p>
+            <p class="ed-sub">我们致力于打造「硬件 + 软件 + 服务 + 内容」一体化的智能服务生态圈，把重复、长时、跨语言的服务工作交给高度拟人化的 AI 虚拟人，让企业和公共机构把人力释放到更有价值的事情上。</p>
+        </div>
+    </section>
+
+    <!-- WHAT WE BUILD / full-stack -->
+    <section class="ed">
+        <div class="ed-wrap">
+            <div class="ed-eyebrow">What We Build · 全栈自研</div>
+            <h2 class="ed-h2">Agent、数字人、CMS、硬件，一家交付</h2>
+            <p class="ed-sub">一个可上线的 AI 虚拟员工，需要同时具备决策大脑、形象表现、运营后台和终端载体。2077.AI 选择四项核心能力全部自研，减少多供应商拼装带来的调试、版本与责任边界问题。</p>
+            <div class="pillar-grid" style="margin-top:42px;">
+                <a href="about-agent.html" class="pillar"><div class="p-ic"><i data-lucide="brain-circuit" class="w-6 h-6"></i></div><h3>AI Agent 决策大脑</h3><p>理解口语化需求，调用知识库与业务流程，支持多轮对话与 RAG 检索增强。</p></a>
+                <a href="about-avatar.html" class="pillar"><div class="p-ic"><i data-lucide="scan-face" class="w-6 h-6"></i></div><h3>数字人表现系统</h3><p>超写实建模与神经渲染，语音、唇形、表情精准同步，支持品牌 IP 与真人克隆。</p></a>
+                <a href="about-cms.html" class="pillar"><div class="p-ic"><i data-lucide="layout-dashboard" class="w-6 h-6"></i></div><h3>运营 CMS 平台</h3><p>配置话术、知识库、导览路线与营销内容，让虚拟员工可发布、可复盘、可持续运营。</p></a>
+                <a href="about-hardware.html" class="pillar"><div class="p-ic"><i data-lucide="cpu" class="w-6 h-6"></i></div><h3>终端硬件与部署</h3><p>从 Nano 一体机、Pro 大屏到 Robo 移动机器人，软硬协同把 AI 员工带到服务现场。</p></a>
             </div>
         </div>
     </section>
 
     <!-- TEAM -->
-    <section class="section soft">
-        <div class="container">
-            <div class="eyebrow">Team · 团队构成</div>
-            <h2 class="section-title">一支软硬件一体的全栈团队</h2>
-            <p class="section-copy">从底层算法到终端整机，由一支跨学科团队共同设计、按一套标准交付。</p>
-            <div class="team-grid" style="margin-top:8px;">
-                <div class="team-card"><img src="assets/avatar-1.png" alt=""><h4>AI 算法工程师</h4><p>Agent、语音与多模态模型研发</p></div>
-                <div class="team-card"><img src="assets/avatar-4.png" alt=""><h4>资深模型设计师</h4><p>超写实数字人建模与渲染</p></div>
-                <div class="team-card"><img src="assets/avatar-2.png" alt=""><h4>核心技术开发</h4><p>平台、CMS 与终端系统工程</p></div>
-                <div class="team-card"><img src="assets/avatar-5.png" alt=""><h4>市场与客户成功</h4><p>方案落地、交付与持续运营</p></div>
-                <div class="team-card"><img src="assets/avatar-7.png" alt=""><h4>生态技术伙伴</h4><p>硬件、算力与渠道协同共建</p></div>
+    <section class="ed alt">
+        <div class="ed-wrap">
+            <div class="ed-eyebrow">Team · 团队构成</div>
+            <h2 class="ed-h2">一支软硬件一体的全栈团队</h2>
+            <p class="ed-sub">从底层算法到终端整机，由一支跨学科团队共同设计、按一套标准交付。</p>
+            <div class="team-grid" style="margin-top:42px;">
+                <div class="tcard"><img src="assets/avatar-1.png" alt=""><h4>AI 算法工程师</h4><p>Agent、语音与多模态模型研发</p></div>
+                <div class="tcard"><img src="assets/avatar-4.png" alt=""><h4>资深模型设计师</h4><p>超写实数字人建模与渲染</p></div>
+                <div class="tcard"><img src="assets/avatar-2.png" alt=""><h4>核心技术开发</h4><p>平台、CMS 与终端系统工程</p></div>
+                <div class="tcard"><img src="assets/avatar-5.png" alt=""><h4>市场与客户成功</h4><p>方案落地、交付与持续运营</p></div>
+                <div class="tcard"><img src="assets/avatar-7.png" alt=""><h4>生态技术伙伴</h4><p>硬件、算力与渠道协同共建</p></div>
             </div>
         </div>
     </section>
 
-    <!-- ACHIEVEMENTS -->
-    <section class="section">
-        <div class="container">
-            <div class="eyebrow">Recognition · 实力与认可</div>
-            <h2 class="section-title">自研沉淀为专利壁垒与行业认可</h2>
-            <div class="grid-2" style="margin-top:8px;">
-                <div class="award-card"><div class="a-ic"><i data-lucide="badge-check" class="w-5 h-5"></i></div><div><h4>多项知识产权</h4><p>累计多项发明专利、软件著作权与注册商标。</p></div></div>
-                <div class="award-card"><div class="a-ic"><i data-lucide="award" class="w-5 h-5"></i></div><div><h4>华为 VR 开发者大赛</h4><p>获华为 VR 开发者大赛相关奖项与展示机会。</p></div></div>
-                <div class="award-card"><div class="a-ic"><i data-lucide="cpu" class="w-5 h-5"></i></div><div><h4>NVIDIA 生态展示</h4><p>入选 NVIDIA 相关生态展示与技术合作。</p></div></div>
-                <div class="award-card"><div class="a-ic"><i data-lucide="trophy" class="w-5 h-5"></i></div><div><h4>洲明「灯云奖」</h4><p>获洲明科技灯云奖等行业奖项认可。</p></div></div>
-            </div>
-            <div class="metric-row" style="margin-top:48px;">
-                <div class="metric"><strong class="gradient-text">1 亿</strong><span>服务虚拟劳动力目标</span></div>
-                <div class="metric"><strong class="gradient-text">4 项</strong><span>核心能力全栈自研</span></div>
-                <div class="metric"><strong class="gradient-text">7×24</strong><span>全天候在岗服务</span></div>
-                <div class="metric"><strong class="gradient-text">多场景</strong><span>商业 / 政务 / 文旅 / 展厅</span></div>
+    <!-- RECOGNITION -->
+    <section class="ed">
+        <div class="ed-wrap">
+            <div class="ed-eyebrow">Recognition · 实力与认可</div>
+            <h2 class="ed-h2">自研沉淀为专利壁垒与行业认可</h2>
+            <div class="award-grid" style="margin-top:42px;">
+                <div class="award"><div class="a-ic"><i data-lucide="badge-check" class="w-5 h-5"></i></div><div><h4>多项知识产权</h4><p>累计多项发明专利、软件著作权与注册商标。</p></div></div>
+                <div class="award"><div class="a-ic"><i data-lucide="award" class="w-5 h-5"></i></div><div><h4>华为 VR 开发者大赛</h4><p>获华为 VR 开发者大赛相关奖项与展示机会。</p></div></div>
+                <div class="award"><div class="a-ic"><i data-lucide="cpu" class="w-5 h-5"></i></div><div><h4>NVIDIA 生态展示</h4><p>入选 NVIDIA 相关生态展示与技术合作。</p></div></div>
+                <div class="award"><div class="a-ic"><i data-lucide="trophy" class="w-5 h-5"></i></div><div><h4>洲明「灯云奖」</h4><p>获洲明科技灯云奖等行业奖项认可。</p></div></div>
             </div>
         </div>
     </section>
 
-    <!-- CONTACT CTA -->
-    <section class="section dark">
-        <div class="container">
-            <div class="eyebrow">Contact · 联系我们</div>
-            <h2 class="section-title">想为你的空间配一位 AI 虚拟员工？</h2>
-            <p class="section-copy">告诉我们你的空间、客流和业务目标，我们会评估适合的终端组合与落地方案。</p>
-            <div class="hero-actions">
-                <a href="index.html#contact" class="btn btn-primary">预约演示</a>
-                <a href="solutions.html" class="btn btn-ghost-light">查看解决方案</a>
-            </div>
-            <div class="contact-row">
-                <div class="contact-item"><i data-lucide="phone" class="w-5 h-5"></i><div><b>186 7638 7250</b><span>电话咨询</span></div></div>
-                <div class="contact-item"><i data-lucide="mail" class="w-5 h-5"></i><div><b>Molly@2077.ai</b><span>邮件联系</span></div></div>
-                <div class="contact-item"><i data-lucide="map-pin" class="w-5 h-5"></i><div><b>深圳 · 前海深港青年梦工场</b><span>北区 C 栋 202</span></div></div>
+    <!-- CTA -->
+    <section class="ed">
+        <div class="ed-wrap">
+            <div class="cta-panel">
+                <div class="ed-eyebrow">Contact · 联系我们</div>
+                <h2>想为你的空间配一位 AI 虚拟员工？</h2>
+                <p>告诉我们你的空间、客流和业务目标，我们会评估适合的终端组合与落地方案。</p>
+                <div class="h-actions">
+                    <a href="index.html#contact" class="ebtn ebtn-primary">预约演示</a>
+                    <a href="solutions.html" class="ebtn ebtn-ghost-light">查看解决方案</a>
+                </div>
+                <div class="contact-row">
+                    <div class="contact-item"><i data-lucide="phone" class="w-5 h-5"></i><div><b>186 7638 7250</b><span>电话咨询</span></div></div>
+                    <div class="contact-item"><i data-lucide="mail" class="w-5 h-5"></i><div><b>Molly@2077.ai</b><span>邮件联系</span></div></div>
+                    <div class="contact-item"><i data-lucide="map-pin" class="w-5 h-5"></i><div><b>深圳 · 前海深港青年梦工场</b><span>北区 C 栋 202</span></div></div>
+                </div>
             </div>
         </div>
     </section>

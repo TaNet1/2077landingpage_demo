@@ -21,10 +21,10 @@
         body { background: #fafafa; color: #191919; }
 
         /* ---- hero: homepage-style, static image, no chat ---- */
-        .about-hero { position: relative; min-height: 82vh; display: flex; align-items: flex-end; overflow: hidden; background: #070b11; color: #fff; padding: 0 36px; }
-        .about-hero::before { content: ''; position: absolute; inset: 0; z-index: 0; background: #070b11 url('StartRoom_Post.0210.png') center 26% / cover no-repeat; opacity: .92; filter: saturate(.92) contrast(1.03); }
-        .about-hero::after { content: ''; position: absolute; inset: 0; z-index: 0; background: linear-gradient(90deg, rgba(5,8,13,.86) 0%, rgba(5,8,13,.5) 44%, rgba(5,8,13,.18) 80%, rgba(5,8,13,.4) 100%), linear-gradient(0deg, rgba(5,8,13,.6), transparent 48%); }
-        .about-hero-wrap { position: relative; z-index: 1; width: 100%; max-width: 1240px; margin: 0 auto; padding: 160px 0 clamp(80px, 10vh, 120px); }
+        .about-hero { position: relative; min-height: 82vh; display: flex; align-items: flex-end; overflow: hidden; background: #070b11; color: #fff; padding: 0 26px 0 36px; }
+        .about-hero-bg { position: absolute; inset: -11% 0 -3% 0; z-index: 0; background: #070b11 url('StartRoom_Post.0210.png') center 26% / cover no-repeat; opacity: .92; filter: saturate(.92) contrast(1.03); will-change: transform; }
+        .about-hero-overlay { content: ''; position: absolute; inset: 0; z-index: 1; background: linear-gradient(90deg, rgba(5,8,13,.86) 0%, rgba(5,8,13,.5) 44%, rgba(5,8,13,.18) 80%, rgba(5,8,13,.4) 100%), linear-gradient(0deg, rgba(5,8,13,.6), transparent 48%); }
+        .about-hero-wrap { position: relative; z-index: 2; width: 100%; max-width: none; margin: 0; padding: 160px 0 clamp(80px, 10vh, 120px); }
         .about-hero .h-eyebrow { color: #c7b6ff; font-weight: 650; font-size: 14px; letter-spacing: .04em; }
         .about-hero h1 { margin: 18px 0 0; font-family: 'Sora', var(--font-main); font-size: clamp(46px, 6vw, 92px); line-height: 1.02; font-weight: 700; letter-spacing: -.03em; color: #fff; }
         .about-hero p { margin-top: 26px; max-width: 600px; font-size: clamp(17px, 1.35vw, 21px); line-height: 1.65; color: rgba(255,255,255,.84); }
@@ -42,8 +42,8 @@
         .ebtn-ghost-light:hover { background: rgba(255,255,255,.18); transform: translateY(-2px); }
 
         /* editorial section frame */
-        .ed { padding: clamp(76px, 9vw, 132px) 36px; }
-        .ed-wrap { max-width: 1240px; margin: 0 auto; }
+        .ed { padding: clamp(76px, 9vw, 132px) 26px clamp(76px, 9vw, 132px) 36px; }
+        .ed-wrap { max-width: none; margin: 0; }
         .ed.alt { background: #ffffff; }
         .ed-eyebrow { display: inline-block; color: #8b5cf6; font-weight: 650; font-size: 14px; letter-spacing: .02em; margin-bottom: 20px; }
         .ed-h2 { margin: 0; font-family: 'Sora', var(--font-main); font-size: clamp(30px, 3.6vw, 48px); font-weight: 600; line-height: 1.08; letter-spacing: -.025em; color: #191919; }
@@ -134,6 +134,8 @@
 
     <!-- HERO (homepage-style, static image, no chat) -->
     <header class="about-hero">
+        <div class="about-hero-bg" aria-hidden="true"></div>
+        <div class="about-hero-overlay" aria-hidden="true"></div>
         <div class="about-hero-wrap">
             <div class="h-eyebrow">关于 2077.AI · 幻影未来</div>
             <h1>为世界「智」造<br><span class="gradient-text">一亿服务劳动力</span></h1>
@@ -307,5 +309,23 @@
         })();
     </script>
     <script src="site.js"></script>
+    <script>
+        // page parallax (runs after site.js has set up Lenis + ScrollTrigger sync)
+        (function () {
+            if (!window.gsap || !window.ScrollTrigger) return;
+            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+            const g = window.gsap, ST = window.ScrollTrigger; g.registerPlugin(ST);
+            const bg = document.querySelector('.about-hero-bg');
+            if (bg) g.to(bg, { yPercent: 16, ease: 'none', scrollTrigger: { trigger: '.about-hero', start: 'top top', end: 'bottom top', scrub: true } });
+            const heroWrap = document.querySelector('.about-hero-wrap');
+            if (heroWrap) g.to(heroWrap, { yPercent: 12, ease: 'none', scrollTrigger: { trigger: '.about-hero', start: 'top top', end: 'bottom top', scrub: true } });
+            g.utils.toArray('.ed').forEach(function (sec, i) {
+                const w = sec.querySelector('.ed-wrap');
+                if (!w) return;
+                g.fromTo(w, { yPercent: i % 2 ? 5 : 6 }, { yPercent: i % 2 ? -5 : -6, ease: 'none', scrollTrigger: { trigger: sec, start: 'top bottom', end: 'bottom top', scrub: 1.1 } });
+            });
+            window.addEventListener('load', function () { ST.refresh(); });
+        })();
+    </script>
 </body>
 </html>

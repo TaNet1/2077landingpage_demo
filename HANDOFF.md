@@ -82,6 +82,25 @@
 
 ## 交接记录（倒序，最新在上）
 
+### 2026-06-22 · Codex：增强视差幅度、启用丝滑滚动、放慢首页气泡节奏
+
+根据用户反馈「视差太保守，鼠标滚动不丝滑」以及「首页首屏右侧对话气泡出现太急」，本轮做了参数级增强：
+- `index.html`：Lenis 不再因为 `prefers-reduced-motion` 被关闭，首页鼠标滚轮现在始终由 Lenis 接管；参数改为 `lerp: 0.065`、`wheelMultiplier: 0.82`、`touchMultiplier: 1`，滚动惯性更明显。
+- `site.js`：子页面 Lenis 同步启用同样参数，解决非首页滚动不丝滑的问题。
+- `index.html`：首页视差幅度整体加大，首屏背景 `-34`、文案 `30`，moat 背景 `±58`，主要区块从约 `±11/13` 提升到 `±18/22`。
+- `site.js`：子页面视差幅度整体加大，hero 内容 `26`、背景层 `-58`，section 内容 `±16`、背景层 `±68`，产品/概览图片 `-30`。
+- `about-background.html`：关于页独立视差同步增强，hero 背景 `34`、hero 文案 `26`，内容区和图片层也提高位移幅度。
+- `index.html`：首屏聊天轮播节奏放慢，单条气泡出现间隔从 `1400ms` 调到 `1850ms`，整轮从 `10000ms` 调到 `13500ms`；状态完成延迟从 `1100ms` 调到 `1450ms`，避免气泡和完成态抢节奏。
+
+验证：
+- `index.html` 内联脚本解析通过：`inline scripts ok: 2`。
+- `node --check site.js`、`node --check detail-page.js` 均通过。
+- `page.css` / `site.css` 大括号平衡检查通过。
+- 本地 HTTP 检查通过：`/`、`/about-background.html`、`/products.html`、`/solutions.html`、`/cases.html`、`/site.js`、`/page.css` 均返回 `200 OK`。
+
+未完成 / 注意：
+- 本轮未做真实浏览器截图级验收；如后续能用 Chrome/Claude 预览，请重点确认滚轮惯性是否过强、hero 文案位移是否不会和首屏内容冲突、聊天气泡节奏是否仍需进一步慢一点。
+
 ### 2026-06-22 · Codex：修复 reduced-motion 下看不到视差 + 优化首页对话过渡
 
 接手 Claude 留下的两个待办后完成收口：

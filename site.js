@@ -278,11 +278,11 @@
         const ST = window.ScrollTrigger;
         gsap.registerPlugin(ST);
 
-        if (window.Lenis && !prefersReducedMotion && !window.__siteLenis) {
+        if (window.Lenis && !window.__siteLenis) {
             const lenis = new Lenis({
-                lerp: 0.085,
-                wheelMultiplier: 0.9,
-                touchMultiplier: 1.05,
+                lerp: 0.065,
+                wheelMultiplier: 0.82,
+                touchMultiplier: 1,
                 anchors: { offset: -96, duration: 1.05 },
                 autoResize: true
             });
@@ -314,15 +314,15 @@
 
         const hero = document.querySelector('.page-hero');
         if (hero) {
-            para(hero.querySelector('.container'), 18, hero, 'top top', 'bottom top', 1.2);
-            para(hero.querySelector('.page-parallax-layer'), -38, hero, 'top top', 'bottom top', 1.1);
+            para(hero.querySelector('.container'), 26, hero, 'top top', 'bottom top', 1.1);
+            para(hero.querySelector('.page-parallax-layer'), -58, hero, 'top top', 'bottom top', 1);
         }
 
         document.querySelectorAll('.section').forEach((section, idx) => {
             const container = section.querySelector(':scope > .container');
             const layer = section.querySelector(':scope > .page-parallax-layer');
-            para(container, idx % 2 ? -10 : 10, section);
-            para(layer, idx % 2 ? 42 : -42, section);
+            para(container, idx % 2 ? -16 : 16, section);
+            para(layer, idx % 2 ? 68 : -68, section, 'top bottom', 'bottom top', 1);
         });
 
         if (!prefersReducedMotion) {
@@ -343,7 +343,7 @@
 
         gsap.utils.toArray('.product-card img, .overview-media img').forEach((img) => {
             const trigger = img.closest('.section') || img;
-            para(img, -18, trigger);
+            para(img, -30, trigger, 'top bottom', 'bottom top', 1);
         });
 
         window.addEventListener('load', () => ST.refresh());

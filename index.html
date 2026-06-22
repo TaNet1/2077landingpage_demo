@@ -1901,7 +1901,7 @@
             if (!chat) return;
             const sets = Array.from(chat.querySelectorAll('.chat-set'));
             if (!sets.length) return;
-            const STEP = 1400, CYCLE = 10000;
+            const STEP = 1850, CYCLE = 13500;
             let timers = [];
             function play(set) {
                 timers.forEach(clearTimeout); timers = [];
@@ -1910,7 +1910,7 @@
                 msgs.forEach(function (m, idx) {
                     timers.push(setTimeout(function () {
                         m.classList.add('show');
-                        if (m.querySelector('.chat-status')) timers.push(setTimeout(function () { m.classList.add('done'); }, 1100));
+                        if (m.querySelector('.chat-status')) timers.push(setTimeout(function () { m.classList.add('done'); }, 1450));
                     }, 200 + idx * STEP));
                 });
             }
@@ -1943,11 +1943,11 @@
             gsap.registerPlugin(ST);
 
             // Lenis keeps the wheel feeling smooth while ScrollTrigger remains the source of truth.
-            if (window.Lenis && !prefersReducedMotion) {
+            if (window.Lenis) {
                 const lenis = new Lenis({
-                    lerp: 0.085,
-                    wheelMultiplier: 0.9,
-                    touchMultiplier: 1.05,
+                    lerp: 0.065,
+                    wheelMultiplier: 0.82,
+                    touchMultiplier: 1,
                     anchors: { offset: -96, duration: 1.05 },
                     autoResize: true
                 });
@@ -1960,23 +1960,22 @@
             }
 
             // ---- Parallax (hero + dark moat) ----
-            // Depth scrubs are intentionally kept even when reduced-motion is enabled;
-            // Lenis and large entrance animations remain guarded separately.
+            // Depth scrubs are intentionally kept even when reduced-motion is enabled.
             const para = (sel, y, trig, start = 'top bottom', end = 'bottom top', scrub = 1.15) => {
                 if (!document.querySelector(sel)) return;
                 gsap.to(sel, { yPercent: y, ease: 'none',
                     scrollTrigger: { trigger: trig, start, end, scrub, invalidateOnRefresh: true } });
             };
-            para('#heroVisual', -22, '#hero', 'top top', 'bottom top', 1.1);
-            para('#hero .hero-pio-wrap', 22, '#hero', 'top top', 'bottom top', 1.25);
-            para('#pain > .max-w-7xl', -11, '#pain');
-            para('#logic > .max-w-7xl', 11, '#logic');
-            para('#moatBg1', 40, '#moat');
-            para('#moatBg2', -40, '#moat');
-            para('#moat > .max-w-7xl', 11, '#moat');
-            para('#scenarios > .max-w-7xl', -13, '#scenarios');
-            para('#cases > .max-w-7xl', 11, '#cases');
-            para('#contact > .max-w-7xl', -11, '#contact');
+            para('#heroVisual', -34, '#hero', 'top top', 'bottom top', 1);
+            para('#hero .hero-pio-wrap', 30, '#hero', 'top top', 'bottom top', 1.15);
+            para('#pain > .max-w-7xl', -18, '#pain');
+            para('#logic > .max-w-7xl', 18, '#logic');
+            para('#moatBg1', 58, '#moat');
+            para('#moatBg2', -58, '#moat');
+            para('#moat > .max-w-7xl', 18, '#moat');
+            para('#scenarios > .max-w-7xl', -22, '#scenarios');
+            para('#cases > .max-w-7xl', 18, '#cases');
+            para('#contact > .max-w-7xl', -18, '#contact');
 
             // ---- Top scroll-progress bar ----
             gsap.to('#scrollProgress', { scaleX: 1, ease: 'none', scrollTrigger: { start: 0, end: 'max', scrub: 0.3 } });

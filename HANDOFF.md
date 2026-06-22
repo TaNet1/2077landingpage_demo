@@ -82,6 +82,18 @@
 
 ## 交接记录（倒序，最新在上）
 
+### 2026-06-22 · Codex：缩小首页路线规划状态 icon
+
+用户反馈「路线规划中」左侧状态 icon 太大，应该和右侧文字高度一致。本轮只调整首页首屏对话状态行：
+- `index.html`：`.chat-status` 增加 `--status-icon-size: 1em`，grid 第一列和 lucide icon 宽高都跟随当前文字字号。
+- `index.html`：状态行 `line-height` 收紧到 `1.12`，icon `stroke-width` 单独控制，保证视觉重量仍清晰但不压过文字。
+- `index.html`：降低 loading 呼吸动画和 done 弹入动画的放大幅度，保留动态感但避免 icon 动起来时显得过大。
+
+验证：
+- `index.html` 内联脚本解析通过。
+- `node --check site.js` 通过。
+- `index.html` 内联 CSS 大括号平衡检查通过。
+
 ### 2026-06-22 · Codex：让首页路线规划状态 icon 保持动态
 
 用户反馈「路线规划中」左侧 icon 应该是动态的，不应该只是静态变成「路线规划完成」左侧 icon。本轮只调整首页首屏对话状态 icon：

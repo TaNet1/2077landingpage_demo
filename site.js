@@ -30,11 +30,11 @@
                                 <a href="product-robo.html" class="mega-link mega-option" data-preview="robo"><span class="mega-icon"><i data-lucide="bot" class="w-5 h-5"></i></span><span><h5>幻真 Robo</h5><p>透明 OLED 移动机器人，主动巡游讲解与迎宾。</p></span></a>
                             </div>
                             <div class="mega-preview">
-                                <div class="mega-preview-card preview-nano"><div class="mega-preview-visual" style="background-image:url('StartRoom_Post.0180.png')"></div><div class="mega-preview-copy"><h4>轻量试点入口</h4><p>适合服务台、楼层入口和咨询点位，快速上线 AI 接待、问答和导览。</p><span>查看 Nano</span></div></div>
-                                <div class="mega-preview-card preview-pro"><div class="mega-preview-visual" style="background-image:url('TakePhotos.0772.png')"></div><div class="mega-preview-copy"><h4>旗舰视觉中心</h4><p>75 寸 4K 大屏承接大堂迎宾、展厅讲解和品牌内容展示。</p><span>查看 Pro</span></div></div>
-                                <div class="mega-preview-card preview-robo"><div class="mega-preview-visual" style="background-image:url('TakePhotos_panda.0080.png')"></div><div class="mega-preview-copy"><h4>移动讲解员</h4><p>透明 OLED + 自主巡航，适合展馆、景区和大型活动的主动服务。</p><span>查看 Robo</span></div></div>
-                                <div class="mega-preview-card active preview-huanzhen"><div class="mega-preview-visual" style="background-image:url('TakePhotos_Boy.0770.png')"></div><div class="mega-preview-copy"><h4>虚拟员工软件</h4><p>把 Agent、数字人、语音交互和业务流程封装成可复用的软件能力，可部署到硬件和线上渠道。</p><span>查看幻真</span></div></div>
-                                <div class="mega-preview-card preview-cms"><div class="mega-preview-visual" style="background-image:url('20240923-181914.png')"></div><div class="mega-preview-copy"><h4>运营管理后台</h4><p>统一维护知识库、导览路线、营销内容、设备状态和服务数据，让虚拟员工可持续运营。</p><span>查看 CMS</span></div></div>
+                                <div class="mega-preview-card preview-nano"><div class="mega-preview-visual" style="background-image:url('StartRoom_Post.0180.png')"></div><div class="mega-preview-copy"><h4>轻量试点入口</h4><p>适合服务台、楼层入口和咨询点位，快速上线 AI 接待、问答和导览。</p></div></div>
+                                <div class="mega-preview-card preview-pro"><div class="mega-preview-visual" style="background-image:url('TakePhotos.0772.png')"></div><div class="mega-preview-copy"><h4>旗舰视觉中心</h4><p>75 寸 4K 大屏承接大堂迎宾、展厅讲解和品牌内容展示。</p></div></div>
+                                <div class="mega-preview-card preview-robo"><div class="mega-preview-visual" style="background-image:url('TakePhotos_panda.0080.png')"></div><div class="mega-preview-copy"><h4>移动讲解员</h4><p>透明 OLED + 自主巡航，适合展馆、景区和大型活动的主动服务。</p></div></div>
+                                <div class="mega-preview-card active preview-huanzhen"><div class="mega-preview-visual" style="background-image:url('TakePhotos_Boy.0770.png')"></div><div class="mega-preview-copy"><h4>虚拟员工软件</h4><p>把 Agent、数字人、语音交互和业务流程封装成可复用的软件能力，可部署到硬件和线上渠道。</p></div></div>
+                                <div class="mega-preview-card preview-cms"><div class="mega-preview-visual" style="background-image:url('20240923-181914.png')"></div><div class="mega-preview-copy"><h4>运营管理后台</h4><p>统一维护知识库、导览路线、营销内容、设备状态和服务数据，让虚拟员工可持续运营。</p></div></div>
                             </div>
                         </div>
                     </div>
@@ -52,12 +52,12 @@
                                 <a href="solution-finance.html" class="mega-link mega-option" data-preview="finance"><span class="mega-icon"><i data-lucide="badge-dollar-sign" class="w-5 h-5"></i></span><span><h5>银行金融</h5><p>VIP 接待、业务预审、知识库问答与合规部署。</p></span></a>
                             </div>
                             <div class="mega-preview">
-                                <div class="mega-preview-card active preview-mall"><div class="mega-preview-visual" style="background-image:url('TakePhotos.0036.png')"></div><div class="mega-preview-copy"><h4>商业综合体优先场景</h4><p>从“找店问路”到活动推荐和会员转化，把商场前台变成可运营触点。</p><span>查看方案</span></div></div>
-                                <div class="mega-preview-card preview-gov"><div class="mega-preview-visual" style="background-image:url('20240923-181914.png')"></div><div class="mega-preview-copy"><h4>政务高频咨询分流</h4><p>私有化知识库、窗口分流、材料指引，降低人工重复答疑压力。</p><span>查看方案</span></div></div>
-                                <div class="mega-preview-card preview-tourism"><div class="mega-preview-visual" style="background-image:url('TakePhotos_panda.0080.png')"></div><div class="mega-preview-copy"><h4>主题化金牌导游</h4><p>景区 IP 形象承接路线、讲解、票务和周边推荐。</p><span>查看方案</span></div></div>
-                                <div class="mega-preview-card preview-exhibit"><div class="mega-preview-visual" style="background-image:url('TakePhotos_Boy.0770.png')"></div><div class="mega-preview-copy"><h4>展厅移动讲解</h4><p>多媒体联动、定点讲解和高频问答，让展厅服务标准化。</p><span>查看方案</span></div></div>
-                                <div class="mega-preview-card preview-hotel"><div class="mega-preview-visual" style="background-image:url('StartRoom_Post.0210.png')"></div><div class="mega-preview-copy"><h4>多语接待补位</h4><p>机场、酒店和会展空间的国际客群咨询与夜间服务。</p><span>查看方案</span></div></div>
-                                <div class="mega-preview-card preview-finance"><div class="mega-preview-visual" style="background-image:url('StartRoom_Post.0180.png')"></div><div class="mega-preview-copy"><h4>金融合规接待</h4><p>VIP 接待、业务预审、知识问答和本地化安全部署。</p><span>查看方案</span></div></div>
+                                <div class="mega-preview-card active preview-mall"><div class="mega-preview-visual" style="background-image:url('TakePhotos.0036.png')"></div><div class="mega-preview-copy"><h4>商业综合体优先场景</h4><p>从“找店问路”到活动推荐和会员转化，把商场前台变成可运营触点。</p></div></div>
+                                <div class="mega-preview-card preview-gov"><div class="mega-preview-visual" style="background-image:url('20240923-181914.png')"></div><div class="mega-preview-copy"><h4>政务高频咨询分流</h4><p>私有化知识库、窗口分流、材料指引，降低人工重复答疑压力。</p></div></div>
+                                <div class="mega-preview-card preview-tourism"><div class="mega-preview-visual" style="background-image:url('TakePhotos_panda.0080.png')"></div><div class="mega-preview-copy"><h4>主题化金牌导游</h4><p>景区 IP 形象承接路线、讲解、票务和周边推荐。</p></div></div>
+                                <div class="mega-preview-card preview-exhibit"><div class="mega-preview-visual" style="background-image:url('TakePhotos_Boy.0770.png')"></div><div class="mega-preview-copy"><h4>展厅移动讲解</h4><p>多媒体联动、定点讲解和高频问答，让展厅服务标准化。</p></div></div>
+                                <div class="mega-preview-card preview-hotel"><div class="mega-preview-visual" style="background-image:url('StartRoom_Post.0210.png')"></div><div class="mega-preview-copy"><h4>多语接待补位</h4><p>机场、酒店和会展空间的国际客群咨询与夜间服务。</p></div></div>
+                                <div class="mega-preview-card preview-finance"><div class="mega-preview-visual" style="background-image:url('StartRoom_Post.0180.png')"></div><div class="mega-preview-copy"><h4>金融合规接待</h4><p>VIP 接待、业务预审、知识问答和本地化安全部署。</p></div></div>
                             </div>
                         </div>
                     </div>
@@ -71,8 +71,8 @@
                                 <a href="case-fire-education.html" class="mega-link mega-option" data-preview="case-tourism"><span class="mega-icon"><i data-lucide="landmark" class="w-5 h-5"></i></span><span><h5>文旅与公共服务</h5><p>景区、消防教育基地、博物馆等多场景复制。</p></span></a>
                             </div>
                             <div class="mega-preview">
-                                <div class="mega-preview-card active preview-sino"><div class="mega-preview-visual" style="background-image:url('TakePhotos.0036.png')"></div><div class="mega-preview-copy"><h4>旗舰商业案例</h4><p>用 AI 虚拟员工统一商场服务、活动和导览入口。</p><span>查看案例</span></div></div>
-                                <div class="mega-preview-card preview-case-tourism"><div class="mega-preview-visual" style="background-image:url('TakePhotos_panda.0080.png')"></div><div class="mega-preview-copy"><h4>多场景复制</h4><p>文旅、教育基地、展厅和公共服务的标准化落地。</p><span>查看案例</span></div></div>
+                                <div class="mega-preview-card active preview-sino"><div class="mega-preview-visual" style="background-image:url('TakePhotos.0036.png')"></div><div class="mega-preview-copy"><h4>旗舰商业案例</h4><p>用 AI 虚拟员工统一商场服务、活动和导览入口。</p></div></div>
+                                <div class="mega-preview-card preview-case-tourism"><div class="mega-preview-visual" style="background-image:url('TakePhotos_panda.0080.png')"></div><div class="mega-preview-copy"><h4>多场景复制</h4><p>文旅、教育基地、展厅和公共服务的标准化落地。</p></div></div>
                             </div>
                         </div>
                     </div>
@@ -87,9 +87,9 @@
                                 <a href="${contactHref}" class="mega-link mega-option" data-preview="contact"><span class="mega-icon"><i data-lucide="phone" class="w-5 h-5"></i></span><span><h5>联系我们</h5><p>预约演示、商务合作和试点场景沟通。</p></span></a>
                             </div>
                             <div class="mega-preview">
-                                <div class="mega-preview-card active preview-about"><div class="mega-preview-visual" style="background-image:url('StartRoom_Post.0180.png')"></div><div class="mega-preview-copy"><h4>新浪爱问背景</h4><p>从知识问答到 AI Agent，把内容理解能力带入线下服务场景。</p><span>了解我们</span></div></div>
-                                <div class="mega-preview-card preview-news"><div class="mega-preview-visual" style="background-image:url('TakePhotos_Boy.0100.png')"></div><div class="mega-preview-copy"><h4>产品与公司动态</h4><p>媒体报道、产品发布、展会活动和客户上线新闻。</p><span>查看动态</span></div></div>
-                                <div class="mega-preview-card preview-contact"><div class="mega-preview-visual" style="background-image:url('TakePhotos.0772.png')"></div><div class="mega-preview-copy"><h4>预约一次场景沟通</h4><p>告诉我们你的空间、客流和业务目标，评估适合的终端组合。</p><span>联系商务</span></div></div>
+                                <div class="mega-preview-card active preview-about"><div class="mega-preview-visual" style="background-image:url('StartRoom_Post.0180.png')"></div><div class="mega-preview-copy"><h4>新浪爱问背景</h4><p>从知识问答到 AI Agent，把内容理解能力带入线下服务场景。</p></div></div>
+                                <div class="mega-preview-card preview-news"><div class="mega-preview-visual" style="background-image:url('TakePhotos_Boy.0100.png')"></div><div class="mega-preview-copy"><h4>产品与公司动态</h4><p>媒体报道、产品发布、展会活动和客户上线新闻。</p></div></div>
+                                <div class="mega-preview-card preview-contact"><div class="mega-preview-visual" style="background-image:url('TakePhotos.0772.png')"></div><div class="mega-preview-copy"><h4>预约一次场景沟通</h4><p>告诉我们你的空间、客流和业务目标，评估适合的终端组合。</p></div></div>
                             </div>
                         </div>
                     </div>

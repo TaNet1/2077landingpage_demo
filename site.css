@@ -144,10 +144,6 @@ body { font-family: var(--font-main); }
 .mega-preview-copy { position: relative; z-index: 1; margin-top: auto; max-width: 300px; }
 .mega-preview-copy h4 { font-size: 17px; font-weight: 800; margin-bottom: 7px; }
 .mega-preview-copy p { color: rgba(255,255,255,.68); font-size: 12px; line-height: 1.55; }
-.mega-preview-copy span {
-    display: inline-flex; margin-top: 12px; font-size: 11px; font-weight: 750;
-    color: #0f172a; background: #f4ffb7; padding: 7px 10px; border-radius: 999px;
-}
 .mega-split:has(.mega-option:hover) .mega-preview-card.active { display: none; }
 .mega-split:has(.mega-option[data-preview="nano"]:hover) .preview-nano,
 .mega-split:has(.mega-option[data-preview="pro"]:hover) .preview-pro,

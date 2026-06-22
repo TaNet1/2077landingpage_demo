@@ -82,6 +82,21 @@
 
 ## 交接记录（倒序，最新在上）
 
+### 2026-06-22 · Codex：精简 mega menu CTA、首屏按钮胶囊化、修聊天气泡闪白
+
+用户基于截图反馈三点，本轮调整如下：
+- `site.js`：删除所有 mega menu 右侧预览卡片里的 CTA `<span>`（如「查看幻真 / 查看方案 / 查看案例 / 联系商务」），不再改成品牌渐变，直接让右侧说明更简洁。
+- `index.html` / `site.css`：清理 `.mega-preview-copy span` 样式，避免保留无用黄色按钮规则。
+- `index.html`：首页首屏「联系商务」按钮 `.hero-primary` 从小圆角改为胶囊形状（`border-radius: 999px`）。
+- `index.html`：移除 `.chat-msg` 入场时自身的 `filter: blur()` 过渡，改用 opacity + transform，并加 `contain: paint` / `will-change` 限制重绘范围，处理三套对话第一个气泡下半区域轻微白色闪烁的问题。
+
+验证：
+- `node --check site.js` 通过。
+- `node --check i18n.js` 通过。
+- `index.html` 内联脚本解析通过。
+- `index.html` / `site.css` 内联/文件 CSS 大括号平衡检查通过。
+- `http://127.0.0.1:4178/` 返回 `200 OK`。
+
 ### 2026-06-22 · Codex：首屏第三套对话追加机器人移动/讲解状态气泡
 
 用户要求首屏第三套（同学A 展厅导览场景）在最后一句「精华路线约 20 分钟，全程由我为您讲解。」之后继续出现两条状态气泡：

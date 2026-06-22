@@ -1195,7 +1195,11 @@ Object.assign(window.__I18N_DICT['zh-TW'], {
   "3 号窗口，当前排队 2 人，预计等候 5 分钟。": "3 號窗口，目前排隊 2 人，預計等候 5 分鐘。",
   "这次展览有什么必看的？": "這次展覽有什麼必看的？",
   "推荐先看 A 区的核心展项，我可以带您过去。": "推薦先看 A 區的核心展項，我可以帶您過去。",
-  "精华路线约 20 分钟，全程由我为您讲解。": "精華路線約 20 分鐘，全程由我為您講解。"
+  "精华路线约 20 分钟，全程由我为您讲解。": "精華路線約 20 分鐘，全程由我為您講解。",
+  "机器人移动中": "機器人移動中",
+  "到达A区": "抵達 A 區",
+  "机器人讲解中": "機器人講解中",
+  "机器人讲解完成": "機器人講解完成"
 });
 Object.assign(window.__I18N_DICT.en, {
   "王女士": "Ms. Wang",
@@ -1212,7 +1216,11 @@ Object.assign(window.__I18N_DICT.en, {
   "这次展览有什么必看的？": "What is a must-see at this exhibition?",
   "推荐先看 A 区的核心展项，我可以带您过去。": "I would start with the key pieces in Zone A — I can take you there.",
   "大概需要多久？": "How long will it take?",
-  "精华路线约 20 分钟，全程由我为您讲解。": "The highlights route is about 20 minutes, with narration all the way."
+  "精华路线约 20 分钟，全程由我为您讲解。": "The highlights route is about 20 minutes, with narration all the way.",
+  "机器人移动中": "Robot moving",
+  "到达A区": "Arrived at Zone A",
+  "机器人讲解中": "Robot narrating",
+  "机器人讲解完成": "Robot narration complete"
 });
 
 /* hero chat overlay v2: generic names + 7-Eleven mall scene with route/shop cards */

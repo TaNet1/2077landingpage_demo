@@ -294,8 +294,6 @@
             gsap.ticker.lagSmoothing(0);
         }
 
-        if (prefersReducedMotion) return;
-
         document.querySelectorAll('.page-hero, .section').forEach((section, idx) => {
             if (!section.querySelector(':scope > .page-parallax-layer')) {
                 const layer = document.createElement('span');
@@ -327,19 +325,21 @@
             para(layer, idx % 2 ? 42 : -42, section);
         });
 
-        gsap.utils.toArray('.overview-card, .feature-card, .info-card, .related-card').forEach((card, idx) => {
-            gsap.fromTo(card,
-                { opacity: 0.62, filter: 'blur(8px)' },
-                {
-                    opacity: 1,
-                    filter: 'blur(0px)',
-                    duration: 0.85,
-                    ease: 'power3.out',
-                    delay: (idx % 3) * 0.05,
-                    scrollTrigger: { trigger: card, start: 'top 86%', toggleActions: 'play none none reverse' }
-                }
-            );
-        });
+        if (!prefersReducedMotion) {
+            gsap.utils.toArray('.overview-card, .feature-card, .info-card, .related-card').forEach((card, idx) => {
+                gsap.fromTo(card,
+                    { opacity: 0.62, filter: 'blur(8px)' },
+                    {
+                        opacity: 1,
+                        filter: 'blur(0px)',
+                        duration: 0.85,
+                        ease: 'power3.out',
+                        delay: (idx % 3) * 0.05,
+                        scrollTrigger: { trigger: card, start: 'top 86%', toggleActions: 'play none none reverse' }
+                    }
+                );
+            });
+        }
 
         gsap.utils.toArray('.product-card img, .overview-media img').forEach((img) => {
             const trigger = img.closest('.section') || img;

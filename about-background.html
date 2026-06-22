@@ -350,17 +350,27 @@
         // page parallax (runs after site.js has set up Lenis + ScrollTrigger sync)
         (function () {
             if (!window.gsap || !window.ScrollTrigger) return;
-            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
             const g = window.gsap, ST = window.ScrollTrigger; g.registerPlugin(ST);
+            // depth scrubs run regardless of reduced-motion (same as the homepage parallax)
             const bg = document.querySelector('.about-hero-bg');
-            if (bg) g.to(bg, { yPercent: 16, ease: 'none', scrollTrigger: { trigger: '.about-hero', start: 'top top', end: 'bottom top', scrub: true } });
+            if (bg) g.to(bg, { yPercent: 20, ease: 'none', scrollTrigger: { trigger: '.about-hero', start: 'top top', end: 'bottom top', scrub: true } });
             const heroWrap = document.querySelector('.about-hero-wrap');
-            if (heroWrap) g.to(heroWrap, { yPercent: 12, ease: 'none', scrollTrigger: { trigger: '.about-hero', start: 'top top', end: 'bottom top', scrub: true } });
+            if (heroWrap) g.to(heroWrap, { yPercent: 16, ease: 'none', scrollTrigger: { trigger: '.about-hero', start: 'top top', end: 'bottom top', scrub: true } });
             g.utils.toArray('.ed').forEach(function (sec, i) {
                 const w = sec.querySelector('.ed-wrap');
                 if (!w) return;
-                g.fromTo(w, { yPercent: i % 2 ? 5 : 6 }, { yPercent: i % 2 ? -5 : -6, ease: 'none', scrollTrigger: { trigger: sec, start: 'top bottom', end: 'bottom top', scrub: 1.1 } });
+                g.fromTo(w, { yPercent: i % 2 ? 7 : 8 }, { yPercent: i % 2 ? -7 : -8, ease: 'none', scrollTrigger: { trigger: sec, start: 'top bottom', end: 'bottom top', scrub: 1 } });
             });
+            // second layer: cards/images drift a bit more for depth
+            g.utils.toArray('.tcard img, .news-card, .pillar').forEach(function (el) {
+                g.fromTo(el, { yPercent: 5 }, { yPercent: -5, ease: 'none', scrollTrigger: { trigger: el.closest('.ed'), start: 'top bottom', end: 'bottom top', scrub: 1.4 } });
+            });
+            // scroll-reveal entrance (skipped only under reduced-motion)
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                g.utils.toArray('.stat, .belief, .pillar, .tcard, .award, .news-card, .lw-cell').forEach(function (el) {
+                    g.from(el, { y: 28, opacity: 0, duration: .7, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 90%' } });
+                });
+            }
             window.addEventListener('load', function () { ST.refresh(); });
         })();
     </script>

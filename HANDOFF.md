@@ -82,6 +82,58 @@
 
 ## 交接记录（倒序，最新在上）
 
+### 2026-06-22 · Codex：修复 reduced-motion 下看不到视差 + 优化首页对话过渡
+
+接手 Claude 留下的两个待办后完成收口：
+- **全站视差可见性**：`index.html` 首页视差位移不再被 `prefers-reduced-motion: reduce` 整体关闭；`site.js` 子页 `initPageMotion()` 也移除了 reduced-motion 早退。现在 reduced-motion 下仍保留克制的景深位移。
+- **保留降级边界**：Lenis 平滑滚动仍然在 reduced-motion 下关闭；首页产品矩阵 pinned scroll、案例横向 scrub、子页卡片大幅入场动画仍保留 no-preference / reduced 守卫，避免强动态过载。
+- **CSS 修复**：`page.css` 不再在 reduced-motion 下隐藏 `.page-parallax-layer`，否则子页即使 JS 创建景深层也看不到。
+- **首页聊天丝滑化**：`index.html` 首屏对话气泡入场改为更长、更柔的 easing；状态条从 `display:none` 硬切换改为 loading / done 图标与文案在同一 grid 位置交叉淡入淡出；`.route-reveal` 增加位移和 blur 补间，让「路线规划中 → 路线规划完成」更连贯。
+- **接纳 Claude 未提交改动**：`about-background.html` 中 Claude 已做的关于页视差增强和 reduced-motion 处理一并保留。
+
+验证：
+- `index.html` 内联脚本解析通过：`inline scripts ok: 2`。
+- `node --check site.js`、`node --check detail-page.js` 均通过。
+- `page.css` / `site.css` 大括号平衡检查通过。
+- 本地 HTTP 检查通过：`/`、`/about-background.html`、`/products.html`、`/solutions.html`、`/cases.html`、`/site.js`、`/page.css` 均返回 `200 OK`。
+
+未完成 / 注意：
+- 仍未做真实浏览器截图级视觉验收；如果后续能用 Chrome/Claude 预览，请重点看 reduced-motion 环境下首页和子页是否能看到背景/内容层的轻微位移，以及首屏聊天状态切换是否足够柔和。
+
+### 2026-06-19 · Claude 交接给 Codex（两个待解决问题，额度不足）
+
+用户额度快用尽，让 Codex 接力。**有两个用户明确提出、尚未解决的问题，请优先处理：**
+
+#### 待办 1（高优）：全站「看不到视差」——根因大概率是用户系统开了「减少动态效果」
+
+- 用户反馈：首页、关于页、其它子页**都看不到视差效果**。
+- **根因判断（高置信）**：用户环境开启了 `prefers-reduced-motion: reduce`（系统级「减少动态/Reduce Motion」），站点各处都有 reduced-motion 守卫，于是全站视差 + Lenis 平滑滚动被关掉。本地 Claude_Preview 预览环境**也是 reduced-motion**，所以截图里同样永远看不到视差 —— 这点很关键，别再靠预览截图判断视差。
+- **证据**：preview 里所有 `para()` / Lenis 在 reduced-motion 下不动；但用 eval **手动绕过守卫**时 `.about-hero-bg` 能随滚动位移 73px → 说明 GSAP/ScrollTrigger 机制本身没坏，纯粹是被 reduced-motion 关掉了。
+- **已做**：`about-background.html` 末尾的视差脚本已**去掉 reduced-motion 早退**（深度位移始终运行，只有「卡片入场动画」在 reduced 时跳过）。但**首页 `index.html` 和 `site.js` 的 `initPageMotion()` 仍在 reduced-motion 下整体关闭视差**，所以首页/其它子页依旧没视差。
+- **给 Codex 的选择**：
+  1. **首选**：先确认用户系统是否真的开了「减少动态」（让用户在 Windows 设置→辅助功能→视觉效果→动画效果 关掉；或在 Chrome DevTools → Rendering → Emulate CSS prefers-reduced-motion: no-preference 验证）。如果是系统设置，关掉后视差就回来了，可能根本不用改代码。
+  2. 若希望「即使开了减少动态也保留克制视差」：把全站的**视差位移**改成不受 reduced-motion 限制（只把 Lenis 平滑滚动、大幅入场动画留给 reduced 守卫），就像我刚给关于页做的那样。关键位置：`index.html` 主内联脚本里 `prefersReducedMotion` 的用法（hero/moat/各 section 的 `para()` 目前的 gating）、`site.js` `initPageMotion()` 里的 `if (prefersReducedMotion) return;`。
+- **验证方法**：必须在 no-preference 环境看（DevTools emulate 或真机关掉减少动态），preview 默认 reduced 看不出来。
+
+#### 待办 2：首屏对话气泡过渡「太僵硬」，要更丝滑（参考 https://sierra.ai/）
+
+- 用户原话：首屏对话气泡的过渡还是太生硬、不够丝滑；**「路线规划中 → 路线规划完成」这个状态切换也很僵硬**。要多参考 sierra.ai 首屏对话的丝滑感。
+- 现状（都在 `index.html`）：
+  - 气泡逐条出现：`.chat-msg` 用 `max-height / opacity / transform / filter` 的 transition，由主脚本 chat `play()` 里的 setTimeout 逐条加 `.show`（间隔 `STEP=1400`，每套 `CYCLE=10000`）。
+  - 状态切换：`.chat-status` 用 `.done` class 切换两组元素（`.st-load-ic/.st-load-txt` ↔ `.st-done-ic/.st-done-txt`）和 `.route-reveal`（路线在 done 后展开）。目前是 **display 硬切换 + max-height**，所以「规划中→完成」是硬切、不连贯。
+- **给 Codex 的建议**：
+  - 气泡入场：换更柔的缓动（如 `cubic-bezier(.16,1,.3,1)`、或带轻微 overshoot 的 spring 感），时长略长；避免 `max-height` 从 0 突变造成的生硬（可考虑固定/估算高度做淡入+轻微上移，或用 FLIP）。
+  - **状态过渡做交叉淡入淡出**：loading 的 spinner + 「路线规划中」文案 **淡出**，done 的对勾 + 「路线规划完成」文案 **淡入**（用 opacity/transform 补间而不是 `display:none` 硬切），并让颜色从中性→绿色平滑过渡；路线 `path`（`.route-reveal`）出现也用高度+透明度补间。
+  - 相关 CSS：`index.html <style>` 里 `.chat-msg`、`.chat-status`、`.st-load-*/.st-done-*`、`.route-reveal`、`@keyframes chatIn/stspin`；相关 JS：主脚本里 chat 的 `play()`（reveal 时序）和状态 `.done` 的 setTimeout。
+
+#### 本会话已完成（都已 push 到 main，最新附近 commit）
+
+- **关于页 `about-background.html`** 重做为 **meetjamie 浅色编辑风**（浅底 #fafafa、中等字重标题、超大轻字重数字、信条行、深色 CTA 面板）+ **合作伙伴 logo 墙**（30 个，自动读 `logo_cloud/`）+ **媒体报道板块** + **首屏 100vh 深色静态图（无对话）** + **内容区全宽对齐导航栏** + 视差脚本（已去 reduced 守卫）。中繁英三语齐（i18n.js 末尾多个 Object.assign）。
+- 首页：大气版式、宽度对齐导航栏、痛点→bento、案例→3×2 网格、首屏视差数值加大、产品矩阵 3 个 **9:16** 图位、**首屏 Sierra 式对话气泡**（商超/政务/展厅三套，10s 轮播，固定高度滚动流、loading→done 状态、逐条 reveal）。
+- 导航：「关于我们」→「关于」，下拉「公司介绍」→「团队」。
+- ⚠️ 提醒：`about-background.html` 末尾有未提交的视差脚本改动（去 reduced 守卫），随本次交接一起 commit。
+
+
 ### 2026-06-19 · Claude：关于页改成 meetjamie 式「浅色编辑风」
 
 用户反馈上一版「没参考给的网站设计」。我用 Claude-in-Chrome 实测了 meetjamie.ai/about 的真实设计 token（截图会冻结，改用 JS 读 computed style）：**浅色底 `#fafafa`、近黑文字 `#191919`、干净系统无衬线、标题中等字重(500-600 而非 800)、超大轻字重数字(60px/-1.5px tracking)、圆角图卡、紫色强调 `#946bf5`、大量留白**。之前那版是深色+重渐变卡片，正好相反。

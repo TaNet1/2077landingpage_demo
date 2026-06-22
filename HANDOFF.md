@@ -82,6 +82,20 @@
 
 ## 交接记录（倒序，最新在上）
 
+### 2026-06-22 · Codex：补强 mega CTA 隐藏与左侧气泡闪白修复
+
+用户反馈上一轮后首页 mega menu 右侧黄色 CTA 仍显示，且闪白仍存在于左侧消息气泡。本轮补强：
+- `index.html`：给首页 `site.js` 引用加版本号 `?v=20260622-ui2`，避免浏览器继续使用旧导航模板缓存。
+- `index.html` / `site.css`：新增 `.mega-preview-copy span { display: none !important; }`，即使旧模板里的 `<span>` 仍被缓存渲染，也会被强制隐藏。
+- `index.html`：左侧用户消息气泡 `.chat-msg.user` 改为更实的暗色背景，单独关闭 `backdrop-filter` / `-webkit-backdrop-filter`，避免玻璃模糊把背后的白色首屏大字或高光透出来造成闪白。
+
+验证：
+- 静态搜索确认 `site.js` 已没有 mega preview CTA DOM；首页和共享 CSS 都有强制隐藏兜底。
+- `node --check site.js` / `node --check i18n.js` 通过。
+- `index.html` 内联脚本解析通过。
+- `index.html` / `site.css` CSS 大括号平衡检查通过。
+- `http://127.0.0.1:4178/` 返回 `200 OK`。
+
 ### 2026-06-22 · Codex：精简 mega menu CTA、首屏按钮胶囊化、修聊天气泡闪白
 
 用户基于截图反馈三点，本轮调整如下：

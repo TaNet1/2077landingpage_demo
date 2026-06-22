@@ -1431,3 +1431,32 @@ Object.assign(window.__I18N_DICT.en, {
   "Partners · 合作伙伴": "Partners",
   "与众多企业与机构共建服务生态": "Building a service ecosystem with enterprises and institutions"
 });
+
+/* about page: media / news section */
+Object.assign(window.__I18N_DICT['zh-TW'], {
+  "News · 媒体与动态": "News · 媒體與動態",
+  "媒体报道与公司动态": "媒體報導與公司動態",
+  "主流与行业媒体持续关注 2077.AI": "主流與行業媒體持續關注 2077.AI",
+  "媒体对高度拟人化 AI 虚拟人产品与落地实践的报道与采访。": "媒體對高度擬人化 AI 虛擬人產品與落地實踐的報導與採訪。",
+  "查看动态 →": "查看動態 →",
+  "产品应用": "產品應用",
+  "AI 虚拟员工在真实场景的落地": "AI 虛擬員工在真實場景的落地",
+  "在商业综合体、政务大厅、文旅景区与展厅的应用与实践。": "在商業綜合體、政務大廳、文旅景區與展廳的應用與實踐。",
+  "行业活动": "行業活動",
+  "展会、路演与行业生态活动": "展會、路演與行業生態活動",
+  "参与行业展会、技术路演与生态合作，与伙伴共建服务生态。": "參與行業展會、技術路演與生態合作，與夥伴共建服務生態。"
+});
+Object.assign(window.__I18N_DICT.en, {
+  "News · 媒体与动态": "News",
+  "媒体报道与公司动态": "Media coverage and company news",
+  "主流与行业媒体持续关注 2077.AI": "Mainstream and industry media follow 2077.AI",
+  "媒体对高度拟人化 AI 虚拟人产品与落地实践的报道与采访。": "Coverage and interviews on our highly lifelike AI virtual human products and real deployments.",
+  "查看动态 →": "View updates →",
+  "产品应用": "Product in use",
+  "AI 虚拟员工在真实场景的落地": "AI virtual employees deployed in real scenarios",
+  "在商业综合体、政务大厅、文旅景区与展厅的应用与实践。": "Applications across malls, government halls, attractions and exhibitions.",
+  "查看案例 →": "View cases →",
+  "行业活动": "Industry events",
+  "展会、路演与行业生态活动": "Exhibitions, roadshows and ecosystem events",
+  "参与行业展会、技术路演与生态合作，与伙伴共建服务生态。": "We join exhibitions, tech roadshows and ecosystem partnerships to build the service ecosystem together."
+});

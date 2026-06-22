@@ -82,6 +82,18 @@
 
 ## 交接记录（倒序，最新在上）
 
+### 2026-06-22 · Codex：修正首页状态 icon 实际 SVG 尺寸与间距
+
+用户截图反馈「路线规划完成」左侧 icon 高度和右侧文字间距仍不对。本轮继续只调整首页首屏对话状态行：
+- `index.html`：发现 lucide 会把原 `<i>` 替换为 `<svg>`，上一轮 `.chat-status i` 规则没有完全约束最终渲染出的 SVG，导致 icon 仍偏大并挤到文字。
+- `index.html`：新增 `.chat-status svg` 尺寸约束，`--status-icon-size` 调为 `.96em`，让图标视觉高度贴近右侧文字。
+- `index.html`：状态 grid 的 `column-gap` 调到 `8px`，并让 `.st-load-ic/.st-done-ic` 在图标列中居中显示，避免图标溢出压到文案。
+
+验证：
+- `index.html` 内联脚本解析通过。
+- `node --check site.js` 通过。
+- `index.html` 内联 CSS 大括号平衡检查通过。
+
 ### 2026-06-22 · Codex：缩小首页路线规划状态 icon
 
 用户反馈「路线规划中」左侧状态 icon 太大，应该和右侧文字高度一致。本轮只调整首页首屏对话状态行：

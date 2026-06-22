@@ -372,11 +372,12 @@
         .route-steps b { opacity: .5; font-weight: 400; }
         .route-meta { margin-top: 10px; font-size: 12px; color: rgba(255,255,255,.62); display: flex; align-items: center; gap: 6px; }
         .chat-status {
-            --status-icon-size: 1em;
-            display: grid; grid-template-columns: var(--status-icon-size) auto; align-items: center; column-gap: 7px;
+            --status-icon-size: .96em;
+            display: grid; grid-template-columns: var(--status-icon-size) auto; align-items: center; column-gap: 8px;
             min-height: 1.12em; font-size: 13px; line-height: 1.12; font-weight: 750; color: #34d399;
         }
-        .chat-status i { width: var(--status-icon-size); height: var(--status-icon-size); flex-shrink: 0; stroke-width: 2.45; }
+        .chat-status i,
+        .chat-status svg { width: var(--status-icon-size); height: var(--status-icon-size); min-width: var(--status-icon-size); flex-shrink: 0; stroke-width: 2.55; }
         .chat-card .chat-foot { margin-top: 9px; padding-top: 9px; border-top: 1px solid rgba(255,255,255,.1); }
         .chat-status-only { padding: 11px 16px; }
         .route-meta { margin-top: 8px; }
@@ -385,7 +386,7 @@
         .chat-msg.show { opacity: 1; max-height: 320px; margin-top: 10px; padding: 10px 15px 12px; transform: translateY(0) scale(1); filter: blur(0); }
         /* status bubbles: 进行中 -> 完成 transition (keyed on the message's .done) */
         .chat-status .st-load-ic,
-        .chat-status .st-done-ic { grid-column: 1; grid-row: 1; display: inline-flex; align-items: center; }
+        .chat-status .st-done-ic { grid-column: 1; grid-row: 1; display: block; align-self: center; justify-self: center; }
         .chat-status .st-load-txt,
         .chat-status .st-done-txt { grid-column: 2; grid-row: 1; display: inline-flex; align-items: center; white-space: nowrap; }
         .chat-status .st-load-ic,

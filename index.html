@@ -733,10 +733,11 @@
         .service-scene-wrap { position: relative; z-index: 1; }
         .service-scene-intro {
             display: grid;
-            grid-template-columns: minmax(0, 0.9fr) minmax(320px, 0.68fr);
-            gap: clamp(32px, 6vw, 90px);
+            grid-template-columns: minmax(0, 1fr) minmax(320px, 0.62fr);
+            gap: clamp(32px, 5vw, 72px);
             align-items: end;
             margin-bottom: clamp(42px, 7vw, 86px);
+            max-width: 1256px;
         }
         .service-eyebrow {
             font-family: 'Sora', sans-serif;
@@ -759,9 +760,10 @@
         }
         .service-scroll-grid {
             display: grid;
-            grid-template-columns: minmax(320px, 45%) minmax(0, 55%);
-            gap: clamp(32px, 5vw, 82px);
+            grid-template-columns: minmax(300px, 440px) minmax(0, 760px);
+            gap: clamp(28px, 3vw, 56px);
             align-items: start;
+            max-width: 1256px;
         }
         .service-feature-list { padding: 15vh 0 30vh; }
         .service-feature-item {
@@ -860,6 +862,51 @@
             60% { transform: scale(1.8); opacity: 0; }
             100% { transform: scale(.78); opacity: 0; }
         }
+        /* ===== 状态 1：全行业空间沙盘（替换原网格 + 三点） ===== */
+        .service-sandbox { position: absolute; inset: 0; width: 100%; height: 100%; overflow: hidden; }
+        .service-sandbox .sb-grid {
+            position: absolute; bottom: -30%; left: -50%; width: 200%; height: 150%;
+            transform: perspective(1000px) rotateX(72deg) rotateZ(-12deg); transform-origin: center center;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+            background-size: 70px 70px; pointer-events: none;
+            -webkit-mask-image: linear-gradient(to top, #000 10%, transparent 80%);
+            mask-image: linear-gradient(to top, #000 10%, transparent 80%);
+        }
+        .sb-poi { position: absolute; transform: translate(-50%, -50%); display: flex; flex-direction: column; align-items: center; }
+        .sb-dot { width: 10px; height: 10px; border-radius: 50%; position: relative; }
+        .sb-dot::after {
+            content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            width: 100%; height: 100%; border-radius: 50%; border: 1px solid; animation: sbPulse 2s infinite ease-out;
+        }
+        .sb-label {
+            margin-top: 8px; color: rgba(255,255,255,0.82); font-size: 12px; font-weight: 600; white-space: nowrap;
+            letter-spacing: .5px; background: rgba(0,0,0,0.5); padding: 3px 8px; border-radius: 5px;
+            backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
+        }
+        .sb-theme-mall .sb-dot { background: #ff00ea; box-shadow: 0 0 15px 4px rgba(255,0,234,0.4); } .sb-theme-mall .sb-dot::after { border-color: #ff00ea; } .sb-theme-mall .sb-label { border-bottom: 2px solid #ff00ea; }
+        .sb-theme-airport .sb-dot { background: #00e5ff; box-shadow: 0 0 15px 4px rgba(0,229,255,0.4); } .sb-theme-airport .sb-dot::after { border-color: #00e5ff; } .sb-theme-airport .sb-label { border-bottom: 2px solid #00e5ff; }
+        .sb-theme-hospital .sb-dot { background: #00ff88; box-shadow: 0 0 15px 4px rgba(0,255,136,0.4); } .sb-theme-hospital .sb-dot::after { border-color: #00ff88; } .sb-theme-hospital .sb-label { border-bottom: 2px solid #00ff88; }
+        .sb-theme-gov .sb-dot { background: #2979ff; box-shadow: 0 0 15px 4px rgba(41,121,255,0.4); } .sb-theme-gov .sb-dot::after { border-color: #2979ff; } .sb-theme-gov .sb-label { border-bottom: 2px solid #2979ff; }
+        .sb-theme-scenic .sb-dot { background: #ff9100; box-shadow: 0 0 15px 4px rgba(255,145,0,0.4); } .sb-theme-scenic .sb-dot::after { border-color: #ff9100; } .sb-theme-scenic .sb-label { border-bottom: 2px solid #ff9100; }
+        .sb-theme-expo .sb-dot { background: #ff1744; box-shadow: 0 0 15px 4px rgba(255,23,68,0.4); } .sb-theme-expo .sb-dot::after { border-color: #ff1744; } .sb-theme-expo .sb-label { border-bottom: 2px solid #ff1744; }
+        .sb-theme-park .sb-dot { background: #c6ff00; box-shadow: 0 0 15px 4px rgba(198,255,0,0.4); } .sb-theme-park .sb-dot::after { border-color: #c6ff00; } .sb-theme-park .sb-label { border-bottom: 2px solid #c6ff00; }
+        .sb-bubbles { position: absolute; bottom: 25px; left: 50%; width: 2px; }
+        .sb-bubble {
+            position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+            background: rgba(25,25,30,0.85); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.15); color: #f0f0f0; padding: 6px 14px; border-radius: 16px;
+            font-size: 12px; white-space: nowrap; box-shadow: 0 15px 25px rgba(0,0,0,0.4); opacity: 0;
+            pointer-events: none; animation: sbFloat 4s infinite ease-in-out;
+        }
+        .sb-bubble::after { content: ''; position: absolute; bottom: -5px; left: 50%; transform: translateX(-50%); border-width: 5px 5px 0; border-style: solid; border-color: rgba(255,255,255,0.15) transparent transparent transparent; }
+        .sb-bubble.hot { border-color: rgba(255,255,255,0.4); font-weight: 500; color: #fff; background: rgba(50,50,60,0.9); }
+        .sb-back { transform: translate(-50%, -50%) scale(0.75); opacity: 0.6; z-index: 1; }
+        .sb-mid { transform: translate(-50%, -50%) scale(0.9); opacity: 0.85; z-index: 2; }
+        .sb-front { transform: translate(-50%, -50%) scale(1.1); opacity: 1; z-index: 3; }
+        @keyframes sbPulse { 0% { width: 100%; height: 100%; opacity: 1; } 100% { width: 350%; height: 350%; opacity: 0; } }
+        @keyframes sbFloat { 0% { opacity: 0; transform: translate(-50%, 0) scale(0.5); } 15% { opacity: 1; transform: translate(-50%, -20px) scale(1); } 75% { opacity: 1; transform: translate(-50%, -80px) scale(1); } 100% { opacity: 0; transform: translate(-50%, -110px) scale(0.9); } }
         .service-sound-wave { display: flex; align-items: center; gap: 10px; height: 150px; }
         .service-wave-bar {
             width: 9px;
@@ -924,18 +971,17 @@
         }
         .service-dashboard {
             position: relative;
-            width: min(112%, 860px);
-            height: min(66vh, 610px);
-            min-height: 560px;
-            transform: translateX(-7%);
+            width: min(116%, 900px);
+            height: 584px;
+            transform: translateX(-6%);
             overflow: visible;
         }
         .report-card {
             position: absolute;
             left: 0;
             top: 0;
-            width: 78%;
-            min-height: 520px;
+            width: 84%;
+            height: 584px;
             display: block;
             padding: 20px;
             border-radius: 22px;
@@ -1080,6 +1126,7 @@
             }
             .service-feature-item[data-target="5"] .service-mobile-visual { height: 720px; min-height: 720px; overflow: visible; }
             .service-feature-item[data-target="5"] .service-dashboard { height: 680px; }
+            .report-card { height: 640px; }
         }
         @media (max-width: 720px) {
             .service-scene-section { padding: 86px 20px 70px; }
@@ -1088,7 +1135,7 @@
             .service-mobile-visual { height: 420px; min-height: 420px; }
             .service-feature-item[data-target="5"] .service-mobile-visual { height: 820px; min-height: 820px; padding: 18px 0; overflow: visible; }
             .service-dashboard { width: 100%; height: 780px; min-height: 780px; transform: none; }
-            .report-card { width: 86%; min-height: 650px; padding: 16px; }
+            .report-card { width: 86%; height: 760px; padding: 16px; }
             .report-card[data-slot="0"] { --x: 0px; --y: 0px; --s: 1; --o: 1; }
             .report-card[data-slot="1"] { --x: 34px; --y: 42px; --s: .88; --o: .62; }
             .report-card[data-slot="2"] { --x: 60px; --y: 82px; --s: .78; --o: .38; }
@@ -1427,11 +1474,20 @@
                         <div class="service-number-watermark">01</div>
                         <div class="service-feature-copy">
                             <h4>需求在现场发生</h4>
-                            <p>用户的问题不是提前准备好的，而是在空间里即时产生；答案也应该在现场即时出现。</p>
+                            <p>用户的问题不是提前准备好的，而是在空间里即时产生的，那么用户需要的答案也应该在现场即时出现。</p>
                         </div>
                         <div class="service-mobile-visual" aria-hidden="true">
-                            <div class="service-visual-state service-vis-map active">
-                                <span class="scene-hotspot"></span><span class="scene-hotspot"></span><span class="scene-hotspot"></span>
+                            <div class="service-visual-state active">
+                                <div class="service-sandbox">
+                                    <div class="sb-grid"></div>
+                                    <div class="sb-poi sb-theme-mall sb-front" style="bottom:15%;left:75%;"><div class="sb-dot"></div><div class="sb-label">大型商超</div><div class="sb-bubbles"><div class="sb-bubble" style="animation-delay:.5s;animation-duration:4.2s;">洗手间怎么走？</div><div class="sb-bubble hot" style="animation-delay:3.8s;animation-duration:5s;">热门餐厅还要排多久？</div></div></div>
+                                    <div class="sb-poi sb-theme-hospital sb-front" style="bottom:22%;left:25%;"><div class="sb-dot"></div><div class="sb-label">三甲医院</div><div class="sb-bubbles"><div class="sb-bubble" style="animation-delay:1.2s;animation-duration:4.5s;">儿科门诊在几楼？</div><div class="sb-bubble hot" style="animation-delay:4.5s;animation-duration:5.2s;">专家号在哪里取号？</div></div></div>
+                                    <div class="sb-poi sb-theme-gov sb-mid" style="top:55%;left:15%;"><div class="sb-dot"></div><div class="sb-label">政务服务大厅</div><div class="sb-bubbles"><div class="sb-bubble hot" style="animation-delay:2.1s;animation-duration:4.8s;">办护照需要带哪些材料？</div><div class="sb-bubble" style="animation-delay:5.5s;animation-duration:4.2s;">公积金提取去几号窗？</div></div></div>
+                                    <div class="sb-poi sb-theme-airport sb-mid" style="top:45%;left:50%;"><div class="sb-dot"></div><div class="sb-label">交通枢纽 / 机场</div><div class="sb-bubbles"><div class="sb-bubble" style="animation-delay:.2s;animation-duration:4s;">CA1234 航班几点起飞？</div><div class="sb-bubble hot" style="animation-delay:3.1s;animation-duration:5.5s;">行李超重了怎么托运？</div></div></div>
+                                    <div class="sb-poi sb-theme-expo sb-mid" style="top:50%;left:85%;"><div class="sb-dot"></div><div class="sb-label">展览展厅</div><div class="sb-bubbles"><div class="sb-bubble" style="animation-delay:1.8s;animation-duration:4.6s;">主办方办公室在哪？</div><div class="sb-bubble" style="animation-delay:6.2s;animation-duration:4.1s;">今天有什么新品发布？</div></div></div>
+                                    <div class="sb-poi sb-theme-scenic sb-back" style="top:25%;left:30%;"><div class="sb-dot"></div><div class="sb-label">旅游景区</div><div class="sb-bubbles"><div class="sb-bubble" style="animation-delay:.9s;animation-duration:5s;">索道售票处往哪走？</div><div class="sb-bubble" style="animation-delay:4.9s;animation-duration:4.8s;">下午几点有实景演出？</div></div></div>
+                                    <div class="sb-poi sb-theme-park sb-back" style="top:20%;left:70%;"><div class="sb-dot"></div><div class="sb-label">开放园区</div><div class="sb-bubbles"><div class="sb-bubble" style="animation-delay:2.5s;animation-duration:4.3s;">访客去哪里登记？</div><div class="sb-bubble hot" style="animation-delay:5.8s;animation-duration:5.1s;">园区接驳车下一班几点？</div></div></div>
+                                </div>
                             </div>
                         </div>
                     </article>
@@ -1493,9 +1549,9 @@
                                             <div class="report-period">2026.06.16 - 06.22</div>
                                         </div>
                                         <div class="report-metrics">
-                                            <div class="report-metric"><span>总交互量</span><strong>1,147</strong><small>日均 80.1 次</small></div>
-                                            <div class="report-metric"><span>峰值时段</span><strong>84</strong><small>16:00-17:00</small></div>
-                                            <div class="report-metric"><span>高频诉求占比</span><strong>68.1%</strong><small>设施及服务</small></div>
+                                            <div class="report-metric"><span>总交互量</span><strong>12,408</strong><small>日均 1,772 次</small></div>
+                                            <div class="report-metric"><span>峰值时段</span><strong>1,034</strong><small>16:00-17:00 高峰</small></div>
+                                            <div class="report-metric"><span>高频诉求占比</span><strong>71.2%</strong><small>设施 / 美食 / 交通</small></div>
                                         </div>
                                         <div class="report-main-grid">
                                             <div class="report-panel">
@@ -1506,9 +1562,9 @@
                                             <div class="report-panel">
                                                 <h5>高频需求结构</h5>
                                                 <div class="report-row"><span>设施服务</span><div class="report-track"><b class="report-fill" style="--w:68%"></b></div><em>68%</em></div>
-                                                <div class="report-row"><span>美食导览</span><div class="report-track"><b class="report-fill" style="--w:56%"></b></div><em>193</em></div>
-                                                <div class="report-row"><span>交通泊车</span><div class="report-track"><b class="report-fill" style="--w:42%"></b></div><em>84</em></div>
-                                                <div class="report-tags"><span>奧海城 47</span><span>Wi‑Fi</span><span>廁所</span><span>禮賓處</span></div>
+                                                <div class="report-row"><span>美食导览</span><div class="report-track"><b class="report-fill" style="--w:56%"></b></div><em>2,853</em></div>
+                                                <div class="report-row"><span>交通泊车</span><div class="report-track"><b class="report-fill" style="--w:42%"></b></div><em>1,489</em></div>
+                                                <div class="report-tags"><span>XX城 1,860</span><span>Wi‑Fi</span><span>廁所</span><span>禮賓處</span><span>母婴室</span></div>
                                             </div>
                                         </div>
                                         <div class="report-insights">
@@ -1526,9 +1582,9 @@
                                             <div class="report-panel">
                                                 <h5>热门实体标签</h5>
                                                 <div class="report-mini-list">
-                                                    <div class="report-mini-item"><b>47</b><span>奧海城相关问询</span><em class="report-mini-pill">Top 1</em></div>
-                                                    <div class="report-mini-item"><b>31</b><span>Wi‑Fi / 会员服务</span><em class="report-mini-pill">服务</em></div>
-                                                    <div class="report-mini-item"><b>28</b><span>廁所 / 禮賓處 / 母婴室</span><em class="report-mini-pill">设施</em></div>
+                                                    <div class="report-mini-item"><b>1,860</b><span>XX城相关问询</span><em class="report-mini-pill">Top 1</em></div>
+                                                    <div class="report-mini-item"><b>1,204</b><span>Wi‑Fi / 会员服务</span><em class="report-mini-pill">服务</em></div>
+                                                    <div class="report-mini-item"><b>1,057</b><span>廁所 / 禮賓處 / 母婴室</span><em class="report-mini-pill">设施</em></div>
                                                 </div>
                                             </div>
                                             <div class="report-panel">
@@ -1579,8 +1635,17 @@
 
                 <aside class="service-sticky-visual" aria-label="现场服务能力动态演示">
                     <div class="service-visual-container">
-                        <div class="service-visual-state service-vis-map active" data-visual="1">
-                            <span class="scene-hotspot"></span><span class="scene-hotspot"></span><span class="scene-hotspot"></span>
+                        <div class="service-visual-state active" data-visual="1">
+                            <div class="service-sandbox">
+                                <div class="sb-grid"></div>
+                                <div class="sb-poi sb-theme-mall sb-front" style="bottom:15%;left:75%;"><div class="sb-dot"></div><div class="sb-label">大型商超</div><div class="sb-bubbles"><div class="sb-bubble" style="animation-delay:.5s;animation-duration:4.2s;">洗手间怎么走？</div><div class="sb-bubble hot" style="animation-delay:3.8s;animation-duration:5s;">热门餐厅还要排多久？</div></div></div>
+                                <div class="sb-poi sb-theme-hospital sb-front" style="bottom:22%;left:25%;"><div class="sb-dot"></div><div class="sb-label">三甲医院</div><div class="sb-bubbles"><div class="sb-bubble" style="animation-delay:1.2s;animation-duration:4.5s;">儿科门诊在几楼？</div><div class="sb-bubble hot" style="animation-delay:4.5s;animation-duration:5.2s;">专家号在哪里取号？</div></div></div>
+                                <div class="sb-poi sb-theme-gov sb-mid" style="top:55%;left:15%;"><div class="sb-dot"></div><div class="sb-label">政务服务大厅</div><div class="sb-bubbles"><div class="sb-bubble hot" style="animation-delay:2.1s;animation-duration:4.8s;">办护照需要带哪些材料？</div><div class="sb-bubble" style="animation-delay:5.5s;animation-duration:4.2s;">公积金提取去几号窗？</div></div></div>
+                                <div class="sb-poi sb-theme-airport sb-mid" style="top:45%;left:50%;"><div class="sb-dot"></div><div class="sb-label">交通枢纽 / 机场</div><div class="sb-bubbles"><div class="sb-bubble" style="animation-delay:.2s;animation-duration:4s;">CA1234 航班几点起飞？</div><div class="sb-bubble hot" style="animation-delay:3.1s;animation-duration:5.5s;">行李超重了怎么托运？</div></div></div>
+                                <div class="sb-poi sb-theme-expo sb-mid" style="top:50%;left:85%;"><div class="sb-dot"></div><div class="sb-label">展览展厅</div><div class="sb-bubbles"><div class="sb-bubble" style="animation-delay:1.8s;animation-duration:4.6s;">主办方办公室在哪？</div><div class="sb-bubble" style="animation-delay:6.2s;animation-duration:4.1s;">今天有什么新品发布？</div></div></div>
+                                <div class="sb-poi sb-theme-scenic sb-back" style="top:25%;left:30%;"><div class="sb-dot"></div><div class="sb-label">旅游景区</div><div class="sb-bubbles"><div class="sb-bubble" style="animation-delay:.9s;animation-duration:5s;">索道售票处往哪走？</div><div class="sb-bubble" style="animation-delay:4.9s;animation-duration:4.8s;">下午几点有实景演出？</div></div></div>
+                                <div class="sb-poi sb-theme-park sb-back" style="top:20%;left:70%;"><div class="sb-dot"></div><div class="sb-label">开放园区</div><div class="sb-bubbles"><div class="sb-bubble" style="animation-delay:2.5s;animation-duration:4.3s;">访客去哪里登记？</div><div class="sb-bubble hot" style="animation-delay:5.8s;animation-duration:5.1s;">园区接驳车下一班几点？</div></div></div>
+                            </div>
                         </div>
                         <div class="service-visual-state" data-visual="2">
                             <div class="service-sound-wave">
@@ -1604,9 +1669,9 @@
                                         <div class="report-period">2026.06.16 - 06.22</div>
                                     </div>
                                     <div class="report-metrics">
-                                        <div class="report-metric"><span>总交互量</span><strong>1,147</strong><small>日均 80.1 次</small></div>
-                                        <div class="report-metric"><span>峰值时段</span><strong>84</strong><small>16:00-17:00</small></div>
-                                        <div class="report-metric"><span>高频诉求占比</span><strong>68.1%</strong><small>设施及服务</small></div>
+                                        <div class="report-metric"><span>总交互量</span><strong>12,408</strong><small>日均 1,772 次</small></div>
+                                        <div class="report-metric"><span>峰值时段</span><strong>1,034</strong><small>16:00-17:00 高峰</small></div>
+                                        <div class="report-metric"><span>高频诉求占比</span><strong>71.2%</strong><small>设施 / 美食 / 交通</small></div>
                                     </div>
                                     <div class="report-main-grid">
                                         <div class="report-panel">
@@ -1617,9 +1682,9 @@
                                         <div class="report-panel">
                                             <h5>高频需求结构</h5>
                                             <div class="report-row"><span>设施服务</span><div class="report-track"><b class="report-fill" style="--w:68%"></b></div><em>68%</em></div>
-                                            <div class="report-row"><span>美食导览</span><div class="report-track"><b class="report-fill" style="--w:56%"></b></div><em>193</em></div>
-                                            <div class="report-row"><span>交通泊车</span><div class="report-track"><b class="report-fill" style="--w:42%"></b></div><em>84</em></div>
-                                            <div class="report-tags"><span>奧海城 47</span><span>Wi‑Fi</span><span>廁所</span><span>禮賓處</span></div>
+                                            <div class="report-row"><span>美食导览</span><div class="report-track"><b class="report-fill" style="--w:56%"></b></div><em>2,853</em></div>
+                                            <div class="report-row"><span>交通泊车</span><div class="report-track"><b class="report-fill" style="--w:42%"></b></div><em>1,489</em></div>
+                                            <div class="report-tags"><span>XX城 1,860</span><span>Wi‑Fi</span><span>廁所</span><span>禮賓處</span><span>母婴室</span></div>
                                         </div>
                                     </div>
                                     <div class="report-insights">
@@ -1637,9 +1702,9 @@
                                         <div class="report-panel">
                                             <h5>热门实体标签</h5>
                                             <div class="report-mini-list">
-                                                <div class="report-mini-item"><b>47</b><span>奧海城相关问询</span><em class="report-mini-pill">Top 1</em></div>
-                                                <div class="report-mini-item"><b>31</b><span>Wi‑Fi / 会员服务</span><em class="report-mini-pill">服务</em></div>
-                                                <div class="report-mini-item"><b>28</b><span>廁所 / 禮賓處 / 母婴室</span><em class="report-mini-pill">设施</em></div>
+                                                <div class="report-mini-item"><b>1,860</b><span>XX城相关问询</span><em class="report-mini-pill">Top 1</em></div>
+                                                <div class="report-mini-item"><b>1,204</b><span>Wi‑Fi / 会员服务</span><em class="report-mini-pill">服务</em></div>
+                                                <div class="report-mini-item"><b>1,057</b><span>廁所 / 禮賓處 / 母婴室</span><em class="report-mini-pill">设施</em></div>
                                             </div>
                                         </div>
                                         <div class="report-panel">

@@ -1491,7 +1491,7 @@ Object.assign(window.__I18N_DICT['zh-HK'], {
   "AI 就应该在现场响应": "AI 就應該在現場響應",
   "用户的问题往往在空间里即时产生：问路、咨询、办理、导览、推荐。AI 虚拟人以可见的形象、自然的对话和大屏表达，把前台、导览员、讲解员和服务入口合并成一位始终在岗的数字员工。": "用戶的問題往往在空間裏即時產生：問路、諮詢、辦理、導覽、推薦。AI 虛擬人以可見的形象、自然的對話和大屏表達，把前台、導覽員、講解員和服務入口合併成一位始終在崗的數碼員工。",
   "需求在现场发生": "需求在現場發生",
-  "用户的问题不是提前准备好的，而是在空间里即时产生；答案也应该在现场即时出现。": "用戶的問題不是提前準備好的，而是在空間裏即時產生；答案也應該在現場即時出現。",
+  "用户的问题不是提前准备好的，而是在空间里即时产生的，那么用户需要的答案也应该在现场即时出现。": "用戶的問題不是提前準備好的，而是在空間裏即時產生的，那麼用戶需要的答案也應該在現場即時出現。",
   "入口不需要学习": "入口不需要學習",
   "不用下载、不用注册、不用扫码，走到屏前开口就能获得服务。": "不用下載、不用註冊、不用掃碼，走到螢幕前開口就能獲得服務。",
   "不用下载、不用注册、不用扫码，走到屏幕前开口就能获得服务。": "不用下載、不用註冊、不用掃碼，走到螢幕前開口就能獲得服務。",
@@ -1535,7 +1535,7 @@ Object.assign(window.__I18N_DICT['zh-HK'], {
   "设施服务": "設施服務",
   "美食导览": "美食導覽",
   "交通泊车": "交通泊車",
-  "奧海城 47": "奧海城 47",
+  "XX城 1,860": "XX城 1,860",
   "廁所": "廁所",
   "禮賓處": "禮賓處",
   "周五交互高于日均，可提前加推活动与人手安排。": "週五互動高於日均，可提前加推活動與人手安排。",
@@ -1549,7 +1549,7 @@ Object.assign(window.__I18N_DICT['zh-HK'], {
   "时段热力报告": "時段熱力報告",
   "反馈优化报告": "反饋優化報告",
   "热门实体标签": "熱門實體標籤",
-  "奧海城相关问询": "奧海城相關問詢",
+  "XX城相关问询": "XX城相關問詢",
   "Wi‑Fi / 会员服务": "Wi‑Fi / 會員服務",
   "廁所 / 禮賓處 / 母婴室": "廁所 / 禮賓處 / 母嬰室",
   "潜在招商信号": "潛在招商信號",
@@ -1582,7 +1582,7 @@ Object.assign(window.__I18N_DICT.en, {
   "AI 就应该在现场响应": "so AI should respond on site",
   "用户的问题往往在空间里即时产生：问路、咨询、办理、导览、推荐。AI 虚拟人以可见的形象、自然的对话和大屏表达，把前台、导览员、讲解员和服务入口合并成一位始终在岗的数字员工。": "User questions often arise instantly inside a space: wayfinding, consultation, processing, guidance and recommendations. With a visible presence, natural conversation and large-screen expression, the AI virtual human merges reception, guide, docent and service entry into one always-on digital employee.",
   "需求在现场发生": "Needs happen on site",
-  "用户的问题不是提前准备好的，而是在空间里即时产生；答案也应该在现场即时出现。": "User questions are not prepared in advance. They arise instantly in the space, so answers should appear instantly on site.",
+  "用户的问题不是提前准备好的，而是在空间里即时产生的，那么用户需要的答案也应该在现场即时出现。": "User questions aren't prepared in advance — they arise on the spot in the space, so the answers users need should appear on site, in the moment.",
   "入口不需要学习": "The entry needs no learning",
   "不用下载、不用注册、不用扫码，走到屏前开口就能获得服务。": "No download, registration or QR scan. Walk up to the screen and speak to get service.",
   "不用下载、不用注册、不用扫码，走到屏幕前开口就能获得服务。": "No download, registration or QR scan. Walk up to the screen and speak to get service.",
@@ -1626,7 +1626,7 @@ Object.assign(window.__I18N_DICT.en, {
   "设施服务": "Facilities",
   "美食导览": "Dining guidance",
   "交通泊车": "Transport & parking",
-  "奧海城 47": "Olympian City 47",
+  "XX城 1,860": "XX City 1,860",
   "廁所": "Restroom",
   "禮賓處": "Concierge",
   "周五交互高于日均，可提前加推活动与人手安排。": "Friday interactions are above average, informing event pushes and staffing plans.",
@@ -1640,7 +1640,7 @@ Object.assign(window.__I18N_DICT.en, {
   "时段热力报告": "Time-slot heat report",
   "反馈优化报告": "Feedback optimization report",
   "热门实体标签": "Popular entity tags",
-  "奧海城相关问询": "Olympian City inquiries",
+  "XX城相关问询": "XX City inquiries",
   "Wi‑Fi / 会员服务": "Wi‑Fi / membership service",
   "廁所 / 禮賓處 / 母婴室": "Restroom / concierge / nursing room",
   "潜在招商信号": "Potential leasing signals",
@@ -1693,3 +1693,29 @@ Object.assign(window.__I18N_DICT.en, {
   "您的企业或组织名称": "Your company or organization",
   "请简述您的应用场景或定制需求...": "Briefly describe your scenario or customization needs..."
 });
+
+/* 状态 1 全行业空间沙盘：场景标签 + 问询气泡 */
+Object.assign(window.__I18N_DICT['zh-HK'], {
+  "大型商超": "大型商場", "三甲医院": "三甲醫院", "政务服务大厅": "政務服務大廳",
+  "交通枢纽 / 机场": "交通樞紐 / 機場", "展览展厅": "展覽展廳", "旅游景区": "旅遊景區", "开放园区": "開放園區",
+  "洗手间怎么走？": "洗手間怎麼走？", "热门餐厅还要排多久？": "熱門餐廳還要排多久？",
+  "儿科门诊在几楼？": "兒科門診在幾樓？", "专家号在哪里取号？": "專家號在哪裏取號？",
+  "办护照需要带哪些材料？": "辦護照需要帶哪些材料？", "公积金提取去几号窗？": "公積金提取去幾號窗？",
+  "CA1234 航班几点起飞？": "CA1234 航班幾點起飛？", "行李超重了怎么托运？": "行李超重了怎麼托運？",
+  "主办方办公室在哪？": "主辦方辦公室在哪？", "今天有什么新品发布？": "今天有什麼新品發佈？",
+  "索道售票处往哪走？": "索道售票處往哪走？", "下午几点有实景演出？": "下午幾點有實景演出？",
+  "访客去哪里登记？": "訪客去哪裏登記？", "园区接驳车下一班几点？": "園區接駁車下一班幾點？"
+});
+Object.assign(window.__I18N_DICT.en, {
+  "大型商超": "Shopping mall", "三甲医院": "Major hospital", "政务服务大厅": "Government service hall",
+  "交通枢纽 / 机场": "Transit hub / Airport", "展览展厅": "Exhibition hall", "旅游景区": "Scenic area", "开放园区": "Open campus",
+  "洗手间怎么走？": "Where's the restroom?", "热门餐厅还要排多久？": "How long is the wait at that restaurant?",
+  "儿科门诊在几楼？": "Which floor is pediatrics on?", "专家号在哪里取号？": "Where do I collect my specialist ticket?",
+  "办护照需要带哪些材料？": "What documents do I need for a passport?", "公积金提取去几号窗？": "Which window for the housing-fund withdrawal?",
+  "CA1234 航班几点起飞？": "When does flight CA1234 depart?", "行李超重了怎么托运？": "How do I check overweight baggage?",
+  "主办方办公室在哪？": "Where is the organizer's office?", "今天有什么新品发布？": "Any product launches today?",
+  "索道售票处往哪走？": "Which way to the cable-car ticket office?", "下午几点有实景演出？": "What time is the afternoon show?",
+  "访客去哪里登记？": "Where do visitors register?", "园区接驳车下一班几点？": "When's the next shuttle?",
+  "母婴室": "Nursing room"
+});
+Object.assign(window.__I18N_DICT['zh-HK'], { "母婴室": "母嬰室" });

@@ -1488,7 +1488,7 @@ Object.assign(window.__I18N_DICT.en, {
 Object.assign(window.__I18N_DICT['zh-HK'], {
   "为什么 AI 虚拟人天然适合服务场景": "為甚麼 AI 虛擬人天然適合服務場景",
   "问询发生在现场，": "問詢發生在現場，",
-  "AI 就该在现场响应": "AI 就該在現場響應",
+  "AI 就应该在现场响应": "AI 就應該在現場響應",
   "用户的问题往往在空间里即时产生：问路、咨询、办理、导览、推荐。AI 虚拟人以可见的形象、自然的对话和大屏表达，把前台、导览员、讲解员和服务入口合并成一位始终在岗的数字员工。": "用戶的問題往往在空間裏即時產生：問路、諮詢、辦理、導覽、推薦。AI 虛擬人以可見的形象、自然的對話和大屏表達，把前台、導覽員、講解員和服務入口合併成一位始終在崗的數碼員工。",
   "需求在现场发生": "需求在現場發生",
   "用户的问题不是提前准备好的，而是在空间里即时产生；答案也应该在现场即时出现。": "用戶的問題不是提前準備好的，而是在空間裏即時產生；答案也應該在現場即時出現。",
@@ -1529,7 +1529,7 @@ Object.assign(window.__I18N_DICT['zh-HK'], {
 Object.assign(window.__I18N_DICT.en, {
   "为什么 AI 虚拟人天然适合服务场景": "Why AI virtual humans naturally fit service scenarios",
   "问询发生在现场，": "Questions happen on site,",
-  "AI 就该在现场响应": "so AI should respond on site",
+  "AI 就应该在现场响应": "so AI should respond on site",
   "用户的问题往往在空间里即时产生：问路、咨询、办理、导览、推荐。AI 虚拟人以可见的形象、自然的对话和大屏表达，把前台、导览员、讲解员和服务入口合并成一位始终在岗的数字员工。": "User questions often arise instantly inside a space: wayfinding, consultation, processing, guidance and recommendations. With a visible presence, natural conversation and large-screen expression, the AI virtual human merges reception, guide, docent and service entry into one always-on digital employee.",
   "需求在现场发生": "Needs happen on site",
   "用户的问题不是提前准备好的，而是在空间里即时产生；答案也应该在现场即时出现。": "User questions are not prepared in advance. They arise instantly in the space, so answers should appear instantly on site.",

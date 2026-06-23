@@ -253,10 +253,6 @@ body { font-family: var(--font-main); }
     }
 }
 
-@media (prefers-reduced-motion: reduce) {
-    .click-spark { animation: none; display: none; }
-}
-
 @media (max-width: 1023px) {
     .site-nav-shell { min-height: 64px; }
     .nav-logo-mark { width: 170px; height: 24px; }

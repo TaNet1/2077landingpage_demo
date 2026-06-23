@@ -82,6 +82,15 @@
 
 ## 交接记录（倒序，最新在上）
 
+### 2026-06-23 · Codex：修复 ClickSpark 在用户环境不可见
+
+用户反馈“点击之后没有火花出现”。排查后发现上一版 ClickSpark 在 `prefers-reduced-motion: reduce` 下直接不初始化，并且 CSS 里也隐藏了 `.click-spark`；这个项目此前多次遇到用户/预览环境开启 reduced-motion 导致动效不可见，所以本轮改为：点击反馈不再受 reduced-motion 禁用。
+- `site.js`：移除 `initClickSpark()` 里 reduced-motion 早退；新增 `clickSparkStyle` 内联兜底样式，避免浏览器缓存旧 `site.css` 时只有 JS 更新但火花没有样式。
+- `site.css`：移除隐藏 `.click-spark` 的 reduced-motion media rule，保留共享样式。
+- `index.html`：把首页 `site.js` 版本号从 `?v=20260622-ui2` 更新为 `?v=20260623-clickspark2`，强制首页刷新脚本缓存。
+- 注意：曾尝试批量给全部 HTML 的 `site.js` 引用加版本号，但 PowerShell 写回会破坏部分中文页面编码；已按用户确认恢复所有 HTML，只保留首页版本号变更。后续如需全站统一 cache busting，建议用保持原编码的脚本或逐页补丁，不要用 PowerShell `Set-Content` 直接写中文 HTML。
+- 验证：`node --check site.js` 通过；`site.css` 大括号计数通过；`http://127.0.0.1:4178/`、`/site.js`、`/site.css` 返回 200。
+
 ### 2026-06-23 · Codex：全站接入 ClickSpark 点击火花效果
 
 按用户要求引入 reactbits `ClickSpark-JS-CSS` 的点击反馈。项目当前是无构建静态站，不是 React/shadcn 项目，所以没有直接运行 `npx shadcn@latest add @react-bits/ClickSpark-JS-CSS`，而是在共享资源里做了等价 vanilla 迁移，避免引入不匹配的 React 工程结构。

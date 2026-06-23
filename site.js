@@ -218,9 +218,6 @@
         if (window.__CLICK_SPARK_READY) return;
         window.__CLICK_SPARK_READY = true;
 
-        const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        if (prefersReducedMotion) return;
-
         const defaults = {
             sparkSize: 12,
             sparkRadius: 20,
@@ -229,6 +226,17 @@
             easing: 'ease-out',
             extraScale: 1.1
         };
+
+        if (!document.getElementById('clickSparkStyle')) {
+            const style = document.createElement('style');
+            style.id = 'clickSparkStyle';
+            style.textContent = `
+                .click-spark-layer{position:fixed;inset:0;z-index:2147483000;pointer-events:none;overflow:hidden;contain:strict}
+                .click-spark{position:absolute;left:0;top:0;width:var(--spark-size,12px);height:2px;border-radius:999px;background:var(--spark-color,#fff);opacity:0;transform-origin:0 50%;will-change:transform,opacity;animation:clickSpark var(--spark-duration,450ms) var(--spark-easing,ease-out) forwards}
+                @keyframes clickSpark{0%{opacity:1;transform:translate3d(var(--spark-x),var(--spark-y),0) rotate(var(--spark-angle)) translateX(0) scaleX(.2)}64%{opacity:1}100%{opacity:0;transform:translate3d(var(--spark-x),var(--spark-y),0) rotate(var(--spark-angle)) translateX(var(--spark-distance)) scaleX(var(--spark-scale,1.1))}}
+            `;
+            document.head.appendChild(style);
+        }
 
         const layer = document.createElement('div');
         layer.className = 'click-spark-layer';

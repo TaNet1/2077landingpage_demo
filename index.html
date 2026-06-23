@@ -705,284 +705,280 @@
         .pain-cardx p { font-size: 14px; color: #94a3b8; line-height: 1.78; }
         @media (max-width: 560px) { .pain-cardx { width: 300px; } }
 
-        /* Service scene narrative */
+        /* Service scene sticky scrollytelling */
         .service-scene-section {
+            --scene-bg: #08090c;
+            --scene-muted: #888891;
+            --scene-gradient: linear-gradient(135deg, #bd00ff 0%, #7000ff 100%);
+            --scene-glass: rgba(255, 255, 255, 0.035);
             position: relative;
-            min-height: 100vh;
-            padding: clamp(110px, 12vw, 170px) 40px;
-            color: #f8fafc;
-            background:
-                linear-gradient(135deg, rgba(5, 8, 15, 0.98), rgba(9, 13, 24, 0.94) 56%, rgba(16, 12, 25, 0.98)),
-                #05080f;
+            color: #fff;
+            background: #08090c;
+            padding: clamp(110px, 12vw, 168px) 40px clamp(90px, 10vw, 140px);
+            overflow: hidden;
         }
         .service-scene-section::before {
             content: '';
             position: absolute;
             inset: 0;
             pointer-events: none;
-            opacity: 0.18;
-            background-image:
-                linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px);
-            background-size: 52px 52px;
-            mask-image: linear-gradient(180deg, transparent, #000 18%, #000 76%, transparent);
+            background:
+                radial-gradient(circle at 70% 18%, rgba(189, 0, 255, 0.10), transparent 34%),
+                linear-gradient(180deg, rgba(255,255,255,0.03), transparent 18%, transparent 82%, rgba(255,255,255,0.02));
         }
         .service-scene-wrap { position: relative; z-index: 1; }
         .service-scene-intro {
             display: grid;
-            grid-template-columns: minmax(0, 1.05fr) minmax(320px, 0.65fr);
-            gap: clamp(32px, 6vw, 88px);
+            grid-template-columns: minmax(0, 0.9fr) minmax(320px, 0.68fr);
+            gap: clamp(32px, 6vw, 90px);
             align-items: end;
-            margin-bottom: clamp(46px, 7vw, 88px);
+            margin-bottom: clamp(42px, 7vw, 86px);
         }
         .service-eyebrow {
             font-family: 'Sora', sans-serif;
             font-size: 12px;
             font-weight: 800;
             letter-spacing: 0;
-            text-transform: uppercase;
-            color: #b7c4d8;
+            color: rgba(255,255,255,0.58);
             margin-bottom: 18px;
         }
         .service-scene-title {
-            font-size: clamp(42px, 5.4vw, 82px);
+            font-size: clamp(42px, 5vw, 78px);
             line-height: 1.04;
             font-weight: 800;
         }
         .service-scene-lead {
-            color: #cbd5e1;
-            font-size: clamp(16px, 1.25vw, 20px);
+            color: rgba(255,255,255,0.58);
+            font-size: clamp(16px, 1.2vw, 19px);
             line-height: 1.9;
-            max-width: 520px;
+            max-width: 560px;
         }
-        .service-scene-stage {
+        .service-scroll-grid {
             display: grid;
-            grid-template-columns: minmax(320px, 0.78fr) minmax(0, 1.22fr);
-            gap: clamp(24px, 4vw, 56px);
-            align-items: stretch;
+            grid-template-columns: minmax(320px, 45%) minmax(0, 55%);
+            gap: clamp(32px, 5vw, 82px);
+            align-items: start;
         }
-        .service-chapters {
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-            min-height: 620px;
-            justify-content: space-between;
-        }
-        .service-chapter {
-            width: 100%;
-            flex: 1;
-            display: grid;
-            grid-template-columns: 48px minmax(0, 1fr);
-            gap: 18px;
-            align-items: center;
-            text-align: left;
-            padding: 20px;
-            border: 1px solid rgba(148, 163, 184, 0.24);
-            border-radius: 16px;
-            background: rgba(255, 255, 255, 0.045);
-            color: inherit;
-            transition: transform 0.35s cubic-bezier(.2,.8,.2,1), border-color 0.35s, background 0.35s, box-shadow 0.35s;
-        }
-        .service-chapter:hover,
-        .service-chapter.active {
-            transform: translateX(6px);
-            border-color: rgba(190, 24, 255, 0.7);
-            background: rgba(255, 255, 255, 0.09);
-            box-shadow: 0 26px 60px -42px rgba(236, 0, 250, 0.9);
-        }
-        .service-chapter-icon {
-            width: 48px;
-            height: 48px;
-            border-radius: 12px;
-            display: grid;
-            place-items: center;
-            color: #f2e7ff;
-            background: rgba(146, 85, 254, 0.18);
-            border: 1px solid rgba(216, 180, 254, 0.24);
-        }
-        .service-chapter.active .service-chapter-icon {
-            background: linear-gradient(135deg, var(--brand-primary), var(--brand-secondary));
-            color: #fff;
-            border-color: transparent;
-        }
-        .service-chapter-kicker {
+        .service-feature-list { padding: 15vh 0 30vh; }
+        .service-feature-item {
+            position: relative;
+            min-height: 0;
             display: block;
-            margin-bottom: 8px;
+            margin-bottom: 25vh;
+            padding: 5vh 0;
+            opacity: 0.24;
+            transform: translateY(28px);
+            transition: opacity 0.65s cubic-bezier(.22,.61,.36,1), transform 0.65s cubic-bezier(.22,.61,.36,1);
+        }
+        .service-feature-item:last-child { margin-bottom: 0; }
+        .service-feature-item.active { opacity: 1; transform: translateY(0); }
+        .service-number-watermark {
+            position: absolute;
+            top: -60px;
+            left: -30px;
             font-family: 'Sora', sans-serif;
-            font-size: 11px;
+            font-size: clamp(96px, 10vw, 152px);
+            line-height: 1;
             font-weight: 800;
-            color: #94a3b8;
+            letter-spacing: -0.06em;
+            color: rgba(255, 255, 255, 0.035);
+            pointer-events: none;
         }
-        .service-chapter h4 {
-            font-size: 20px;
-            font-weight: 800;
-            margin-bottom: 8px;
+        .service-feature-copy { position: relative; z-index: 1; max-width: 460px; }
+        .service-feature-copy h4 {
+            font-size: clamp(28px, 2.8vw, 42px);
+            line-height: 1.14;
+            font-weight: 760;
+            margin-bottom: 18px;
         }
-        .service-chapter p {
-            color: #cbd5e1;
-            line-height: 1.72;
-            font-size: 14px;
+        .service-feature-copy p {
+            color: rgba(255,255,255,0.54);
+            font-size: clamp(16px, 1.1vw, 19px);
+            line-height: 1.86;
         }
-        .service-live-panel {
+        .service-feature-item.active .service-feature-copy p { color: rgba(255,255,255,0.72); }
+        .service-sticky-visual {
             position: sticky;
-            top: 112px;
-            overflow: hidden;
-            height: 100%;
-            min-height: 620px;
-            border-radius: 20px;
-            background: linear-gradient(145deg, rgba(15, 23, 42, 0.92), rgba(3, 7, 18, 0.98));
-            border: 1px solid rgba(148, 163, 184, 0.24);
-            box-shadow: 0 34px 90px -50px rgba(0, 0, 0, 0.85);
+            top: 15vh;
+            height: 70vh;
+            min-height: 560px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-        .service-live-panel::before {
-            content: '';
+        .service-visual-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: radial-gradient(circle at center, rgba(189, 0, 255, 0.055), transparent 68%);
+        }
+        .service-visual-state {
             position: absolute;
             inset: 0;
-            pointer-events: none;
-            background:
-                linear-gradient(110deg, transparent 0 45%, rgba(255,255,255,0.07) 52%, transparent 60%),
-                radial-gradient(circle at 72% 16%, rgba(146,85,254,0.28), transparent 30%);
-            opacity: 0.75;
-        }
-        .service-panel-bar {
-            position: relative;
-            z-index: 1;
+            opacity: 0;
+            visibility: hidden;
+            transform: scale(0.965) translateY(18px);
+            transition: opacity 0.82s ease, transform 0.82s cubic-bezier(.22,.61,.36,1), visibility 0s linear 0.82s;
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            padding: 22px 24px;
-            border-bottom: 1px solid rgba(148, 163, 184, 0.18);
-            color: #dbeafe;
-            font-size: 13px;
-            font-weight: 700;
-        }
-        .service-panel-dots { display: flex; gap: 7px; }
-        .service-panel-dots span { width: 8px; height: 8px; border-radius: 999px; background: rgba(203, 213, 225, 0.48); }
-        .service-panel-dots span:first-child { background: #22d3ee; }
-        .service-panel-body {
-            position: relative;
-            z-index: 1;
-            min-height: 560px;
-            padding: clamp(24px, 4vw, 42px);
-            display: grid;
-            grid-template-columns: minmax(220px, 0.88fr) minmax(260px, 1fr);
-            gap: 26px;
-            align-items: end;
-        }
-        .service-avatar-zone {
-            align-self: stretch;
-            position: relative;
-            display: flex;
-            align-items: flex-end;
             justify-content: center;
-            min-height: 480px;
         }
-        .service-avatar-zone::after {
-            content: '';
+        .service-visual-state.active {
+            opacity: 1;
+            visibility: visible;
+            transform: scale(1) translateY(0);
+            transition-delay: 0s;
+        }
+        .service-mobile-visual { display: none; }
+        .service-vis-map {
+            background:
+                repeating-linear-gradient(0deg, transparent, transparent 49px, rgba(255,255,255,0.035) 50px),
+                repeating-linear-gradient(90deg, transparent, transparent 49px, rgba(255,255,255,0.035) 50px);
+            background-size: 50px 50px;
+            mask-image: radial-gradient(circle, #000 48%, transparent 78%);
+        }
+        .scene-hotspot {
             position: absolute;
-            left: 12%;
-            right: 12%;
-            bottom: 18px;
-            height: 28px;
+            width: 18px;
+            height: 18px;
             border-radius: 50%;
-            background: rgba(0, 0, 0, 0.42);
-            filter: blur(16px);
+            background: #bd00ff;
+            box-shadow: 0 0 0 10px rgba(189,0,255,0.08), 0 0 24px rgba(189,0,255,0.42);
+            animation: servicePulse 2.4s ease-in-out infinite;
         }
-        .service-avatar-zone img {
+        .scene-hotspot:nth-child(1) { top: 29%; left: 41%; }
+        .scene-hotspot:nth-child(2) { top: 61%; left: 70%; animation-delay: .45s; background: #8b5cff; box-shadow: 0 0 0 10px rgba(112,0,255,0.08), 0 0 24px rgba(112,0,255,0.38); }
+        .scene-hotspot:nth-child(3) { top: 70%; left: 22%; animation-delay: 1.05s; }
+        @keyframes servicePulse {
+            0% { transform: scale(.78); opacity: .9; }
+            60% { transform: scale(1.8); opacity: 0; }
+            100% { transform: scale(.78); opacity: 0; }
+        }
+        .service-sound-wave { display: flex; align-items: center; gap: 10px; height: 150px; }
+        .service-wave-bar {
+            width: 9px;
+            min-height: 18px;
+            border-radius: 9px;
+            background: var(--scene-gradient);
+            animation: serviceWave 1.08s ease-in-out infinite alternate;
+        }
+        .service-wave-bar:nth-child(1) { height: 28px; animation-delay: 0s; opacity: .58; }
+        .service-wave-bar:nth-child(2) { height: 86px; animation-delay: .13s; opacity: .82; }
+        .service-wave-bar:nth-child(3) { height: 138px; animation-delay: .26s; }
+        .service-wave-bar:nth-child(4) { height: 74px; animation-delay: .39s; opacity: .78; }
+        .service-wave-bar:nth-child(5) { height: 48px; animation-delay: .52s; opacity: .62; }
+        @keyframes serviceWave { from { transform: scaleY(.28); } to { transform: scaleY(1); } }
+        .service-avatar-closeup {
+            width: 100%;
+            height: 100%;
+            background-image:
+                linear-gradient(90deg, rgba(8,9,12,0.78), transparent 35%, rgba(8,9,12,0.82)),
+                url('assets/avatar-1.png');
+            background-size: auto 118%, auto 118%;
+            background-repeat: no-repeat;
+            background-position: center 32%;
+            mask-image: radial-gradient(circle at 52% 45%, #000 34%, rgba(0,0,0,.72) 55%, transparent 86%);
+            -webkit-mask-image: radial-gradient(circle at 52% 45%, #000 34%, rgba(0,0,0,.72) 55%, transparent 86%);
+            filter: saturate(.86) contrast(1.04);
+        }
+        .service-ui-layers {
             position: relative;
-            z-index: 1;
-            max-height: 500px;
-            width: auto;
-            max-width: 100%;
-            object-fit: contain;
-            filter: drop-shadow(0 26px 34px rgba(0,0,0,0.42));
+            width: min(82%, 560px);
+            height: min(62%, 380px);
+            perspective: 1000px;
         }
-        .service-demo {
-            align-self: center;
+        .service-ui-card {
+            position: absolute;
+            inset: 0;
             display: flex;
             flex-direction: column;
-            gap: 14px;
+            padding: 22px;
+            border-radius: 16px;
+            background: rgba(255,255,255,0.045);
+            border: 1px solid rgba(255,255,255,0.085);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            box-shadow: 0 24px 54px rgba(0,0,0,0.42);
         }
-        .service-mode {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            width: max-content;
-            padding: 8px 12px;
-            border-radius: 12px;
-            background: rgba(34, 211, 238, 0.12);
-            color: #67e8f9;
-            font-size: 12px;
-            font-weight: 800;
-        }
-        .service-dialog {
-            padding: 18px;
-            border-radius: 14px;
-            background: rgba(2, 6, 23, 0.72);
-            border: 1px solid rgba(148, 163, 184, 0.22);
-        }
-        .service-dialog span {
-            display: block;
-            margin-bottom: 8px;
-            color: #94a3b8;
-            font-size: 12px;
-            font-weight: 800;
-        }
-        .service-dialog p {
-            color: #f8fafc;
-            font-weight: 700;
-            line-height: 1.68;
-        }
-        .service-artifact {
-            display: grid;
-            grid-template-columns: 42px minmax(0, 1fr);
-            gap: 13px;
-            padding: 16px;
-            border-radius: 14px;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-        }
-        .service-artifact-ico {
-            width: 42px;
-            height: 42px;
+        .service-visual-state.active .service-ui-card:nth-child(1) { transform: rotateY(-15deg) translateX(-42px); }
+        .service-visual-state.active .service-ui-card:nth-child(2) { transform: rotateY(-15deg) translateX(26px) translateY(24px) translateZ(50px); background: rgba(189,0,255,0.055); }
+        .service-ui-media { height: 50%; border-radius: 10px; margin-bottom: 18px; background: linear-gradient(135deg, rgba(255,255,255,0.10), rgba(255,255,255,0.03)); }
+        .service-ui-line { height: 12px; width: 78%; border-radius: 12px; margin-bottom: 10px; background: rgba(255,255,255,0.12); }
+        .service-ui-line.short { width: 48%; }
+        .service-ui-title { color: #fff; font-weight: 760; margin-bottom: 16px; }
+        .service-ui-action {
+            margin-top: auto;
+            padding: 11px 14px;
             border-radius: 10px;
-            display: grid;
-            place-items: center;
+            text-align: center;
+            font-size: 13px;
+            font-weight: 760;
             color: #fff;
-            background: linear-gradient(135deg, var(--brand-primary), var(--brand-secondary));
+            background: var(--scene-gradient);
         }
-        .service-artifact strong { display: block; margin-bottom: 6px; }
-        .service-artifact p { color: #cbd5e1; font-size: 13px; line-height: 1.6; }
-        .service-progress {
-            height: 4px;
-            margin-top: 6px;
-            border-radius: 999px;
-            overflow: hidden;
-            background: rgba(148, 163, 184, 0.18);
+        .service-dashboard {
+            width: min(84%, 600px);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
         }
-        .service-progress span {
-            display: block;
-            height: 100%;
-            width: 0;
-            border-radius: inherit;
-            background: linear-gradient(90deg, #22d3ee, var(--brand-secondary));
+        .service-dash-card {
+            min-height: 150px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 22px;
+            border-radius: 16px;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
         }
-        .service-live-panel.is-playing .service-progress span { animation: serviceSceneFill 6.4s linear forwards; }
-        @keyframes serviceSceneFill { to { width: 100%; } }
+        .service-dash-card h4 { color: var(--scene-muted); font-size: 14px; font-weight: 500; margin-bottom: 10px; }
+        .service-dash-number { color: #fff; font-family: 'Sora', sans-serif; font-size: clamp(34px, 3.7vw, 54px); font-weight: 780; letter-spacing: -0.04em; }
+        .service-dash-chart { position: relative; height: 58px; border-bottom: 2px solid rgba(189,0,255,0.26); overflow: hidden; }
+        .service-dash-line { position: absolute; left: 0; bottom: -2px; width: 72%; height: 2px; background: #bd00ff; box-shadow: 28px -16px 30px rgba(189,0,255,0.48); }
+        .service-donut { width: 86px; height: 86px; margin: 0 auto; border-radius: 50%; display: grid; place-items: center; background: conic-gradient(#bd00ff 0 65%, rgba(255,255,255,0.1) 65% 100%); }
+        .service-donut span { width: 62px; height: 62px; border-radius: 50%; display: grid; place-items: center; color: #fff; font-weight: 800; background: #08090c; }
+        .service-heatbar { height: 42px; border-radius: 8px; background: linear-gradient(90deg, rgba(189,0,255,0.08), rgba(189,0,255,0.78) 78%, rgba(112,0,255,0.22)); }
         @media (max-width: 1080px) {
-            .service-scene-intro,
-            .service-scene-stage { grid-template-columns: 1fr; }
-            .service-chapters { min-height: auto; }
-            .service-chapter { flex: none; }
-            .service-live-panel { position: relative; top: 0; }
+            .service-scene-intro { grid-template-columns: 1fr; }
+            .service-scroll-grid { display: block; }
+            .service-feature-list { padding: 36px 0 0; }
+            .service-sticky-visual { display: none; }
+            .service-feature-item {
+                min-height: auto;
+                display: block;
+                opacity: 1;
+                transform: none;
+                margin-bottom: 66px;
+            }
+            .service-number-watermark { top: -34px; left: -6px; font-size: 86px; }
+            .service-feature-copy { max-width: none; margin-bottom: 24px; }
+            .service-mobile-visual {
+                display: block;
+                position: relative;
+                height: min(64vh, 500px);
+                min-height: 360px;
+                overflow: hidden;
+                background: radial-gradient(circle at center, rgba(189, 0, 255, 0.055), transparent 68%);
+            }
+            .service-mobile-visual .service-visual-state {
+                position: absolute;
+                opacity: 1;
+                visibility: visible;
+                transform: none;
+            }
         }
         @media (max-width: 720px) {
-            .service-scene-section { padding: 92px 20px; }
-            .service-chapter { grid-template-columns: 42px minmax(0, 1fr); padding: 16px; }
-            .service-chapter-icon { width: 42px; height: 42px; border-radius: 10px; }
-            .service-panel-body { grid-template-columns: 1fr; min-height: auto; }
-            .service-avatar-zone { min-height: 300px; }
-            .service-avatar-zone img { max-height: 310px; }
+            .service-scene-section { padding: 86px 20px 70px; }
+            .service-scene-title { font-size: clamp(36px, 11vw, 48px); }
+            .service-feature-copy h4 { font-size: 28px; }
+            .service-mobile-visual { height: 420px; min-height: 420px; }
+            .service-dashboard { width: 100%; grid-template-columns: 1fr; }
+            .service-dash-card.is-wide { grid-column: auto !important; min-height: 120px; }
+            .service-ui-layers { width: 92%; height: 60%; }
         }
 
         /* ===== Interactive capabilities showcase ===== */
@@ -1120,6 +1116,7 @@
         section > .max-w-7xl { max-width: none; }
         /* 2) 区块上下留白加大，营造大气节奏（hero 不动） */
         body > section:not(#hero) { padding-top: clamp(8rem, 10.5vw, 13.5rem); padding-bottom: clamp(8rem, 10.5vw, 13.5rem); }
+        body > section.service-scene-section:not(#hero) { padding: clamp(110px, 12vw, 168px) 40px clamp(90px, 10vw, 140px); }
         /* 3) 区块主标题放大 + 收紧字距，更有气势 */
         h3.text-4xl.font-sora { font-size: clamp(2.75rem, 4.6vw, 5.25rem); line-height: 1.04; letter-spacing: -0.025em; }
         /* 4) 区块导语略放大、加宽，行距更舒展 */
@@ -1164,6 +1161,7 @@
         @media (max-width: 620px) { .cases-grid { grid-template-columns: 1fr; } }
         @media (max-width: 760px) {
             body > section:not(#hero) { padding-left: 22px; padding-right: 22px; }
+            body > section.service-scene-section:not(#hero) { padding: 86px 20px 70px; }
             h3.text-4xl.font-sora { font-size: clamp(2rem, 8vw, 2.6rem); }
         }
     </style>
@@ -1283,7 +1281,7 @@
     </section>
 
     <!-- SERVICE SCENE -->
-    <section id="pain" class="service-scene-section overflow-hidden">
+    <section id="pain" class="service-scene-section">
         <div class="service-scene-wrap max-w-7xl mx-auto" id="serviceScene">
             <div class="service-scene-intro reveal">
                 <div>
@@ -1293,70 +1291,106 @@
                 <p class="service-scene-lead">用户的问题往往在空间里即时产生：问路、咨询、办理、导览、推荐。AI 虚拟人以可见的形象、自然的对话和大屏表达，把前台、导览员、讲解员和服务入口合并成一位始终在岗的数字员工。</p>
             </div>
 
-            <div class="service-scene-stage reveal">
-                <div class="service-chapters" aria-label="现场服务章节">
-                    <button class="service-chapter active" type="button" data-scene="0">
-                        <span class="service-chapter-icon"><i data-lucide="door-open" class="w-6 h-6"></i></span>
-                        <span>
-                            <span class="service-chapter-kicker">01</span>
+            <div class="service-scroll-grid reveal">
+                <div class="service-feature-list" aria-label="现场服务能力">
+                    <article class="service-feature-item active" data-target="1">
+                        <div class="service-number-watermark">01</div>
+                        <div class="service-feature-copy">
                             <h4>需求在现场发生</h4>
                             <p>用户的问题不是提前准备好的，而是在空间里即时产生；答案也应该在现场即时出现。</p>
-                        </span>
-                    </button>
-                    <button class="service-chapter" type="button" data-scene="1">
-                        <span class="service-chapter-icon"><i data-lucide="message-circle" class="w-6 h-6"></i></span>
-                        <span>
-                            <span class="service-chapter-kicker">02</span>
+                        </div>
+                        <div class="service-mobile-visual" aria-hidden="true">
+                            <div class="service-visual-state service-vis-map active">
+                                <span class="scene-hotspot"></span><span class="scene-hotspot"></span><span class="scene-hotspot"></span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="service-feature-item" data-target="2">
+                        <div class="service-number-watermark">02</div>
+                        <div class="service-feature-copy">
                             <h4>入口不需要学习</h4>
-                            <p>不用下载、不用注册、不用扫码，走到屏前开口就能获得服务。</p>
-                        </span>
-                    </button>
-                    <button class="service-chapter" type="button" data-scene="2">
-                        <span class="service-chapter-icon"><i data-lucide="smile" class="w-6 h-6"></i></span>
-                        <span>
-                            <span class="service-chapter-kicker">03</span>
+                            <p>不用下载、不用注册、不用扫码，走到屏幕前开口就能获得服务。</p>
+                        </div>
+                        <div class="service-mobile-visual" aria-hidden="true">
+                            <div class="service-visual-state active">
+                                <div class="service-sound-wave">
+                                    <span class="service-wave-bar"></span><span class="service-wave-bar"></span><span class="service-wave-bar"></span><span class="service-wave-bar"></span><span class="service-wave-bar"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="service-feature-item" data-target="3">
+                        <div class="service-number-watermark">03</div>
+                        <div class="service-feature-copy">
                             <h4>形象建立信任</h4>
                             <p>有形象、有声音、有表情，比文字客服和普通信息屏更接近真实前台、导览员和讲解员。</p>
-                        </span>
-                    </button>
-                    <button class="service-chapter" type="button" data-scene="3">
-                        <span class="service-chapter-icon"><i data-lucide="map" class="w-6 h-6"></i></span>
-                        <span>
-                            <span class="service-chapter-kicker">04</span>
+                        </div>
+                        <div class="service-mobile-visual" aria-hidden="true">
+                            <div class="service-visual-state active"><div class="service-avatar-closeup"></div></div>
+                        </div>
+                    </article>
+
+                    <article class="service-feature-item" data-target="4">
+                        <div class="service-number-watermark">04</div>
+                        <div class="service-feature-copy">
                             <h4>大屏讲清复杂信息</h4>
                             <p>路线、流程、材料、活动、展品和网页内容，可以一边对话一边展示。</p>
-                        </span>
-                    </button>
-                    <button class="service-chapter" type="button" data-scene="4">
-                        <span class="service-chapter-icon"><i data-lucide="chart-no-axes-combined" class="w-6 h-6"></i></span>
-                        <span>
-                            <span class="service-chapter-kicker">05</span>
+                        </div>
+                        <div class="service-mobile-visual" aria-hidden="true">
+                            <div class="service-visual-state active">
+                                <div class="service-ui-layers">
+                                    <div class="service-ui-card"><div class="service-ui-media"></div><div class="service-ui-line"></div><div class="service-ui-line short"></div></div>
+                                    <div class="service-ui-card"><h4 class="service-ui-title">室内实景导航</h4><div class="service-ui-line"></div><div class="service-ui-line"></div><div class="service-ui-line short"></div><div class="service-ui-action">开始导航</div></div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="service-feature-item" data-target="5">
+                        <div class="service-number-watermark">05</div>
+                        <div class="service-feature-copy">
                             <h4>交互沉淀真实需求</h4>
                             <p>每一次问询都是用户主动表达的需求信号，可以反哺服务优化和运营决策。</p>
-                        </span>
-                    </button>
+                        </div>
+                        <div class="service-mobile-visual" aria-hidden="true">
+                            <div class="service-visual-state active">
+                                <div class="service-dashboard">
+                                    <div class="service-dash-card"><h4>累计接待次数</h4><div class="service-dash-number">12,408</div><div class="service-dash-chart"><div class="service-dash-line"></div></div></div>
+                                    <div class="service-dash-card"><h4>高频诉求占比</h4><div class="service-donut"><span>65%</span></div></div>
+                                    <div class="service-dash-card is-wide" style="grid-column: span 2;"><h4>本月服务热力趋势</h4><div class="service-heatbar"></div></div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
                 </div>
 
-                <aside class="service-live-panel is-playing" aria-label="现场服务交互演示">
-                    <div class="service-panel-bar">
-                        <div class="service-panel-dots" aria-hidden="true"><span></span><span></span><span></span></div>
-                        <span>现场服务引擎在线</span>
-                    </div>
-                    <div class="service-panel-body">
-                        <div class="service-avatar-zone">
-                            <img src="assets/product-robo.png" alt="幻真 Robo 现场服务终端">
+                <aside class="service-sticky-visual" aria-label="现场服务能力动态演示">
+                    <div class="service-visual-container">
+                        <div class="service-visual-state service-vis-map active" data-visual="1">
+                            <span class="scene-hotspot"></span><span class="scene-hotspot"></span><span class="scene-hotspot"></span>
                         </div>
-                        <div class="service-demo">
-                            <div class="service-mode" id="serviceMode"><i data-lucide="sparkles" class="w-4 h-4"></i><span>第 1 组：现场需求</span></div>
-                            <div class="service-dialog">
-                                <span>用户</span>
-                                <p id="serviceQuestion">洗手间在哪里？</p>
+                        <div class="service-visual-state" data-visual="2">
+                            <div class="service-sound-wave">
+                                <span class="service-wave-bar"></span><span class="service-wave-bar"></span><span class="service-wave-bar"></span><span class="service-wave-bar"></span><span class="service-wave-bar"></span>
                             </div>
-                            <div class="service-dialog">
-                                <span>幻真</span>
-                                <p id="serviceAnswer">我已为您规划最近路线，沿右侧通道直行约 30 米即可到达，也可以扫码带走导航。</p>
+                        </div>
+                        <div class="service-visual-state" data-visual="3">
+                            <div class="service-avatar-closeup"></div>
+                        </div>
+                        <div class="service-visual-state" data-visual="4">
+                            <div class="service-ui-layers">
+                                <div class="service-ui-card"><div class="service-ui-media"></div><div class="service-ui-line"></div><div class="service-ui-line short"></div></div>
+                                <div class="service-ui-card"><h4 class="service-ui-title">室内实景导航</h4><div class="service-ui-line"></div><div class="service-ui-line"></div><div class="service-ui-line short"></div><div class="service-ui-action">开始导航</div></div>
                             </div>
-                            <div class="service-progress" aria-hidden="true"><span></span></div>
+                        </div>
+                        <div class="service-visual-state" data-visual="5">
+                            <div class="service-dashboard">
+                                <div class="service-dash-card"><h4>累计接待次数</h4><div class="service-dash-number">12,408</div><div class="service-dash-chart"><div class="service-dash-line"></div></div></div>
+                                <div class="service-dash-card"><h4>高频诉求占比</h4><div class="service-donut"><span>65%</span></div></div>
+                                <div class="service-dash-card is-wide" style="grid-column: span 2;"><h4>本月服务热力趋势</h4><div class="service-heatbar"></div></div>
+                            </div>
                         </div>
                     </div>
                 </aside>
@@ -2355,72 +2389,59 @@
             }, { threshold: 0.12 });
             document.querySelectorAll('.reveal:not(.active)').forEach(el => revIO.observe(el));
 
-            // ---- Service-scene narrative: chapters drive the live panel ----
+            // ---- Service-scene sticky scroll: left narrative drives right visual states ----
             (() => {
                 const root = document.getElementById('serviceScene');
                 if (!root) return;
-                const chapters = [...root.querySelectorAll('.service-chapter')];
-                const panel = root.querySelector('.service-live-panel');
-                const mode = root.querySelector('#serviceMode span');
-                const question = root.querySelector('#serviceQuestion');
-                const answer = root.querySelector('#serviceAnswer');
-                if (!chapters.length || !panel || !mode || !question || !answer) return;
-
-                const scenes = [
-                    {
-                        mode: '第 1 组：现场需求',
-                        question: '洗手间在哪里？',
-                        answer: '我已为您规划最近路线，沿右侧通道直行约 30 米即可到达，也可以扫码带走导航。'
-                    },
-                    {
-                        mode: '第 2 组：低门槛入口',
-                        question: '我要办理居住证，需要准备什么？',
-                        answer: '需要身份证明、居住证明和近期照片。我已为您整理材料清单，并标出可办理窗口。'
-                    },
-                    {
-                        mode: '第 3 组：拟人化信任',
-                        question: '可以帮我介绍一下这个展区吗？',
-                        answer: '当然。我会按参观路线为您讲解重点展项，也可以根据您的兴趣继续展开。'
-                    },
-                    {
-                        mode: '第 4 组：大屏表达',
-                        question: '附近有没有适合带小朋友去的地方？',
-                        answer: '我已筛选出亲子友好的地点，并同步展示路线、开放时间和推荐停留时长。'
-                    },
-                    {
-                        mode: '第 5 组：数据沉淀',
-                        question: '最近大家都在问什么？',
-                        answer: '系统已汇总近期高频需求，可用于优化服务指引、内容配置、活动推荐和人员安排。'
+                const items = [...root.querySelectorAll('.service-feature-item')];
+                const states = [...root.querySelectorAll('.service-sticky-visual .service-visual-state')];
+                if (!items.length || !states.length) return;
+                let active = -1;
+                let ticking = false;
+                const animateState = (state) => {
+                    if (!window.gsap || !state) return;
+                    const targets = state.querySelectorAll('.scene-hotspot, .service-wave-bar, .service-ui-card, .service-dash-card, .service-avatar-closeup');
+                    gsap.fromTo(state, { opacity: 0, y: 18, scale: 0.975 }, { opacity: 1, y: 0, scale: 1, duration: 0.72, ease: 'power3.out' });
+                    if (targets.length) {
+                        gsap.fromTo(targets, { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.66, stagger: 0.055, ease: 'power3.out', delay: 0.08 });
                     }
-                ];
-                const tr = (s) => window.__i18nTr ? window.__i18nTr(s) : s;
-                let active = 0;
-                let timer = null;
-                const play = (idx) => {
-                    active = (idx + scenes.length) % scenes.length;
-                    chapters.forEach((btn, i) => btn.classList.toggle('active', i === active));
-                    const scene = scenes[active];
-                    mode.textContent = tr(scene.mode);
-                    question.textContent = tr(scene.question);
-                    answer.textContent = tr(scene.answer);
-                    panel.classList.remove('is-playing');
-                    void panel.offsetWidth;
-                    panel.classList.add('is-playing');
                 };
-                const start = () => {
-                    window.clearInterval(timer);
-                    timer = window.setInterval(() => play(active + 1), 6400);
+                const setActive = (idx) => {
+                    if (idx === active && items[idx].classList.contains('active')) return;
+                    active = idx;
+                    items.forEach((item, i) => item.classList.toggle('active', i === active));
+                    states.forEach((state, i) => state.classList.toggle('active', i === active));
+                    animateState(states[active]);
                 };
-                chapters.forEach(btn => {
-                    btn.addEventListener('click', () => {
-                        play(Number(btn.dataset.scene || 0));
-                        start();
+                const syncByViewportCenter = () => {
+                    ticking = false;
+                    const targetY = window.innerHeight * 0.5;
+                    let nearestIdx = 0;
+                    let nearestDistance = Infinity;
+                    items.forEach((item, idx) => {
+                        const rect = item.getBoundingClientRect();
+                        const itemCenter = rect.top + rect.height * 0.5;
+                        const distance = Math.abs(itemCenter - targetY);
+                        if (distance < nearestDistance) {
+                            nearestDistance = distance;
+                            nearestIdx = idx;
+                        }
                     });
-                });
-                root.addEventListener('mouseenter', () => window.clearInterval(timer));
-                root.addEventListener('mouseleave', start);
-                play(0);
-                start();
+                    setActive(nearestIdx);
+                };
+                const requestSync = () => {
+                    if (ticking) return;
+                    ticking = true;
+                    window.requestAnimationFrame(syncByViewportCenter);
+                };
+                setActive(0);
+                requestSync();
+                window.addEventListener('scroll', requestSync, { passive: true });
+                window.addEventListener('resize', requestSync);
+                window.addEventListener('pagehide', () => {
+                    window.removeEventListener('scroll', requestSync);
+                    window.removeEventListener('resize', requestSync);
+                }, { once: true });
             })();
 
             // ---- Counters: IntersectionObserver triggers, GSAP tweens the number ----

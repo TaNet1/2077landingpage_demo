@@ -1494,6 +1494,7 @@ Object.assign(window.__I18N_DICT['zh-HK'], {
   "用户的问题不是提前准备好的，而是在空间里即时产生；答案也应该在现场即时出现。": "用戶的問題不是提前準備好的，而是在空間裏即時產生；答案也應該在現場即時出現。",
   "入口不需要学习": "入口不需要學習",
   "不用下载、不用注册、不用扫码，走到屏前开口就能获得服务。": "不用下載、不用註冊、不用掃碼，走到螢幕前開口就能獲得服務。",
+  "不用下载、不用注册、不用扫码，走到屏幕前开口就能获得服务。": "不用下載、不用註冊、不用掃碼，走到螢幕前開口就能獲得服務。",
   "形象建立信任": "形象建立信任",
   "有形象、有声音、有表情，比文字客服和普通信息屏更接近真实前台、导览员和讲解员。": "有形象、有聲音、有表情，比文字客服和普通資訊屏更接近真實前台、導覽員和講解員。",
   "大屏讲清复杂信息": "大屏講清複雜資訊",
@@ -1516,7 +1517,14 @@ Object.assign(window.__I18N_DICT['zh-HK'], {
   "我已筛选出亲子友好的地点，并同步展示路线、开放时间和推荐停留时长。": "我已篩選出親子友好的地點，並同步展示路線、開放時間和推薦停留時長。",
   "第 5 组：数据沉淀": "第 5 組：數據沉澱",
   "最近大家都在问什么？": "最近大家都在問甚麼？",
-  "系统已汇总近期高频需求，可用于优化服务指引、内容配置、活动推荐和人员安排。": "系統已匯總近期高頻需求，可用於優化服務指引、內容配置、活動推薦和人員安排。"
+  "系统已汇总近期高频需求，可用于优化服务指引、内容配置、活动推荐和人员安排。": "系統已匯總近期高頻需求，可用於優化服務指引、內容配置、活動推薦和人員安排。",
+  "现场服务能力": "現場服務能力",
+  "现场服务能力动态演示": "現場服務能力動態演示",
+  "室内实景导航": "室內實景導航",
+  "开始导航": "開始導航",
+  "累计接待次数": "累計接待次數",
+  "高频诉求占比": "高頻訴求佔比",
+  "本月服务热力趋势": "本月服務熱力趨勢"
 });
 Object.assign(window.__I18N_DICT.en, {
   "为什么 AI 虚拟人天然适合服务场景": "Why AI virtual humans naturally fit service scenarios",
@@ -1527,6 +1535,7 @@ Object.assign(window.__I18N_DICT.en, {
   "用户的问题不是提前准备好的，而是在空间里即时产生；答案也应该在现场即时出现。": "User questions are not prepared in advance. They arise instantly in the space, so answers should appear instantly on site.",
   "入口不需要学习": "The entry needs no learning",
   "不用下载、不用注册、不用扫码，走到屏前开口就能获得服务。": "No download, registration or QR scan. Walk up to the screen and speak to get service.",
+  "不用下载、不用注册、不用扫码，走到屏幕前开口就能获得服务。": "No download, registration or QR scan. Walk up to the screen and speak to get service.",
   "形象建立信任": "Presence builds trust",
   "有形象、有声音、有表情，比文字客服和普通信息屏更接近真实前台、导览员和讲解员。": "With appearance, voice and expression, it feels closer to real reception, guides and docents than text support or ordinary information screens.",
   "大屏讲清复杂信息": "Large screens explain complexity",
@@ -1549,7 +1558,14 @@ Object.assign(window.__I18N_DICT.en, {
   "我已筛选出亲子友好的地点，并同步展示路线、开放时间和推荐停留时长。": "I have selected family-friendly places and displayed routes, opening hours and recommended visit duration.",
   "第 5 组：数据沉淀": "Group 5: Data capture",
   "最近大家都在问什么？": "What has everyone been asking recently?",
-  "系统已汇总近期高频需求，可用于优化服务指引、内容配置、活动推荐和人员安排。": "The system has summarized recent frequent needs, which can optimize service guidance, content configuration, event recommendations and staffing."
+  "系统已汇总近期高频需求，可用于优化服务指引、内容配置、活动推荐和人员安排。": "The system has summarized recent frequent needs, which can optimize service guidance, content configuration, event recommendations and staffing.",
+  "现场服务能力": "On-site service capabilities",
+  "现场服务能力动态演示": "Dynamic demo of on-site service capabilities",
+  "室内实景导航": "Indoor live navigation",
+  "开始导航": "Start navigation",
+  "累计接待次数": "Total receptions",
+  "高频诉求占比": "Frequent-need share",
+  "本月服务热力趋势": "Service heat trend this month"
 });
 
 /* contact page */

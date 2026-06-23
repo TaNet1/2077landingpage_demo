@@ -82,6 +82,28 @@
 
 ## 交接记录（倒序，最新在上）
 
+### 2026-06-23 · Codex：首页现场服务模块改为 Sticky Scroll
+
+根据用户提供的 `D:/Downloads/runoob-test.html` 原型和开发说明，重做首页 `#pain` 模块：
+
+- `index.html`：将上一版左右等高卡片式模块改为 sticky scrollytelling 架构。桌面端左侧 5 个能力卖点纵向滚动，右侧 `.service-sticky-visual` 使用 `position: sticky` 固定在视口中，并随左侧卖点切换视觉状态。
+- 右侧 5 个状态按原型意图重建为纯 CSS 小组件：空间热力点、动态声波、人物面部特写、大屏 UI 毛玻璃层、数据仪表盘。当前都封装在独立 class 结构里，后续可替换成 Lottie / webm / ECharts。
+- 移动端不使用 sticky，改为纵向堆叠：每个 `.service-feature-item` 后跟自己的 `.service-mobile-visual`，避免小屏 sticky 体验差。
+- 交互逻辑：废弃上一版自动轮播和点击切换，改为滚动驱动。初版 IntersectionObserver rootMargin 存在左右错位，已改成基于几何位置的实时同步：滚动时计算左侧 5 个卖点中心点，谁离视口中心最近，右侧状态就切到谁。
+- `i18n.js`：补充本轮新增可见文案的 zh-HK / en 翻译，包括“现场服务能力”“室内实景导航”“累计接待次数”等。
+
+验证：
+
+- `node --check i18n.js` 通过。
+- `node --check site.js` 通过。
+- `index.html` 内联脚本解析通过。
+- `index.html` / `site.css` / `page.css` CSS 大括号平衡检查通过。
+- `http://127.0.0.1:4178/` 返回 `200 OK`。
+
+注意：
+
+- 本轮仍未做真实浏览器截图验收；如果用户反馈视觉错位或节奏问题，优先调整 `.service-feature-list` 的 `padding` / `.service-feature-item` 的 `margin-bottom`，以及 JS 中 `targetY = window.innerHeight * 0.5` 的对齐点。
+
 ### 2026-06-23 · Codex：收敛首页现场服务模块圆角
 
 - `index.html`：按用户反馈降低首页 `#pain` 现场服务模块的圆角，减少“AI 卡片味”：右侧演示面板 `34px -> 20px`，左侧切换项 `24px -> 16px`，内部图标/状态/对话气泡同步收小。

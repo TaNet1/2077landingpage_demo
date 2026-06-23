@@ -184,16 +184,26 @@
                 let ticking = false;
                 const apply = () => {
                     ticking = false;
+                    const scrollTop = window.scrollY || window.pageYOffset || 0;
+                    const overHeroTop = heroEl && scrollTop + refY >= heroEl.offsetTop && scrollTop + refY < heroEl.offsetTop + heroEl.offsetHeight;
                     const overDark = darkZones.some((z) => {
                         const r = z.getBoundingClientRect();
                         return r.top <= refY && r.bottom > refY;
-                    });
+                    }) || overHeroTop;
                     inner.classList.toggle('nav-light', !overDark);
+                    inner.classList.remove('nav-scrolled');
                 };
                 const onScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(apply); } };
                 apply();
+                requestAnimationFrame(apply);
+                window.setTimeout(apply, 80);
+                window.setTimeout(apply, 260);
                 window.addEventListener('scroll', onScroll, { passive: true });
                 window.addEventListener('resize', onScroll);
+                window.addEventListener('load', apply);
+                window.addEventListener('pageshow', apply);
+                window.addEventListener('hashchange', onScroll);
+                document.addEventListener('visibilitychange', () => { if (!document.hidden) apply(); });
             } else {
                 // No dark zones on this page → keep the solid (light) nav.
                 inner.classList.add('nav-light');

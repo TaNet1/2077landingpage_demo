@@ -82,6 +82,15 @@
 
 ## 交接记录（倒序，最新在上）
 
+### 2026-06-23 · Codex：修复首页 hero 上导航偶发白底
+
+用户反馈从其它页面点击首页、点击页面或刷新时，首页首屏导航偶发变成白色背景；按设计在 hero 深色首屏上应保持透明。根因是共享导航主题只在初始化和 scroll/resize 时判断暗色区，浏览器 bfcache、延迟滚动恢复或脚本把位置拉回顶部时，`.nav-light` 可能保留但没有再次校正。
+- `site.js`：增强 `initSharedUi()` 的导航主题同步逻辑。首页 hero 范围内通过 `scrollY + refY` 和 hero offset 强制判定为暗色区，避免 `getBoundingClientRect()` 在恢复时机异常导致误判。
+- `site.js`：每次判定后都移除 `.nav-scrolled`，防止旧的滚动态 class 把导航强制成白底。
+- `site.js`：新增 `requestAnimationFrame`、`setTimeout(80/260)`、`load`、`pageshow`、`hashchange`、`visibilitychange` 的二次校正，覆盖刷新、返回缓存、跨页返回首页等场景。
+- `index.html`：首页 `site.js` 版本号更新到 `?v=20260623-navfix1`，避免浏览器缓存旧判断逻辑。
+- 验证：`node --check site.js` 通过；`http://127.0.0.1:4178/` 和新版 `site.js` 返回 200。
+
 ### 2026-06-23 · Codex：修复 ClickSpark 在用户环境不可见
 
 用户反馈“点击之后没有火花出现”。排查后发现上一版 ClickSpark 在 `prefers-reduced-motion: reduce` 下直接不初始化，并且 CSS 里也隐藏了 `.click-spark`；这个项目此前多次遇到用户/预览环境开启 reduced-motion 导致动效不可见，所以本轮改为：点击反馈不再受 reduced-motion 禁用。

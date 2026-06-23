@@ -817,6 +817,7 @@
             overflow: hidden;
             background: radial-gradient(circle at center, rgba(189, 0, 255, 0.055), transparent 68%);
         }
+        .service-visual-container:has(.service-visual-state[data-visual="5"].active) { overflow: visible; }
         .service-visual-state {
             position: absolute;
             inset: 0;
@@ -923,10 +924,23 @@
         }
         .service-dashboard {
             position: relative;
-            width: min(92%, 720px);
+            width: min(112%, 860px);
+            height: min(66vh, 610px);
+            min-height: 560px;
+            transform: translateX(-7%);
+            overflow: visible;
+        }
+        .report-card {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 78%;
+            min-height: 520px;
+            display: block;
             padding: 20px;
             border-radius: 22px;
             overflow: hidden;
+            text-align: left;
             color: #fff;
             background:
                 radial-gradient(circle at 80% 0%, rgba(236,0,250,0.18), transparent 34%),
@@ -935,8 +949,18 @@
             box-shadow: 0 30px 90px rgba(0,0,0,0.42);
             backdrop-filter: blur(18px);
             -webkit-backdrop-filter: blur(18px);
+            cursor: pointer;
+            transform: translate3d(var(--x), var(--y), 0) scale(var(--s));
+            opacity: var(--o);
+            z-index: var(--z);
+            transition: transform .48s cubic-bezier(.2,.78,.22,1), opacity .32s ease, box-shadow .32s ease, border-color .32s ease;
         }
-        .service-dashboard::before {
+        .report-card:hover { border-color: rgba(236,0,250,.24); }
+        .report-card[data-slot="0"] { --x: 0px; --y: 0px; --s: 1; --o: 1; --z: 4; box-shadow: 0 34px 96px rgba(0,0,0,0.48), 0 0 42px rgba(189,0,255,.12); }
+        .report-card[data-slot="1"] { --x: 110px; --y: 30px; --s: .91; --o: .82; --z: 3; }
+        .report-card[data-slot="2"] { --x: 198px; --y: 64px; --s: .82; --o: .58; --z: 2; }
+        .report-card[data-slot="3"] { --x: 272px; --y: 98px; --s: .74; --o: .34; --z: 1; }
+        .report-card::before {
             content: '';
             position: absolute;
             inset: 0;
@@ -948,7 +972,19 @@
             mask-image: linear-gradient(120deg, transparent 0%, #000 18%, #000 82%, transparent 100%);
             opacity: .7;
         }
+        .report-card::after {
+            content: '';
+            position: absolute;
+            left: 18px;
+            right: 18px;
+            top: 12px;
+            height: 3px;
+            border-radius: 999px;
+            background: linear-gradient(90deg, #7000ff, #ec00fa, rgba(255,255,255,.72));
+            opacity: .55;
+        }
         .report-shell { position: relative; z-index: 1; }
+        .report-shell.report-card { position: absolute; z-index: var(--z); }
         .report-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 18px; margin-bottom: 18px; }
         .report-kicker { display: block; color: rgba(255,255,255,.48); font-size: 12px; font-weight: 720; letter-spacing: .14em; text-transform: uppercase; margin-bottom: 6px; }
         .report-title { font-size: 20px; font-weight: 820; letter-spacing: -0.02em; }
@@ -993,6 +1029,27 @@
         .report-insight { padding: 12px; border-radius: 16px; background: rgba(189,0,255,.08); border: 1px solid rgba(236,0,250,.12); }
         .report-insight b { display: block; font-family: 'Sora', var(--font-main); font-size: 16px; margin-bottom: 4px; }
         .report-insight span { display: block; color: rgba(255,255,255,.52); font-size: 11px; line-height: 1.45; }
+        .report-card[data-slot]:not([data-slot="0"]) .report-main-grid,
+        .report-card[data-slot]:not([data-slot="0"]) .report-insights { opacity: .34; }
+        .report-mini-list { display: grid; gap: 10px; }
+        .report-mini-item {
+            display: grid;
+            grid-template-columns: 46px 1fr auto;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255,255,255,.075);
+            color: rgba(255,255,255,.7);
+            font-size: 12px;
+        }
+        .report-mini-item:last-child { border-bottom: 0; }
+        .report-mini-item b { color: #fff; font-family: 'Sora', var(--font-main); font-size: 18px; letter-spacing: -0.03em; }
+        .report-mini-pill { padding: 5px 8px; border-radius: 999px; color: rgba(255,255,255,.72); background: rgba(236,0,250,.12); border: 1px solid rgba(236,0,250,.16); font-size: 10px; }
+        .report-heat-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 7px; margin-top: 6px; }
+        .report-heat-grid i { height: 30px; border-radius: 9px; background: rgba(255,255,255,.07); }
+        .report-heat-grid i.hot { background: linear-gradient(135deg, #7000ff, #ec00fa); box-shadow: 0 0 24px rgba(236,0,250,.24); }
+        .report-heat-grid i.mid { background: rgba(189,0,255,.28); }
+        .report-stack-hint { position: absolute; right: 18px; bottom: 14px; z-index: 5; color: rgba(255,255,255,.36); font-size: 11px; pointer-events: none; }
         @media (max-width: 1080px) {
             .service-scene-intro { grid-template-columns: 1fr; }
             .service-scroll-grid { display: block; }
@@ -1021,18 +1078,21 @@
                 visibility: visible;
                 transform: none;
             }
-            .service-feature-item[data-target="5"] .service-mobile-visual {
-                height: 690px;
-                min-height: 690px;
-            }
+            .service-feature-item[data-target="5"] .service-mobile-visual { height: 720px; min-height: 720px; overflow: visible; }
+            .service-feature-item[data-target="5"] .service-dashboard { height: 680px; }
         }
         @media (max-width: 720px) {
             .service-scene-section { padding: 86px 20px 70px; }
             .service-scene-title { font-size: clamp(36px, 11vw, 48px); }
             .service-feature-copy h4 { font-size: 28px; }
             .service-mobile-visual { height: 420px; min-height: 420px; }
-            .service-feature-item[data-target="5"] .service-mobile-visual { height: 760px; min-height: 760px; padding: 18px 0; }
-            .service-dashboard { width: 100%; padding: 16px; }
+            .service-feature-item[data-target="5"] .service-mobile-visual { height: 820px; min-height: 820px; padding: 18px 0; overflow: visible; }
+            .service-dashboard { width: 100%; height: 780px; min-height: 780px; transform: none; }
+            .report-card { width: 86%; min-height: 650px; padding: 16px; }
+            .report-card[data-slot="0"] { --x: 0px; --y: 0px; --s: 1; --o: 1; }
+            .report-card[data-slot="1"] { --x: 34px; --y: 42px; --s: .88; --o: .62; }
+            .report-card[data-slot="2"] { --x: 60px; --y: 82px; --s: .78; --o: .38; }
+            .report-card[data-slot="3"] { --x: 82px; --y: 120px; --s: .68; --o: .22; }
             .report-head, .report-main-grid, .report-insights { grid-template-columns: 1fr; }
             .report-head { display: block; }
             .report-period { margin-top: 8px; }
@@ -1046,6 +1106,7 @@
             .report-bars { height: 82px; gap: 5px; }
             .report-row { grid-template-columns: 74px 1fr 36px; }
             .report-insight { padding: 10px; }
+            .report-mini-item { grid-template-columns: 40px 1fr auto; }
             .service-ui-layers { width: 92%; height: 60%; }
         }
 
@@ -1426,7 +1487,7 @@
                         <div class="service-mobile-visual" aria-hidden="true">
                             <div class="service-visual-state active">
                                 <div class="service-dashboard">
-                                    <div class="report-shell">
+                                    <div class="report-shell report-card" data-slot="0" role="button" tabindex="0" aria-label="查看服务空间运营周报">
                                         <div class="report-head">
                                             <div><span class="report-kicker">Operation Report</span><div class="report-title">服务空间运营周报</div></div>
                                             <div class="report-period">2026.06.16 - 06.22</div>
@@ -1456,6 +1517,60 @@
                                             <div class="report-insight"><b>4 条</b><span>主动反馈回流知识库，持续优化标准答案。</span></div>
                                         </div>
                                     </div>
+                                    <div class="report-shell report-card" data-slot="1" role="button" tabindex="0" aria-label="查看需求热词报告">
+                                        <div class="report-head">
+                                            <div><span class="report-kicker">Demand Mining</span><div class="report-title">需求热词报告</div></div>
+                                            <div class="report-period">Top Entities</div>
+                                        </div>
+                                        <div class="report-main-grid">
+                                            <div class="report-panel">
+                                                <h5>热门实体标签</h5>
+                                                <div class="report-mini-list">
+                                                    <div class="report-mini-item"><b>47</b><span>奧海城相关问询</span><em class="report-mini-pill">Top 1</em></div>
+                                                    <div class="report-mini-item"><b>31</b><span>Wi‑Fi / 会员服务</span><em class="report-mini-pill">服务</em></div>
+                                                    <div class="report-mini-item"><b>28</b><span>廁所 / 禮賓處 / 母婴室</span><em class="report-mini-pill">设施</em></div>
+                                                </div>
+                                            </div>
+                                            <div class="report-panel">
+                                                <h5>潜在招商信号</h5>
+                                                <div class="report-row"><span>泊車</span><div class="report-track"><b class="report-fill" style="--w:58%"></b></div><em>10</em></div>
+                                                <div class="report-row"><span>亲子餐饮</span><div class="report-track"><b class="report-fill" style="--w:46%"></b></div><em>8</em></div>
+                                                <div class="report-row"><span>宠物友好</span><div class="report-track"><b class="report-fill" style="--w:34%"></b></div><em>5</em></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="report-shell report-card" data-slot="2" role="button" tabindex="0" aria-label="查看时段热力报告">
+                                        <div class="report-head">
+                                            <div><span class="report-kicker">Peak Heatmap</span><div class="report-title">时段热力报告</div></div>
+                                            <div class="report-period">24h Pattern</div>
+                                        </div>
+                                        <div class="report-metrics">
+                                            <div class="report-metric"><span>最高峰</span><strong>16-17</strong><small>客流与餐饮问询集中</small></div>
+                                            <div class="report-metric"><span>周五峰值</span><strong>134</strong><small>较日均 +67.3%</small></div>
+                                            <div class="report-metric"><span>本周峰值</span><strong>488</strong><small>第 1 周交互最高</small></div>
+                                        </div>
+                                        <div class="report-panel">
+                                            <h5>小时热力分布</h5>
+                                            <div class="report-heat-grid"><i></i><i class="mid"></i><i></i><i class="mid"></i><i class="hot"></i><i class="hot"></i><i class="mid"></i><i></i><i class="mid"></i><i class="hot"></i><i class="mid"></i><i></i></div>
+                                        </div>
+                                    </div>
+                                    <div class="report-shell report-card" data-slot="3" role="button" tabindex="0" aria-label="查看反馈优化报告">
+                                        <div class="report-head">
+                                            <div><span class="report-kicker">Feedback Loop</span><div class="report-title">反馈优化报告</div></div>
+                                            <div class="report-period">Knowledge Base</div>
+                                        </div>
+                                        <div class="report-metrics">
+                                            <div class="report-metric"><span>主动反馈</span><strong>4</strong><small>点赞 2 / 点踩 2</small></div>
+                                            <div class="report-metric"><span>待优化答案</span><strong>2</strong><small>停车优惠、宠物友好</small></div>
+                                            <div class="report-metric"><span>标准答案沉淀</span><strong>15</strong><small>母婴室回答可复用</small></div>
+                                        </div>
+                                        <div class="report-insights">
+                                            <div class="report-insight"><b>知识补全</b><span>补充停车优惠、宠物友好餐厅等高频缺口。</span></div>
+                                            <div class="report-insight"><b>话术复用</b><span>将高赞回答同步为服务台标准答案。</span></div>
+                                            <div class="report-insight"><b>运营复盘</b><span>按周输出需求变化，指导内容配置。</span></div>
+                                        </div>
+                                    </div>
+                                    <span class="report-stack-hint">点击切换报告</span>
                                 </div>
                             </div>
                         </div>
@@ -1483,7 +1598,7 @@
                         </div>
                         <div class="service-visual-state" data-visual="5">
                             <div class="service-dashboard">
-                                <div class="report-shell">
+                                <div class="report-shell report-card" data-slot="0" role="button" tabindex="0" aria-label="查看服务空间运营周报">
                                     <div class="report-head">
                                         <div><span class="report-kicker">Operation Report</span><div class="report-title">服务空间运营周报</div></div>
                                         <div class="report-period">2026.06.16 - 06.22</div>
@@ -1513,6 +1628,60 @@
                                         <div class="report-insight"><b>4 条</b><span>主动反馈回流知识库，持续优化标准答案。</span></div>
                                     </div>
                                 </div>
+                                <div class="report-shell report-card" data-slot="1" role="button" tabindex="0" aria-label="查看需求热词报告">
+                                    <div class="report-head">
+                                        <div><span class="report-kicker">Demand Mining</span><div class="report-title">需求热词报告</div></div>
+                                        <div class="report-period">Top Entities</div>
+                                    </div>
+                                    <div class="report-main-grid">
+                                        <div class="report-panel">
+                                            <h5>热门实体标签</h5>
+                                            <div class="report-mini-list">
+                                                <div class="report-mini-item"><b>47</b><span>奧海城相关问询</span><em class="report-mini-pill">Top 1</em></div>
+                                                <div class="report-mini-item"><b>31</b><span>Wi‑Fi / 会员服务</span><em class="report-mini-pill">服务</em></div>
+                                                <div class="report-mini-item"><b>28</b><span>廁所 / 禮賓處 / 母婴室</span><em class="report-mini-pill">设施</em></div>
+                                            </div>
+                                        </div>
+                                        <div class="report-panel">
+                                            <h5>潜在招商信号</h5>
+                                            <div class="report-row"><span>泊車</span><div class="report-track"><b class="report-fill" style="--w:58%"></b></div><em>10</em></div>
+                                            <div class="report-row"><span>亲子餐饮</span><div class="report-track"><b class="report-fill" style="--w:46%"></b></div><em>8</em></div>
+                                            <div class="report-row"><span>宠物友好</span><div class="report-track"><b class="report-fill" style="--w:34%"></b></div><em>5</em></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="report-shell report-card" data-slot="2" role="button" tabindex="0" aria-label="查看时段热力报告">
+                                    <div class="report-head">
+                                        <div><span class="report-kicker">Peak Heatmap</span><div class="report-title">时段热力报告</div></div>
+                                        <div class="report-period">24h Pattern</div>
+                                    </div>
+                                    <div class="report-metrics">
+                                        <div class="report-metric"><span>最高峰</span><strong>16-17</strong><small>客流与餐饮问询集中</small></div>
+                                        <div class="report-metric"><span>周五峰值</span><strong>134</strong><small>较日均 +67.3%</small></div>
+                                        <div class="report-metric"><span>本周峰值</span><strong>488</strong><small>第 1 周交互最高</small></div>
+                                    </div>
+                                    <div class="report-panel">
+                                        <h5>小时热力分布</h5>
+                                        <div class="report-heat-grid"><i></i><i class="mid"></i><i></i><i class="mid"></i><i class="hot"></i><i class="hot"></i><i class="mid"></i><i></i><i class="mid"></i><i class="hot"></i><i class="mid"></i><i></i></div>
+                                    </div>
+                                </div>
+                                <div class="report-shell report-card" data-slot="3" role="button" tabindex="0" aria-label="查看反馈优化报告">
+                                    <div class="report-head">
+                                        <div><span class="report-kicker">Feedback Loop</span><div class="report-title">反馈优化报告</div></div>
+                                        <div class="report-period">Knowledge Base</div>
+                                    </div>
+                                    <div class="report-metrics">
+                                        <div class="report-metric"><span>主动反馈</span><strong>4</strong><small>点赞 2 / 点踩 2</small></div>
+                                        <div class="report-metric"><span>待优化答案</span><strong>2</strong><small>停车优惠、宠物友好</small></div>
+                                        <div class="report-metric"><span>标准答案沉淀</span><strong>15</strong><small>母婴室回答可复用</small></div>
+                                    </div>
+                                    <div class="report-insights">
+                                        <div class="report-insight"><b>知识补全</b><span>补充停车优惠、宠物友好餐厅等高频缺口。</span></div>
+                                        <div class="report-insight"><b>话术复用</b><span>将高赞回答同步为服务台标准答案。</span></div>
+                                        <div class="report-insight"><b>运营复盘</b><span>按周输出需求变化，指导内容配置。</span></div>
+                                    </div>
+                                </div>
+                                <span class="report-stack-hint">点击切换报告</span>
                             </div>
                         </div>
                     </div>
@@ -2799,6 +2968,32 @@
             const stage = document.getElementById('capStage');
             if (stage) { stage.addEventListener('mouseenter', stop); stage.addEventListener('mouseleave', play); }
             set(0); play();
+        })();
+
+        // Service report stack: click a background report card to bring it forward.
+        (function () {
+            document.querySelectorAll('.service-dashboard').forEach((stack) => {
+                const cards = Array.from(stack.querySelectorAll('.report-card'));
+                if (cards.length < 2) return;
+                let order = cards.slice();
+                const render = () => order.forEach((card, idx) => card.dataset.slot = String(idx));
+                const bringForward = (card) => {
+                    order = [card, ...order.filter((item) => item !== card)];
+                    render();
+                };
+                cards.forEach((card) => {
+                    card.addEventListener('click', (event) => {
+                        event.stopPropagation();
+                        bringForward(card);
+                    });
+                    card.addEventListener('keydown', (event) => {
+                        if (event.key !== 'Enter' && event.key !== ' ') return;
+                        event.preventDefault();
+                        bringForward(card);
+                    });
+                });
+                render();
+            });
         })();
 
         // Moat: expanding accordion (hover/click to open)

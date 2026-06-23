@@ -1,0 +1,55 @@
+/* Grainient — container + background helpers (vanilla port of reactbits JS-CSS). */
+
+/* Base container the canvas fills (matches reactbits' .grainient-container). */
+.grainient-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Background helper: drop behind page/section content.
+   Put this on an absolutely-positioned layer; give the parent position:relative
+   and the foreground content a higher z-index. pointer-events:none so it never
+   blocks clicks. A CSS gradient acts as fallback until WebGL paints / if it fails. */
+.grainient-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  background: linear-gradient(135deg, #5227FF, #B497CF 50%, #FF9FFC);
+}
+
+/* Preset fallback gradients (shown until WebGL paints, or if it fails).
+   Match the dark/light presets in grainient.js so the section keeps the right tone. */
+.grainient-bg[data-grainient="dark"] {
+  background: linear-gradient(135deg, #16161A, #2A0B4C 55%, #4c4c4c);
+}
+.grainient-bg[data-grainient="light"] {
+  background: linear-gradient(135deg, #e2cff6, #FFE5F1 55%, #ada1c4);
+}
+
+/* Once WebGL has painted, the canvas covers the fallback gradient. */
+.grainient-bg canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Full-viewport fixed variant (e.g. whole-page background). */
+.grainient-bg--fixed {
+  position: fixed;
+}
+
+/* Drop a grainient behind a whole existing section WITHOUT touching its markup:
+   add class "has-grainient" to the section and put a <div class="grainient-bg"
+   data-grainient="dark|light"> as its first child.
+   - isolation:isolate makes the section its own stacking context, so the bg's
+     negative z-index can't slip behind the section or previous sections.
+   - z-index:-1 puts the bg above the section's own background but below ALL its
+     content (no need to bump every child's z-index).
+   - isolation does NOT create a containing block for sticky/fixed, so this is
+     safe for the pinned #products and the sticky #pain panel. */
+.has-grainient { position: relative; isolation: isolate; }
+.has-grainient > .grainient-bg { z-index: -1; }

@@ -5,8 +5,8 @@
     const navShellMode = isIndex ? '' : ' nav-light';
 
     const NAV = `
-    <nav class="fixed top-0 w-full z-50 transition-all duration-300 px-4 md:px-6 py-4" id="navbar">
-        <div class="site-nav-shell${navShellMode} w-full max-w-none mx-0 flex justify-between items-center gap-5 px-7 py-3 rounded-full">
+    <nav class="fixed top-0 w-full z-50 transition-all duration-300" id="navbar">
+        <div class="site-nav-shell${navShellMode} w-full max-w-none mx-0 flex justify-between items-center gap-5">
             <a href="index.html" class="flex items-center shrink-0">
                 <span class="nav-logo-mark" aria-label="2077.AI">
                     <img src="assets/logo.svg" alt="" class="nav-logo-img nav-logo-light">
@@ -167,10 +167,37 @@
         if (window.lucide) window.lucide.createIcons();
 
         const inner = document.querySelector('.site-nav-shell');
-        if (inner && !inner.classList.contains('nav-light')) {
-            const update = () => inner.classList.toggle('nav-scrolled', window.scrollY > 50);
-            update();
-            window.addEventListener('scroll', update, { passive: true });
+        if (inner) {
+            // Sierra-style theme switch: transparent (white text) over dark zones,
+            // solid white (dark text) over light zones. We detect which zone sits
+            // under the nav bar rather than using a fixed scroll threshold, because
+            // sections now alternate dark/light down the page.
+            const darkZones = [];
+            const heroEl = document.getElementById('hero');
+            if (heroEl) darkZones.push(heroEl);                          // homepage dark hero
+            document.querySelectorAll('.has-grainient').forEach((s) => {
+                const bg = s.querySelector(':scope > .grainient-bg');
+                if (bg && bg.getAttribute('data-grainient') === 'dark') darkZones.push(s);
+            });
+            if (darkZones.length) {
+                const refY = 36; // a point inside the bar
+                let ticking = false;
+                const apply = () => {
+                    ticking = false;
+                    const overDark = darkZones.some((z) => {
+                        const r = z.getBoundingClientRect();
+                        return r.top <= refY && r.bottom > refY;
+                    });
+                    inner.classList.toggle('nav-light', !overDark);
+                };
+                const onScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(apply); } };
+                apply();
+                window.addEventListener('scroll', onScroll, { passive: true });
+                window.addEventListener('resize', onScroll);
+            } else {
+                // No dark zones on this page → keep the solid (light) nav.
+                inner.classList.add('nav-light');
+            }
         }
 
         const fab = document.getElementById('fab');

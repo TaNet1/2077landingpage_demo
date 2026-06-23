@@ -82,6 +82,46 @@
 
 ## 交接记录（倒序，最新在上）
 
+### 2026-06-23 · Claude：sticky 修复 + 引入 Grainient 动态背景 + 导航改 Sierra 式
+
+本轮四件事，全部**浏览器实测通过**（用 preview_eval 量 DOM / readPixels，首页截图也确认）。已 commit & push。
+
+#### 1. 修复现场服务模块（#pain）sticky「左右不对齐」
+- 现象：右侧 sticky 演示面板不吸附、随页面滚走，左读到一半右边早跑没了。
+- 根因两个：① `.service-scene-section` 上的 `overflow:hidden` 会破坏后代 `position:sticky`；② 首页视差脚本 `para('#pain .service-scene-wrap', ...)` 给**包着 sticky 的 wrapper** 加了 transform，和 sticky 打架。
+- 改：`index.html` 去掉 `.service-scene-section` 的 `overflow:hidden`（装饰 `::before` 是 inset:0，不会溢出）；删掉 `#pain` 那条 `para()`。两处都留了注释，别再加回去。实测右面板稳定吸在 `top:15vh`、左右一一对应。
+
+#### 2. 修复右侧演示状态切换「过渡时重叠/重影」
+- 根因：切换用 `gsap.fromTo(state,{opacity:0},{opacity:1})` 给状态元素写了**行内 opacity**，行内样式压过 CSS 的 `opacity:0`，非激活状态永远不消失 → 叠在一起；内部 `gsap` 还写了 `transform` 把 `.service-ui-card` 的 CSS 层叠位移覆盖掉。
+- 改：`index.html` 的 `animateState`——状态级淡入淡出**全交给 CSS**（`.service-visual-state[.active]`），gsap 只对内部元素做**纯 opacity** stagger（不碰 transform）。实测静止只 1 个状态可见、切换是干净交叉淡入。
+
+#### 3. 引入 Grainient 动态背景（reactbits 的 JS-CSS 版，vanilla 移植）
+- 项目是**无构建静态站**，所以没用 `shadcn add`（那是 React 的），而是把 reactbits Grainient（ogl + fragment shader）**1:1 移植成 vanilla**。新增三文件：
+  - `grainient.js`：ES module，导出 `mountGrainient(el, opts|presetName)`、`PRESETS`、`DEFAULTS`；支持 `data-grainient="dark|light"` 声明式自动挂载（+ `data-grainient-options` JSON 覆盖单参）；`window.mountGrainient` 全局；含 `prefers-reduced-motion` 降级、运行时 `update()`、`destroy()`。
+  - `grainient.css`：`.grainient-bg`（背景层 + 同色 fallback 渐变）、`.has-grainient`（用 `isolation:isolate` + bg `z-index:-1` 把背景垫到内容下面，**不动现有结构、不破坏 sticky/pin**）。
+  - `grainient-demo.html`：上下两屏演示 dark/light 两套。
+  - 依赖 `ogl@1.0.11`，从 `cdn.jsdelivr.net/.../+esm` 按需加载（零构建）。将来要离线可 vendor 进项目。
+- **两套预设**（用户给的参数，都只改了三色 + `timeSpeed:1.25`）：
+  - `dark`：`#16161A / #2A0B4C / #4c4c4c`（深色区块用）
+  - `light`：`#e2cff6 / #FFE5F1 / #ada1c4`（浅色区块用）
+- **首页 12 个 section 全部整段铺**（hero 不动，用户要求）：`#pain`/`#moat` 用 dark，其余 10 段 light。每段加 `has-grainient` 类 + 首子元素 `<div class="grainient-bg" data-grainient="...">`。
+- **性能**：`grainient.js` 的自动挂载是**懒加载 + 离屏卸载**（`rootMargin:100%`），同屏存活的 WebGL 实例只 1–4 个，远低于浏览器 ~16 上限；离屏即 destroy 释放，回来重建，fallback 同色不闪白。实测全程 maxLive=4。
+- index.html `<head>` 已加 `grainient.css` + `<script type="module" src="grainient.js">`。
+- ⚠️ **light 版偏淡**（亮色 + contrast 1.5 接近白），现在像"白底带一层薰衣草呼吸"。要更明显就把预设的 `contrast` 调低（~1.1）或调 `colorBalance`。
+
+#### 4. 导航改成 Sierra 式（紧贴顶部全宽栏 + 按区块明暗自动切换）
+- 用户要求参考 sierra.ai：**去掉悬浮胶囊**、导航紧贴顶部全宽；**暗色区透明（白 logo/字）、亮色区白底（深 logo/字）**。
+- `site.css`：`#navbar` padding 归零；`.site-nav-shell` 改为 `width:100%; border-radius:0; background:transparent; backdrop-filter:none; border-bottom:1px solid transparent`（默认透明）；`.nav-light/.nav-scrolled` = 白底 + 底部 hairline 分隔线。（注：`index.html` 头部内联还有一份旧导航 CSS，但 `site.css` 在其后加载、同优先级**后者胜**，所以以 site.css 为准；那份内联可日后清理。）
+- `site.js`：① 模板去掉 `#navbar` 的 `px/py` 和 shell 的 `rounded-full px-7 py-3`；② **切换逻辑从「滚动距离>50」改成「检测导航此刻压在哪个区块」**——收集 dark 区（`#hero` + `data-grainient="dark"` 的 `.has-grainient` 段），导航中点（y=36）落在 dark 区就透明、否则白底。rAF 节流。
+- 子页面（无 dark 区）走 else 分支保持白底 flush 栏。实测：hero/#pain/#moat 透明白 logo，#logic/#products/#contact 白底深 logo，子页 products.html 白底 flush，全部无横向溢出、无 console 报错。
+- ⚠️ `about-background.html` 的 hero 是深色但没被标成 dark 区 → 现在是白底导航压深色 hero（和改之前一样，非回归）。要它也透明的话，给那段加个 dark 标记（或 `id="hero"` 之外的判定）。
+
+#### 未提交 / 待办 / 坑
+- `bg/dark.webm`（15MB 视频，用户放的，**未被引用**）和 `product_photo/`（渲染图原图）**未提交**，避免仓库膨胀。`.claude/launch.json` 本地配置也未提交。
+- **子页面和页脚还没铺 grainient**（它们用 page.css/site.js 框架，是另一套 section 结构）；要全站一致需另做一轮。
+- 预览截图 `preview_screenshot` 在首页偶发超时（持续动画 + 多 WebGL），用 `preview_eval` 量尺寸/`readPixels`/`elementFromPoint` 验收更稳。
+- `node --check site.js` 通过；首页 CSS 大括号未额外校验（改动只在 site.css/site.js）。
+
 ### 2026-06-23 · Codex：首页现场服务模块改为 Sticky Scroll
 
 根据用户提供的 `D:/Downloads/runoob-test.html` 原型和开发说明，重做首页 `#pain` 模块：

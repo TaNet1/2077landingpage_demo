@@ -15,6 +15,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <script src="i18n.js"></script>
+    <link rel="stylesheet" href="grainient.css">
+    <script type="module" src="grainient.js"></script>
     <script>
         tailwind.config = {
             theme: {
@@ -715,7 +717,9 @@
             color: #fff;
             background: #08090c;
             padding: clamp(110px, 12vw, 168px) 40px clamp(90px, 10vw, 140px);
-            overflow: hidden;
+            /* NOTE: no overflow:hidden here — it would break position:sticky on
+               .service-sticky-visual (the right panel). The ::before glow is inset:0
+               so it stays clipped to the section without it. */
         }
         .service-scene-section::before {
             content: '';
@@ -1281,7 +1285,8 @@
     </section>
 
     <!-- SERVICE SCENE -->
-    <section id="pain" class="service-scene-section">
+    <section id="pain" class="service-scene-section has-grainient">
+        <div class="grainient-bg" data-grainient="dark"></div>
         <div class="service-scene-wrap max-w-7xl mx-auto" id="serviceScene">
             <div class="service-scene-intro reveal">
                 <div>
@@ -1399,7 +1404,8 @@
     </section>
 
     <!-- PRODUCT LOGIC (感知 → 决策 → 表现) -->
-    <section id="logic" class="py-32 px-10 bg-white">
+    <section id="logic" class="py-32 px-10 bg-white has-grainient">
+        <div class="grainient-bg" data-grainient="light"></div>
         <div class="max-w-7xl mx-auto">
             <div class="text-center mb-16 reveal">
                 <h2 class="text-sm font-bold tracking-widest text-purple-600 mb-4 uppercase">三者协同</h2>
@@ -1463,7 +1469,8 @@
     </section>
 
     <!-- Core Capabilities -->
-    <section class="py-24 px-10 bg-slate-50 overflow-hidden">
+    <section class="py-24 px-10 bg-slate-50 overflow-hidden has-grainient">
+        <div class="grainient-bg" data-grainient="light"></div>
         <div class="max-w-7xl mx-auto">
             <div class="text-center mb-16 reveal">
                 <h2 class="text-sm font-bold tracking-widest text-purple-600 mb-4 uppercase">核心能力</h2>
@@ -1597,7 +1604,8 @@
     </section>
 
     <!-- Products -->
-    <section id="products" class="relative overflow-hidden py-32 px-10 bg-white scroll-story">
+    <section id="products" class="relative overflow-hidden py-32 px-10 bg-white scroll-story has-grainient">
+        <div class="grainient-bg" data-grainient="light"></div>
         <div class="deco-orb anim" style="width:340px;height:340px;background:rgba(146,85,254,.10);top:-60px;left:-80px"></div>
         <div class="deco-orb anim" style="width:300px;height:300px;background:rgba(236,0,250,.08);bottom:-40px;right:-60px;animation-delay:-4s"></div>
         <div class="max-w-7xl mx-auto relative z-10">
@@ -1662,7 +1670,8 @@
     </section>
 
     <!-- MOAT (dark, 全自研) -->
-    <section id="moat" class="py-32 px-10 bg-black text-white relative overflow-hidden">
+    <section id="moat" class="py-32 px-10 bg-black text-white relative overflow-hidden has-grainient">
+        <div class="grainient-bg" data-grainient="dark"></div>
         <div class="absolute inset-0 opacity-20">
             <div id="moatBg1" class="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_30%_30%,#9255fe_0%,transparent_40%)]"></div>
             <div id="moatBg2" class="absolute bottom-0 right-0 w-full h-full bg-[radial-gradient(circle_at_70%_70%,#ec00fa_0%,transparent_40%)]"></div>
@@ -1810,7 +1819,8 @@
     </section>
 
     <!-- SCENARIOS (interactive tabs) -->
-    <section id="scenarios" class="relative overflow-hidden py-32 px-10">
+    <section id="scenarios" class="relative overflow-hidden py-32 px-10 has-grainient">
+        <div class="grainient-bg" data-grainient="light"></div>
         <div class="deco-orb anim" style="width:360px;height:360px;background:rgba(59,130,246,.08);top:10%;right:-90px;animation-delay:-6s"></div>
         <div class="deco-orb anim" style="width:280px;height:280px;background:rgba(236,0,250,.07);bottom:-30px;left:-70px;animation-delay:-2s"></div>
         <div class="max-w-7xl mx-auto relative z-10">
@@ -1925,7 +1935,8 @@
     </section>
 
     <!-- METRICS WALL (count-up) -->
-    <section class="py-28 px-10 bg-slate-50">
+    <section class="py-28 px-10 bg-slate-50 has-grainient">
+        <div class="grainient-bg" data-grainient="light"></div>
         <div class="max-w-7xl mx-auto">
             <div class="text-center mb-16 reveal">
                 <h2 class="text-sm font-bold tracking-widest text-purple-600 mb-4 uppercase">量化收益</h2>
@@ -1957,7 +1968,8 @@
     </section>
 
     <!-- Testimonials -->
-    <section class="py-32 px-10 bg-white">
+    <section class="py-32 px-10 bg-white has-grainient">
+        <div class="grainient-bg" data-grainient="light"></div>
         <div class="max-w-7xl mx-auto">
             <div class="text-center mb-20 reveal">
                 <h2 class="text-sm font-bold tracking-widest text-purple-600 mb-4 uppercase">客户评价</h2>
@@ -2013,7 +2025,8 @@
     </section>
 
     <!-- CASES + logo marquee -->
-    <section id="cases" class="relative overflow-hidden py-32 px-10 bg-slate-50">
+    <section id="cases" class="relative overflow-hidden py-32 px-10 bg-slate-50 has-grainient">
+        <div class="grainient-bg" data-grainient="light"></div>
         <div class="deco-orb anim" style="width:320px;height:320px;background:rgba(146,85,254,.09);top:0;right:-70px;animation-delay:-3s"></div>
         <div class="max-w-7xl mx-auto relative z-10">
             <div class="text-center mb-14 reveal">
@@ -2082,7 +2095,8 @@
     </section>
 
     <!-- CREDENTIALS -->
-    <section class="py-32 px-10 bg-white">
+    <section class="py-32 px-10 bg-white has-grainient">
+        <div class="grainient-bg" data-grainient="light"></div>
         <div class="max-w-7xl mx-auto">
             <div class="text-center mb-16 reveal">
                 <h2 class="text-sm font-bold tracking-widest text-purple-600 mb-4 uppercase">实力与认可</h2>
@@ -2145,7 +2159,8 @@
     </section>
 
     <!-- Contact / CTA -->
-    <section id="contact" class="py-32 px-10 bg-slate-50 relative overflow-hidden">
+    <section id="contact" class="py-32 px-10 bg-slate-50 relative overflow-hidden has-grainient">
+        <div class="grainient-bg" data-grainient="light"></div>
         <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-20 items-center relative z-10">
             <div class="reveal">
                 <h3 class="text-4xl md:text-5xl font-sora font-bold mb-8">为你的服务空间，<br><span class="gradient-text">配一位永不下班的 AI 员工</span></h3>
@@ -2203,7 +2218,8 @@
     </section>
 
     <!-- FAQ -->
-    <section class="py-32 px-10 bg-white">
+    <section class="py-32 px-10 bg-white has-grainient">
+        <div class="grainient-bg" data-grainient="light"></div>
         <div class="max-w-4xl mx-auto">
             <div class="text-center mb-20 reveal">
                 <h2 class="text-sm font-bold tracking-widest text-purple-600 mb-4 uppercase">常见问答</h2>
@@ -2319,7 +2335,8 @@
             };
             para('#heroVisual', -34, '#hero', 'top top', 'bottom top', 1);
             para('#hero .hero-pio-wrap', 30, '#hero', 'top top', 'bottom top', 1.15);
-            para('#pain .service-scene-wrap', -18, '#pain');
+            // NOTE: no parallax on '#pain .service-scene-wrap' — it transforms the
+            // wrapper of the sticky right panel and breaks position:sticky alignment.
             para('#logic > .max-w-7xl', 18, '#logic');
             para('#moatBg1', 58, '#moat');
             para('#moatBg2', -58, '#moat');
@@ -2400,10 +2417,14 @@
                 let ticking = false;
                 const animateState = (state) => {
                     if (!window.gsap || !state) return;
+                    // State-level crossfade is handled purely by CSS (.service-visual-state[.active]).
+                    // Do NOT gsap the state's opacity — inline opacity:1 would override the CSS
+                    // opacity:0 on inactive states and leave them visible (causing overlap/ghosting).
+                    // Only stagger the inner elements' OPACITY (no transform — .service-ui-card
+                    // relies on its CSS rotateY/translateX for the layered look).
                     const targets = state.querySelectorAll('.scene-hotspot, .service-wave-bar, .service-ui-card, .service-dash-card, .service-avatar-closeup');
-                    gsap.fromTo(state, { opacity: 0, y: 18, scale: 0.975 }, { opacity: 1, y: 0, scale: 1, duration: 0.72, ease: 'power3.out' });
                     if (targets.length) {
-                        gsap.fromTo(targets, { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.66, stagger: 0.055, ease: 'power3.out', delay: 0.08 });
+                        gsap.fromTo(targets, { opacity: 0 }, { opacity: 1, duration: 0.5, stagger: 0.05, ease: 'power2.out', delay: 0.12 });
                     }
                 };
                 const setActive = (idx) => {

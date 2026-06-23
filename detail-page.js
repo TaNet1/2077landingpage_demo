@@ -4,7 +4,7 @@
             type: 'Solution',
             title: '商业综合体',
             headline: '迎宾、导购、找店、营销转化一体化',
-            lead: '把商场前台、楼层导视和活动运营统一到 AI 虚拟员工入口，让商业空间拥有可持续运营的数字触点。',
+            lead: '把商场前台、楼层导视和活动运营统一到 AI 虚拟员工入口，让服务空间拥有可持续运营的数字触点。',
             back: { href: 'solutions.html', label: '返回解决方案' },
             image: 'TakePhotos.0036.png',
             tags: ['主动迎宾', '找店导航', '活动推荐', '会员转化', '客流数据沉淀'],
@@ -93,8 +93,8 @@
         'case-sino': {
             type: 'Case',
             title: '信和集团 · 中港城',
-            headline: '商业空间数字内容与 AI 接待入口',
-            lead: '以商业空间数字内容统一入口为目标，承接顾客咨询、商户信息、活动推荐与空间导览。',
+            headline: '服务空间数字内容与 AI 接待入口',
+            lead: '以服务空间数字内容统一入口为目标，承接顾客咨询、商户信息、活动推荐与空间导览。',
             back: { href: 'cases.html', label: '返回落地案例' },
             image: 'TakePhotos.0036.png',
             tags: ['商业综合体', '主动接待', '空间导览', '内容统一入口'],
@@ -236,7 +236,7 @@
             sections: [
                 ['核心问题', '真实空间里的服务需求高频、重复、分散，但人工服务半径有限，传统导视又无法理解复杂问题。'],
                 ['我们的解法', '用 Agent、数字人、CMS 和终端硬件组成完整闭环，把服务能力标准化、产品化、可运营化。'],
-                ['长期方向', '让商业空间和公共服务场所拥有可持续进化的 AI 劳动力。']
+                ['长期方向', '让服务空间和公共服务场所拥有可持续进化的 AI 劳动力。']
             ],
             metrics: [['1套', '统一交付'], ['4项', '全栈能力'], ['多场景', '可复制落地']]
         }
@@ -264,7 +264,7 @@
                 <h1 class="font-sora">${item.title}<br><span class="gradient-text">${item.headline}</span></h1>
                 <p class="lead">${item.lead}</p>
                 <div class="hero-actions">
-                    <a href="index.html#contact" class="btn btn-primary">联系商务</a>
+                    <a href="contact.html" class="btn btn-primary">联系商务</a>
                     <a href="${item.back.href}" class="btn btn-ghost">${item.back.label}</a>
                 </div>
             </div>

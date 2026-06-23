@@ -1,7 +1,7 @@
 (function () {
     const path = location.pathname.split('/').pop() || 'index.html';
     const isIndex = path === 'index.html' || path === '';
-    const contactHref = isIndex ? '#contact' : 'index.html#contact';
+    const contactHref = 'contact.html';
     const navShellMode = isIndex ? '' : ' nav-light';
 
     const NAV = `
@@ -67,7 +67,7 @@
                     <div class="mega-menu">
                         <div class="mega-split">
                             <div class="mega-list">
-                                <a href="case-sino.html" class="mega-link mega-option" data-preview="sino"><span class="mega-icon"><i data-lucide="sparkles" class="w-5 h-5"></i></span><span><h5>信和集团 · 中港城</h5><p>商业空间数字内容与 AI 接待统一入口。</p></span></a>
+                                <a href="case-sino.html" class="mega-link mega-option" data-preview="sino"><span class="mega-icon"><i data-lucide="sparkles" class="w-5 h-5"></i></span><span><h5>信和集团 · 中港城</h5><p>服务空间数字内容与 AI 接待统一入口。</p></span></a>
                                 <a href="case-fire-education.html" class="mega-link mega-option" data-preview="case-tourism"><span class="mega-icon"><i data-lucide="landmark" class="w-5 h-5"></i></span><span><h5>文旅与公共服务</h5><p>景区、消防教育基地、博物馆等多场景复制。</p></span></a>
                             </div>
                             <div class="mega-preview">

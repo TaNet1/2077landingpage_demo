@@ -10,7 +10,7 @@ window.__I18N_DICT = {
     '核心能力': '核心能力', '产品矩阵': '產品矩陣', '客户评价': '客戶評價', '实力与认可': '實力與認可', '常见问答': '常見問答',
     // multi-page nav + home hero (Codex restructure)
     '解决方案': '解決方案', '关于我们': '關於我們', '新闻动态': '新聞動態',
-    '主动迎宾、精准问答、智能导览、营销转化。让商业空间和公共服务场所拥有一位 7×24 小时在岗的虚拟员工。': '主動迎賓、精準問答、智能導覽、營銷轉化。讓商業空間和公共服務場所擁有一位 7×24 小時在崗的虛擬員工。',
+    '主动迎宾、精准问答、智能导览、营销转化。让服务空间和公共服务场所拥有一位 7×24 小时在岗的虚拟员工。': '主動迎賓、精準問答、智能導覽、營銷轉化。讓服務空間和公共服務場所擁有一位 7×24 小時在崗的虛擬員工。',
     '人力成本': '人力成本', '寻路导航': '尋路導航', '营销转化': '營銷轉化', '高峰承载': '高峰承載', '服务标准': '服務標準', '数据沉淀': '數據沉澱', '多语沟通': '多語溝通',
     '超写实克隆': '超寫實複製', '情感语音': '情感語音', '意图推理': '意圖推理', '视觉感知': '視覺感知', '知识大脑': '知識大腦', '全渠道发布': '全通路發布',
     // products (real line)
@@ -50,12 +50,12 @@ window.__I18N_DICT = {
     '单台等效替代 3-4 名导诊 / 咨询': '單台等效替代 3-4 名導診 / 諮詢', '单台年省人力': '單台年省人力', '约 7-12 万元，规模部署省百万级': '約 7-12 萬元，規模部署省百萬級',
     '幻真 Nano 一体机': '幻真 Nano 一體機', '幻真 Pro 旗舰大屏': '幻真 Pro 旗艦大螢幕', '幻真 Robo 机器人': '幻真 Robo 機器人', '幻真云 CMS 平台': '幻真雲 CMS 平台', '官方网站': '官方網站',
     // hero
-    '给你的商业空间，': '為你的商業空間，', '配一位': '配一位', '7×24 在岗': '7×24 在崗', '的 AI 虚拟员工': '的 AI 虛擬員工',
+    '给你的服务空间，': '為你的服務空間，', '配一位': '配一位', '7×24 在岗': '7×24 在崗', '的 AI 虚拟员工': '的 AI 虛擬員工',
     '主动开口、智能交互、多语接待。从迎宾、导览到营销转化，一台设备替代多名人工，全年无休为您创造价值。': '主動開口、智能互動、多語接待。從迎賓、導覽到營銷轉化，一台設備取代多名人力，全年無休為您創造價值。',
     '查看应用场景': '查看應用場景',
     '替代人工（名/台）': '取代人力（名/台）', '单台年省成本（元）': '單台年省成本（元）', '客户满意度提升': '客戶滿意度提升', '多语种识别准确率': '多語種辨識準確率',
     // pain
-    '商业空间的现实困境': '商業空間的現實困境', '这些问题，每天都在消耗你的成本与口碑': '這些問題，每天都在消耗你的成本與口碑',
+    '服务空间的现实困境': '服務空間的現實困境', '这些问题，每天都在消耗你的成本与口碑': '這些問題，每天都在消耗你的成本與口碑',
     '人力成本高，服务不均': '人力成本高，服務不均',
     '招聘难、培训周期长，人力成本持续上涨；高峰期排长队，夜间与节假日服务能力直接断层。': '招聘難、培訓週期長，人力成本持續上漲；高峰期大排長龍，夜間與假日服務能力直接斷層。',
     '寻路难，信息过载': '尋路難，資訊過載',
@@ -138,7 +138,7 @@ window.__I18N_DICT = {
     '综合成本': '綜合成本', '集成 + 维护 + 沟通成本高': '整合 + 維運 + 溝通成本高', 'TCO 显著更低，节省 40%+': 'TCO 顯著更低，節省 40%+',
     '10万+': '10萬+', '日均服务触达': '日均服務觸及', '客户满意度评分': '客戶滿意度評分', '落地垂直行业': '落地垂直產業', '4 合 1': '4 合 1', '全栈自研交付': '全棧自研交付',
     // scenarios
-    '为不同商业空间，量身定制的虚拟员工': '為不同商業空間，量身打造的虛擬員工',
+    '为不同服务空间，量身定制的虚拟员工': '為不同服務空間，量身打造的虛擬員工',
     '商业综合体': '商業綜合體', '银行金融': '銀行金融', '酒店机场': '飯店機場', '展厅导览': '展廳導覽',
     '全知全能的 AI 大使': '全知全能的 AI 大使',
     '将传统服务台升级为动态信息与营销互动平台，破解"寻路难、信息过载"，打通从问询到消费的业务闭环。': '將傳統服務台升級為動態資訊與營銷互動平台，破解「尋路難、資訊過載」，打通從詢問到消費的業務閉環。',
@@ -204,7 +204,7 @@ window.__I18N_DICT = {
     '行业资质荣誉': '行業資質榮譽', '斩获 AI 创新、数字人应用等领域多项权威奖项与行业资质认证。': '斬獲 AI 創新、數碼人應用等領域多項權威獎項與行業資質認證。',
     '媒体报道': '媒體報導', '人民网': '人民網', '新华网': '新華網', '央视网': '央視網', '36氪': '36氪', '虎嗅': '虎嗅', '钛媒体': '鈦媒體', '雷锋网': '雷鋒網', '南方都市报': '南方都市報',
     // contact
-    '为你的商业空间，': '為你的商業空間，', '配一位永不下班的 AI 员工': '配一位永不下班的 AI 員工',
+    '为你的服务空间，': '為你的服務空間，', '配一位永不下班的 AI 员工': '配一位永不下班的 AI 員工',
     '直接联系我们的商务顾问，定制专属你场景的解决方案。我们将在 24 小时内响应。': '直接聯絡我們的商務顧問，量身打造專屬你場景的解決方案。我們將在 24 小時內回覆。',
     '商务直线（Molly）': '商務專線（Molly）', '邮件咨询': '郵件諮詢', '总部地址': '總部地址', '深圳前海深港青年梦工场北区 C 栋 202': '深圳前海深港青年夢工場北區 C 棟 202',
     '您的姓名': '您的姓名', '联系电话': '聯絡電話', '邮箱地址': '電郵地址', '公司名称': '公司名稱', '咨询需求': '諮詢需求', '立即提交申请': '立即提交申請',
@@ -236,7 +236,7 @@ window.__I18N_DICT = {
     '核心能力': 'Core Capabilities', '产品矩阵': 'Product Line', '客户评价': 'Testimonials', '实力与认可': 'Strength & Recognition', '常见问答': 'FAQ',
     // multi-page nav + home hero (Codex restructure)
     '解决方案': 'Solutions', '关于我们': 'About', '新闻动态': 'News',
-    '主动迎宾、精准问答、智能导览、营销转化。让商业空间和公共服务场所拥有一位 7×24 小时在岗的虚拟员工。': 'Proactive greeting, precise Q&A, smart guidance and marketing conversion — give your commercial and public spaces a virtual employee on duty 24/7.',
+    '主动迎宾、精准问答、智能导览、营销转化。让服务空间和公共服务场所拥有一位 7×24 小时在岗的虚拟员工。': 'Proactive greeting, precise Q&A, smart guidance and marketing conversion — give your service spaces and public-service venues a virtual employee on duty 24/7.',
     '人力成本': 'Labor Cost', '寻路导航': 'Wayfinding', '营销转化': 'Conversion', '高峰承载': 'Peak Hours', '服务标准': 'Consistency', '数据沉淀': 'Data', '多语沟通': 'Multilingual',
     '超写实克隆': 'Hyper-Real Cloning', '情感语音': 'Emotional TTS', '意图推理': 'Intent Reasoning', '视觉感知': 'Visual Perception', '知识大脑': 'Knowledge Brain', '全渠道发布': 'Omnichannel',
     // products (real line)
@@ -276,12 +276,12 @@ window.__I18N_DICT = {
     '单台等效替代 3-4 名导诊 / 咨询': 'One unit replaces 3–4 guides / agents', '单台年省人力': 'Annual labor saved/unit', '约 7-12 万元，规模部署省百万级': 'Approx. ¥70k–120k; millions at scale',
     '幻真 Nano 一体机': 'Huanzhen Nano', '幻真 Pro 旗舰大屏': 'Huanzhen Pro', '幻真 Robo 机器人': 'Huanzhen Robo', '幻真云 CMS 平台': 'Huanzhen Cloud CMS', '官方网站': 'Website',
     // hero
-    '给你的商业空间，': 'Give your space', '配一位': 'a ', '7×24 在岗': '24/7 on-duty', '的 AI 虚拟员工': 'AI virtual employee',
+    '给你的服务空间，': 'Give your service space', '配一位': 'a ', '7×24 在岗': '24/7 on-duty', '的 AI 虚拟员工': 'AI virtual employee',
     '主动开口、智能交互、多语接待。从迎宾、导览到营销转化，一台设备替代多名人工，全年无休为您创造价值。': 'Proactive speech, smart interaction and multilingual reception. From greeting and wayfinding to marketing conversion, one device replaces several staff and creates value around the clock.',
     '查看应用场景': 'View Scenarios',
     '替代人工（名/台）': 'Staff replaced (per unit)', '单台年省成本（元）': 'Annual savings per unit (RMB)', '客户满意度提升': 'Satisfaction lift', '多语种识别准确率': 'Multilingual accuracy',
     // pain
-    '商业空间的现实困境': 'Real-world challenges', '这些问题，每天都在消耗你的成本与口碑': 'These problems drain your cost and reputation every single day',
+    '服务空间的现实困境': 'Real-world challenges', '这些问题，每天都在消耗你的成本与口碑': 'These problems drain your cost and reputation every single day',
     '人力成本高，服务不均': 'High labor cost, uneven service',
     '招聘难、培训周期长，人力成本持续上涨；高峰期排长队，夜间与节假日服务能力直接断层。': 'Hiring is hard, training is long and labor costs keep rising; long queues at peak hours, and service simply breaks down at night and on holidays.',
     '寻路难，信息过载': 'Hard to navigate, info overload',
@@ -365,7 +365,7 @@ window.__I18N_DICT = {
     '综合成本': 'Total cost', '集成 + 维护 + 沟通成本高': 'High integration, upkeep and coordination cost', 'TCO 显著更低，节省 40%+': 'Markedly lower TCO, 40%+ savings',
     '10万+': '100k+', '日均服务触达': 'Daily service reach', '客户满意度评分': 'Satisfaction score', '落地垂直行业': 'Verticals deployed', '4 合 1': '4-in-1', '全栈自研交付': 'Full-stack in-house',
     // scenarios
-    '为不同商业空间，量身定制的虚拟员工': 'Virtual employees tailored to every commercial space',
+    '为不同服务空间，量身定制的虚拟员工': 'Virtual employees tailored to every service space',
     '商业综合体': 'Shopping complex', '银行金融': 'Banking & finance', '酒店机场': 'Hotel & airport', '展厅导览': 'Exhibition tours',
     '全知全能的 AI 大使': 'An all-knowing AI ambassador',
     '将传统服务台升级为动态信息与营销互动平台，破解"寻路难、信息过载"，打通从问询到消费的业务闭环。': 'It upgrades the service desk into a dynamic info and marketing hub, solving wayfinding and information overload and closing the loop from inquiry to purchase.',
@@ -431,7 +431,7 @@ window.__I18N_DICT = {
     '行业资质荣誉': 'Industry awards', '斩获 AI 创新、数字人应用等领域多项权威奖项与行业资质认证。': 'Winner of multiple authoritative awards and certifications in AI innovation and digital-human applications.',
     '媒体报道': 'Media', '人民网': 'People’s Daily', '新华网': 'Xinhua', '央视网': 'CCTV', '36氪': '36Kr', '虎嗅': 'Huxiu', '钛媒体': 'TMTPost', '雷锋网': 'Leiphone', '南方都市报': 'Southern Metropolis Daily',
     // contact
-    '为你的商业空间，': 'For your commercial space,', '配一位永不下班的 AI 员工': 'an AI employee that never clocks out',
+    '为你的服务空间，': 'For your service space,', '配一位永不下班的 AI 员工': 'an AI employee that never clocks out',
     '直接联系我们的商务顾问，定制专属你场景的解决方案。我们将在 24 小时内响应。': 'Talk to our business advisors and we will tailor a solution to your scenario. We respond within 24 hours.',
     '商务直线（Molly）': 'Business line (Molly)', '邮件咨询': 'Email', '总部地址': 'Headquarters', '深圳前海深港青年梦工场北区 C 栋 202': 'Rm 202, Bldg C North, Qianhai Youth Hub, Shenzhen',
     '您的姓名': 'Your name', '联系电话': 'Phone', '邮箱地址': 'Email address', '公司名称': 'Company', '咨询需求': 'Your needs', '立即提交申请': 'Submit request',
@@ -516,7 +516,7 @@ Object.assign(window.__I18N_DICT['zh-HK'], {
   "已在真实场景中，": "已在真實場景中，",
   "承接高频服务触点": "承接高頻服務觸點",
   "从商业综合体到文旅、展厅、公共服务，幻真以标准化产品能力支撑不同场景快速复制。": "從商業綜合體到文旅、展廳、公共服務，幻真以標準化產品能力支撐不同場景快速複製。",
-  "以商业空间数字内容统一入口为目标，承接顾客咨询、商户信息、活动推荐与空间导览，让 AI 虚拟员工成为商场前台与运营触点。": "以商業空間數碼內容統一入口為目標，承接顧客諮詢、商戶資訊、活動推薦與空間導覽，讓 AI 虛擬員工成為商場前台與營運觸點。",
+  "以服务空间数字内容统一入口为目标，承接顾客咨询、商户信息、活动推荐与空间导览，让 AI 虚拟员工成为商场前台与运营触点。": "以服務空間數碼內容統一入口為目標，承接顧客諮詢、商戶資訊、活動推薦與空間導覽，讓 AI 虛擬員工成為商場前台與營運觸點。",
   "主动接待": "主動接待",
   "空间导览": "空間導覽",
   "内容统一入口": "內容統一入口",
@@ -569,7 +569,7 @@ Object.assign(window.__I18N_DICT['zh-HK'], {
   "终端硬件与部署": "終端硬件與部署",
   "覆盖一体机、大屏和移动机器人，支持线下稳定运行、私有化部署和软硬协同调校。": "覆蓋一體機、大螢幕和移動機器人，支援線下穩定運行、私有化部署和軟硬協同調校。",
   "我们要解决的问题": "我們要解決的問題",
-  "让每个商业空间和公共服务场所，都能拥有一位稳定、专业、可运营、可复制的 AI 数字员工，承担高频咨询、导览、讲解和转化任务。": "讓每個商業空間和公共服務場所，都能擁有一位穩定、專業、可營運、可複製的 AI 數碼員工，承擔高頻諮詢、導覽、講解和轉化任務。",
+  "让每个服务空间和公共服务场所，都能拥有一位稳定、专业、可运营、可复制的 AI 数字员工，承担高频咨询、导览、讲解和转化任务。": "讓每個服務空間和公共服務場所，都能擁有一位穩定、專業、可營運、可複製的 AI 數碼員工，承擔高頻諮詢、導覽、講解和轉化任務。",
   "1 家": "1 家",
   "统一交付，单点对接": "統一交付，單點對接",
   "4 项": "4 項",
@@ -649,7 +649,7 @@ Object.assign(window.__I18N_DICT.en, {
   "已在真实场景中，": "Already operating in real scenarios,",
   "承接高频服务触点": "handling high-frequency service touchpoints",
   "从商业综合体到文旅、展厅、公共服务，幻真以标准化产品能力支撑不同场景快速复制。": "From commercial complexes to tourism, showrooms and public services, Huanzhen uses standardized product capabilities to replicate quickly across scenarios.",
-  "以商业空间数字内容统一入口为目标，承接顾客咨询、商户信息、活动推荐与空间导览，让 AI 虚拟员工成为商场前台与运营触点。": "It creates a unified digital-content entry for commercial spaces, handling customer questions, merchant information, campaign recommendations and wayfinding so the AI employee becomes both reception and operation touchpoint.",
+  "以服务空间数字内容统一入口为目标，承接顾客咨询、商户信息、活动推荐与空间导览，让 AI 虚拟员工成为商场前台与运营触点。": "It creates a unified digital-content entry for service spaces, handling customer questions, merchant information, campaign recommendations and wayfinding so the AI employee becomes both reception and operation touchpoint.",
   "主动接待": "Proactive reception",
   "空间导览": "Space wayfinding",
   "内容统一入口": "Unified content entry",
@@ -702,7 +702,7 @@ Object.assign(window.__I18N_DICT.en, {
   "终端硬件与部署": "Terminal hardware and deployment",
   "覆盖一体机、大屏和移动机器人，支持线下稳定运行、私有化部署和软硬协同调校。": "Covers all-in-one devices, large screens and mobile robots, with offline stability, private deployment and software-hardware tuning.",
   "我们要解决的问题": "The problem we solve",
-  "让每个商业空间和公共服务场所，都能拥有一位稳定、专业、可运营、可复制的 AI 数字员工，承担高频咨询、导览、讲解和转化任务。": "Give every commercial space and public-service venue a stable, professional, operable and replicable AI digital employee for frequent Q&A, wayfinding, narration and conversion.",
+  "让每个服务空间和公共服务场所，都能拥有一位稳定、专业、可运营、可复制的 AI 数字员工，承担高频咨询、导览、讲解和转化任务。": "Give every service space and public-service venue a stable, professional, operable and replicable AI digital employee for frequent Q&A, wayfinding, narration and conversion.",
   "1 家": "1 team",
   "统一交付，单点对接": "Unified delivery, one contact",
   "4 项": "4 pillars",
@@ -753,7 +753,7 @@ Object.assign(window.__I18N_DICT['zh-HK'], {
   "机场、酒店和会展空间的国际客群咨询与夜间服务。": "機場、酒店和會展空間的國際客群諮詢與夜間服務。",
   "金融合规接待": "金融合規接待",
   "VIP 接待、业务预审、知识问答和本地化安全部署。": "VIP 接待、業務預審、知識問答和本地化安全部署。",
-  "商业空间数字内容与 AI 接待统一入口。": "商業空間數碼內容與 AI 接待統一入口。",
+  "服务空间数字内容与 AI 接待统一入口。": "服務空間數碼內容與 AI 接待統一入口。",
   "文旅与公共服务": "文旅與公共服務",
   "景区、消防教育基地、博物馆等多场景复制。": "景區、消防教育基地、博物館等多場景複製。",
   "旗舰商业案例": "旗艦商業案例",
@@ -803,7 +803,7 @@ Object.assign(window.__I18N_DICT.en, {
   "机场、酒店和会展空间的国际客群咨询与夜间服务。": "International visitor consultation and night service for airports, hotels and event spaces.",
   "金融合规接待": "Compliant financial reception",
   "VIP 接待、业务预审、知识问答和本地化安全部署。": "VIP reception, business pre-screening, knowledge Q&A and localized secure deployment.",
-  "商业空间数字内容与 AI 接待统一入口。": "Unified entry for commercial-space digital content and AI reception.",
+  "服务空间数字内容与 AI 接待统一入口。": "Unified entry for service-space digital content and AI reception.",
   "文旅与公共服务": "Tourism and public services",
   "景区、消防教育基地、博物馆等多场景复制。": "Replicable across attractions, fire-safety education bases, museums and more.",
   "旗舰商业案例": "Flagship commercial case",
@@ -1305,7 +1305,7 @@ Object.assign(window.__I18N_DICT['zh-HK'], {
   "关于 2077.AI · 幻影未来": "關於 2077.AI · 幻影未來",
   "为世界「智」造": "為世界「智」造",
   "一亿服务劳动力": "一億服務勞動力",
-  "2077.AI（幻影未来）专注高度拟人化 AI 虚拟人的研发与应用。我们用 Agent、数字人、CMS 与终端硬件，让每一个商业空间和公共服务场所，都拥有一位 7×24 在岗的 AI 虚拟员工。": "2077.AI（幻影未來）專注高度擬人化 AI 虛擬人的研發與應用。我們用 Agent、數碼人、CMS 與終端硬件，讓每一個商業空間和公共服務場所，都擁有一位 7×24 在崗的 AI 虛擬員工。",
+  "2077.AI（幻影未来）专注高度拟人化 AI 虚拟人的研发与应用。我们用 Agent、数字人、CMS 与终端硬件，让每一个服务空间和公共服务场所，都拥有一位 7×24 在岗的 AI 虚拟员工。": "2077.AI（幻影未來）專注高度擬人化 AI 虛擬人的研發與應用。我們用 Agent、數碼人、CMS 與終端硬件，讓每一個服務空間和公共服務場所，都擁有一位 7×24 在崗的 AI 虛擬員工。",
   "查看产品矩阵": "查看產品矩陣",
   "Mission · 我们的使命": "Mission · 我們的使命",
   "为世界「智」造一亿服务劳动力，让 AI 虚拟员工成为真实空间里的新基础设施。": "為世界「智」造一億服務勞動力，讓 AI 虛擬員工成為真實空間裡的新基礎設施。",
@@ -1369,7 +1369,7 @@ Object.assign(window.__I18N_DICT.en, {
   "关于 2077.AI · 幻影未来": "About 2077.AI · Phantom Future",
   "为世界「智」造": "Engineering the world's",
   "一亿服务劳动力": "100 million AI service workers",
-  "2077.AI（幻影未来）专注高度拟人化 AI 虚拟人的研发与应用。我们用 Agent、数字人、CMS 与终端硬件，让每一个商业空间和公共服务场所，都拥有一位 7×24 在岗的 AI 虚拟员工。": "2077.AI (Phantom Future) focuses on the R&D and application of highly lifelike AI virtual humans. With our Agent, digital humans, CMS and terminal hardware, every commercial space and public-service venue gains a 7×24 on-duty AI virtual employee.",
+  "2077.AI（幻影未来）专注高度拟人化 AI 虚拟人的研发与应用。我们用 Agent、数字人、CMS 与终端硬件，让每一个服务空间和公共服务场所，都拥有一位 7×24 在岗的 AI 虚拟员工。": "2077.AI (Phantom Future) focuses on the R&D and application of highly lifelike AI virtual humans. With our Agent, digital humans, CMS and terminal hardware, every service space and public-service venue gains a 7×24 on-duty AI virtual employee.",
   "查看产品矩阵": "View product matrix",
   "Mission · 我们的使命": "Mission",
   "为世界「智」造一亿服务劳动力，让 AI 虚拟员工成为真实空间里的新基础设施。": "Engineering 100 million service workers for the world — making AI virtual employees the new infrastructure of real-world spaces.",
@@ -1482,4 +1482,30 @@ Object.assign(window.__I18N_DICT.en, {
   "智慧政务，线上线下智能导引、办事咨询与窗口分流。": "Smart government services with online and on-site guidance, enquiry support and counter routing.",
   "展厅移动 AI 讲解员，沉浸式科普与高频问答承接。": "Mobile AI exhibition docent for immersive education and high-frequency Q&A.",
   "剧院导览与信息服务，文化内容讲解与观演引导。": "Theatre guidance and information services with cultural commentary and show-going assistance."
+});
+
+/* contact page */
+Object.assign(window.__I18N_DICT['zh-HK'], {
+  "联系商务，": "聯絡商務，",
+  "评估你的 AI 虚拟员工方案": "評估你的 AI 虛擬員工方案",
+  "告诉我们你的服务空间、客流规模与业务目标，我们会评估适合的产品组合、部署方式和落地路径。": "告訴我們你的服務空間、客流規模與業務目標，我們會評估適合的產品組合、部署方式和落地路徑。",
+  "为你的服务空间，": "為你的服務空間，",
+  "直接联系我们的商务顾问，定制专属你场景的解决方案。我们将在 24 小时内响应。": "直接聯絡我們的商務顧問，定制專屬你場景的解決方案。我們會在 24 小時內回覆。",
+  "请输入您的称呼": "請輸入您的稱呼",
+  "请输入手机号码": "請輸入手機號碼",
+  "请输入邮箱地址": "請輸入電郵地址",
+  "您的企业或组织名称": "您的企業或組織名稱",
+  "请简述您的应用场景或定制需求...": "請簡述您的應用場景或定制需求..."
+});
+Object.assign(window.__I18N_DICT.en, {
+  "联系商务，": "Contact sales,",
+  "评估你的 AI 虚拟员工方案": "assess your AI virtual employee plan",
+  "告诉我们你的服务空间、客流规模与业务目标，我们会评估适合的产品组合、部署方式和落地路径。": "Tell us about your service space, traffic scale and business goals. We will assess the right product mix, deployment model and rollout path.",
+  "为你的服务空间，": "For your service space,",
+  "直接联系我们的商务顾问，定制专属你场景的解决方案。我们将在 24 小时内响应。": "Contact our sales consultant directly to tailor a solution for your scenario. We will respond within 24 hours.",
+  "请输入您的称呼": "Enter your name",
+  "请输入手机号码": "Enter your phone number",
+  "请输入邮箱地址": "Enter your email address",
+  "您的企业或组织名称": "Your company or organization",
+  "请简述您的应用场景或定制需求...": "Briefly describe your scenario or customization needs..."
 });

@@ -82,6 +82,25 @@
 
 ## 交接记录（倒序，最新在上）
 
+### 2026-06-23 · Codex：完成服务空间文案统一 + 独立联系商务页
+
+根据用户要求接手 Claude 留下的两个任务，本轮完成：
+- 全站将「商业空间」统一改为「服务空间」，包括首页 hero、副文案、痛点标题、应用场景标题、底部联系区、关于页、案例页、详情页数据和 i18n key/value。
+- 按用户要求保留「商业综合体」解决方案名称和相关场景命名，未改成「服务综合体」。
+- 新增 `contact.html` 独立联系商务页，套用统一子页骨架（`#site-nav` / `#site-footer` / `#site-fab` + `page.css` / `site.css` / `site.js`），内容复用首页联系信息与表单。
+- 保留首页原 `#contact` 区块不删除；只是把所有联系商务入口改到 `contact.html`。
+- `site.js`：`contactHref` 统一为 `contact.html`，覆盖桌面导航、移动 CTA、FAB、mega menu 联系入口。
+- `index.html` hero 联系商务按钮、5 个产品详情页、`detail-page.js` 详情模板、`about-background.html` CTA 均改为 `contact.html`。
+- `i18n.js`：补充 `contact.html` 新增标题、导语、表单 placeholder 的 zh-HK/en 翻译，并同步修正服务空间相关英文译文。
+
+验证：
+- 静态搜索确认页面/脚本中不再有 `index.html#contact` 或 `href="#contact"`（仅 `HANDOFF.md` 历史任务描述、首页内部 parallax 脚本仍出现 `#contact`，属于保留首页联系区的内部定位）。
+- 静态搜索确认页面/脚本/i18n 中不再有可见「商业空间」，「商业综合体」保留。
+- `node --check site.js` / `node --check i18n.js` / `node --check detail-page.js` 通过。
+- `index.html` / `contact.html` 内联脚本解析通过。
+- `page.css` / `site.css` / `index.html` / `contact.html` CSS 大括号平衡检查通过。
+- 本地 HTTP 检查通过：`/`、`/contact.html`、`/products.html`、`/product-nano.html`、`/product-pro.html`、`/product-robo.html`、`/about-background.html`、`/solutions.html`、`/cases.html` 均返回 `200 OK`。
+
 ### 2026-06-23 · Claude：替换产品渲染图 + 产品矩阵改版 + zh-HK + 交接两个待办给 Codex
 
 用户额度快用尽，本条把**本会话已完成**和**两个待 Codex 继续的任务**都写清。本会话改动**已 commit & push 到 main**（见下）。

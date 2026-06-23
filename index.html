@@ -922,30 +922,77 @@
             background: var(--scene-gradient);
         }
         .service-dashboard {
-            width: min(84%, 600px);
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 18px;
+            position: relative;
+            width: min(92%, 720px);
+            padding: 20px;
+            border-radius: 22px;
+            overflow: hidden;
+            color: #fff;
+            background:
+                radial-gradient(circle at 80% 0%, rgba(236,0,250,0.18), transparent 34%),
+                linear-gradient(135deg, rgba(255,255,255,0.075), rgba(255,255,255,0.028));
+            border: 1px solid rgba(255,255,255,0.10);
+            box-shadow: 0 30px 90px rgba(0,0,0,0.42);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
         }
-        .service-dash-card {
-            min-height: 150px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding: 22px;
+        .service-dashboard::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+            background-size: 42px 42px;
+            mask-image: linear-gradient(120deg, transparent 0%, #000 18%, #000 82%, transparent 100%);
+            opacity: .7;
+        }
+        .report-shell { position: relative; z-index: 1; }
+        .report-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 18px; margin-bottom: 18px; }
+        .report-kicker { display: block; color: rgba(255,255,255,.48); font-size: 12px; font-weight: 720; letter-spacing: .14em; text-transform: uppercase; margin-bottom: 6px; }
+        .report-title { font-size: 20px; font-weight: 820; letter-spacing: -0.02em; }
+        .report-period { color: rgba(255,255,255,.54); font-family: 'Sora', var(--font-main); font-size: 12px; white-space: nowrap; }
+        .report-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin-bottom: 14px; }
+        .report-metric {
+            min-height: 94px;
+            padding: 14px;
             border-radius: 16px;
-            background: rgba(255,255,255,0.04);
-            border: 1px solid rgba(255,255,255,0.08);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
+            background: rgba(255,255,255,0.052);
+            border: 1px solid rgba(255,255,255,0.075);
         }
-        .service-dash-card h4 { color: var(--scene-muted); font-size: 14px; font-weight: 500; margin-bottom: 10px; }
-        .service-dash-number { color: #fff; font-family: 'Sora', sans-serif; font-size: clamp(34px, 3.7vw, 54px); font-weight: 780; letter-spacing: -0.04em; }
-        .service-dash-chart { position: relative; height: 58px; border-bottom: 2px solid rgba(189,0,255,0.26); overflow: hidden; }
-        .service-dash-line { position: absolute; left: 0; bottom: -2px; width: 72%; height: 2px; background: #bd00ff; box-shadow: 28px -16px 30px rgba(189,0,255,0.48); }
-        .service-donut { width: 86px; height: 86px; margin: 0 auto; border-radius: 50%; display: grid; place-items: center; background: conic-gradient(#bd00ff 0 65%, rgba(255,255,255,0.1) 65% 100%); }
-        .service-donut span { width: 62px; height: 62px; border-radius: 50%; display: grid; place-items: center; color: #fff; font-weight: 800; background: #08090c; }
-        .service-heatbar { height: 42px; border-radius: 8px; background: linear-gradient(90deg, rgba(189,0,255,0.08), rgba(189,0,255,0.78) 78%, rgba(112,0,255,0.22)); }
+        .report-metric span { display: block; color: rgba(255,255,255,.52); font-size: 12px; margin-bottom: 8px; }
+        .report-metric strong { display: block; font-family: 'Sora', var(--font-main); font-size: clamp(24px, 2.4vw, 36px); line-height: 1; letter-spacing: -0.045em; }
+        .report-metric small { display: block; color: rgba(255,255,255,.46); font-size: 11px; margin-top: 8px; }
+        .report-main-grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: 12px; }
+        .report-panel {
+            min-height: 188px;
+            padding: 16px;
+            border-radius: 18px;
+            background: rgba(8,9,12,0.38);
+            border: 1px solid rgba(255,255,255,0.075);
+        }
+        .report-panel h5 { color: rgba(255,255,255,.72); font-size: 13px; font-weight: 760; margin-bottom: 14px; }
+        .report-bars { height: 116px; display: flex; align-items: flex-end; gap: 8px; padding-top: 8px; }
+        .report-bars i {
+            flex: 1;
+            height: var(--h);
+            min-height: 22px;
+            border-radius: 999px 999px 6px 6px;
+            background: linear-gradient(180deg, rgba(236,0,250,.96), rgba(112,0,255,.42));
+            box-shadow: 0 10px 28px rgba(189,0,255,.18);
+        }
+        .report-bars i:nth-child(5) { background: linear-gradient(180deg, #fff, #ec00fa 36%, #7000ff); box-shadow: 0 0 34px rgba(236,0,250,.42); }
+        .report-axis { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; margin-top: 10px; color: rgba(255,255,255,.36); font-size: 10px; text-align: center; }
+        .report-row { display: grid; grid-template-columns: 82px 1fr 42px; align-items: center; gap: 10px; margin-bottom: 12px; font-size: 12px; color: rgba(255,255,255,.7); }
+        .report-track { height: 9px; border-radius: 999px; overflow: hidden; background: rgba(255,255,255,.08); }
+        .report-fill { display: block; width: var(--w); height: 100%; border-radius: inherit; background: linear-gradient(90deg, #7000ff, #ec00fa); }
+        .report-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+        .report-tags span { padding: 7px 9px; border-radius: 999px; color: rgba(255,255,255,.74); font-size: 11px; background: rgba(255,255,255,.065); border: 1px solid rgba(255,255,255,.07); }
+        .report-insights { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin-top: 12px; }
+        .report-insight { padding: 12px; border-radius: 16px; background: rgba(189,0,255,.08); border: 1px solid rgba(236,0,250,.12); }
+        .report-insight b { display: block; font-family: 'Sora', var(--font-main); font-size: 16px; margin-bottom: 4px; }
+        .report-insight span { display: block; color: rgba(255,255,255,.52); font-size: 11px; line-height: 1.45; }
         @media (max-width: 1080px) {
             .service-scene-intro { grid-template-columns: 1fr; }
             .service-scroll-grid { display: block; }
@@ -974,14 +1021,31 @@
                 visibility: visible;
                 transform: none;
             }
+            .service-feature-item[data-target="5"] .service-mobile-visual {
+                height: 690px;
+                min-height: 690px;
+            }
         }
         @media (max-width: 720px) {
             .service-scene-section { padding: 86px 20px 70px; }
             .service-scene-title { font-size: clamp(36px, 11vw, 48px); }
             .service-feature-copy h4 { font-size: 28px; }
             .service-mobile-visual { height: 420px; min-height: 420px; }
-            .service-dashboard { width: 100%; grid-template-columns: 1fr; }
-            .service-dash-card.is-wide { grid-column: auto !important; min-height: 120px; }
+            .service-feature-item[data-target="5"] .service-mobile-visual { height: 760px; min-height: 760px; padding: 18px 0; }
+            .service-dashboard { width: 100%; padding: 16px; }
+            .report-head, .report-main-grid, .report-insights { grid-template-columns: 1fr; }
+            .report-head { display: block; }
+            .report-period { margin-top: 8px; }
+            .report-metrics { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 7px; }
+            .report-metric { min-height: 76px; padding: 10px; }
+            .report-metric span { font-size: 10px; }
+            .report-metric strong { font-size: 22px; }
+            .report-metric small { font-size: 9px; }
+            .report-main-grid, .report-insights { display: grid; }
+            .report-panel { min-height: 146px; padding: 13px; }
+            .report-bars { height: 82px; gap: 5px; }
+            .report-row { grid-template-columns: 74px 1fr 36px; }
+            .report-insight { padding: 10px; }
             .service-ui-layers { width: 92%; height: 60%; }
         }
 
@@ -1362,9 +1426,36 @@
                         <div class="service-mobile-visual" aria-hidden="true">
                             <div class="service-visual-state active">
                                 <div class="service-dashboard">
-                                    <div class="service-dash-card"><h4>累计接待次数</h4><div class="service-dash-number">12,408</div><div class="service-dash-chart"><div class="service-dash-line"></div></div></div>
-                                    <div class="service-dash-card"><h4>高频诉求占比</h4><div class="service-donut"><span>65%</span></div></div>
-                                    <div class="service-dash-card is-wide" style="grid-column: span 2;"><h4>本月服务热力趋势</h4><div class="service-heatbar"></div></div>
+                                    <div class="report-shell">
+                                        <div class="report-head">
+                                            <div><span class="report-kicker">Operation Report</span><div class="report-title">服务空间运营周报</div></div>
+                                            <div class="report-period">2026.06.16 - 06.22</div>
+                                        </div>
+                                        <div class="report-metrics">
+                                            <div class="report-metric"><span>总交互量</span><strong>1,147</strong><small>日均 80.1 次</small></div>
+                                            <div class="report-metric"><span>峰值时段</span><strong>84</strong><small>16:00-17:00</small></div>
+                                            <div class="report-metric"><span>高频诉求占比</span><strong>68.1%</strong><small>设施及服务</small></div>
+                                        </div>
+                                        <div class="report-main-grid">
+                                            <div class="report-panel">
+                                                <h5>7 日交互趋势</h5>
+                                                <div class="report-bars"><i style="--h:48%"></i><i style="--h:55%"></i><i style="--h:62%"></i><i style="--h:70%"></i><i style="--h:100%"></i><i style="--h:76%"></i><i style="--h:58%"></i></div>
+                                                <div class="report-axis"><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span></div>
+                                            </div>
+                                            <div class="report-panel">
+                                                <h5>高频需求结构</h5>
+                                                <div class="report-row"><span>设施服务</span><div class="report-track"><b class="report-fill" style="--w:68%"></b></div><em>68%</em></div>
+                                                <div class="report-row"><span>美食导览</span><div class="report-track"><b class="report-fill" style="--w:56%"></b></div><em>193</em></div>
+                                                <div class="report-row"><span>交通泊车</span><div class="report-track"><b class="report-fill" style="--w:42%"></b></div><em>84</em></div>
+                                                <div class="report-tags"><span>奧海城 47</span><span>Wi‑Fi</span><span>廁所</span><span>禮賓處</span></div>
+                                            </div>
+                                        </div>
+                                        <div class="report-insights">
+                                            <div class="report-insight"><b>+67.3%</b><span>周五交互高于日均，可提前加推活动与人手安排。</span></div>
+                                            <div class="report-insight"><b>259%</b><span>晚高峰问询集中，适合强化路线与餐饮推荐。</span></div>
+                                            <div class="report-insight"><b>4 条</b><span>主动反馈回流知识库，持续优化标准答案。</span></div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -1392,9 +1483,36 @@
                         </div>
                         <div class="service-visual-state" data-visual="5">
                             <div class="service-dashboard">
-                                <div class="service-dash-card"><h4>累计接待次数</h4><div class="service-dash-number">12,408</div><div class="service-dash-chart"><div class="service-dash-line"></div></div></div>
-                                <div class="service-dash-card"><h4>高频诉求占比</h4><div class="service-donut"><span>65%</span></div></div>
-                                <div class="service-dash-card is-wide" style="grid-column: span 2;"><h4>本月服务热力趋势</h4><div class="service-heatbar"></div></div>
+                                <div class="report-shell">
+                                    <div class="report-head">
+                                        <div><span class="report-kicker">Operation Report</span><div class="report-title">服务空间运营周报</div></div>
+                                        <div class="report-period">2026.06.16 - 06.22</div>
+                                    </div>
+                                    <div class="report-metrics">
+                                        <div class="report-metric"><span>总交互量</span><strong>1,147</strong><small>日均 80.1 次</small></div>
+                                        <div class="report-metric"><span>峰值时段</span><strong>84</strong><small>16:00-17:00</small></div>
+                                        <div class="report-metric"><span>高频诉求占比</span><strong>68.1%</strong><small>设施及服务</small></div>
+                                    </div>
+                                    <div class="report-main-grid">
+                                        <div class="report-panel">
+                                            <h5>7 日交互趋势</h5>
+                                            <div class="report-bars"><i style="--h:48%"></i><i style="--h:55%"></i><i style="--h:62%"></i><i style="--h:70%"></i><i style="--h:100%"></i><i style="--h:76%"></i><i style="--h:58%"></i></div>
+                                            <div class="report-axis"><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span></div>
+                                        </div>
+                                        <div class="report-panel">
+                                            <h5>高频需求结构</h5>
+                                            <div class="report-row"><span>设施服务</span><div class="report-track"><b class="report-fill" style="--w:68%"></b></div><em>68%</em></div>
+                                            <div class="report-row"><span>美食导览</span><div class="report-track"><b class="report-fill" style="--w:56%"></b></div><em>193</em></div>
+                                            <div class="report-row"><span>交通泊车</span><div class="report-track"><b class="report-fill" style="--w:42%"></b></div><em>84</em></div>
+                                            <div class="report-tags"><span>奧海城 47</span><span>Wi‑Fi</span><span>廁所</span><span>禮賓處</span></div>
+                                        </div>
+                                    </div>
+                                    <div class="report-insights">
+                                        <div class="report-insight"><b>+67.3%</b><span>周五交互高于日均，可提前加推活动与人手安排。</span></div>
+                                        <div class="report-insight"><b>259%</b><span>晚高峰问询集中，适合强化路线与餐饮推荐。</span></div>
+                                        <div class="report-insight"><b>4 条</b><span>主动反馈回流知识库，持续优化标准答案。</span></div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -2422,7 +2540,7 @@
                     // opacity:0 on inactive states and leave them visible (causing overlap/ghosting).
                     // Only stagger the inner elements' OPACITY (no transform — .service-ui-card
                     // relies on its CSS rotateY/translateX for the layered look).
-                    const targets = state.querySelectorAll('.scene-hotspot, .service-wave-bar, .service-ui-card, .service-dash-card, .service-avatar-closeup');
+                    const targets = state.querySelectorAll('.scene-hotspot, .service-wave-bar, .service-ui-card, .report-metric, .report-panel, .report-insight, .service-avatar-closeup');
                     if (targets.length) {
                         gsap.fromTo(targets, { opacity: 0 }, { opacity: 1, duration: 0.5, stagger: 0.05, ease: 'power2.out', delay: 0.12 });
                     }

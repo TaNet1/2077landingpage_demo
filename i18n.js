@@ -1524,7 +1524,23 @@ Object.assign(window.__I18N_DICT['zh-HK'], {
   "开始导航": "開始導航",
   "累计接待次数": "累計接待次數",
   "高频诉求占比": "高頻訴求佔比",
-  "本月服务热力趋势": "本月服務熱力趨勢"
+  "本月服务热力趋势": "本月服務熱力趨勢",
+  "服务空间运营周报": "服務空間營運週報",
+  "总交互量": "總互動量",
+  "日均 80.1 次": "日均 80.1 次",
+  "峰值时段": "峰值時段",
+  "设施及服务": "設施及服務",
+  "7 日交互趋势": "7 日互動趨勢",
+  "高频需求结构": "高頻需求結構",
+  "设施服务": "設施服務",
+  "美食导览": "美食導覽",
+  "交通泊车": "交通泊車",
+  "奧海城 47": "奧海城 47",
+  "廁所": "廁所",
+  "禮賓處": "禮賓處",
+  "周五交互高于日均，可提前加推活动与人手安排。": "週五互動高於日均，可提前加推活動與人手安排。",
+  "晚高峰问询集中，适合强化路线与餐饮推荐。": "晚高峰問詢集中，適合強化路線與餐飲推薦。",
+  "主动反馈回流知识库，持续优化标准答案。": "主動反饋回流知識庫，持續優化標準答案。"
 });
 Object.assign(window.__I18N_DICT.en, {
   "为什么 AI 虚拟人天然适合服务场景": "Why AI virtual humans naturally fit service scenarios",
@@ -1565,7 +1581,23 @@ Object.assign(window.__I18N_DICT.en, {
   "开始导航": "Start navigation",
   "累计接待次数": "Total receptions",
   "高频诉求占比": "Frequent-need share",
-  "本月服务热力趋势": "Service heat trend this month"
+  "本月服务热力趋势": "Service heat trend this month",
+  "服务空间运营周报": "Service-space weekly operations report",
+  "总交互量": "Total interactions",
+  "日均 80.1 次": "80.1 per day",
+  "峰值时段": "Peak hour",
+  "设施及服务": "Facilities & services",
+  "7 日交互趋势": "7-day interaction trend",
+  "高频需求结构": "Frequent-need structure",
+  "设施服务": "Facilities",
+  "美食导览": "Dining guidance",
+  "交通泊车": "Transport & parking",
+  "奧海城 47": "Olympian City 47",
+  "廁所": "Restroom",
+  "禮賓處": "Concierge",
+  "周五交互高于日均，可提前加推活动与人手安排。": "Friday interactions are above average, informing event pushes and staffing plans.",
+  "晚高峰问询集中，适合强化路线与餐饮推荐。": "Evening-peak questions cluster around routes and dining recommendations.",
+  "主动反馈回流知识库，持续优化标准答案。": "Active feedback flows back into the knowledge base to improve standard answers."
 });
 
 /* contact page */

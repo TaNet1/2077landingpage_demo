@@ -82,6 +82,48 @@
 
 ## 交接记录（倒序，最新在上）
 
+### 2026-06-23 · Claude：替换产品渲染图 + 产品矩阵改版 + zh-HK + 交接两个待办给 Codex
+
+用户额度快用尽，本条把**本会话已完成**和**两个待 Codex 继续的任务**都写清。本会话改动**已 commit & push 到 main**（见下）。
+
+#### 本会话已完成（已推送）
+
+1. **三张产品渲染图替换**：用户把渲染图放在 `product_photo/`（中文名 `幻真Nano/Pro/Robo.png`）。我拷到 `assets/` 并用 ASCII 名 `product-nano.png / product-pro.png / product-robo.png`（避免中文文件名引用问题）。替换了 3 处占位：
+   - 首页 `index.html` 产品矩阵 3 张 `.product-shot`（原是注释掉的 img + 占位 span，已改为真实 `<img>`）。
+   - `products.html` 总览页 Nano/Pro/Robo 三张 `.overview-media`（原 `avatar-1/2/7.png`）。
+   - `product-nano.html / product-pro.html / product-robo.html` 详情页 hero 图（第 37 行，原 `avatar-*.png`）。
+   - ⚠️ 软件产品「幻真 / 幻真CMS」**没有**渲染图，仍用 avatar 占位，未动。
+2. **图片压缩**：三张原图很大（Robo 9MB），已用 PIL 缩到最长边 1800px + optimize，现 Nano 346KB / Pro 814KB / Robo 1007KB，**保留透明通道**（都是 RGBA 抠图）。`product_photo/` 原始大图**未提交**（避免仓库膨胀），仍在工作区。
+3. **首页产品矩阵「大气」改版**（`index.html` 内联 CSS，约 851 行 `.product-shot`）：原来是「9:16 带边框小方盒 + object-fit:cover」会把超高的 Nano 裁掉头。改为：去掉边框盒子，三台设备 **等高悬浮**（`display:flex; align-items:flex-end; height:clamp(380px,33vw,520px)`，img `height:100%;width:auto;object-fit:contain`）在一束 `radial-gradient` 品牌光晕上，加 `::after` 落地椭圆投影 + img `drop-shadow`。三张图已统一裁成 1800px 等高，所以设备视觉等高、很整齐。
+4. **产品矩阵 3 个 CTA 按钮统一**：原来是「了解详情 / 预约演示 / 联系商务」三个不同文案 + 都指向 `#contact`。现统一为 **「了解详情」**，分别链到 `product-nano.html / product-pro.html / product-robo.html`（Pro 卡保留渐变按钮样式作旗舰强调）。`了解详情` 的 i18n（繁/英）字典里已有。
+5. **zh-TW → zh-HK（香港繁体）**：用户要求繁体改成香港 locale。改动：
+   - `i18n.js`：字典 key `'zh-TW'` → `'zh-HK'`（含所有 `Object.assign(window.__I18N_DICT['zh-HK'], ...)`）。
+   - `site.js`：语言按钮 `data-lang="zh-HK"`、`VALID` 数组、地理判断、`el.lang` 改为 `zh-Hant-HK`；并加了 `if (saved === 'zh-TW') saved = 'zh-HK';` 迁移旧偏好。
+   - `site.css` / `index.html`：字体选择器 `html[data-lang="zh-HK"]`（Noto Sans HK）。
+   - **用词核对结论**：字典本来就已是港式/通用繁体用词（`軟件`/`數碼`/`數據`/`智能`/`數碼人`，非台湾的 軟體/數位/資料/智慧），仅有的 12 处 `智慧` 全是「智慧政務/智慧迎賓/智慧決策」固定词（香港也这么用），**无需改词**。实测切到 zh-HK：`html lang=zh-Hant-HK`、`软件平台→軟件平台` 正常。
+   - ⚠️ **观察到并行编辑**：任务 5 进行中我发现 `i18n.js`/`site.js` 在我动手前已被改成 zh-HK（含我才刚想到的迁移行），疑似用户在并行跑 Codex 改同一仓库。我没覆盖，只补了它漏的 `site.css` 那行并验证。**Codex 接手时注意先 `git pull`，避免互相覆盖。**
+
+#### 待 Codex 继续的两个任务（用户明确指派，本会话因额度未做）
+
+**任务 A：首页「商业空间」改「服务空间」**
+- 用户截图圈的是**首页底部联系商务区块的标题**：`index.html:1816` `<h3>为你的商业空间，<br>...配一位永不下班的 AI 员工</h3>` → 把「商业空间」改「服务空间」。
+- 注意首页还有多处「商业空间」：`index.html:907`（hero「给你的商业空间」）、`:912`（hero 副文案「让商业空间和公共服务场所」）、`:1009`（「商业空间的现实困境」）、`:1484`（「为不同商业空间」）。**用户只指了 1816 那处**，但「服务空间」更贴合定位——建议先确认是只改 1816 还是全站统一改。
+- 改完记得在 `i18n.js` 给「服务空间」相关新句补 zh-HK/en（若整句变了，旧 key 的翻译会失效，需要新增对应 key）。
+
+**任务 B：把「联系商务」做成独立子页面，所有联系商务按钮跳过去**
+- 新建 `contact.html`，套用**子页面统一框架模板**（见本文档上方模板：`#site-nav`/`#site-footer`/`#site-fab` 占位 + head 引 fonts/tailwind/lucide/i18n.js/page.css/site.css + body 末 site.js）。
+- 内容就是**首页 `#contact` 区块**（`index.html:1813-1868`）：左侧标题/导语 + 商务直线 Molly 186 7638 7250 / 邮件 Molly@2077.ai / 官网 www.2077.ai / 总部地址；右侧表单（姓名/电话/邮箱/公司/咨询需求 + 立即提交申请）。把这段 DOM 搬/复制进 contact.html 正文（注意 contact.html 用的是 page.css 体系，原 `#contact` 用的是 Tailwind 工具类——可以直接保留 Tailwind class，因为子页也引了 tailwind CDN）。
+- **所有「联系商务」入口改指向 `contact.html`**（当前都指向 `#contact` / `index.html#contact`）：
+  - `site.js:4` `const contactHref = isIndex ? '#contact' : 'index.html#contact';` → 直接改成 `'contact.html'`（一处搞定 nav 按钮 `:108`、移动 CTA `:120`、FAB `:153` 三个共享入口）。
+  - 首页 hero 按钮 `index.html:915` `href="#contact"` → `contact.html`。
+  - 5 个产品页 `product-*.html:29`、`detail-page.js:267`、`about-background.html:303` 里的 `index.html#contact` → `contact.html`。
+- contact.html 的 `<title>` 等新中文记得补 i18n（表单 label/标题等大多已在字典里，因为原 #contact 在已翻译的 index.html 上；新增的标题句补 zh-HK/en 即可）。
+- 用户没要求删首页 `#contact` 区块——保留首页那段还是删掉、改成入口卡片，建议跟用户确认；最简做法是**首页保留**，只是按钮都改跳 contact.html。
+
+#### 验证/坑提示
+- 本地预览：Claude_Preview 用 `npx serve -l 4181`（`.claude/launch.json`，本地配置未提交）。本会话 `preview_screenshot` 在首页频繁超时（首页 GSAP/Lenis/聊天轮播持续动画 + 大图，截图等不到 idle），用 `preview_eval` 量 DOM 尺寸/文本来验收更稳；要看视觉可临时建一个无动画的简单页截图。
+- `node --check i18n.js` / `node --check site.js` 通过。
+
 ### 2026-06-22 · Codex：补充首页首屏背景视频素材规格
 
 用户询问首页首屏背景视频应该提供什么格式。本轮无代码改动，只补充素材交接要求，方便后续 Claude 替换首屏背景：

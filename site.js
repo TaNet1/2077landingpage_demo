@@ -101,7 +101,7 @@
                     <button class="nav-icon-btn w-11 h-11 flex items-center justify-center rounded-full transition-all" id="langBtn" aria-haspopup="true" aria-label="切换语言 / Language"><i data-lucide="globe" class="w-[18px] h-[18px]"></i></button>
                     <div class="lang-menu absolute right-0 mt-2 w-36 bg-white rounded-2xl shadow-xl border border-gray-100 p-1.5 hidden" id="langMenu">
                         <button class="lang-opt" data-lang="zh-CN">简体中文</button>
-                        <button class="lang-opt" data-lang="zh-TW">繁體中文</button>
+                        <button class="lang-opt" data-lang="zh-HK">繁體中文</button>
                         <button class="lang-opt" data-lang="en">English</button>
                     </div>
                 </div>
@@ -191,7 +191,7 @@
         if (window.__SITE_I18N_READY) return;
         window.__SITE_I18N_READY = true;
 
-        const I18N = window.__I18N_DICT || { 'zh-TW': {}, 'en': {} };
+        const I18N = window.__I18N_DICT || { 'zh-HK': {}, 'en': {} };
         let CUR = 'zh-CN';
         const snap = [];
         const attrSnap = [];
@@ -224,14 +224,14 @@
         window.__i18nTr = (s) => CUR === 'zh-CN' ? s : ((I18N[CUR] || {})[s] || s);
         window.__dumpI18n = () => [...new Set([...snap.map(s => s.zh.trim()), ...attrSnap.map(s => s.zh.trim())])].filter(Boolean);
 
-        const VALID = ['zh-CN', 'zh-TW', 'en'];
+        const VALID = ['zh-CN', 'zh-HK', 'en'];
         function setLang(lang, persist) {
             if (!VALID.includes(lang)) lang = 'zh-CN';
             CUR = lang;
             snap.forEach(({ node, zh }) => { node.nodeValue = tr(zh, lang); });
             attrSnap.forEach(({ el, attr, zh }) => { el.setAttribute(attr, tr(zh, lang)); });
             const el = document.documentElement;
-            el.lang = lang === 'en' ? 'en' : (lang === 'zh-TW' ? 'zh-Hant' : 'zh-Hans');
+            el.lang = lang === 'en' ? 'en' : (lang === 'zh-HK' ? 'zh-Hant-HK' : 'zh-Hans');
             el.setAttribute('data-lang', lang);
             document.querySelectorAll('.lang-opt').forEach(o => o.classList.toggle('active', o.dataset.lang === lang));
             if (window.__renderChips) window.__renderChips();
@@ -250,6 +250,7 @@
 
         let saved = null;
         try { saved = localStorage.getItem('site-lang'); } catch (e) {}
+        if (saved === 'zh-TW') saved = 'zh-HK'; // migrate old Taiwan locale preference to Hong Kong
         if (saved && VALID.includes(saved)) {
             setLang(saved, false);
         } else {
@@ -260,7 +261,7 @@
                     const cc = (d && d.country_code || '').toUpperCase();
                     let lang = 'en';
                     if (cc === 'CN') lang = 'zh-CN';
-                    else if (['HK', 'MO', 'TW'].includes(cc)) lang = 'zh-TW';
+                    else if (['HK', 'MO', 'TW'].includes(cc)) lang = 'zh-HK';
                     setLang(lang, false);
                 })
                 .catch(() => {});

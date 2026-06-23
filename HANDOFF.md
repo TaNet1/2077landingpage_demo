@@ -82,6 +82,28 @@
 
 ## 交接记录（倒序，最新在上）
 
+### 2026-06-24 · Claude：现场服务段 5 个点右侧视觉全面重做（沙盘/语音/虚拟人轮播/功能组件/报告）
+
+用户对 #pain「问询发生在现场」整段提了 7 条（含 /goal：让 5 个点的 UI 和谐、大气、自然）。全部完成，浏览器用 preview_eval 量 DOM 验收（截图工具本环境一直超时/缩成小图，未能出图，**视觉细节建议醒来在真机再扫一眼**）。已 commit & push。改动集中在 `index.html`（#pain 内联 CSS + DOM，桌面 sticky + 移动内联**两份拷贝都改了**）和 `i18n.js`。
+
+1. **点 1 沙盘变扁 + 场地两侧铺开**：7 个 POI 重新布点，垂直范围从 20%–78% 收到 **35%–72%**（变扁），`大型商超`右、`三甲医院`左分到两侧；实测 14 个气泡全部在容器内不裁切。
+2. **点 5 报告卡位置修正**（之前太靠左太挤）：`.service-dashboard` 收成 `width:min(106%,850px); translateX(-1%)`，slot 偏移收紧（110/198/272 → 80/146/200）；卡片统一 `height:624px`（4 张全 624、前卡不裁切）；实测离左文案 44px 不压字、最深卡右边 1259 < 1440 不溢出。点击置顶交互保留。
+3. **删掉副标题段**：移除 `.service-scene-lead` 那段长导语，intro 改单列。
+4. **点 4 右侧做了 5 个大屏功能小组件**（`.svc-widgets` 网格）：室内实景导航（带动态路线 mini map）+ 商铺导引（列表）+ 场内设施（图标格：洗手间/母婴室/ATM/停车）+ 周边景点（图块）+ 周边交通（线路）。玻璃质感，和报告卡一致。
+5. **点 3 虚拟人轮播**（`.va-carousel`）：用 `assets/avatar-1~7.png` 7 个全身虚拟人，7 个角色名（商场导购/政务专员/景区导览/展厅讲解/酒店接待/银行客服/机场向导）+ 副标签；**自动轮播 4.2s + 左右箭头 + 圆点手动切 + hover 暂停**，JS 在「Virtual-human carousel」IIFE，作用于所有 `[data-va]`（两份拷贝都驱动）。avatar 是透明 PNG，用 object-fit contain + 落地光晕/投影呈现（未硬裁原图）。
+6. **点 2 自由发挥 → 语音入口组件**（`.voice-entry`）：呼应「入口不需要学习」——中心发光语音球（脉冲环 + 声波）+「下载App/注册账号/扫码关注」划掉 +「✓ 开口即用」高亮 + 一句「走到屏幕前开口即答」气泡。
+7. **/goal 和谐大气**：5 个组件统一玻璃风（rgba 白 + blur + 细边 + 紫粉渐变点缀）、统一圆角/间距，套同一个 `.service-visual-state` 容器与 CSS 交叉淡入；左列已和 hero slogan 对齐（40px）。
+
+i18n：点 2/3/4 新增约 35 条中文（角色名/副标签/组件文案/设施名等）都补了 zh-HK + en（i18n.js 末尾两个 Object.assign），切语言不残留简体。`node --check i18n.js` 通过、首页内联脚本解析 `inline scripts ok:2`、无 console error、无横向溢出。
+
+**坑 / 待办**
+- **截图工具本环境失效**（桌面宽度缩成小图、窄屏/动画多时超时），本轮纯靠 `preview_eval` 量 DOM 验收；视觉观感（配色平衡、轮播切换手感、组件留白）建议真机再核。
+- 旧 CSS `.service-sound-wave / .service-avatar-closeup / .service-ui-layers / .service-vis-map` 已无 DOM 引用（被替换），保留未删，可日后清理；`.service-scene-lead` 的 i18n key 也成孤儿（无害）。
+- 报告卡 + 沙盘 + 三个新组件在 `index.html` 仍是**两份拷贝**（桌面 sticky + 移动内联），改要两处同步。
+- 移动端（≤1080）这几个新组件套用的是 `.service-mobile-visual` 固定高度容器，本轮主要按桌面调；移动端观感未逐一精修，可能需要再调高度/间距。
+- `.claude/settings.local.json`（含上一轮加的宽放行）、`bg/dark.webm`、`product_photo/` 仍未提交（本地/素材）。
+
+
 ### 2026-06-24 · Claude：现场服务段——沙盘视觉 + 布局收紧 + 报告卡统一/增强 + 脱敏
 
 接手 Codex 留在 HANDOFF 顶部的 4 个任务，外加用户新增的「沙盘 + 布局」两件事。全部在 `index.html`（#pain 段，内联 CSS + DOM）和 `i18n.js` 内完成，浏览器实测通过（preview 截图在桌面宽度会缩成小图，用 preview_eval 量 DOM/位置验收）。已 commit & push。

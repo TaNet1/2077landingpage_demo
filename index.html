@@ -732,12 +732,8 @@
         }
         .service-scene-wrap { position: relative; z-index: 1; }
         .service-scene-intro {
-            display: grid;
-            grid-template-columns: minmax(0, 1fr) minmax(320px, 0.62fr);
-            gap: clamp(32px, 5vw, 72px);
-            align-items: end;
-            margin-bottom: clamp(42px, 7vw, 86px);
-            max-width: 1256px;
+            max-width: 980px;
+            margin-bottom: clamp(48px, 7vw, 92px);
         }
         .service-eyebrow {
             font-family: 'Sora', sans-serif;
@@ -969,11 +965,98 @@
             color: #fff;
             background: var(--scene-gradient);
         }
+
+        /* ===== 点 2：开口即用（语音入口） ===== */
+        .voice-entry { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: clamp(22px, 3vw, 34px); width: 100%; }
+        .voice-orb { position: relative; width: clamp(150px, 16vw, 196px); height: clamp(150px, 16vw, 196px); border-radius: 50%; display: grid; place-items: center;
+            background: radial-gradient(circle at 50% 38%, rgba(236,0,250,.42), rgba(112,0,255,.22) 58%, transparent 74%); }
+        .voice-orb .v-ring { position: absolute; inset: 0; border-radius: 50%; border: 1px solid rgba(236,0,250,.5); opacity: 0; animation: voiceRing 2.8s ease-out infinite; }
+        .voice-orb .v-ring:nth-child(2) { animation-delay: .9s; } .voice-orb .v-ring:nth-child(3) { animation-delay: 1.8s; }
+        .voice-core { position: relative; z-index: 1; width: 52%; height: 52%; border-radius: 50%; display: grid; place-items: center;
+            background: linear-gradient(150deg, #ec00fa, #7000ff); box-shadow: 0 18px 48px rgba(189,0,255,.5), inset 0 1px 0 rgba(255,255,255,.4); color: #fff; }
+        .voice-core svg { width: 40%; height: 40%; }
+        .voice-eq { display: flex; align-items: center; gap: 5px; height: 26px; }
+        .voice-eq i { width: 4px; border-radius: 999px; background: rgba(255,255,255,.92); animation: voiceEq 1s ease-in-out infinite alternate; }
+        .voice-eq i:nth-child(1){height:30%;animation-delay:0s} .voice-eq i:nth-child(2){height:70%;animation-delay:.15s} .voice-eq i:nth-child(3){height:100%;animation-delay:.3s} .voice-eq i:nth-child(4){height:60%;animation-delay:.45s} .voice-eq i:nth-child(5){height:40%;animation-delay:.6s}
+        .voice-chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+        .voice-chip { display: inline-flex; align-items: center; gap: 7px; padding: 9px 15px; border-radius: 999px; font-size: 13px; color: rgba(255,255,255,.82);
+            background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1); }
+        .voice-chip s { color: rgba(255,255,255,.4); text-decoration: line-through; }
+        .voice-chip b { color: #fff; font-weight: 720; }
+        .voice-cap { display: inline-flex; align-items: center; gap: 10px; padding: 12px 18px; border-radius: 16px; font-size: 14px; color: #fff;
+            background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); box-shadow: 0 18px 40px rgba(0,0,0,.4); }
+        .voice-cap em { font-style: normal; color: rgba(255,255,255,.5); }
+        @keyframes voiceRing { 0% { transform: scale(.6); opacity: .8; } 100% { transform: scale(1.25); opacity: 0; } }
+        @keyframes voiceEq { from { transform: scaleY(.4); } to { transform: scaleY(1); } }
+
+        /* ===== 点 3：虚拟人形象轮播 ===== */
+        .va-carousel { position: relative; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
+        .va-stage { position: relative; width: min(82%, 480px); height: 86%; }
+        .va-slide { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: flex-end;
+            opacity: 0; visibility: hidden; transform: scale(.95); transition: opacity .6s ease, transform .6s cubic-bezier(.22,.61,.36,1); }
+        .va-slide.active { opacity: 1; visibility: visible; transform: scale(1); }
+        .va-slide::before { content: ''; position: absolute; left: 50%; bottom: 12%; width: 86%; height: 60%; transform: translateX(-50%);
+            background: radial-gradient(closest-side, rgba(189,0,255,.3), rgba(189,0,255,0) 72%); filter: blur(8px); z-index: 0; }
+        .va-slide::after { content: ''; position: absolute; left: 50%; bottom: 11%; width: 50%; height: 24px; transform: translateX(-50%);
+            background: radial-gradient(50% 50% at 50% 50%, rgba(0,0,0,.55), transparent 72%); filter: blur(4px); z-index: 0; }
+        .va-slide img { position: relative; z-index: 1; height: 84%; width: auto; max-width: 100%; object-fit: contain; object-position: bottom center;
+            filter: drop-shadow(0 28px 34px rgba(80,30,120,.5)); }
+        .va-cap { position: absolute; z-index: 2; bottom: 0; left: 50%; transform: translateX(-50%); text-align: center; white-space: nowrap; }
+        .va-cap b { display: block; font-family: 'Sora', var(--font-main); font-size: clamp(16px, 1.5vw, 20px); font-weight: 800; color: #fff; letter-spacing: -.01em; }
+        .va-cap span { display: block; margin-top: 5px; font-size: 12px; color: rgba(255,255,255,.55); letter-spacing: .06em; }
+        .va-arrow { position: absolute; top: 46%; transform: translateY(-50%); z-index: 5; width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center;
+            cursor: pointer; color: #fff; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.16);
+            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); transition: background .2s ease, border-color .2s ease, transform .2s ease; }
+        .va-arrow svg { width: 22px; height: 22px; } .va-arrow:hover { background: rgba(255,255,255,.14); border-color: rgba(255,255,255,.32); }
+        .va-prev { left: 0; } .va-next { right: 0; }
+        .va-dots { position: absolute; z-index: 5; bottom: 4px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; }
+        .va-dots i { width: 8px; height: 8px; border-radius: 999px; background: rgba(255,255,255,.24); cursor: pointer; transition: width .25s ease, background .25s ease; }
+        .va-dots i.active { width: 24px; background: linear-gradient(90deg, #7000ff, #ec00fa); }
+
+        /* ===== 点 4：大屏功能小组件 ===== */
+        .svc-widgets { display: grid; grid-template-columns: 1.12fr 1fr; grid-auto-rows: 1fr; gap: 14px; width: min(100%, 760px); height: min(72%, 470px); }
+        .svc-w { position: relative; padding: 16px; border-radius: 18px; overflow: hidden; color: #fff; display: flex; flex-direction: column;
+            background: linear-gradient(135deg, rgba(255,255,255,.07), rgba(255,255,255,.028)); border: 1px solid rgba(255,255,255,.1);
+            box-shadow: 0 22px 60px rgba(0,0,0,.36); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
+        .svc-w-nav { grid-row: span 2; }
+        .svc-w-hd { display: flex; align-items: center; gap: 9px; margin-bottom: 12px; }
+        .svc-w-hd .svc-ico { width: 30px; height: 30px; border-radius: 9px; display: grid; place-items: center; color: #fff; flex: none;
+            background: linear-gradient(135deg, rgba(236,0,250,.3), rgba(112,0,255,.22)); border: 1px solid rgba(255,255,255,.12); }
+        .svc-w-hd .svc-ico svg { width: 16px; height: 16px; }
+        .svc-w-hd h6 { font-size: 14px; font-weight: 760; letter-spacing: -.01em; }
+        .svc-w-hd small { margin-left: auto; font-size: 10px; color: rgba(255,255,255,.4); letter-spacing: .08em; text-transform: uppercase; }
+        /* 室内导航 mini map */
+        .svc-map { position: relative; flex: 1; border-radius: 12px; min-height: 120px; overflow: hidden; background:
+            repeating-linear-gradient(0deg, transparent, transparent 21px, rgba(255,255,255,.05) 22px),
+            repeating-linear-gradient(90deg, transparent, transparent 21px, rgba(255,255,255,.05) 22px), rgba(8,9,12,.4); }
+        .svc-map svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+        .svc-route { fill: none; stroke: url(#svcGrad); stroke-width: 3; stroke-linecap: round; stroke-dasharray: 6 9; animation: svcDash 1.2s linear infinite; }
+        @keyframes svcDash { to { stroke-dashoffset: -30; } }
+        .svc-pin { position: absolute; width: 14px; height: 14px; border-radius: 50%; transform: translate(-50%,-50%); border: 2px solid #fff; }
+        .svc-pin.start { background: #00e5ff; } .svc-pin.end { background: #ec00fa; box-shadow: 0 0 0 6px rgba(236,0,250,.18); }
+        .svc-map-foot { position: absolute; left: 10px; bottom: 8px; font-size: 11px; color: rgba(255,255,255,.7); background: rgba(0,0,0,.4); padding: 3px 8px; border-radius: 7px; backdrop-filter: blur(4px); }
+        /* 列表/landmark/transit/facility */
+        .svc-list { display: flex; flex-direction: column; gap: 9px; flex: 1; justify-content: center; }
+        .svc-li { display: grid; grid-template-columns: 22px 1fr auto; align-items: center; gap: 9px; font-size: 12px; color: rgba(255,255,255,.78); }
+        .svc-li .d { width: 16px; height: 16px; border-radius: 6px; background: linear-gradient(135deg, rgba(236,0,250,.45), rgba(112,0,255,.4)); }
+        .svc-li em { font-style: normal; color: rgba(255,255,255,.45); font-size: 11px; }
+        .svc-tiles { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; flex: 1; }
+        .svc-tile { border-radius: 10px; background: linear-gradient(135deg, rgba(255,255,255,.1), rgba(255,255,255,.03)); border: 1px solid rgba(255,255,255,.07); display: flex; align-items: flex-end; padding: 8px; font-size: 11px; color: rgba(255,255,255,.78); }
+        .svc-transit { display: flex; flex-direction: column; gap: 12px; flex: 1; justify-content: center; }
+        .svc-line { display: grid; grid-template-columns: 56px 1fr; align-items: center; gap: 10px; font-size: 11px; }
+        .svc-line .tag { padding: 3px 8px; border-radius: 6px; color: #fff; font-weight: 700; text-align: center; }
+        .svc-track { height: 4px; border-radius: 999px; position: relative; background: rgba(255,255,255,.12); }
+        .svc-track i { position: absolute; top: 50%; width: 9px; height: 9px; border-radius: 50%; transform: translateY(-50%); background: #fff; }
+        .svc-fac { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; flex: 1; align-content: center; }
+        .svc-fac span { display: flex; flex-direction: column; align-items: center; gap: 5px; font-size: 10px; color: rgba(255,255,255,.62); }
+        .svc-fac span i { width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center; color: #fff; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1); }
+        .svc-fac span i svg { width: 16px; height: 16px; }
+
         .service-dashboard {
             position: relative;
-            width: min(116%, 900px);
-            height: 584px;
-            transform: translateX(-6%);
+            width: min(106%, 850px);
+            height: 624px;
+            transform: translateX(-1%);
             overflow: visible;
         }
         .report-card {
@@ -981,7 +1064,7 @@
             left: 0;
             top: 0;
             width: 84%;
-            height: 584px;
+            height: 624px;
             display: block;
             padding: 20px;
             border-radius: 22px;
@@ -1003,9 +1086,9 @@
         }
         .report-card:hover { border-color: rgba(236,0,250,.24); }
         .report-card[data-slot="0"] { --x: 0px; --y: 0px; --s: 1; --o: 1; --z: 4; box-shadow: 0 34px 96px rgba(0,0,0,0.48), 0 0 42px rgba(189,0,255,.12); }
-        .report-card[data-slot="1"] { --x: 110px; --y: 30px; --s: .91; --o: .82; --z: 3; }
-        .report-card[data-slot="2"] { --x: 198px; --y: 64px; --s: .82; --o: .58; --z: 2; }
-        .report-card[data-slot="3"] { --x: 272px; --y: 98px; --s: .74; --o: .34; --z: 1; }
+        .report-card[data-slot="1"] { --x: 80px; --y: 26px; --s: .92; --o: .8; --z: 3; }
+        .report-card[data-slot="2"] { --x: 146px; --y: 52px; --s: .84; --o: .54; --z: 2; }
+        .report-card[data-slot="3"] { --x: 200px; --y: 78px; --s: .76; --o: .3; --z: 1; }
         .report-card::before {
             content: '';
             position: absolute;
@@ -1465,7 +1548,6 @@
                     <div class="service-eyebrow">为什么 AI 虚拟人天然适合服务场景</div>
                     <h2 class="service-scene-title font-sora">问询发生在现场，<br><span class="gradient-text">AI 就应该在现场响应</span></h2>
                 </div>
-                <p class="service-scene-lead">用户的问题往往在空间里即时产生：问路、咨询、办理、导览、推荐。AI 虚拟人以可见的形象、自然的对话和大屏表达，把前台、导览员、讲解员和服务入口合并成一位始终在岗的数字员工。</p>
             </div>
 
             <div class="service-scroll-grid reveal">
@@ -1480,13 +1562,13 @@
                             <div class="service-visual-state active">
                                 <div class="service-sandbox">
                                     <div class="sb-grid"></div>
-                                    <div class="sb-poi sb-theme-mall sb-front" style="bottom:15%;left:75%;"><div class="sb-dot"></div><div class="sb-label">大型商超</div><div class="sb-bubbles"><div class="sb-bubble" style="animation-delay:.5s;animation-duration:4.2s;">洗手间怎么走？</div><div class="sb-bubble hot" style="animation-delay:3.8s;animation-duration:5s;">热门餐厅还要排多久？</div></div></div>
-                                    <div class="sb-poi sb-theme-hospital sb-front" style="bottom:22%;left:25%;"><div class="sb-dot"></div><div class="sb-label">三甲医院</div><div class="sb-bubbles"><div class="sb-bubble" style="animation-delay:1.2s;animation-duration:4.5s;">儿科门诊在几楼？</div><div class="sb-bubble hot" style="animation-delay:4.5s;animation-duration:5.2s;">专家号在哪里取号？</div></div></div>
-                                    <div class="sb-poi sb-theme-gov sb-mid" style="top:55%;left:15%;"><div class="sb-dot"></div><div class="sb-label">政务服务大厅</div><div class="sb-bubbles"><div class="sb-bubble hot" style="animation-delay:2.1s;animation-duration:4.8s;">办护照需要带哪些材料？</div><div class="sb-bubble" style="animation-delay:5.5s;animation-duration:4.2s;">公积金提取去几号窗？</div></div></div>
-                                    <div class="sb-poi sb-theme-airport sb-mid" style="top:45%;left:50%;"><div class="sb-dot"></div><div class="sb-label">交通枢纽 / 机场</div><div class="sb-bubbles"><div class="sb-bubble" style="animation-delay:.2s;animation-duration:4s;">CA1234 航班几点起飞？</div><div class="sb-bubble hot" style="animation-delay:3.1s;animation-duration:5.5s;">行李超重了怎么托运？</div></div></div>
-                                    <div class="sb-poi sb-theme-expo sb-mid" style="top:50%;left:85%;"><div class="sb-dot"></div><div class="sb-label">展览展厅</div><div class="sb-bubbles"><div class="sb-bubble" style="animation-delay:1.8s;animation-duration:4.6s;">主办方办公室在哪？</div><div class="sb-bubble" style="animation-delay:6.2s;animation-duration:4.1s;">今天有什么新品发布？</div></div></div>
-                                    <div class="sb-poi sb-theme-scenic sb-back" style="top:25%;left:30%;"><div class="sb-dot"></div><div class="sb-label">旅游景区</div><div class="sb-bubbles"><div class="sb-bubble" style="animation-delay:.9s;animation-duration:5s;">索道售票处往哪走？</div><div class="sb-bubble" style="animation-delay:4.9s;animation-duration:4.8s;">下午几点有实景演出？</div></div></div>
-                                    <div class="sb-poi sb-theme-park sb-back" style="top:20%;left:70%;"><div class="sb-dot"></div><div class="sb-label">开放园区</div><div class="sb-bubbles"><div class="sb-bubble" style="animation-delay:2.5s;animation-duration:4.3s;">访客去哪里登记？</div><div class="sb-bubble hot" style="animation-delay:5.8s;animation-duration:5.1s;">园区接驳车下一班几点？</div></div></div>
+                                    <div class="sb-poi sb-theme-mall sb-front" style="top:72%;left:80%;"><div class="sb-dot"></div><div class="sb-label">大型商超</div><div class="sb-bubbles"><div class="sb-bubble" style="animation-delay:.5s;animation-duration:4.2s;">洗手间怎么走？</div><div class="sb-bubble hot" style="animation-delay:3.8s;animation-duration:5s;">热门餐厅还要排多久？</div></div></div>
+                                    <div class="sb-poi sb-theme-hospital sb-front" style="top:70%;left:18%;"><div class="sb-dot"></div><div class="sb-label">三甲医院</div><div class="sb-bubbles"><div class="sb-bubble" style="animation-delay:1.2s;animation-duration:4.5s;">儿科门诊在几楼？</div><div class="sb-bubble hot" style="animation-delay:4.5s;animation-duration:5.2s;">专家号在哪里取号？</div></div></div>
+                                    <div class="sb-poi sb-theme-gov sb-mid" style="top:56%;left:33%;"><div class="sb-dot"></div><div class="sb-label">政务服务大厅</div><div class="sb-bubbles"><div class="sb-bubble hot" style="animation-delay:2.1s;animation-duration:4.8s;">办护照需要带哪些材料？</div><div class="sb-bubble" style="animation-delay:5.5s;animation-duration:4.2s;">公积金提取去几号窗？</div></div></div>
+                                    <div class="sb-poi sb-theme-airport sb-mid" style="top:52%;left:54%;"><div class="sb-dot"></div><div class="sb-label">交通枢纽 / 机场</div><div class="sb-bubbles"><div class="sb-bubble" style="animation-delay:.2s;animation-duration:4s;">CA1234 航班几点起飞？</div><div class="sb-bubble hot" style="animation-delay:3.1s;animation-duration:5.5s;">行李超重了怎么托运？</div></div></div>
+                                    <div class="sb-poi sb-theme-expo sb-mid" style="top:49%;left:78%;"><div class="sb-dot"></div><div class="sb-label">展览展厅</div><div class="sb-bubbles"><div class="sb-bubble" style="animation-delay:1.8s;animation-duration:4.6s;">主办方办公室在哪？</div><div class="sb-bubble" style="animation-delay:6.2s;animation-duration:4.1s;">今天有什么新品发布？</div></div></div>
+                                    <div class="sb-poi sb-theme-scenic sb-back" style="top:37%;left:26%;"><div class="sb-dot"></div><div class="sb-label">旅游景区</div><div class="sb-bubbles"><div class="sb-bubble" style="animation-delay:.9s;animation-duration:5s;">索道售票处往哪走？</div><div class="sb-bubble" style="animation-delay:4.9s;animation-duration:4.8s;">下午几点有实景演出？</div></div></div>
+                                    <div class="sb-poi sb-theme-park sb-back" style="top:35%;left:66%;"><div class="sb-dot"></div><div class="sb-label">开放园区</div><div class="sb-bubbles"><div class="sb-bubble" style="animation-delay:2.5s;animation-duration:4.3s;">访客去哪里登记？</div><div class="sb-bubble hot" style="animation-delay:5.8s;animation-duration:5.1s;">园区接驳车下一班几点？</div></div></div>
                                 </div>
                             </div>
                         </div>
@@ -1500,8 +1582,10 @@
                         </div>
                         <div class="service-mobile-visual" aria-hidden="true">
                             <div class="service-visual-state active">
-                                <div class="service-sound-wave">
-                                    <span class="service-wave-bar"></span><span class="service-wave-bar"></span><span class="service-wave-bar"></span><span class="service-wave-bar"></span><span class="service-wave-bar"></span>
+                                <div class="voice-entry">
+                                    <div class="voice-orb"><span class="v-ring"></span><span class="v-ring"></span><span class="v-ring"></span><span class="voice-core"><span class="voice-eq"><i></i><i></i><i></i><i></i><i></i></span></span></div>
+                                    <div class="voice-chips"><span class="voice-chip"><s>下载 App</s></span><span class="voice-chip"><s>注册账号</s></span><span class="voice-chip"><s>扫码关注</s></span><span class="voice-chip"><b>✓ 开口即用</b></span></div>
+                                    <div class="voice-cap">“洗手间在哪里？”<em> · 走到屏幕前开口即答</em></div>
                                 </div>
                             </div>
                         </div>
@@ -1514,7 +1598,22 @@
                             <p>有形象、有声音、有表情，比文字客服和普通信息屏更接近真实前台、导览员和讲解员。</p>
                         </div>
                         <div class="service-mobile-visual" aria-hidden="true">
-                            <div class="service-visual-state active"><div class="service-avatar-closeup"></div></div>
+                            <div class="service-visual-state active">
+                                <div class="va-carousel" data-va>
+                                    <div class="va-stage">
+                                        <figure class="va-slide active"><img src="assets/avatar-1.png" alt="商场导购"><figcaption class="va-cap"><b>商场导购</b><span>迎宾 · 导购 · 找店</span></figcaption></figure>
+                                        <figure class="va-slide"><img src="assets/avatar-2.png" alt="政务专员"><figcaption class="va-cap"><b>政务专员</b><span>咨询 · 预审 · 分流</span></figcaption></figure>
+                                        <figure class="va-slide"><img src="assets/avatar-3.png" alt="景区导览"><figcaption class="va-cap"><b>景区导览</b><span>路线 · 讲解 · 推荐</span></figcaption></figure>
+                                        <figure class="va-slide"><img src="assets/avatar-4.png" alt="展厅讲解"><figcaption class="va-cap"><b>展厅讲解</b><span>导览 · 互动 · 答疑</span></figcaption></figure>
+                                        <figure class="va-slide"><img src="assets/avatar-5.png" alt="酒店接待"><figcaption class="va-cap"><b>酒店接待</b><span>入住 · 问询 · 多语</span></figcaption></figure>
+                                        <figure class="va-slide"><img src="assets/avatar-6.png" alt="银行客服"><figcaption class="va-cap"><b>银行客服</b><span>接待 · 预审 · 引导</span></figcaption></figure>
+                                        <figure class="va-slide"><img src="assets/avatar-7.png" alt="机场向导"><figcaption class="va-cap"><b>机场向导</b><span>航班 · 值机 · 指引</span></figcaption></figure>
+                                    </div>
+                                    <button class="va-arrow va-prev" aria-label="上一个"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
+                                    <button class="va-arrow va-next" aria-label="下一个"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
+                                    <div class="va-dots"><i class="active"></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+                                </div>
+                            </div>
                         </div>
                     </article>
 
@@ -1526,9 +1625,44 @@
                         </div>
                         <div class="service-mobile-visual" aria-hidden="true">
                             <div class="service-visual-state active">
-                                <div class="service-ui-layers">
-                                    <div class="service-ui-card"><div class="service-ui-media"></div><div class="service-ui-line"></div><div class="service-ui-line short"></div></div>
-                                    <div class="service-ui-card"><h4 class="service-ui-title">室内实景导航</h4><div class="service-ui-line"></div><div class="service-ui-line"></div><div class="service-ui-line short"></div><div class="service-ui-action">开始导航</div></div>
+                                <div class="svc-widgets">
+                                    <div class="svc-w svc-w-nav">
+                                        <div class="svc-w-hd"><span class="svc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6-6 2v14l6-2 6 2 6-2V6l-6 2-6-2Z"/><path d="M9 6v14M15 8v14"/></svg></span><h6>室内实景导航</h6><small>AR Nav</small></div>
+                                        <div class="svc-map">
+                                            <svg viewBox="0 0 200 160" preserveAspectRatio="none"><defs><linearGradient id="svcGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#00e5ff"/><stop offset="1" stop-color="#ec00fa"/></linearGradient></defs><path class="svc-route" d="M28,140 L28,92 L104,92 L104,50 L172,50 L172,24"/></svg>
+                                            <span class="svc-pin start" style="left:14%;top:88%"></span>
+                                            <span class="svc-pin end" style="left:86%;top:15%"></span>
+                                            <span class="svc-map-foot">前往 3F 母婴室 · 约 120m · 2 分钟</span>
+                                        </div>
+                                    </div>
+                                    <div class="svc-w">
+                                        <div class="svc-w-hd"><span class="svc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9h16v11H4z"/><path d="M3 9l1.6-5h14.8L21 9"/><path d="M9 20v-6h6v6"/></svg></span><h6>商铺导引</h6></div>
+                                        <div class="svc-list">
+                                            <div class="svc-li"><span class="d"></span><span>运动旗舰店</span><em>2F</em></div>
+                                            <div class="svc-li"><span class="d"></span><span>精品咖啡</span><em>1F</em></div>
+                                            <div class="svc-li"><span class="d"></span><span>热门餐厅</span><em>5F</em></div>
+                                        </div>
+                                    </div>
+                                    <div class="svc-w">
+                                        <div class="svc-w-hd"><span class="svc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></span><h6>场内设施</h6></div>
+                                        <div class="svc-fac">
+                                            <span><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3s6 5.6 6 10a6 6 0 1 1-12 0c0-4.4 6-10 6-10Z"/></svg></i>洗手间</span>
+                                            <span><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></i>母婴室</span>
+                                            <span><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18"/></svg></i>ATM</span>
+                                            <span><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M9 16V8h3.5a2.5 2.5 0 0 1 0 5H9"/></svg></i>停车场</span>
+                                        </div>
+                                    </div>
+                                    <div class="svc-w">
+                                        <div class="svc-w-hd"><span class="svc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 20 6-11 4 6 2-3 6 8z"/></svg></span><h6>周边景点</h6></div>
+                                        <div class="svc-tiles"><div class="svc-tile">城市公园 · 800m</div><div class="svc-tile">美术馆 · 1.2km</div></div>
+                                    </div>
+                                    <div class="svc-w">
+                                        <div class="svc-w-hd"><span class="svc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="13" rx="3"/><path d="M9 3v13M15 3v13M5 11h14M8 20l-2 2M16 20l2 2"/></svg></span><h6>周边交通</h6></div>
+                                        <div class="svc-transit">
+                                            <div class="svc-line"><span class="tag" style="background:#2979ff">地铁 2 号线</span><div class="svc-track"><i style="left:8%;background:#2979ff"></i><i style="left:90%;background:#2979ff"></i></div></div>
+                                            <div class="svc-line"><span class="tag" style="background:#ff9100">公交枢纽</span><div class="svc-track"><i style="left:18%;background:#ff9100"></i><i style="left:66%;background:#ff9100"></i></div></div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -1638,27 +1772,77 @@
                         <div class="service-visual-state active" data-visual="1">
                             <div class="service-sandbox">
                                 <div class="sb-grid"></div>
-                                <div class="sb-poi sb-theme-mall sb-front" style="bottom:15%;left:75%;"><div class="sb-dot"></div><div class="sb-label">大型商超</div><div class="sb-bubbles"><div class="sb-bubble" style="animation-delay:.5s;animation-duration:4.2s;">洗手间怎么走？</div><div class="sb-bubble hot" style="animation-delay:3.8s;animation-duration:5s;">热门餐厅还要排多久？</div></div></div>
-                                <div class="sb-poi sb-theme-hospital sb-front" style="bottom:22%;left:25%;"><div class="sb-dot"></div><div class="sb-label">三甲医院</div><div class="sb-bubbles"><div class="sb-bubble" style="animation-delay:1.2s;animation-duration:4.5s;">儿科门诊在几楼？</div><div class="sb-bubble hot" style="animation-delay:4.5s;animation-duration:5.2s;">专家号在哪里取号？</div></div></div>
-                                <div class="sb-poi sb-theme-gov sb-mid" style="top:55%;left:15%;"><div class="sb-dot"></div><div class="sb-label">政务服务大厅</div><div class="sb-bubbles"><div class="sb-bubble hot" style="animation-delay:2.1s;animation-duration:4.8s;">办护照需要带哪些材料？</div><div class="sb-bubble" style="animation-delay:5.5s;animation-duration:4.2s;">公积金提取去几号窗？</div></div></div>
-                                <div class="sb-poi sb-theme-airport sb-mid" style="top:45%;left:50%;"><div class="sb-dot"></div><div class="sb-label">交通枢纽 / 机场</div><div class="sb-bubbles"><div class="sb-bubble" style="animation-delay:.2s;animation-duration:4s;">CA1234 航班几点起飞？</div><div class="sb-bubble hot" style="animation-delay:3.1s;animation-duration:5.5s;">行李超重了怎么托运？</div></div></div>
-                                <div class="sb-poi sb-theme-expo sb-mid" style="top:50%;left:85%;"><div class="sb-dot"></div><div class="sb-label">展览展厅</div><div class="sb-bubbles"><div class="sb-bubble" style="animation-delay:1.8s;animation-duration:4.6s;">主办方办公室在哪？</div><div class="sb-bubble" style="animation-delay:6.2s;animation-duration:4.1s;">今天有什么新品发布？</div></div></div>
-                                <div class="sb-poi sb-theme-scenic sb-back" style="top:25%;left:30%;"><div class="sb-dot"></div><div class="sb-label">旅游景区</div><div class="sb-bubbles"><div class="sb-bubble" style="animation-delay:.9s;animation-duration:5s;">索道售票处往哪走？</div><div class="sb-bubble" style="animation-delay:4.9s;animation-duration:4.8s;">下午几点有实景演出？</div></div></div>
-                                <div class="sb-poi sb-theme-park sb-back" style="top:20%;left:70%;"><div class="sb-dot"></div><div class="sb-label">开放园区</div><div class="sb-bubbles"><div class="sb-bubble" style="animation-delay:2.5s;animation-duration:4.3s;">访客去哪里登记？</div><div class="sb-bubble hot" style="animation-delay:5.8s;animation-duration:5.1s;">园区接驳车下一班几点？</div></div></div>
+                                <div class="sb-poi sb-theme-mall sb-front" style="top:72%;left:80%;"><div class="sb-dot"></div><div class="sb-label">大型商超</div><div class="sb-bubbles"><div class="sb-bubble" style="animation-delay:.5s;animation-duration:4.2s;">洗手间怎么走？</div><div class="sb-bubble hot" style="animation-delay:3.8s;animation-duration:5s;">热门餐厅还要排多久？</div></div></div>
+                                <div class="sb-poi sb-theme-hospital sb-front" style="top:70%;left:18%;"><div class="sb-dot"></div><div class="sb-label">三甲医院</div><div class="sb-bubbles"><div class="sb-bubble" style="animation-delay:1.2s;animation-duration:4.5s;">儿科门诊在几楼？</div><div class="sb-bubble hot" style="animation-delay:4.5s;animation-duration:5.2s;">专家号在哪里取号？</div></div></div>
+                                <div class="sb-poi sb-theme-gov sb-mid" style="top:56%;left:33%;"><div class="sb-dot"></div><div class="sb-label">政务服务大厅</div><div class="sb-bubbles"><div class="sb-bubble hot" style="animation-delay:2.1s;animation-duration:4.8s;">办护照需要带哪些材料？</div><div class="sb-bubble" style="animation-delay:5.5s;animation-duration:4.2s;">公积金提取去几号窗？</div></div></div>
+                                <div class="sb-poi sb-theme-airport sb-mid" style="top:52%;left:54%;"><div class="sb-dot"></div><div class="sb-label">交通枢纽 / 机场</div><div class="sb-bubbles"><div class="sb-bubble" style="animation-delay:.2s;animation-duration:4s;">CA1234 航班几点起飞？</div><div class="sb-bubble hot" style="animation-delay:3.1s;animation-duration:5.5s;">行李超重了怎么托运？</div></div></div>
+                                <div class="sb-poi sb-theme-expo sb-mid" style="top:49%;left:78%;"><div class="sb-dot"></div><div class="sb-label">展览展厅</div><div class="sb-bubbles"><div class="sb-bubble" style="animation-delay:1.8s;animation-duration:4.6s;">主办方办公室在哪？</div><div class="sb-bubble" style="animation-delay:6.2s;animation-duration:4.1s;">今天有什么新品发布？</div></div></div>
+                                <div class="sb-poi sb-theme-scenic sb-back" style="top:37%;left:26%;"><div class="sb-dot"></div><div class="sb-label">旅游景区</div><div class="sb-bubbles"><div class="sb-bubble" style="animation-delay:.9s;animation-duration:5s;">索道售票处往哪走？</div><div class="sb-bubble" style="animation-delay:4.9s;animation-duration:4.8s;">下午几点有实景演出？</div></div></div>
+                                <div class="sb-poi sb-theme-park sb-back" style="top:35%;left:66%;"><div class="sb-dot"></div><div class="sb-label">开放园区</div><div class="sb-bubbles"><div class="sb-bubble" style="animation-delay:2.5s;animation-duration:4.3s;">访客去哪里登记？</div><div class="sb-bubble hot" style="animation-delay:5.8s;animation-duration:5.1s;">园区接驳车下一班几点？</div></div></div>
                             </div>
                         </div>
                         <div class="service-visual-state" data-visual="2">
-                            <div class="service-sound-wave">
-                                <span class="service-wave-bar"></span><span class="service-wave-bar"></span><span class="service-wave-bar"></span><span class="service-wave-bar"></span><span class="service-wave-bar"></span>
+                            <div class="voice-entry">
+                                <div class="voice-orb"><span class="v-ring"></span><span class="v-ring"></span><span class="v-ring"></span><span class="voice-core"><span class="voice-eq"><i></i><i></i><i></i><i></i><i></i></span></span></div>
+                                <div class="voice-chips"><span class="voice-chip"><s>下载 App</s></span><span class="voice-chip"><s>注册账号</s></span><span class="voice-chip"><s>扫码关注</s></span><span class="voice-chip"><b>✓ 开口即用</b></span></div>
+                                <div class="voice-cap">“洗手间在哪里？”<em> · 走到屏幕前开口即答</em></div>
                             </div>
                         </div>
                         <div class="service-visual-state" data-visual="3">
-                            <div class="service-avatar-closeup"></div>
+                            <div class="va-carousel" data-va>
+                                <div class="va-stage">
+                                    <figure class="va-slide active"><img src="assets/avatar-1.png" alt="商场导购"><figcaption class="va-cap"><b>商场导购</b><span>迎宾 · 导购 · 找店</span></figcaption></figure>
+                                    <figure class="va-slide"><img src="assets/avatar-2.png" alt="政务专员"><figcaption class="va-cap"><b>政务专员</b><span>咨询 · 预审 · 分流</span></figcaption></figure>
+                                    <figure class="va-slide"><img src="assets/avatar-3.png" alt="景区导览"><figcaption class="va-cap"><b>景区导览</b><span>路线 · 讲解 · 推荐</span></figcaption></figure>
+                                    <figure class="va-slide"><img src="assets/avatar-4.png" alt="展厅讲解"><figcaption class="va-cap"><b>展厅讲解</b><span>导览 · 互动 · 答疑</span></figcaption></figure>
+                                    <figure class="va-slide"><img src="assets/avatar-5.png" alt="酒店接待"><figcaption class="va-cap"><b>酒店接待</b><span>入住 · 问询 · 多语</span></figcaption></figure>
+                                    <figure class="va-slide"><img src="assets/avatar-6.png" alt="银行客服"><figcaption class="va-cap"><b>银行客服</b><span>接待 · 预审 · 引导</span></figcaption></figure>
+                                    <figure class="va-slide"><img src="assets/avatar-7.png" alt="机场向导"><figcaption class="va-cap"><b>机场向导</b><span>航班 · 值机 · 指引</span></figcaption></figure>
+                                </div>
+                                <button class="va-arrow va-prev" aria-label="上一个"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
+                                <button class="va-arrow va-next" aria-label="下一个"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
+                                <div class="va-dots"><i class="active"></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+                            </div>
                         </div>
                         <div class="service-visual-state" data-visual="4">
-                            <div class="service-ui-layers">
-                                <div class="service-ui-card"><div class="service-ui-media"></div><div class="service-ui-line"></div><div class="service-ui-line short"></div></div>
-                                <div class="service-ui-card"><h4 class="service-ui-title">室内实景导航</h4><div class="service-ui-line"></div><div class="service-ui-line"></div><div class="service-ui-line short"></div><div class="service-ui-action">开始导航</div></div>
+                            <div class="svc-widgets">
+                                <div class="svc-w svc-w-nav">
+                                    <div class="svc-w-hd"><span class="svc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6-6 2v14l6-2 6 2 6-2V6l-6 2-6-2Z"/><path d="M9 6v14M15 8v14"/></svg></span><h6>室内实景导航</h6><small>AR Nav</small></div>
+                                    <div class="svc-map">
+                                        <svg viewBox="0 0 200 160" preserveAspectRatio="none"><defs><linearGradient id="svcGrad2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#00e5ff"/><stop offset="1" stop-color="#ec00fa"/></linearGradient></defs><path class="svc-route" style="stroke:url(#svcGrad2)" d="M28,140 L28,92 L104,92 L104,50 L172,50 L172,24"/></svg>
+                                        <span class="svc-pin start" style="left:14%;top:88%"></span>
+                                        <span class="svc-pin end" style="left:86%;top:15%"></span>
+                                        <span class="svc-map-foot">前往 3F 母婴室 · 约 120m · 2 分钟</span>
+                                    </div>
+                                </div>
+                                <div class="svc-w">
+                                    <div class="svc-w-hd"><span class="svc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9h16v11H4z"/><path d="M3 9l1.6-5h14.8L21 9"/><path d="M9 20v-6h6v6"/></svg></span><h6>商铺导引</h6></div>
+                                    <div class="svc-list">
+                                        <div class="svc-li"><span class="d"></span><span>运动旗舰店</span><em>2F</em></div>
+                                        <div class="svc-li"><span class="d"></span><span>精品咖啡</span><em>1F</em></div>
+                                        <div class="svc-li"><span class="d"></span><span>热门餐厅</span><em>5F</em></div>
+                                    </div>
+                                </div>
+                                <div class="svc-w">
+                                    <div class="svc-w-hd"><span class="svc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></span><h6>场内设施</h6></div>
+                                    <div class="svc-fac">
+                                        <span><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3s6 5.6 6 10a6 6 0 1 1-12 0c0-4.4 6-10 6-10Z"/></svg></i>洗手间</span>
+                                        <span><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></i>母婴室</span>
+                                        <span><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18"/></svg></i>ATM</span>
+                                        <span><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M9 16V8h3.5a2.5 2.5 0 0 1 0 5H9"/></svg></i>停车场</span>
+                                    </div>
+                                </div>
+                                <div class="svc-w">
+                                    <div class="svc-w-hd"><span class="svc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 20 6-11 4 6 2-3 6 8z"/></svg></span><h6>周边景点</h6></div>
+                                    <div class="svc-tiles"><div class="svc-tile">城市公园 · 800m</div><div class="svc-tile">美术馆 · 1.2km</div></div>
+                                </div>
+                                <div class="svc-w">
+                                    <div class="svc-w-hd"><span class="svc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="13" rx="3"/><path d="M9 3v13M15 3v13M5 11h14M8 20l-2 2M16 20l2 2"/></svg></span><h6>周边交通</h6></div>
+                                    <div class="svc-transit">
+                                        <div class="svc-line"><span class="tag" style="background:#2979ff">地铁 2 号线</span><div class="svc-track"><i style="left:8%;background:#2979ff"></i><i style="left:90%;background:#2979ff"></i></div></div>
+                                        <div class="svc-line"><span class="tag" style="background:#ff9100">公交枢纽</span><div class="svc-track"><i style="left:18%;background:#ff9100"></i><i style="left:66%;background:#ff9100"></i></div></div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="service-visual-state" data-visual="5">
@@ -3058,6 +3242,32 @@
                     });
                 });
                 render();
+            });
+        })();
+
+        // Virtual-human carousel (point 3): auto-rotate + manual arrows/dots, pause on hover.
+        (function () {
+            document.querySelectorAll('[data-va]').forEach((root) => {
+                const slides = [...root.querySelectorAll('.va-slide')];
+                const dots = [...root.querySelectorAll('.va-dots i')];
+                if (slides.length < 2) return;
+                let idx = 0, timer = null;
+                const show = (n) => {
+                    idx = (n + slides.length) % slides.length;
+                    slides.forEach((s, i) => s.classList.toggle('active', i === idx));
+                    dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+                };
+                const next = () => show(idx + 1);
+                const stop = () => { if (timer) { clearInterval(timer); timer = null; } };
+                const start = () => { stop(); timer = setInterval(next, 4200); };
+                const nextBtn = root.querySelector('.va-next');
+                const prevBtn = root.querySelector('.va-prev');
+                if (nextBtn) nextBtn.addEventListener('click', () => { show(idx + 1); start(); });
+                if (prevBtn) prevBtn.addEventListener('click', () => { show(idx - 1); start(); });
+                dots.forEach((d, i) => d.addEventListener('click', () => { show(i); start(); }));
+                root.addEventListener('mouseenter', stop);
+                root.addEventListener('mouseleave', start);
+                show(0); start();
             });
         })();
 

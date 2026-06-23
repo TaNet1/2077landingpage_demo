@@ -214,6 +214,102 @@
         }
     }
 
+    function initClickSpark() {
+        if (window.__CLICK_SPARK_READY) return;
+        window.__CLICK_SPARK_READY = true;
+
+        const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (prefersReducedMotion) return;
+
+        const defaults = {
+            sparkSize: 12,
+            sparkRadius: 20,
+            sparkCount: 7,
+            duration: 450,
+            easing: 'ease-out',
+            extraScale: 1.1
+        };
+
+        const layer = document.createElement('div');
+        layer.className = 'click-spark-layer';
+        layer.setAttribute('aria-hidden', 'true');
+        document.body.appendChild(layer);
+
+        const parseRgb = (value) => {
+            if (!value || value === 'transparent') return null;
+            const match = value.match(/rgba?\(([^)]+)\)/);
+            if (!match) return null;
+            const parts = match[1].split(',').map((part) => part.trim());
+            const r = Number(parts[0]);
+            const g = Number(parts[1]);
+            const b = Number(parts[2]);
+            const a = parts[3] == null ? 1 : Number(parts[3]);
+            if ([r, g, b, a].some((n) => Number.isNaN(n))) return null;
+            return { r, g, b, a };
+        };
+
+        const luminance = ({ r, g, b }) => {
+            const channels = [r, g, b].map((channel) => {
+                const value = channel / 255;
+                return value <= 0.03928 ? value / 12.92 : Math.pow((value + 0.055) / 1.055, 2.4);
+            });
+            return 0.2126 * channels[0] + 0.7152 * channels[1] + 0.0722 * channels[2];
+        };
+
+        const isDarkClickContext = (target, x, y) => {
+            let el = target instanceof Element ? target : document.elementFromPoint(x, y);
+            if (!el) return false;
+
+            const nav = el.closest('.site-nav-shell');
+            if (nav) return !nav.classList.contains('nav-light') && !nav.classList.contains('nav-scrolled');
+
+            const explicit = el.closest('[data-clickspark-theme]');
+            if (explicit) return explicit.getAttribute('data-clickspark-theme') === 'dark';
+
+            const zone = el.closest('#hero, .site-footer, .has-grainient, .section.dark');
+            if (zone) {
+                if (zone.id === 'hero' || zone.classList.contains('site-footer') || zone.classList.contains('dark')) return true;
+                const bg = zone.querySelector(':scope > .grainient-bg');
+                if (bg) return bg.getAttribute('data-grainient') === 'dark';
+            }
+
+            while (el && el !== document.documentElement) {
+                const color = parseRgb(getComputedStyle(el).backgroundColor);
+                if (color && color.a > 0.35) return luminance(color) < 0.45;
+                el = el.parentElement;
+            }
+            return false;
+        };
+
+        const emitSpark = (x, y, color) => {
+            const fragment = document.createDocumentFragment();
+            for (let i = 0; i < defaults.sparkCount; i += 1) {
+                const spark = document.createElement('span');
+                const angle = (360 / defaults.sparkCount) * i + (Math.random() * 8 - 4);
+                spark.className = 'click-spark';
+                spark.style.setProperty('--spark-color', color);
+                spark.style.setProperty('--spark-size', `${defaults.sparkSize}px`);
+                spark.style.setProperty('--spark-x', `${x}px`);
+                spark.style.setProperty('--spark-y', `${y - 1}px`);
+                spark.style.setProperty('--spark-angle', `${angle}deg`);
+                spark.style.setProperty('--spark-distance', `${defaults.sparkRadius}px`);
+                spark.style.setProperty('--spark-duration', `${defaults.duration}ms`);
+                spark.style.setProperty('--spark-easing', defaults.easing);
+                spark.style.setProperty('--spark-scale', defaults.extraScale);
+                spark.addEventListener('animationend', () => spark.remove(), { once: true });
+                fragment.appendChild(spark);
+            }
+            layer.appendChild(fragment);
+        };
+
+        document.addEventListener('pointerdown', (event) => {
+            if (event.button != null && event.button !== 0) return;
+            const target = event.target instanceof Element ? event.target : document.elementFromPoint(event.clientX, event.clientY);
+            const color = isDarkClickContext(target, event.clientX, event.clientY) ? '#ffffff' : '#000000';
+            emitSpark(event.clientX, event.clientY, color);
+        }, { passive: true });
+    }
+
     function initI18n() {
         if (window.__SITE_I18N_READY) return;
         window.__SITE_I18N_READY = true;
@@ -421,6 +517,7 @@
     }
 
     initSharedUi();
+    initClickSpark();
     initI18n();
     initOverviewDetailLinks();
     initPageMotion();

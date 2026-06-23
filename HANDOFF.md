@@ -82,6 +82,16 @@
 
 ## 交接记录（倒序，最新在上）
 
+### 2026-06-23 · Codex：全站接入 ClickSpark 点击火花效果
+
+按用户要求引入 reactbits `ClickSpark-JS-CSS` 的点击反馈。项目当前是无构建静态站，不是 React/shadcn 项目，所以没有直接运行 `npx shadcn@latest add @react-bits/ClickSpark-JS-CSS`，而是在共享资源里做了等价 vanilla 迁移，避免引入不匹配的 React 工程结构。
+- `site.js`：新增 `initClickSpark()`，在全站 `pointerdown` 时生成 7 条短火花，默认参数严格按用户给的配置：`sparkSize:12`、`sparkRadius:20`、`sparkCount:7`、`duration:450`、`easing:'ease-out'`、`extraScale:1.1`。
+- 深浅背景自动适配：暗色区域使用白色火花 `#ffffff`，亮色区域使用黑色火花 `#000000`。判断顺序为导航栏当前主题、`data-clickspark-theme` 显式标记、`#hero` / `.site-footer` / `.has-grainient` / `.section.dark`，最后用点击元素祖先背景色亮度兜底。
+- `site.css`：新增 `.click-spark-layer` 固定覆盖层和 `.click-spark` 动画；覆盖层 `pointer-events:none`，不会挡住导航、FAB、表单或链接点击。
+- 预留扩展：后续如某个区块判断不准，可直接在区块上加 `data-clickspark-theme="dark"` 或 `"light"` 强制指定。
+- 降级：`prefers-reduced-motion: reduce` 下不初始化火花，CSS 也做了兜底禁用。
+- 验证：`node --check site.js` 通过；静态检索确认 ClickSpark 只改动 `site.js` / `site.css` / 本交接文档。
+
 ### 2026-06-23 · Claude：sticky 修复 + 引入 Grainient 动态背景 + 导航改 Sierra 式
 
 本轮四件事，全部**浏览器实测通过**（用 preview_eval 量 DOM / readPixels，首页截图也确认）。已 commit & push。

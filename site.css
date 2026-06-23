@@ -218,6 +218,45 @@ body { font-family: var(--font-main); }
 }
 .fab-item b { color: var(--brand-primary); font-family: 'Sora', var(--font-main); }
 
+.click-spark-layer {
+    position: fixed;
+    inset: 0;
+    z-index: 2147483000;
+    pointer-events: none;
+    overflow: hidden;
+    contain: strict;
+}
+
+.click-spark {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: var(--spark-size, 12px);
+    height: 2px;
+    border-radius: 999px;
+    background: var(--spark-color, #fff);
+    opacity: 0;
+    transform-origin: 0 50%;
+    will-change: transform, opacity;
+    animation: clickSpark var(--spark-duration, 450ms) var(--spark-easing, ease-out) forwards;
+}
+
+@keyframes clickSpark {
+    0% {
+        opacity: 1;
+        transform: translate3d(var(--spark-x), var(--spark-y), 0) rotate(var(--spark-angle)) translateX(0) scaleX(.2);
+    }
+    64% { opacity: 1; }
+    100% {
+        opacity: 0;
+        transform: translate3d(var(--spark-x), var(--spark-y), 0) rotate(var(--spark-angle)) translateX(var(--spark-distance)) scaleX(var(--spark-scale, 1.1));
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .click-spark { animation: none; display: none; }
+}
+
 @media (max-width: 1023px) {
     .site-nav-shell { min-height: 64px; }
     .nav-logo-mark { width: 170px; height: 24px; }

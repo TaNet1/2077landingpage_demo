@@ -705,6 +705,279 @@
         .pain-cardx p { font-size: 14px; color: #94a3b8; line-height: 1.78; }
         @media (max-width: 560px) { .pain-cardx { width: 300px; } }
 
+        /* Service scene narrative */
+        .service-scene-section {
+            position: relative;
+            min-height: 100vh;
+            padding: clamp(110px, 12vw, 170px) 40px;
+            color: #f8fafc;
+            background:
+                linear-gradient(135deg, rgba(5, 8, 15, 0.98), rgba(9, 13, 24, 0.94) 56%, rgba(16, 12, 25, 0.98)),
+                #05080f;
+        }
+        .service-scene-section::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            opacity: 0.18;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px);
+            background-size: 52px 52px;
+            mask-image: linear-gradient(180deg, transparent, #000 18%, #000 76%, transparent);
+        }
+        .service-scene-wrap { position: relative; z-index: 1; }
+        .service-scene-intro {
+            display: grid;
+            grid-template-columns: minmax(0, 1.05fr) minmax(320px, 0.65fr);
+            gap: clamp(32px, 6vw, 88px);
+            align-items: end;
+            margin-bottom: clamp(46px, 7vw, 88px);
+        }
+        .service-eyebrow {
+            font-family: 'Sora', sans-serif;
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 0;
+            text-transform: uppercase;
+            color: #b7c4d8;
+            margin-bottom: 18px;
+        }
+        .service-scene-title {
+            font-size: clamp(42px, 5.4vw, 82px);
+            line-height: 1.04;
+            font-weight: 800;
+        }
+        .service-scene-lead {
+            color: #cbd5e1;
+            font-size: clamp(16px, 1.25vw, 20px);
+            line-height: 1.9;
+            max-width: 520px;
+        }
+        .service-scene-stage {
+            display: grid;
+            grid-template-columns: minmax(320px, 0.78fr) minmax(0, 1.22fr);
+            gap: clamp(24px, 4vw, 56px);
+            align-items: start;
+        }
+        .service-chapters {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+        .service-chapter {
+            width: 100%;
+            display: grid;
+            grid-template-columns: 48px minmax(0, 1fr);
+            gap: 18px;
+            text-align: left;
+            padding: 20px;
+            border: 1px solid rgba(148, 163, 184, 0.24);
+            border-radius: 24px;
+            background: rgba(255, 255, 255, 0.045);
+            color: inherit;
+            transition: transform 0.35s cubic-bezier(.2,.8,.2,1), border-color 0.35s, background 0.35s, box-shadow 0.35s;
+        }
+        .service-chapter:hover,
+        .service-chapter.active {
+            transform: translateX(6px);
+            border-color: rgba(190, 24, 255, 0.7);
+            background: rgba(255, 255, 255, 0.09);
+            box-shadow: 0 26px 60px -42px rgba(236, 0, 250, 0.9);
+        }
+        .service-chapter-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 16px;
+            display: grid;
+            place-items: center;
+            color: #f2e7ff;
+            background: rgba(146, 85, 254, 0.18);
+            border: 1px solid rgba(216, 180, 254, 0.24);
+        }
+        .service-chapter.active .service-chapter-icon {
+            background: linear-gradient(135deg, var(--brand-primary), var(--brand-secondary));
+            color: #fff;
+            border-color: transparent;
+        }
+        .service-chapter-kicker {
+            display: block;
+            margin-bottom: 8px;
+            font-family: 'Sora', sans-serif;
+            font-size: 11px;
+            font-weight: 800;
+            color: #94a3b8;
+        }
+        .service-chapter h4 {
+            font-size: 20px;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+        .service-chapter p {
+            color: #cbd5e1;
+            line-height: 1.72;
+            font-size: 14px;
+        }
+        .service-live-panel {
+            position: sticky;
+            top: 112px;
+            overflow: hidden;
+            min-height: 620px;
+            border-radius: 34px;
+            background: linear-gradient(145deg, rgba(15, 23, 42, 0.92), rgba(3, 7, 18, 0.98));
+            border: 1px solid rgba(148, 163, 184, 0.24);
+            box-shadow: 0 34px 90px -50px rgba(0, 0, 0, 0.85);
+        }
+        .service-live-panel::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            background:
+                linear-gradient(110deg, transparent 0 45%, rgba(255,255,255,0.07) 52%, transparent 60%),
+                radial-gradient(circle at 72% 16%, rgba(146,85,254,0.28), transparent 30%);
+            opacity: 0.75;
+        }
+        .service-panel-bar {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 22px 24px;
+            border-bottom: 1px solid rgba(148, 163, 184, 0.18);
+            color: #dbeafe;
+            font-size: 13px;
+            font-weight: 700;
+        }
+        .service-panel-dots { display: flex; gap: 7px; }
+        .service-panel-dots span { width: 8px; height: 8px; border-radius: 999px; background: rgba(203, 213, 225, 0.48); }
+        .service-panel-dots span:first-child { background: #22d3ee; }
+        .service-panel-body {
+            position: relative;
+            z-index: 1;
+            min-height: 560px;
+            padding: clamp(24px, 4vw, 42px);
+            display: grid;
+            grid-template-columns: minmax(220px, 0.88fr) minmax(260px, 1fr);
+            gap: 26px;
+            align-items: end;
+        }
+        .service-avatar-zone {
+            align-self: stretch;
+            position: relative;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            min-height: 480px;
+        }
+        .service-avatar-zone::after {
+            content: '';
+            position: absolute;
+            left: 12%;
+            right: 12%;
+            bottom: 18px;
+            height: 28px;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.42);
+            filter: blur(16px);
+        }
+        .service-avatar-zone img {
+            position: relative;
+            z-index: 1;
+            max-height: 500px;
+            width: auto;
+            max-width: 100%;
+            object-fit: contain;
+            filter: drop-shadow(0 26px 34px rgba(0,0,0,0.42));
+        }
+        .service-demo {
+            align-self: center;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+        .service-mode {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            width: max-content;
+            padding: 8px 12px;
+            border-radius: 999px;
+            background: rgba(34, 211, 238, 0.12);
+            color: #67e8f9;
+            font-size: 12px;
+            font-weight: 800;
+        }
+        .service-dialog {
+            padding: 18px;
+            border-radius: 22px;
+            background: rgba(2, 6, 23, 0.72);
+            border: 1px solid rgba(148, 163, 184, 0.22);
+        }
+        .service-dialog span {
+            display: block;
+            margin-bottom: 8px;
+            color: #94a3b8;
+            font-size: 12px;
+            font-weight: 800;
+        }
+        .service-dialog p {
+            color: #f8fafc;
+            font-weight: 700;
+            line-height: 1.68;
+        }
+        .service-artifact {
+            display: grid;
+            grid-template-columns: 42px minmax(0, 1fr);
+            gap: 13px;
+            padding: 16px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+        }
+        .service-artifact-ico {
+            width: 42px;
+            height: 42px;
+            border-radius: 14px;
+            display: grid;
+            place-items: center;
+            color: #fff;
+            background: linear-gradient(135deg, var(--brand-primary), var(--brand-secondary));
+        }
+        .service-artifact strong { display: block; margin-bottom: 6px; }
+        .service-artifact p { color: #cbd5e1; font-size: 13px; line-height: 1.6; }
+        .service-progress {
+            height: 4px;
+            margin-top: 6px;
+            border-radius: 999px;
+            overflow: hidden;
+            background: rgba(148, 163, 184, 0.18);
+        }
+        .service-progress span {
+            display: block;
+            height: 100%;
+            width: 0;
+            border-radius: inherit;
+            background: linear-gradient(90deg, #22d3ee, var(--brand-secondary));
+        }
+        .service-live-panel.is-playing .service-progress span { animation: serviceSceneFill 6.4s linear forwards; }
+        @keyframes serviceSceneFill { to { width: 100%; } }
+        @media (max-width: 1080px) {
+            .service-scene-intro,
+            .service-scene-stage { grid-template-columns: 1fr; }
+            .service-live-panel { position: relative; top: 0; }
+        }
+        @media (max-width: 720px) {
+            .service-scene-section { padding: 92px 20px; }
+            .service-chapter { grid-template-columns: 42px minmax(0, 1fr); padding: 16px; }
+            .service-chapter-icon { width: 42px; height: 42px; border-radius: 14px; }
+            .service-panel-body { grid-template-columns: 1fr; min-height: auto; }
+            .service-avatar-zone { min-height: 300px; }
+            .service-avatar-zone img { max-height: 310px; }
+        }
+
         /* ===== Interactive capabilities showcase ===== */
         .cap-wrap { display: grid; grid-template-columns: 0.92fr 1.08fr; gap: 44px; margin-top: 56px; align-items: start; }
         .cap-list { display: flex; flex-direction: column; gap: 10px; }
@@ -1002,63 +1275,91 @@
         <a href="#pain" class="hero-scroll-cue" aria-label="向下滚动"><i data-lucide="chevrons-down" class="w-5 h-5"></i></a>
     </section>
 
-    <!-- PAIN -->
-    <section id="pain" class="py-28 px-10 bg-slate-50 overflow-hidden">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-16 reveal">
-                <h2 class="text-sm font-bold tracking-widest text-purple-600 mb-4 uppercase">服务空间的现实困境</h2>
-                <h3 class="text-4xl md:text-5xl font-sora font-bold">这些问题，每天都在消耗你的成本与口碑</h3>
+    <!-- SERVICE SCENE -->
+    <section id="pain" class="service-scene-section overflow-hidden">
+        <div class="service-scene-wrap max-w-7xl mx-auto" id="serviceScene">
+            <div class="service-scene-intro reveal">
+                <div>
+                    <div class="service-eyebrow">Service Space Intelligence</div>
+                    <h2 class="service-scene-title font-sora">服务发生在现场，<br><span class="gradient-text">答案也应该站在现场</span></h2>
+                </div>
+                <p class="service-scene-lead">AI 虚拟人不是把客服藏进一个入口，而是把可被看见、可被对话、可被运营的服务能力放回现场。顾客走到哪里，问题在哪里发生，答案就应该在那里出现。</p>
             </div>
-            <div class="pain-bento reveal">
-                    <div class="pain-cardx" style="--accent:#9255fe">
-                        <span class="pain-num">01</span>
-                        <div class="pain-ic"><i data-lucide="users" class="w-7 h-7"></i></div>
-                        <span class="pain-eyebrow">人力成本</span>
-                        <h4>人力成本高，服务不均</h4>
-                        <p>招聘难、培训周期长，人力成本持续上涨；高峰期排长队，夜间与节假日服务能力直接断层。</p>
+
+            <div class="service-scene-stage reveal">
+                <div class="service-chapters" aria-label="现场服务章节">
+                    <button class="service-chapter active" type="button" data-scene="0">
+                        <span class="service-chapter-icon"><i data-lucide="door-open" class="w-6 h-6"></i></span>
+                        <span>
+                            <span class="service-chapter-kicker">01 · On-site greeting</span>
+                            <h4>主动站在入口</h4>
+                            <p>线下服务的第一秒发生在入口、前台和动线交汇处。AI 虚拟人可以主动开口，把“找不到人问”变成“有人先来接”。</p>
+                        </span>
+                    </button>
+                    <button class="service-chapter" type="button" data-scene="1">
+                        <span class="service-chapter-icon"><i data-lucide="message-circle" class="w-6 h-6"></i></span>
+                        <span>
+                            <span class="service-chapter-kicker">02 · Natural dialogue</span>
+                            <h4>不需要学习入口</h4>
+                            <p>用户不用下载 App、扫码、翻菜单，走到屏前直接问。自然语言就是操作方式，服务门槛被降到最低。</p>
+                        </span>
+                    </button>
+                    <button class="service-chapter" type="button" data-scene="2">
+                        <span class="service-chapter-icon"><i data-lucide="smile" class="w-6 h-6"></i></span>
+                        <span>
+                            <span class="service-chapter-kicker">03 · Human-like expression</span>
+                            <h4>有形象，也有语气</h4>
+                            <p>服务现场需要信任感和亲和力。数字人用形象、声音、表情承接问答、导览、讲解，让交互更像面对一位员工。</p>
+                        </span>
+                    </button>
+                    <button class="service-chapter" type="button" data-scene="3">
+                        <span class="service-chapter-icon"><i data-lucide="map" class="w-6 h-6"></i></span>
+                        <span>
+                            <span class="service-chapter-kicker">04 · Answer plus action</span>
+                            <h4>边说清楚，边给结果</h4>
+                            <p>路线、流程、材料、活动、商户推荐不只是一段话。AI 虚拟人可以同步展示地图、清单和下一步动作。</p>
+                        </span>
+                    </button>
+                    <button class="service-chapter" type="button" data-scene="4">
+                        <span class="service-chapter-icon"><i data-lucide="chart-no-axes-combined" class="w-6 h-6"></i></span>
+                        <span>
+                            <span class="service-chapter-kicker">05 · Operable service</span>
+                            <h4>每次服务都能沉淀</h4>
+                            <p>现场问答不再一次性消失。高频问题、堵点、需求热度会回流到 CMS，帮助运营持续优化内容和服务配置。</p>
+                        </span>
+                    </button>
+                </div>
+
+                <aside class="service-live-panel is-playing" aria-label="现场服务交互演示">
+                    <div class="service-panel-bar">
+                        <div class="service-panel-dots" aria-hidden="true"><span></span><span></span><span></span></div>
+                        <span>现场服务引擎在线</span>
                     </div>
-                    <div class="pain-cardx" style="--accent:#3b82f6">
-                        <span class="pain-num">02</span>
-                        <div class="pain-ic"><i data-lucide="compass" class="w-7 h-7"></i></div>
-                        <span class="pain-eyebrow">寻路导航</span>
-                        <h4>寻路难，信息过载</h4>
-                        <p>大型综合体结构复杂，顾客常因迷路焦虑；海量商铺信息看不见、记不住，难筛出"最优解"。</p>
+                    <div class="service-panel-body">
+                        <div class="service-avatar-zone">
+                            <img src="assets/product-robo.png" alt="幻真 Robo 现场服务终端">
+                        </div>
+                        <div class="service-demo">
+                            <div class="service-mode" id="serviceMode"><i data-lucide="sparkles" class="w-4 h-4"></i><span>主动迎宾</span></div>
+                            <div class="service-dialog">
+                                <span>现场提问</span>
+                                <p id="serviceQuestion">请问洗手间和母婴室怎么走？</p>
+                            </div>
+                            <div class="service-dialog">
+                                <span>AI 虚拟员工回答</span>
+                                <p id="serviceAnswer">我已为您定位最近路线。从当前位置向前 30 米左转即可到达洗手间，母婴室在同一走廊右侧。</p>
+                            </div>
+                            <div class="service-artifact">
+                                <div class="service-artifact-ico"><i data-lucide="route" class="w-5 h-5"></i></div>
+                                <div>
+                                    <strong id="serviceArtifactTitle">生成室内导航路线</strong>
+                                    <p id="serviceArtifactState">同步在屏幕上展示楼层地图，并可继续语音追问。</p>
+                                </div>
+                            </div>
+                            <div class="service-progress" aria-hidden="true"><span></span></div>
+                        </div>
                     </div>
-                    <div class="pain-cardx" style="--accent:#ec4899">
-                        <span class="pain-num">03</span>
-                        <div class="pain-ic"><i data-lucide="trending-down" class="w-7 h-7"></i></div>
-                        <span class="pain-eyebrow">营销转化</span>
-                        <h4>营销转化链路长</h4>
-                        <p>纸质海报更新慢、互动差；运营方难以精准、动态触达目标客群，从问询到消费断层严重。</p>
-                    </div>
-                    <div class="pain-cardx" style="--accent:#f97316">
-                        <span class="pain-num">04</span>
-                        <div class="pain-ic"><i data-lucide="clock-alert" class="w-7 h-7"></i></div>
-                        <span class="pain-eyebrow">高峰承载</span>
-                        <h4>高峰拥堵，体验下滑</h4>
-                        <p>客流高峰时人工接待捉襟见肘，咨询排队、响应迟缓，顾客耐心被消耗，投诉与差评随之上升。</p>
-                    </div>
-                    <div class="pain-cardx" style="--accent:#6366f1">
-                        <span class="pain-num">05</span>
-                        <div class="pain-ic"><i data-lucide="user-x" class="w-7 h-7"></i></div>
-                        <span class="pain-eyebrow">服务标准</span>
-                        <h4>服务标准不一，质量飘忽</h4>
-                        <p>不同员工话术、专业度参差不齐，新人上手慢、老人流失快，服务体验难以稳定地标准化复制。</p>
-                    </div>
-                    <div class="pain-cardx" style="--accent:#10b981">
-                        <span class="pain-num">06</span>
-                        <div class="pain-ic"><i data-lucide="database-zap" class="w-7 h-7"></i></div>
-                        <span class="pain-eyebrow">数据沉淀</span>
-                        <h4>交互无沉淀，难以优化</h4>
-                        <p>线下服务过程难以记录与分析，客户高频需求、堵点与商机白白流失，运营决策缺少数据支撑。</p>
-                    </div>
-                    <div class="pain-cardx" style="--accent:#f43f5e">
-                        <span class="pain-num">07</span>
-                        <div class="pain-ic"><i data-lucide="languages" class="w-7 h-7"></i></div>
-                        <span class="pain-eyebrow">多语沟通</span>
-                        <h4>多语接待，沟通受阻</h4>
-                        <p>面对国际客群与方言用户，人工难以全语种覆盖，沟通效率低、信息易出错，服务半径受到限制。</p>
-                    </div>
+                </aside>
             </div>
         </div>
     </section>
@@ -1984,7 +2285,7 @@
             };
             para('#heroVisual', -34, '#hero', 'top top', 'bottom top', 1);
             para('#hero .hero-pio-wrap', 30, '#hero', 'top top', 'bottom top', 1.15);
-            para('#pain > .max-w-7xl', -18, '#pain');
+            para('#pain .service-scene-wrap', -18, '#pain');
             para('#logic > .max-w-7xl', 18, '#logic');
             para('#moatBg1', 58, '#moat');
             para('#moatBg2', -58, '#moat');
@@ -2053,6 +2354,88 @@
                 });
             }, { threshold: 0.12 });
             document.querySelectorAll('.reveal:not(.active)').forEach(el => revIO.observe(el));
+
+            // ---- Service-scene narrative: chapters drive the live panel ----
+            (() => {
+                const root = document.getElementById('serviceScene');
+                if (!root) return;
+                const chapters = [...root.querySelectorAll('.service-chapter')];
+                const panel = root.querySelector('.service-live-panel');
+                const mode = root.querySelector('#serviceMode span');
+                const question = root.querySelector('#serviceQuestion');
+                const answer = root.querySelector('#serviceAnswer');
+                const artifactTitle = root.querySelector('#serviceArtifactTitle');
+                const artifactState = root.querySelector('#serviceArtifactState');
+                if (!chapters.length || !panel || !mode || !question || !answer || !artifactTitle || !artifactState) return;
+
+                const scenes = [
+                    {
+                        mode: '主动迎宾',
+                        question: '请问洗手间和母婴室怎么走？',
+                        answer: '我已为您定位最近路线。从当前位置向前 30 米左转即可到达洗手间，母婴室在同一走廊右侧。',
+                        artifactTitle: '生成室内导航路线',
+                        artifactState: '同步在屏幕上展示楼层地图，并可继续语音追问。'
+                    },
+                    {
+                        mode: '自然语言入口',
+                        question: '我想找一家适合带孩子吃饭的餐厅。',
+                        answer: '您可以去三层亲子餐饮区。我会优先推荐有儿童座椅、低噪环境和当前无需排队的餐厅。',
+                        artifactTitle: '筛选实时推荐结果',
+                        artifactState: '根据位置、营业状态、排队情况和用户偏好即时生成。'
+                    },
+                    {
+                        mode: '拟人化讲解',
+                        question: '这个展项主要讲什么？',
+                        answer: '我可以用 90 秒为您讲清展项背景，也可以按儿童版、专业版或英文版重新讲一遍。',
+                        artifactTitle: '切换讲解话术',
+                        artifactState: '形象、语音、唇形和屏幕内容同步表达，降低冰冷机器感。'
+                    },
+                    {
+                        mode: '结果即时呈现',
+                        question: '办理这个业务需要哪些材料？',
+                        answer: '您需要身份证原件、申请表和一张近期照片。我已把清单放在屏幕上，也可以为您发送到手机。',
+                        artifactTitle: '输出流程与材料清单',
+                        artifactState: '把复杂信息拆成可执行步骤，现场直接给下一步动作。'
+                    },
+                    {
+                        mode: '运营数据回流',
+                        question: '最近最多人问的问题是什么？',
+                        answer: '本周高频问题集中在停车、餐饮推荐和活动报名。CMS 已汇总成趋势，方便运营更新内容。',
+                        artifactTitle: '沉淀服务洞察',
+                        artifactState: '每次问答都成为可分析的运营数据，持续优化知识库与点位配置。'
+                    }
+                ];
+                const tr = (s) => window.__i18nTr ? window.__i18nTr(s) : s;
+                let active = 0;
+                let timer = null;
+                const play = (idx) => {
+                    active = (idx + scenes.length) % scenes.length;
+                    chapters.forEach((btn, i) => btn.classList.toggle('active', i === active));
+                    const scene = scenes[active];
+                    mode.textContent = tr(scene.mode);
+                    question.textContent = tr(scene.question);
+                    answer.textContent = tr(scene.answer);
+                    artifactTitle.textContent = tr(scene.artifactTitle);
+                    artifactState.textContent = tr(scene.artifactState);
+                    panel.classList.remove('is-playing');
+                    void panel.offsetWidth;
+                    panel.classList.add('is-playing');
+                };
+                const start = () => {
+                    window.clearInterval(timer);
+                    timer = window.setInterval(() => play(active + 1), 6400);
+                };
+                chapters.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        play(Number(btn.dataset.scene || 0));
+                        start();
+                    });
+                });
+                root.addEventListener('mouseenter', () => window.clearInterval(timer));
+                root.addEventListener('mouseleave', start);
+                play(0);
+                start();
+            })();
 
             // ---- Counters: IntersectionObserver triggers, GSAP tweens the number ----
             const gcount = (el) => {

@@ -838,6 +838,11 @@
             transform: scale(1) translateY(0);
             transition-delay: 0s;
         }
+        .service-visual-state[data-visual="5"] {
+            transform: none;
+            transition: opacity .5s ease, visibility 0s linear .5s;
+        }
+        .service-visual-state[data-visual="5"].active { transform: none; transition-delay: 0s; }
         .service-mobile-visual { display: none; }
         .service-vis-map {
             background:
@@ -1370,6 +1375,9 @@
         .report-insight span { display: block; color: rgba(255,255,255,.52); font-size: 11px; line-height: 1.45; }
         .report-card[data-slot]:not([data-slot="0"]) .report-main-grid,
         .report-card[data-slot]:not([data-slot="0"]) .report-insights { opacity: .34; }
+        .report-card[data-slot]:not([data-slot="0"]) .report-metrics,
+        .report-card[data-slot]:not([data-slot="0"]) .report-mini-list,
+        .report-card[data-slot]:not([data-slot="0"]) > .report-panel { opacity: .2; }
         .report-mini-list { display: grid; gap: 10px; }
         .report-mini-item {
             display: grid;
@@ -1388,7 +1396,6 @@
         .report-heat-grid i { height: 30px; border-radius: 9px; background: rgba(255,255,255,.07); }
         .report-heat-grid i.hot { background: linear-gradient(135deg, #7000ff, #ec00fa); box-shadow: 0 0 24px rgba(236,0,250,.24); }
         .report-heat-grid i.mid { background: rgba(189,0,255,.28); }
-        .report-stack-hint { position: absolute; right: 18px; bottom: 14px; z-index: 5; color: rgba(255,255,255,.36); font-size: 11px; pointer-events: none; }
         @media (max-width: 1080px) {
             .service-scene-intro { grid-template-columns: 1fr; }
             .service-scroll-grid { display: block; }
@@ -1660,29 +1667,23 @@
         /* 01 full-stack assembly */
         .why-stack-stage {
             display: grid;
-            grid-template-columns: minmax(300px, 680px) 170px;
+            grid-template-columns: minmax(290px, 520px) minmax(100px, 1fr) 170px;
             align-items: center;
             justify-content: center;
-            gap: clamp(28px, 5vw, 82px);
-            width: min(92%, 1000px);
+            gap: 0;
+            width: min(94%, 1080px);
             height: 100%;
-            margin: 12px auto 0;
+            margin: 18px auto 0;
+            padding-top: 18px;
+            border-top: 1px solid rgba(0,0,0,.07);
         }
         .why-stack {
             position: relative;
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 10px;
             width: 100%;
-            padding: 14px;
-        }
-        .why-stack-shell {
-            position: absolute;
-            inset: 6px;
-            border: 1.5px solid #242429;
-            border-radius: 13px;
-            opacity: 0;
-            transform: scale(.985);
+            padding: 5px 0;
         }
         .why-stack-layer {
             position: relative;
@@ -1690,8 +1691,8 @@
             grid-template-columns: 38px minmax(0,1fr) auto;
             align-items: center;
             gap: 13px;
-            min-height: 58px;
-            padding: 0 18px 0 12px;
+            min-height: 54px;
+            padding: 0 15px 0 10px;
             overflow: hidden;
             border: 1px solid rgba(0,0,0,.15);
             border-radius: 10px;
@@ -1725,7 +1726,19 @@
             font-weight: 650;
             white-space: nowrap;
         }
-        .why-stack-status { display: flex; flex-direction: column; gap: 18px; }
+        .why-data-bus { position: relative; align-self: stretch; min-width: 100px; }
+        .why-data-bus svg { width: 100%; height: 100%; overflow: visible; }
+        .why-bus-line,
+        .why-bus-flow { fill: none; vector-effect: non-scaling-stroke; }
+        .why-bus-line { stroke: rgba(35,32,39,.2); stroke-width: 1.4; stroke-dasharray: 4 5; }
+        .why-bus-flow {
+            stroke: #bd00ff;
+            stroke-width: 2;
+            stroke-dasharray: 420;
+            stroke-dashoffset: 420;
+            filter: drop-shadow(0 0 4px rgba(189,0,255,.18));
+        }
+        .why-stack-status { display: flex; flex-direction: column; align-items: center; gap: 18px; }
         .why-status-ring {
             position: relative;
             display: grid;
@@ -1749,9 +1762,9 @@
         .why-status-ring strong { font-family: 'Sora'; font-size: 25px; }
         .why-status-ring span { position: absolute; bottom: 25px; color: #8b8b91; font-size: 9px; letter-spacing: .08em; }
         .why-stack-note { color: #85858c; font-size: 11px; line-height: 1.6; text-align: center; }
-        .why-card.is-playing .why-stack { animation: whyStackGap 7.2s cubic-bezier(.85,0,.15,1) both; }
-        .why-card.is-playing .why-stack-shell { animation: whyShellLock 7.2s cubic-bezier(.85,0,.15,1) both; }
-        .why-card.is-playing .why-stack-layer::after { animation: whyLayerScan 7.2s ease both; }
+        .why-card.is-playing .why-stack-layer { animation: whyModuleLock 6.8s cubic-bezier(.16,1,.3,1) both; animation-delay: calc(var(--module) * 90ms); }
+        .why-card.is-playing .why-stack-layer::after { animation: whyLayerScan 6.8s ease both; animation-delay: calc(var(--module) * 90ms); }
+        .why-card.is-playing .why-bus-flow { animation: whyBusFlow 6.8s cubic-bezier(.16,1,.3,1) infinite; animation-delay: calc(var(--flow) * 110ms); }
         .why-card.is-playing .why-status-ring::before { animation: whyStatusSpin 2.2s linear 1.7s 2; }
         .why-card.is-playing .why-status-ring strong { animation: whyStatusValue 7.2s ease both; }
 
@@ -1984,12 +1997,17 @@
         .why-card.is-playing .why-chart-scan { animation: whyChartScan 6.2s cubic-bezier(.2,.8,.2,1) infinite; }
         .why-card.is-playing .why-chart-tip { animation: whyChartTip 6.2s cubic-bezier(.2,.8,.2,1) infinite; }
 
-        @keyframes whyStackGap {
-            0%, 12%, 92%, 100% { gap: 12px; transform: scale(.985); }
-            29%, 76% { gap: 2px; transform: scale(1); }
+        @keyframes whyModuleLock {
+            0%,15%,100% { transform: translateX(0); border-color: rgba(0,0,0,.15); box-shadow: 0 5px 18px rgba(0,0,0,.035); }
+            30%,78% { transform: translateX(7px); border-color: rgba(189,0,255,.18); box-shadow: 0 6px 18px rgba(189,0,255,.055); }
         }
-        @keyframes whyShellLock { 0%, 24%, 86%, 100% { opacity: 0; } 35%, 76% { opacity: 1; transform: scale(1); } }
         @keyframes whyLayerScan { 0%, 34% { transform: translateX(-110%); } 53%, 100% { transform: translateX(110%); } }
+        @keyframes whyBusFlow {
+            0%,18% { stroke-dashoffset: 420; opacity: 0; }
+            30% { opacity: 1; }
+            62%,78% { stroke-dashoffset: 0; opacity: 1; }
+            92%,100% { stroke-dashoffset: -420; opacity: 0; }
+        }
         @keyframes whyStatusSpin { to { transform: rotate(360deg); opacity: .8; } }
         @keyframes whyStatusValue { 0%, 24%, 88%,100% { opacity: .45; } 34%,78% { opacity: 1; color: #7c14b5; } }
         @keyframes whyDeliveryLine { 0%,10% { height: 0; } 52%,100% { height: 62%; } }
@@ -2016,7 +2034,7 @@
             .why-grid { grid-template-columns: repeat(2,minmax(0,1fr)); grid-template-rows: 520px 310px 310px; }
             .why-card-main { grid-column: span 2; grid-row: span 1; }
             .why-card-ops { grid-column: span 2; }
-            .why-stack-stage { width: 100%; grid-template-columns: minmax(0,1fr) 140px; }
+            .why-stack-stage { width: 100%; grid-template-columns: minmax(0,1fr) minmax(80px,.35fr) 130px; }
         }
         @media (max-width: 720px) {
             .why-section { padding: 88px 20px 96px; }
@@ -2026,11 +2044,12 @@
             .why-card-main { min-height: 610px; }
             .why-card-ops { min-height: 560px; flex-direction: column; gap: 24px; }
             .why-card-ops .why-card-copy { flex: none; align-self: stretch; }
-            .why-stack-stage { grid-template-columns: 1fr; align-content: center; gap: 22px; width: 100%; }
+            .why-stack-stage { grid-template-columns: 1fr; align-content: center; gap: 18px; width: 100%; border-top: 0; padding-top: 0; }
             .why-stack { padding: 4px; }
             .why-stack-layer { grid-template-columns: 34px minmax(0,1fr); min-height: 54px; padding-right: 12px; }
             .why-layer-tag { display: none; }
             .why-stack-status { flex-direction: row; align-items: center; justify-content: center; }
+            .why-data-bus { display: none; }
             .why-status-ring { width: 88px; height: 88px; }
             .why-status-ring strong { font-size: 20px; }
             .why-status-ring span { bottom: 17px; }
@@ -2044,8 +2063,7 @@
             .why-card *,
             .why-card *::before,
             .why-card *::after { animation: none !important; transition-duration: .01ms !important; }
-            .why-stack { gap: 2px; }
-            .why-stack-shell { opacity: 1; transform: scale(1); }
+            .why-bus-flow { stroke-dashoffset: 0; opacity: 1; }
             .why-step { opacity: 1; color: #242429; }
             .why-step-dot { border-color: #222227; background: #222227; box-shadow: inset 0 0 0 4px #222227, inset 0 0 0 6px #fff; }
             .why-noise-meter span { width: 86%; }
@@ -2626,7 +2644,6 @@
                                             <div class="report-insight"><b>运营复盘</b><span>按周输出需求变化，指导内容配置。</span></div>
                                         </div>
                                     </div>
-                                    <span class="report-stack-hint">点击切换报告</span>
                                 </div>
                             </div>
                         </div>
@@ -2805,7 +2822,6 @@
                                         <div class="report-insight"><b>运营复盘</b><span>按周输出需求变化，指导内容配置。</span></div>
                                     </div>
                                 </div>
-                                <span class="report-stack-hint">点击切换报告</span>
                             </div>
                         </div>
                     </div>
@@ -2834,27 +2850,38 @@
                     </div>
                     <div class="why-visual why-stack-stage">
                         <div class="why-stack">
-                            <div class="why-stack-shell"></div>
-                            <div class="why-stack-layer">
+                            <div class="why-stack-layer" style="--module:0">
                                 <span class="why-layer-icon"><i data-lucide="brain-circuit"></i></span>
                                 <span class="why-layer-name">大脑决策层</span>
                                 <span class="why-layer-tag">AI Agent / LLM</span>
                             </div>
-                            <div class="why-stack-layer">
+                            <div class="why-stack-layer" style="--module:1">
                                 <span class="why-layer-icon"><i data-lucide="layout-dashboard"></i></span>
                                 <span class="why-layer-name">平台管理层</span>
                                 <span class="why-layer-tag">CMS / Data</span>
                             </div>
-                            <div class="why-stack-layer">
+                            <div class="why-stack-layer" style="--module:2">
                                 <span class="why-layer-icon"><i data-lucide="scan-face"></i></span>
                                 <span class="why-layer-name">渲染交互层</span>
                                 <span class="why-layer-tag">UE / 3D Avatar</span>
                             </div>
-                            <div class="why-stack-layer">
+                            <div class="why-stack-layer" style="--module:3">
                                 <span class="why-layer-icon"><i data-lucide="cpu"></i></span>
                                 <span class="why-layer-name">终端硬件层</span>
                                 <span class="why-layer-tag">Sensor / Edge</span>
                             </div>
+                        </div>
+                        <div class="why-data-bus" aria-hidden="true">
+                            <svg viewBox="0 0 220 260" preserveAspectRatio="none">
+                                <path class="why-bus-line" d="M0 34 C110 34 104 130 220 130"/>
+                                <path class="why-bus-line" d="M0 98 C110 98 104 130 220 130"/>
+                                <path class="why-bus-line" d="M0 162 C110 162 104 130 220 130"/>
+                                <path class="why-bus-line" d="M0 226 C110 226 104 130 220 130"/>
+                                <path class="why-bus-flow" style="--flow:0" d="M0 34 C110 34 104 130 220 130"/>
+                                <path class="why-bus-flow" style="--flow:1" d="M0 98 C110 98 104 130 220 130"/>
+                                <path class="why-bus-flow" style="--flow:2" d="M0 162 C110 162 104 130 220 130"/>
+                                <path class="why-bus-flow" style="--flow:3" d="M0 226 C110 226 104 130 220 130"/>
+                            </svg>
                         </div>
                         <div class="why-stack-status">
                             <div class="why-status-ring"><strong>4 in 1</strong><span>System Ready</span></div>
@@ -3950,7 +3977,7 @@
                     // opacity:0 on inactive states and leave them visible (causing overlap/ghosting).
                     // Only stagger the inner elements' OPACITY (no transform — .service-ui-card
                     // relies on its CSS rotateY/translateX for the layered look).
-                    const targets = state.querySelectorAll('.scene-hotspot, .service-wave-bar, .service-ui-card, .report-metric, .report-panel, .report-insight, .service-avatar-closeup');
+                    const targets = state.querySelectorAll('.scene-hotspot, .service-wave-bar, .service-ui-card, .service-avatar-closeup');
                     if (targets.length) {
                         gsap.fromTo(targets, { opacity: 0 }, { opacity: 1, duration: 0.5, stagger: 0.05, ease: 'power2.out', delay: 0.12 });
                     }

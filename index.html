@@ -1559,11 +1559,7 @@
         }
         .why-wrap { position: relative; z-index: 1; width: 100%; max-width: 1760px; margin: 0 auto; }
         .why-head {
-            display: grid;
-            grid-template-columns: minmax(0, 760px) minmax(280px, 520px);
-            justify-content: space-between;
-            align-items: end;
-            gap: 72px;
+            display: block;
             margin-bottom: 68px;
         }
         .why-eyebrow {
@@ -1587,12 +1583,6 @@
             line-height: 1.12;
             letter-spacing: 0;
         }
-        .why-lead {
-            margin: 0 0 4px;
-            color: var(--why-muted);
-            font-size: 17px;
-            line-height: 1.8;
-        }
         .why-grid {
             display: grid;
             grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -1607,10 +1597,12 @@
             min-width: 0;
             padding: clamp(26px, 2.2vw, 38px);
             overflow: hidden;
-            border: 1px solid var(--why-line);
+            border: 1px solid rgba(83,48,98,.11);
             border-radius: 18px;
-            background: var(--why-surface);
-            box-shadow: 0 2px 14px rgba(0,0,0,.025);
+            background: rgba(250,248,252,.78);
+            box-shadow: 0 10px 36px rgba(80,34,96,.035);
+            backdrop-filter: blur(18px) saturate(1.08);
+            -webkit-backdrop-filter: blur(18px) saturate(1.08);
             opacity: 0;
             transform: translateY(28px);
             transition:
@@ -1630,8 +1622,8 @@
         .why-card:hover,
         .why-card:focus-visible {
             border-color: rgba(0,0,0,.16);
-            background: #fff;
-            box-shadow: 0 20px 60px rgba(20,20,28,.07);
+            background: rgba(255,255,255,.9);
+            box-shadow: 0 24px 70px rgba(80,34,96,.09);
             outline: none;
         }
         .why-card:focus-visible { box-shadow: 0 0 0 3px rgba(189,0,255,.16), 0 20px 60px rgba(20,20,28,.07); }
@@ -1998,8 +1990,7 @@
 
         @media (max-width: 1080px) {
             .why-section { padding: 106px 28px 116px; }
-            .why-head { grid-template-columns: 1fr; gap: 26px; margin-bottom: 48px; }
-            .why-lead { max-width: 760px; }
+            .why-head { margin-bottom: 48px; }
             .why-grid { grid-template-columns: repeat(2,minmax(0,1fr)); grid-template-rows: 520px 290px 290px; }
             .why-card-main { grid-column: span 2; grid-row: span 1; }
             .why-card-ops { grid-column: span 2; }
@@ -2008,7 +1999,6 @@
         @media (max-width: 720px) {
             .why-section { padding: 88px 20px 96px; }
             .why-title { font-size: 38px; }
-            .why-lead { font-size: 15px; }
             .why-grid { display: flex; flex-direction: column; gap: 14px; }
             .why-card { min-height: 370px; padding: 25px 22px; }
             .why-card-main { min-height: 610px; }
@@ -2061,30 +2051,36 @@
         }
         .faq-heading {
             margin: 0;
-            max-width: 250px;
+            max-width: none;
             font-family: 'Sora', var(--font-main);
             font-size: clamp(30px, 3vw, 48px);
             font-weight: 720;
             line-height: 1.05;
             letter-spacing: 0;
+            white-space: nowrap;
         }
-        .faq-list { border-top: 1px solid rgba(29,27,39,.12); }
+        .faq-list {
+            min-height: 426px;
+            border-top: 1px solid rgba(29,27,39,.12);
+        }
         .faq-item { border-bottom: 1px solid rgba(29,27,39,.12); }
-        .faq-item summary {
+        .faq-question {
             display: grid;
             grid-template-columns: minmax(0, 1fr) 28px;
             align-items: center;
             gap: 24px;
+            width: 100%;
             min-height: 72px;
             padding: 20px 0;
+            border: 0;
             color: #292631;
+            background: transparent;
             font-size: 15px;
             font-weight: 700;
             line-height: 1.5;
-            list-style: none;
+            text-align: left;
             cursor: pointer;
         }
-        .faq-item summary::-webkit-details-marker { display: none; }
         .faq-toggle {
             position: relative;
             display: block;
@@ -2106,31 +2102,43 @@
             transition: transform .3s ease, opacity .3s ease;
         }
         .faq-toggle::after { transform: rotate(90deg); }
-        .faq-item[open] .faq-toggle { background: rgba(189,0,255,.08); transform: rotate(180deg); }
-        .faq-item[open] .faq-toggle::after { opacity: 0; transform: rotate(0); }
+        .faq-item.active .faq-toggle { background: rgba(189,0,255,.08); transform: rotate(180deg); }
+        .faq-item.active .faq-toggle::after { opacity: 0; transform: rotate(0); }
+        .faq-answer-shell {
+            display: grid;
+            grid-template-rows: 0fr;
+            opacity: 0;
+            transition:
+                grid-template-rows .55s cubic-bezier(.22,1,.36,1),
+                opacity .32s ease;
+        }
+        .faq-answer-inner { min-height: 0; overflow: hidden; }
+        .faq-item.active .faq-answer-shell { grid-template-rows: 1fr; opacity: 1; }
         .faq-answer {
             max-width: 900px;
             padding: 0 62px 26px 0;
             color: #6e6974;
             font-size: 14px;
             line-height: 1.85;
-            animation: faqAnswerIn .42s cubic-bezier(.2,.8,.2,1) both;
+            opacity: 0;
+            transform: translateY(-7px);
+            transition:
+                opacity .35s ease .08s,
+                transform .5s cubic-bezier(.22,1,.36,1) .04s;
         }
-        .faq-item summary:hover { color: #790eac; }
-        .faq-item summary:focus-visible { outline: 2px solid rgba(189,0,255,.28); outline-offset: 6px; border-radius: 4px; }
-        @keyframes faqAnswerIn {
-            from { opacity: 0; transform: translateY(-8px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        .faq-item.active .faq-answer { opacity: 1; transform: translateY(0); }
+        .faq-question:hover { color: #790eac; }
+        .faq-question:focus-visible { outline: none; color: #790eac; }
         @media (max-width: 820px) {
             .faq-section { padding: 92px 24px 100px; }
             .faq-wrap { grid-template-columns: 1fr; gap: 44px; }
             .faq-heading { max-width: 330px; }
+            .faq-list { min-height: 0; }
         }
         @media (max-width: 520px) {
             .faq-section { padding: 78px 20px 86px; }
             .faq-heading { font-size: 34px; }
-            .faq-item summary { min-height: 68px; gap: 16px; padding: 18px 0; font-size: 14px; }
+            .faq-question { min-height: 68px; gap: 16px; padding: 18px 0; font-size: 14px; }
             .faq-answer { padding: 0 36px 22px 0; font-size: 13px; }
         }
 
@@ -2777,7 +2785,6 @@
                     <div class="why-eyebrow">Why 2077.AI</div>
                     <h2 class="why-title">从智能能力到现场交付，<br>一套系统完整负责</h2>
                 </div>
-                <p class="why-lead">做出一个“会说话的虚拟人”并不难。真正的挑战，是让它在复杂线下环境中听得清、答得准、稳定运行，并随着业务持续更新。2077.AI 从底层技术、现场设备到运营后台统一构建，让 AI 虚拟员工真正进入服务现场。</p>
             </header>
 
             <div class="why-grid">
@@ -3720,24 +3727,24 @@
     <section class="faq-section has-grainient">
         <div class="grainient-bg" data-grainient="light"></div>
         <div class="faq-wrap">
-            <h2 class="faq-heading reveal">常见<br>问题</h2>
+            <h2 class="faq-heading reveal">常见问题</h2>
             <div class="faq-list reveal" data-faq-list>
-                <details class="faq-item" open>
-                    <summary><span>AvatarX 支持私有化部署吗？</span><i class="faq-toggle" aria-hidden="true"></i></summary>
-                    <p class="faq-answer">当然支持。企业级方案提供完整的本地化部署能力，数据不出域，满足金融、政务等对合规性要求极高的行业场景。</p>
-                </details>
-                <details class="faq-item">
-                    <summary><span>定制一个数字人需要多长时间？</span><i class="faq-toggle" aria-hidden="true"></i></summary>
-                    <p class="faq-answer">标准形象库选择可即时开通；真人形象克隆通常需要 3-5 个工作日完成建模与声音训练；深度业务定制方案根据知识库规模约为 2-4 周。</p>
-                </details>
-                <details class="faq-item">
-                    <summary><span>可以对接我们现有的客服系统吗？</span><i class="faq-toggle" aria-hidden="true"></i></summary>
-                    <p class="faq-answer">可以。我们提供标准 API 接口与 Webhook，支持无缝接入企业微信、钉钉、飞书、以及主流呼叫中心与工单系统。</p>
-                </details>
-                <details class="faq-item">
-                    <summary><span>数字人支持哪些语言和方言？</span><i class="faq-toggle" aria-hidden="true"></i></summary>
-                    <p class="faq-answer">目前支持中文（含粤语、四川话等主要方言）、英语、日语、韩语、法语、西班牙语等 24 种语言，并持续扩展中。</p>
-                </details>
+                <div class="faq-item active">
+                    <button class="faq-question" type="button" aria-expanded="true"><span>AvatarX 支持私有化部署吗？</span><i class="faq-toggle" aria-hidden="true"></i></button>
+                    <div class="faq-answer-shell"><div class="faq-answer-inner"><p class="faq-answer">当然支持。企业级方案提供完整的本地化部署能力，数据不出域，满足金融、政务等对合规性要求极高的行业场景。</p></div></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" type="button" aria-expanded="false"><span>定制一个数字人需要多长时间？</span><i class="faq-toggle" aria-hidden="true"></i></button>
+                    <div class="faq-answer-shell"><div class="faq-answer-inner"><p class="faq-answer">标准形象库选择可即时开通；真人形象克隆通常需要 3-5 个工作日完成建模与声音训练；深度业务定制方案根据知识库规模约为 2-4 周。</p></div></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" type="button" aria-expanded="false"><span>可以对接我们现有的客服系统吗？</span><i class="faq-toggle" aria-hidden="true"></i></button>
+                    <div class="faq-answer-shell"><div class="faq-answer-inner"><p class="faq-answer">可以。我们提供标准 API 接口与 Webhook，支持无缝接入企业微信、钉钉、飞书、以及主流呼叫中心与工单系统。</p></div></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" type="button" aria-expanded="false"><span>数字人支持哪些语言和方言？</span><i class="faq-toggle" aria-hidden="true"></i></button>
+                    <div class="faq-answer-shell"><div class="faq-answer-inner"><p class="faq-answer">目前支持中文（含粤语、四川话等主要方言）、英语、日语、韩语、法语、西班牙语等 24 种语言，并持续扩展中。</p></div></div>
+                </div>
             </div>
         </div>
     </section>
@@ -4266,15 +4273,18 @@
             });
         })();
 
-        // FAQ: keep one answer open at a time.
+        // FAQ: animate only the Q&A list and keep the section footprint stable.
         (function () {
             document.querySelectorAll('[data-faq-list]').forEach((list) => {
                 const items = Array.from(list.querySelectorAll('.faq-item'));
                 items.forEach((item) => {
-                    item.addEventListener('toggle', () => {
-                        if (!item.open) return;
+                    const button = item.querySelector('.faq-question');
+                    button.addEventListener('click', () => {
+                        if (item.classList.contains('active')) return;
                         items.forEach((other) => {
-                            if (other !== item) other.open = false;
+                            const active = other === item;
+                            other.classList.toggle('active', active);
+                            other.querySelector('.faq-question').setAttribute('aria-expanded', String(active));
                         });
                     });
                 });

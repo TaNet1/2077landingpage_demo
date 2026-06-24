@@ -82,6 +82,24 @@
 
 ## 交接记录（倒序，最新在上）
 
+### 2026-06-24 · Codex：Why Us 接入动态背景 + FAQ 改为编辑式双栏结构
+
+根据用户反馈调整首页两个区域：
+
+1. **Why Us 背景统一**
+   - 新版 `#moat.why-section` 原本只有纯白背景，没有接入全站现有的 Grainient。
+   - 已增加 `has-grainient` 和 `<div class="grainient-bg" data-grainient="light">`，并给 `.why-wrap` 设置相对定位和 `z-index:1`，确保动态浅色 Grainient 位于 Bento 卡片后方。
+   - 浏览器确认 Grainient canvas 已挂载，并覆盖完整 Why Us 高度。
+
+2. **FAQ 按参考截图重构**
+   - 原来的“居中标题 + 独立圆角卡片”改为编辑式双栏：左侧为两行「常见 / 问题」，右侧为横向 FAQ 列表。
+   - 每项只保留上下分隔线、问题、答案和右侧圆形 `+ / -` 状态按钮，不再使用卡片背景、阴影和大圆角。
+   - 第一项默认展开；新增脚本保证同时只展开一个问题。
+   - 继续使用原生 `details/summary`，支持键盘操作；展开答案使用轻微淡入位移动画。
+   - 820px 以下改为标题在上、列表在下的单列布局。
+
+验证：`node --check i18n.js`、`node --check site.js`、首页内联脚本解析、CSS 大括号计数通过；浏览器验证 FAQ 单项展开切换有效，桌面和 390px 移动端均无横向溢出。
+
 ### 2026-06-24 · Codex：新增并重做首页 Why Us 工业 Bento 模块
 
 根据用户提供的 `D:/Downloads/runoob-test (3).html`，在首页现场服务 5 个要点模块后新增 Why Us，并保留 Gemini Demo 的浅色工业 Bento 信息架构，但重写了动画、交互和响应式。

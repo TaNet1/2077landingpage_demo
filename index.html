@@ -756,10 +756,10 @@
         }
         .service-scroll-grid {
             display: grid;
-            grid-template-columns: minmax(280px, 400px) minmax(0, 1fr);
-            gap: clamp(56px, 7vw, 132px);
+            grid-template-columns: minmax(300px, 420px) minmax(0, 1fr);
+            gap: clamp(48px, 4.5vw, 104px);
             align-items: start;
-            max-width: 1320px;
+            max-width: 1760px;
         }
         .service-feature-list { padding: 15vh 0 30vh; }
         .service-feature-item {
@@ -1001,7 +1001,7 @@
             background: radial-gradient(closest-side, rgba(140,40,210,.22), rgba(140,40,210,0) 72%); pointer-events: none; z-index: 0; }
         .va-carousel::after { content: ''; position: absolute; left: 50%; bottom: 13%; width: 86%; height: 1px; transform: translateX(-50%);
             background: linear-gradient(90deg, transparent, rgba(255,255,255,.16), transparent); pointer-events: none; z-index: 0; }
-        .va-stage { position: relative; width: 100%; max-width: 720px; height: 90%; }
+        .va-stage { position: relative; width: 100%; max-width: 1000px; height: 90%; }
         /* coverflow: center sharp + dimmed side previews */
         .va-slide { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: flex-end;
             opacity: 0; visibility: hidden; transform: translateX(0) scale(.66); transition: opacity .55s ease, transform .6s cubic-bezier(.22,.61,.36,1), filter .55s ease;
@@ -1030,7 +1030,7 @@
         .va-dots i.active { width: 24px; background: linear-gradient(90deg, #7000ff, #ec00fa); }
 
         /* ===== 点 4：大屏功能小组件 ===== */
-        .svc-widgets { display: grid; grid-template-columns: 1.12fr 1fr; grid-auto-rows: 1fr; gap: 14px; width: min(100%, 760px); height: min(88%, 540px); }
+        .svc-widgets { display: grid; grid-template-columns: 1.12fr 1fr; grid-auto-rows: 1fr; gap: 16px; width: min(100%, 1040px); height: min(88%, 560px); }
         .svc-w { position: relative; padding: 16px; border-radius: 18px; overflow: hidden; color: #fff; display: flex; flex-direction: column;
             background: linear-gradient(135deg, rgba(255,255,255,.07), rgba(255,255,255,.028)); border: 1px solid rgba(255,255,255,.1);
             box-shadow: 0 22px 60px rgba(0,0,0,.36); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
@@ -1070,7 +1070,7 @@
 
         .service-dashboard {
             position: relative;
-            width: min(106%, 850px);
+            width: min(102%, 1120px);
             height: 624px;
             transform: translateX(-1%);
             overflow: visible;

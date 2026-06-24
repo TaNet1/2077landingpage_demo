@@ -2075,7 +2075,7 @@
             border: 0;
             color: #292631;
             background: transparent;
-            font-size: 15px;
+            font-size: 17px;
             font-weight: 700;
             line-height: 1.5;
             text-align: left;
@@ -2118,7 +2118,7 @@
             max-width: 900px;
             padding: 0 62px 26px 0;
             color: #6e6974;
-            font-size: 14px;
+            font-size: 15px;
             line-height: 1.85;
             opacity: 0;
             transform: translateY(-7px);
@@ -3729,8 +3729,8 @@
         <div class="faq-wrap">
             <h2 class="faq-heading reveal">常见问题</h2>
             <div class="faq-list reveal" data-faq-list>
-                <div class="faq-item active">
-                    <button class="faq-question" type="button" aria-expanded="true"><span>AvatarX 支持私有化部署吗？</span><i class="faq-toggle" aria-hidden="true"></i></button>
+                <div class="faq-item">
+                    <button class="faq-question" type="button" aria-expanded="false"><span>AvatarX 支持私有化部署吗？</span><i class="faq-toggle" aria-hidden="true"></i></button>
                     <div class="faq-answer-shell"><div class="faq-answer-inner"><p class="faq-answer">当然支持。企业级方案提供完整的本地化部署能力，数据不出域，满足金融、政务等对合规性要求极高的行业场景。</p></div></div>
                 </div>
                 <div class="faq-item">
@@ -4280,9 +4280,9 @@
                 items.forEach((item) => {
                     const button = item.querySelector('.faq-question');
                     button.addEventListener('click', () => {
-                        if (item.classList.contains('active')) return;
+                        const shouldOpen = !item.classList.contains('active');
                         items.forEach((other) => {
-                            const active = other === item;
+                            const active = shouldOpen && other === item;
                             other.classList.toggle('active', active);
                             other.querySelector('.faq-question').setAttribute('aria-expanded', String(active));
                         });

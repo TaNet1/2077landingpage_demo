@@ -1795,3 +1795,10 @@ Object.assign(window.__I18N_DICT.en, {
   "每一次问询都会进入运营后台，形成需求趋势、内容缺口和服务表现，让终端从一次性交付变成持续优化的数字服务资产。": "Every inquiry enters the operations platform to reveal demand trends, content gaps and service performance, turning the terminal from a one-off delivery into a continuously improving digital service asset.",
   "有效回答率": "Answer success", "持续服务": "Continuous service", "本月触达增长": "Monthly reach growth", "需求峰值 +37%": "Demand peak +37%"
 });
+
+Object.assign(window.__I18N_DICT['zh-HK'], {
+  "现场声场": "現場聲場", "实时降噪处理中": "即時降噪處理中", "环境噪声抑制": "環境噪聲抑制"
+});
+Object.assign(window.__I18N_DICT.en, {
+  "现场声场": "On-site sound field", "实时降噪处理中": "Live noise reduction", "环境噪声抑制": "Ambient noise suppression"
+});

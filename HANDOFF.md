@@ -82,6 +82,22 @@
 
 ## 交接记录（倒序，最新在上）
 
+### 2026-06-24 · Claude：现场服务段二轮打磨（间距/沙盘更扁/点4不裁/点3轮播改 coverflow）
+
+接用户对上一版 4 点反馈，全部在 `index.html`(#pain 内联 CSS+DOM 两份拷贝) + `i18n.js` 完成，DOM 测量在 1280/1440 均验收（本环境截图工具失效，**用户给的真机 1920 截图确认点 4/5 观感 OK**）。
+
+1. **5 个点左右间距加大**：`.service-scroll-grid` 列改 `minmax(280px,400px) minmax(0,1fr)`、`gap: clamp(56px,7vw,132px)`、`max-width:1320`；实测左文案与右视觉间距从 ~43px 拉到 95–107px，不再挤。左列仍对齐 hero slogan(40px)。
+2. **点 4 内容被吞修复**：`.svc-widgets` 高度 `min(72%,470)`→`min(88%,540)`，并收紧 `.svc-transit gap 12→7`、`.svc-w-hd margin 12→10`；实测 1280/1440 五张卡均 0 裁切。（注：1920 容器更高本就不裁，裁切只在小屏出现。）
+3. **点 3 轮播改 coverflow + 文案改“形象描述”**：原单图居中显空旷("太low")→ 中间清晰 + 左右 dim/blur 预览图的 coverflow（JS 给 active/prev/next 三态）；箭头缩小半透、加环境光背景。**下方文字从“服务角色”改为“形象/着装描述”**：未来科技装/职业通勤装/商务正装/活力运动装/商务西装/休闲格纹装/卡通 IP 形象（按 avatar-1~7 实际外观，已核对图片）+ 副标签；i18n 同步替换（旧角色名 key 已弃用）。
+4. **点 1 沙盘更扁**：POI 垂直带 35–72% → **47–70%**（更扁、更像地面），横向拉到 15%–83%，`.sb-grid` rotateX 72→77deg；14 个气泡实测全在框内。
+- **附带修复**：点 5 报告卡因变窄又裁切 → 卡片高度 584→624、`.service-dashboard` 调 `min(106%,850)/translateX(-1%)`；并修了「state5 active 时容器 overflow:visible 导致其它隐藏 state(沙盘大网格/coverflow 侧图)外溢撑出横向滚动」——给 `.service-sticky-visual .service-visual-state` 加 `overflow:hidden`、仅 state5 visible。实测 1280/1440 全程无横向溢出、无 console error。
+
+**坑/待办**
+- **1920 空右侧**：grid `max-width:1320` 左对齐，1920 下右侧约 580px 留白（与 hero 左对齐构图一致，但若想更铺满可加大 max-width；未改，等用户定）。
+- 截图工具本环境失效，全靠 DOM 测量 + 用户真机截图校准。
+- 旧 CSS（sound-wave/avatar-closeup/ui-layers/vis-map）仍保留未删（无引用）。组件仍是桌面+移动两份拷贝。
+
+
 ### 2026-06-24 · Claude：现场服务段 5 个点右侧视觉全面重做（沙盘/语音/虚拟人轮播/功能组件/报告）
 
 用户对 #pain「问询发生在现场」整段提了 7 条（含 /goal：让 5 个点的 UI 和谐、大气、自然）。全部完成，浏览器用 preview_eval 量 DOM 验收（截图工具本环境一直超时/缩成小图，未能出图，**视觉细节建议醒来在真机再扫一眼**）。已 commit & push。改动集中在 `index.html`（#pain 内联 CSS + DOM，桌面 sticky + 移动内联**两份拷贝都改了**）和 `i18n.js`。

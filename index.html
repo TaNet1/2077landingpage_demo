@@ -756,10 +756,10 @@
         }
         .service-scroll-grid {
             display: grid;
-            grid-template-columns: minmax(300px, 440px) minmax(0, 760px);
-            gap: clamp(28px, 3vw, 56px);
+            grid-template-columns: minmax(280px, 400px) minmax(0, 1fr);
+            gap: clamp(56px, 7vw, 132px);
             align-items: start;
-            max-width: 1256px;
+            max-width: 1320px;
         }
         .service-feature-list { padding: 15vh 0 30vh; }
         .service-feature-item {
@@ -816,6 +816,11 @@
             background: radial-gradient(circle at center, rgba(189, 0, 255, 0.055), transparent 68%);
         }
         .service-visual-container:has(.service-visual-state[data-visual="5"].active) { overflow: visible; }
+        /* When the container is overflow:visible (for the report fan), the other hidden
+           states' oversized content (sandbox grid, carousel side previews) must still be
+           clipped to the frame so they don't leak out and cause horizontal page overflow. */
+        .service-sticky-visual .service-visual-state { overflow: hidden; }
+        .service-sticky-visual .service-visual-state[data-visual="5"] { overflow: visible; }
         .service-visual-state {
             position: absolute;
             inset: 0;
@@ -862,7 +867,7 @@
         .service-sandbox { position: absolute; inset: 0; width: 100%; height: 100%; overflow: hidden; }
         .service-sandbox .sb-grid {
             position: absolute; bottom: -30%; left: -50%; width: 200%; height: 150%;
-            transform: perspective(1000px) rotateX(72deg) rotateZ(-12deg); transform-origin: center center;
+            transform: perspective(1000px) rotateX(77deg) rotateZ(-12deg); transform-origin: center center;
             background-image:
                 linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
@@ -991,35 +996,46 @@
 
         /* ===== 点 3：虚拟人形象轮播 ===== */
         .va-carousel { position: relative; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
-        .va-stage { position: relative; width: min(82%, 480px); height: 86%; }
+        /* ambient backdrop so the stage isn't an empty void */
+        .va-carousel::before { content: ''; position: absolute; left: 50%; top: 44%; width: 78%; height: 76%; transform: translate(-50%,-50%);
+            background: radial-gradient(closest-side, rgba(140,40,210,.22), rgba(140,40,210,0) 72%); pointer-events: none; z-index: 0; }
+        .va-carousel::after { content: ''; position: absolute; left: 50%; bottom: 13%; width: 86%; height: 1px; transform: translateX(-50%);
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,.16), transparent); pointer-events: none; z-index: 0; }
+        .va-stage { position: relative; width: 100%; max-width: 720px; height: 90%; }
+        /* coverflow: center sharp + dimmed side previews */
         .va-slide { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: flex-end;
-            opacity: 0; visibility: hidden; transform: scale(.95); transition: opacity .6s ease, transform .6s cubic-bezier(.22,.61,.36,1); }
-        .va-slide.active { opacity: 1; visibility: visible; transform: scale(1); }
-        .va-slide::before { content: ''; position: absolute; left: 50%; bottom: 12%; width: 86%; height: 60%; transform: translateX(-50%);
-            background: radial-gradient(closest-side, rgba(189,0,255,.3), rgba(189,0,255,0) 72%); filter: blur(8px); z-index: 0; }
-        .va-slide::after { content: ''; position: absolute; left: 50%; bottom: 11%; width: 50%; height: 24px; transform: translateX(-50%);
-            background: radial-gradient(50% 50% at 50% 50%, rgba(0,0,0,.55), transparent 72%); filter: blur(4px); z-index: 0; }
-        .va-slide img { position: relative; z-index: 1; height: 84%; width: auto; max-width: 100%; object-fit: contain; object-position: bottom center;
-            filter: drop-shadow(0 28px 34px rgba(80,30,120,.5)); }
-        .va-cap { position: absolute; z-index: 2; bottom: 0; left: 50%; transform: translateX(-50%); text-align: center; white-space: nowrap; }
-        .va-cap b { display: block; font-family: 'Sora', var(--font-main); font-size: clamp(16px, 1.5vw, 20px); font-weight: 800; color: #fff; letter-spacing: -.01em; }
-        .va-cap span { display: block; margin-top: 5px; font-size: 12px; color: rgba(255,255,255,.55); letter-spacing: .06em; }
-        .va-arrow { position: absolute; top: 46%; transform: translateY(-50%); z-index: 5; width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center;
-            cursor: pointer; color: #fff; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.16);
-            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); transition: background .2s ease, border-color .2s ease, transform .2s ease; }
-        .va-arrow svg { width: 22px; height: 22px; } .va-arrow:hover { background: rgba(255,255,255,.14); border-color: rgba(255,255,255,.32); }
-        .va-prev { left: 0; } .va-next { right: 0; }
-        .va-dots { position: absolute; z-index: 5; bottom: 4px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; }
+            opacity: 0; visibility: hidden; transform: translateX(0) scale(.66); transition: opacity .55s ease, transform .6s cubic-bezier(.22,.61,.36,1), filter .55s ease;
+            z-index: 1; pointer-events: none; }
+        .va-slide.active { opacity: 1; visibility: visible; transform: translateX(0) scale(1); z-index: 3; }
+        .va-slide.prev { opacity: .32; visibility: visible; transform: translateX(-36%) scale(.6); z-index: 2; filter: blur(2px) brightness(.62); }
+        .va-slide.next { opacity: .32; visibility: visible; transform: translateX(36%) scale(.6); z-index: 2; filter: blur(2px) brightness(.62); }
+        .va-slide::before { content: ''; position: absolute; left: 50%; bottom: 13%; width: 78%; height: 54%; transform: translateX(-50%); opacity: 0;
+            background: radial-gradient(closest-side, rgba(236,0,250,.34), rgba(189,0,255,0) 72%); filter: blur(10px); z-index: 0; transition: opacity .55s ease; }
+        .va-slide.active::before { opacity: 1; }
+        .va-slide::after { content: ''; position: absolute; left: 50%; bottom: 12%; width: 46%; height: 22px; transform: translateX(-50%);
+            background: radial-gradient(50% 50% at 50% 50%, rgba(0,0,0,.6), transparent 72%); filter: blur(4px); z-index: 0; }
+        .va-slide img { position: relative; z-index: 1; height: 82%; width: auto; max-width: 100%; object-fit: contain; object-position: bottom center;
+            filter: drop-shadow(0 30px 38px rgba(80,30,120,.55)); }
+        .va-cap { position: absolute; z-index: 4; bottom: 1%; left: 50%; transform: translateX(-50%); text-align: center; white-space: nowrap; opacity: 0; transition: opacity .5s ease; }
+        .va-slide.active .va-cap { opacity: 1; }
+        .va-cap b { display: block; font-family: 'Sora', var(--font-main); font-size: clamp(17px, 1.5vw, 22px); font-weight: 800; color: #fff; letter-spacing: -.01em; }
+        .va-cap span { display: inline-block; margin-top: 8px; font-size: 12px; color: rgba(255,255,255,.6); letter-spacing: .08em; padding: 4px 12px; border-radius: 999px; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1); }
+        .va-arrow { position: absolute; top: 44%; transform: translateY(-50%); z-index: 6; width: 42px; height: 42px; border-radius: 50%; display: grid; place-items: center;
+            cursor: pointer; color: #fff; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.14);
+            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); opacity: .55; transition: background .2s ease, border-color .2s ease, opacity .2s ease; }
+        .va-arrow svg { width: 20px; height: 20px; } .va-arrow:hover { background: rgba(255,255,255,.16); border-color: rgba(255,255,255,.34); opacity: 1; }
+        .va-prev { left: 1%; } .va-next { right: 1%; }
+        .va-dots { position: absolute; z-index: 6; bottom: -2px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; }
         .va-dots i { width: 8px; height: 8px; border-radius: 999px; background: rgba(255,255,255,.24); cursor: pointer; transition: width .25s ease, background .25s ease; }
         .va-dots i.active { width: 24px; background: linear-gradient(90deg, #7000ff, #ec00fa); }
 
         /* ===== 点 4：大屏功能小组件 ===== */
-        .svc-widgets { display: grid; grid-template-columns: 1.12fr 1fr; grid-auto-rows: 1fr; gap: 14px; width: min(100%, 760px); height: min(72%, 470px); }
+        .svc-widgets { display: grid; grid-template-columns: 1.12fr 1fr; grid-auto-rows: 1fr; gap: 14px; width: min(100%, 760px); height: min(88%, 540px); }
         .svc-w { position: relative; padding: 16px; border-radius: 18px; overflow: hidden; color: #fff; display: flex; flex-direction: column;
             background: linear-gradient(135deg, rgba(255,255,255,.07), rgba(255,255,255,.028)); border: 1px solid rgba(255,255,255,.1);
             box-shadow: 0 22px 60px rgba(0,0,0,.36); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
         .svc-w-nav { grid-row: span 2; }
-        .svc-w-hd { display: flex; align-items: center; gap: 9px; margin-bottom: 12px; }
+        .svc-w-hd { display: flex; align-items: center; gap: 9px; margin-bottom: 10px; }
         .svc-w-hd .svc-ico { width: 30px; height: 30px; border-radius: 9px; display: grid; place-items: center; color: #fff; flex: none;
             background: linear-gradient(135deg, rgba(236,0,250,.3), rgba(112,0,255,.22)); border: 1px solid rgba(255,255,255,.12); }
         .svc-w-hd .svc-ico svg { width: 16px; height: 16px; }
@@ -1042,7 +1058,7 @@
         .svc-li em { font-style: normal; color: rgba(255,255,255,.45); font-size: 11px; }
         .svc-tiles { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; flex: 1; }
         .svc-tile { border-radius: 10px; background: linear-gradient(135deg, rgba(255,255,255,.1), rgba(255,255,255,.03)); border: 1px solid rgba(255,255,255,.07); display: flex; align-items: flex-end; padding: 8px; font-size: 11px; color: rgba(255,255,255,.78); }
-        .svc-transit { display: flex; flex-direction: column; gap: 12px; flex: 1; justify-content: center; }
+        .svc-transit { display: flex; flex-direction: column; gap: 7px; flex: 1; justify-content: center; }
         .svc-line { display: grid; grid-template-columns: 56px 1fr; align-items: center; gap: 10px; font-size: 11px; }
         .svc-line .tag { padding: 3px 8px; border-radius: 6px; color: #fff; font-weight: 700; text-align: center; }
         .svc-track { height: 4px; border-radius: 999px; position: relative; background: rgba(255,255,255,.12); }
@@ -1562,13 +1578,13 @@
                             <div class="service-visual-state active">
                                 <div class="service-sandbox">
                                     <div class="sb-grid"></div>
-                                    <div class="sb-poi sb-theme-mall sb-front" style="top:72%;left:80%;"><div class="sb-dot"></div><div class="sb-label">大型商超</div><div class="sb-bubbles"><div class="sb-bubble" style="animation-delay:.5s;animation-duration:4.2s;">洗手间怎么走？</div><div class="sb-bubble hot" style="animation-delay:3.8s;animation-duration:5s;">热门餐厅还要排多久？</div></div></div>
-                                    <div class="sb-poi sb-theme-hospital sb-front" style="top:70%;left:18%;"><div class="sb-dot"></div><div class="sb-label">三甲医院</div><div class="sb-bubbles"><div class="sb-bubble" style="animation-delay:1.2s;animation-duration:4.5s;">儿科门诊在几楼？</div><div class="sb-bubble hot" style="animation-delay:4.5s;animation-duration:5.2s;">专家号在哪里取号？</div></div></div>
-                                    <div class="sb-poi sb-theme-gov sb-mid" style="top:56%;left:33%;"><div class="sb-dot"></div><div class="sb-label">政务服务大厅</div><div class="sb-bubbles"><div class="sb-bubble hot" style="animation-delay:2.1s;animation-duration:4.8s;">办护照需要带哪些材料？</div><div class="sb-bubble" style="animation-delay:5.5s;animation-duration:4.2s;">公积金提取去几号窗？</div></div></div>
-                                    <div class="sb-poi sb-theme-airport sb-mid" style="top:52%;left:54%;"><div class="sb-dot"></div><div class="sb-label">交通枢纽 / 机场</div><div class="sb-bubbles"><div class="sb-bubble" style="animation-delay:.2s;animation-duration:4s;">CA1234 航班几点起飞？</div><div class="sb-bubble hot" style="animation-delay:3.1s;animation-duration:5.5s;">行李超重了怎么托运？</div></div></div>
-                                    <div class="sb-poi sb-theme-expo sb-mid" style="top:49%;left:78%;"><div class="sb-dot"></div><div class="sb-label">展览展厅</div><div class="sb-bubbles"><div class="sb-bubble" style="animation-delay:1.8s;animation-duration:4.6s;">主办方办公室在哪？</div><div class="sb-bubble" style="animation-delay:6.2s;animation-duration:4.1s;">今天有什么新品发布？</div></div></div>
-                                    <div class="sb-poi sb-theme-scenic sb-back" style="top:37%;left:26%;"><div class="sb-dot"></div><div class="sb-label">旅游景区</div><div class="sb-bubbles"><div class="sb-bubble" style="animation-delay:.9s;animation-duration:5s;">索道售票处往哪走？</div><div class="sb-bubble" style="animation-delay:4.9s;animation-duration:4.8s;">下午几点有实景演出？</div></div></div>
-                                    <div class="sb-poi sb-theme-park sb-back" style="top:35%;left:66%;"><div class="sb-dot"></div><div class="sb-label">开放园区</div><div class="sb-bubbles"><div class="sb-bubble" style="animation-delay:2.5s;animation-duration:4.3s;">访客去哪里登记？</div><div class="sb-bubble hot" style="animation-delay:5.8s;animation-duration:5.1s;">园区接驳车下一班几点？</div></div></div>
+                                    <div class="sb-poi sb-theme-mall sb-front" style="top:70%;left:83%;"><div class="sb-dot"></div><div class="sb-label">大型商超</div><div class="sb-bubbles"><div class="sb-bubble" style="animation-delay:.5s;animation-duration:4.2s;">洗手间怎么走？</div><div class="sb-bubble hot" style="animation-delay:3.8s;animation-duration:5s;">热门餐厅还要排多久？</div></div></div>
+                                    <div class="sb-poi sb-theme-hospital sb-front" style="top:68%;left:15%;"><div class="sb-dot"></div><div class="sb-label">三甲医院</div><div class="sb-bubbles"><div class="sb-bubble" style="animation-delay:1.2s;animation-duration:4.5s;">儿科门诊在几楼？</div><div class="sb-bubble hot" style="animation-delay:4.5s;animation-duration:5.2s;">专家号在哪里取号？</div></div></div>
+                                    <div class="sb-poi sb-theme-gov sb-mid" style="top:59%;left:35%;"><div class="sb-dot"></div><div class="sb-label">政务服务大厅</div><div class="sb-bubbles"><div class="sb-bubble hot" style="animation-delay:2.1s;animation-duration:4.8s;">办护照需要带哪些材料？</div><div class="sb-bubble" style="animation-delay:5.5s;animation-duration:4.2s;">公积金提取去几号窗？</div></div></div>
+                                    <div class="sb-poi sb-theme-airport sb-mid" style="top:56%;left:55%;"><div class="sb-dot"></div><div class="sb-label">交通枢纽 / 机场</div><div class="sb-bubbles"><div class="sb-bubble" style="animation-delay:.2s;animation-duration:4s;">CA1234 航班几点起飞？</div><div class="sb-bubble hot" style="animation-delay:3.1s;animation-duration:5.5s;">行李超重了怎么托运？</div></div></div>
+                                    <div class="sb-poi sb-theme-expo sb-mid" style="top:57%;left:74%;"><div class="sb-dot"></div><div class="sb-label">展览展厅</div><div class="sb-bubbles"><div class="sb-bubble" style="animation-delay:1.8s;animation-duration:4.6s;">主办方办公室在哪？</div><div class="sb-bubble" style="animation-delay:6.2s;animation-duration:4.1s;">今天有什么新品发布？</div></div></div>
+                                    <div class="sb-poi sb-theme-scenic sb-back" style="top:48%;left:28%;"><div class="sb-dot"></div><div class="sb-label">旅游景区</div><div class="sb-bubbles"><div class="sb-bubble" style="animation-delay:.9s;animation-duration:5s;">索道售票处往哪走？</div><div class="sb-bubble" style="animation-delay:4.9s;animation-duration:4.8s;">下午几点有实景演出？</div></div></div>
+                                    <div class="sb-poi sb-theme-park sb-back" style="top:47%;left:67%;"><div class="sb-dot"></div><div class="sb-label">开放园区</div><div class="sb-bubbles"><div class="sb-bubble" style="animation-delay:2.5s;animation-duration:4.3s;">访客去哪里登记？</div><div class="sb-bubble hot" style="animation-delay:5.8s;animation-duration:5.1s;">园区接驳车下一班几点？</div></div></div>
                                 </div>
                             </div>
                         </div>
@@ -1601,13 +1617,13 @@
                             <div class="service-visual-state active">
                                 <div class="va-carousel" data-va>
                                     <div class="va-stage">
-                                        <figure class="va-slide active"><img src="assets/avatar-1.png" alt="商场导购"><figcaption class="va-cap"><b>商场导购</b><span>迎宾 · 导购 · 找店</span></figcaption></figure>
-                                        <figure class="va-slide"><img src="assets/avatar-2.png" alt="政务专员"><figcaption class="va-cap"><b>政务专员</b><span>咨询 · 预审 · 分流</span></figcaption></figure>
-                                        <figure class="va-slide"><img src="assets/avatar-3.png" alt="景区导览"><figcaption class="va-cap"><b>景区导览</b><span>路线 · 讲解 · 推荐</span></figcaption></figure>
-                                        <figure class="va-slide"><img src="assets/avatar-4.png" alt="展厅讲解"><figcaption class="va-cap"><b>展厅讲解</b><span>导览 · 互动 · 答疑</span></figcaption></figure>
-                                        <figure class="va-slide"><img src="assets/avatar-5.png" alt="酒店接待"><figcaption class="va-cap"><b>酒店接待</b><span>入住 · 问询 · 多语</span></figcaption></figure>
-                                        <figure class="va-slide"><img src="assets/avatar-6.png" alt="银行客服"><figcaption class="va-cap"><b>银行客服</b><span>接待 · 预审 · 引导</span></figcaption></figure>
-                                        <figure class="va-slide"><img src="assets/avatar-7.png" alt="机场向导"><figcaption class="va-cap"><b>机场向导</b><span>航班 · 值机 · 指引</span></figcaption></figure>
+                                        <figure class="va-slide active"><img src="assets/avatar-1.png" alt="商场导购"><figcaption class="va-cap"><b>未来科技装</b><span>银白机甲 · 科技感</span></figcaption></figure>
+                                        <figure class="va-slide"><img src="assets/avatar-2.png" alt="政务专员"><figcaption class="va-cap"><b>职业通勤装</b><span>白衬衫 · 知性干练</span></figcaption></figure>
+                                        <figure class="va-slide"><img src="assets/avatar-3.png" alt="景区导览"><figcaption class="va-cap"><b>商务正装</b><span>白色套装 · 专业</span></figcaption></figure>
+                                        <figure class="va-slide"><img src="assets/avatar-4.png" alt="展厅讲解"><figcaption class="va-cap"><b>活力运动装</b><span>运动潮搭 · 亲和</span></figcaption></figure>
+                                        <figure class="va-slide"><img src="assets/avatar-5.png" alt="酒店接待"><figcaption class="va-cap"><b>商务西装</b><span>西装领带 · 沉稳</span></figcaption></figure>
+                                        <figure class="va-slide"><img src="assets/avatar-6.png" alt="银行客服"><figcaption class="va-cap"><b>休闲格纹装</b><span>格纹衬衫 · 轻松</span></figcaption></figure>
+                                        <figure class="va-slide"><img src="assets/avatar-7.png" alt="机场向导"><figcaption class="va-cap"><b>卡通 IP 形象</b><span>萌系吉祥物</span></figcaption></figure>
                                     </div>
                                     <button class="va-arrow va-prev" aria-label="上一个"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
                                     <button class="va-arrow va-next" aria-label="下一个"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
@@ -1772,13 +1788,13 @@
                         <div class="service-visual-state active" data-visual="1">
                             <div class="service-sandbox">
                                 <div class="sb-grid"></div>
-                                <div class="sb-poi sb-theme-mall sb-front" style="top:72%;left:80%;"><div class="sb-dot"></div><div class="sb-label">大型商超</div><div class="sb-bubbles"><div class="sb-bubble" style="animation-delay:.5s;animation-duration:4.2s;">洗手间怎么走？</div><div class="sb-bubble hot" style="animation-delay:3.8s;animation-duration:5s;">热门餐厅还要排多久？</div></div></div>
-                                <div class="sb-poi sb-theme-hospital sb-front" style="top:70%;left:18%;"><div class="sb-dot"></div><div class="sb-label">三甲医院</div><div class="sb-bubbles"><div class="sb-bubble" style="animation-delay:1.2s;animation-duration:4.5s;">儿科门诊在几楼？</div><div class="sb-bubble hot" style="animation-delay:4.5s;animation-duration:5.2s;">专家号在哪里取号？</div></div></div>
-                                <div class="sb-poi sb-theme-gov sb-mid" style="top:56%;left:33%;"><div class="sb-dot"></div><div class="sb-label">政务服务大厅</div><div class="sb-bubbles"><div class="sb-bubble hot" style="animation-delay:2.1s;animation-duration:4.8s;">办护照需要带哪些材料？</div><div class="sb-bubble" style="animation-delay:5.5s;animation-duration:4.2s;">公积金提取去几号窗？</div></div></div>
-                                <div class="sb-poi sb-theme-airport sb-mid" style="top:52%;left:54%;"><div class="sb-dot"></div><div class="sb-label">交通枢纽 / 机场</div><div class="sb-bubbles"><div class="sb-bubble" style="animation-delay:.2s;animation-duration:4s;">CA1234 航班几点起飞？</div><div class="sb-bubble hot" style="animation-delay:3.1s;animation-duration:5.5s;">行李超重了怎么托运？</div></div></div>
-                                <div class="sb-poi sb-theme-expo sb-mid" style="top:49%;left:78%;"><div class="sb-dot"></div><div class="sb-label">展览展厅</div><div class="sb-bubbles"><div class="sb-bubble" style="animation-delay:1.8s;animation-duration:4.6s;">主办方办公室在哪？</div><div class="sb-bubble" style="animation-delay:6.2s;animation-duration:4.1s;">今天有什么新品发布？</div></div></div>
-                                <div class="sb-poi sb-theme-scenic sb-back" style="top:37%;left:26%;"><div class="sb-dot"></div><div class="sb-label">旅游景区</div><div class="sb-bubbles"><div class="sb-bubble" style="animation-delay:.9s;animation-duration:5s;">索道售票处往哪走？</div><div class="sb-bubble" style="animation-delay:4.9s;animation-duration:4.8s;">下午几点有实景演出？</div></div></div>
-                                <div class="sb-poi sb-theme-park sb-back" style="top:35%;left:66%;"><div class="sb-dot"></div><div class="sb-label">开放园区</div><div class="sb-bubbles"><div class="sb-bubble" style="animation-delay:2.5s;animation-duration:4.3s;">访客去哪里登记？</div><div class="sb-bubble hot" style="animation-delay:5.8s;animation-duration:5.1s;">园区接驳车下一班几点？</div></div></div>
+                                <div class="sb-poi sb-theme-mall sb-front" style="top:70%;left:83%;"><div class="sb-dot"></div><div class="sb-label">大型商超</div><div class="sb-bubbles"><div class="sb-bubble" style="animation-delay:.5s;animation-duration:4.2s;">洗手间怎么走？</div><div class="sb-bubble hot" style="animation-delay:3.8s;animation-duration:5s;">热门餐厅还要排多久？</div></div></div>
+                                <div class="sb-poi sb-theme-hospital sb-front" style="top:68%;left:15%;"><div class="sb-dot"></div><div class="sb-label">三甲医院</div><div class="sb-bubbles"><div class="sb-bubble" style="animation-delay:1.2s;animation-duration:4.5s;">儿科门诊在几楼？</div><div class="sb-bubble hot" style="animation-delay:4.5s;animation-duration:5.2s;">专家号在哪里取号？</div></div></div>
+                                <div class="sb-poi sb-theme-gov sb-mid" style="top:59%;left:35%;"><div class="sb-dot"></div><div class="sb-label">政务服务大厅</div><div class="sb-bubbles"><div class="sb-bubble hot" style="animation-delay:2.1s;animation-duration:4.8s;">办护照需要带哪些材料？</div><div class="sb-bubble" style="animation-delay:5.5s;animation-duration:4.2s;">公积金提取去几号窗？</div></div></div>
+                                <div class="sb-poi sb-theme-airport sb-mid" style="top:56%;left:55%;"><div class="sb-dot"></div><div class="sb-label">交通枢纽 / 机场</div><div class="sb-bubbles"><div class="sb-bubble" style="animation-delay:.2s;animation-duration:4s;">CA1234 航班几点起飞？</div><div class="sb-bubble hot" style="animation-delay:3.1s;animation-duration:5.5s;">行李超重了怎么托运？</div></div></div>
+                                <div class="sb-poi sb-theme-expo sb-mid" style="top:57%;left:74%;"><div class="sb-dot"></div><div class="sb-label">展览展厅</div><div class="sb-bubbles"><div class="sb-bubble" style="animation-delay:1.8s;animation-duration:4.6s;">主办方办公室在哪？</div><div class="sb-bubble" style="animation-delay:6.2s;animation-duration:4.1s;">今天有什么新品发布？</div></div></div>
+                                <div class="sb-poi sb-theme-scenic sb-back" style="top:48%;left:28%;"><div class="sb-dot"></div><div class="sb-label">旅游景区</div><div class="sb-bubbles"><div class="sb-bubble" style="animation-delay:.9s;animation-duration:5s;">索道售票处往哪走？</div><div class="sb-bubble" style="animation-delay:4.9s;animation-duration:4.8s;">下午几点有实景演出？</div></div></div>
+                                <div class="sb-poi sb-theme-park sb-back" style="top:47%;left:67%;"><div class="sb-dot"></div><div class="sb-label">开放园区</div><div class="sb-bubbles"><div class="sb-bubble" style="animation-delay:2.5s;animation-duration:4.3s;">访客去哪里登记？</div><div class="sb-bubble hot" style="animation-delay:5.8s;animation-duration:5.1s;">园区接驳车下一班几点？</div></div></div>
                             </div>
                         </div>
                         <div class="service-visual-state" data-visual="2">
@@ -1791,13 +1807,13 @@
                         <div class="service-visual-state" data-visual="3">
                             <div class="va-carousel" data-va>
                                 <div class="va-stage">
-                                    <figure class="va-slide active"><img src="assets/avatar-1.png" alt="商场导购"><figcaption class="va-cap"><b>商场导购</b><span>迎宾 · 导购 · 找店</span></figcaption></figure>
-                                    <figure class="va-slide"><img src="assets/avatar-2.png" alt="政务专员"><figcaption class="va-cap"><b>政务专员</b><span>咨询 · 预审 · 分流</span></figcaption></figure>
-                                    <figure class="va-slide"><img src="assets/avatar-3.png" alt="景区导览"><figcaption class="va-cap"><b>景区导览</b><span>路线 · 讲解 · 推荐</span></figcaption></figure>
-                                    <figure class="va-slide"><img src="assets/avatar-4.png" alt="展厅讲解"><figcaption class="va-cap"><b>展厅讲解</b><span>导览 · 互动 · 答疑</span></figcaption></figure>
-                                    <figure class="va-slide"><img src="assets/avatar-5.png" alt="酒店接待"><figcaption class="va-cap"><b>酒店接待</b><span>入住 · 问询 · 多语</span></figcaption></figure>
-                                    <figure class="va-slide"><img src="assets/avatar-6.png" alt="银行客服"><figcaption class="va-cap"><b>银行客服</b><span>接待 · 预审 · 引导</span></figcaption></figure>
-                                    <figure class="va-slide"><img src="assets/avatar-7.png" alt="机场向导"><figcaption class="va-cap"><b>机场向导</b><span>航班 · 值机 · 指引</span></figcaption></figure>
+                                    <figure class="va-slide active"><img src="assets/avatar-1.png" alt="商场导购"><figcaption class="va-cap"><b>未来科技装</b><span>银白机甲 · 科技感</span></figcaption></figure>
+                                    <figure class="va-slide"><img src="assets/avatar-2.png" alt="政务专员"><figcaption class="va-cap"><b>职业通勤装</b><span>白衬衫 · 知性干练</span></figcaption></figure>
+                                    <figure class="va-slide"><img src="assets/avatar-3.png" alt="景区导览"><figcaption class="va-cap"><b>商务正装</b><span>白色套装 · 专业</span></figcaption></figure>
+                                    <figure class="va-slide"><img src="assets/avatar-4.png" alt="展厅讲解"><figcaption class="va-cap"><b>活力运动装</b><span>运动潮搭 · 亲和</span></figcaption></figure>
+                                    <figure class="va-slide"><img src="assets/avatar-5.png" alt="酒店接待"><figcaption class="va-cap"><b>商务西装</b><span>西装领带 · 沉稳</span></figcaption></figure>
+                                    <figure class="va-slide"><img src="assets/avatar-6.png" alt="银行客服"><figcaption class="va-cap"><b>休闲格纹装</b><span>格纹衬衫 · 轻松</span></figcaption></figure>
+                                    <figure class="va-slide"><img src="assets/avatar-7.png" alt="机场向导"><figcaption class="va-cap"><b>卡通 IP 形象</b><span>萌系吉祥物</span></figcaption></figure>
                                 </div>
                                 <button class="va-arrow va-prev" aria-label="上一个"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
                                 <button class="va-arrow va-next" aria-label="下一个"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
@@ -3254,7 +3270,14 @@
                 let idx = 0, timer = null;
                 const show = (n) => {
                     idx = (n + slides.length) % slides.length;
-                    slides.forEach((s, i) => s.classList.toggle('active', i === idx));
+                    const p = (idx - 1 + slides.length) % slides.length;
+                    const nx = (idx + 1) % slides.length;
+                    slides.forEach((s, i) => {
+                        s.classList.remove('active', 'prev', 'next');
+                        if (i === idx) s.classList.add('active');
+                        else if (i === p) s.classList.add('prev');
+                        else if (i === nx) s.classList.add('next');
+                    });
                     dots.forEach((d, i) => d.classList.toggle('active', i === idx));
                 };
                 const next = () => show(idx + 1);

@@ -1724,6 +1724,7 @@ Object.assign(window.__I18N_DICT['zh-HK'], { "母婴室": "母嬰室" });
 Object.assign(window.__I18N_DICT['zh-HK'], {
   "下载 App": "下載 App", "注册账号": "註冊帳號", "扫码关注": "掃碼關注", "✓ 开口即用": "✓ 開口即用",
   "“洗手间在哪里？”": "「洗手間在哪裏？」", "· 走到屏幕前开口即答": "· 走到螢幕前開口即答",
+  "繁琐注册": "繁瑣註冊", "走到屏幕前，直接开口": "走到螢幕前，直接開口", "洗手间在哪个方向？": "洗手間在哪個方向？",
   "未来科技装": "未來科技裝", "职业通勤装": "職業通勤裝", "商务正装": "商務正裝", "活力运动装": "活力運動裝",
   "商务西装": "商務西裝", "休闲格纹装": "休閒格紋裝", "卡通 IP 形象": "卡通 IP 形象",
   "银白机甲 · 科技感": "銀白機甲 · 科技感", "白衬衫 · 知性干练": "白襯衫 · 知性幹練",
@@ -1738,6 +1739,7 @@ Object.assign(window.__I18N_DICT['zh-HK'], {
 Object.assign(window.__I18N_DICT.en, {
   "下载 App": "Download app", "注册账号": "Sign up", "扫码关注": "Scan to follow", "✓ 开口即用": "✓ Just speak",
   "“洗手间在哪里？”": "“Where's the restroom?”", "· 走到屏幕前开口即答": "· walk up and just ask",
+  "繁琐注册": "Lengthy sign-up", "走到屏幕前，直接开口": "Walk up and simply speak", "洗手间在哪个方向？": "Which way is the restroom?",
   "未来科技装": "Futuristic tech suit", "职业通勤装": "Office wear", "商务正装": "Business formal", "活力运动装": "Sporty look",
   "商务西装": "Business suit", "休闲格纹装": "Casual plaid", "卡通 IP 形象": "Mascot character",
   "银白机甲 · 科技感": "Silver mech · hi-tech", "白衬衫 · 知性干练": "White shirt · sharp",

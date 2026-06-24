@@ -1751,3 +1751,47 @@ Object.assign(window.__I18N_DICT.en, {
   "周边景点": "Nearby spots", "城市公园 · 800m": "City park · 800m", "美术馆 · 1.2km": "Art museum · 1.2km",
   "周边交通": "Transit nearby", "地铁 2 号线": "Metro Line 2", "公交枢纽": "Bus hub"
 });
+
+/* 首页 Why Us 工业 Bento 模块 */
+Object.assign(window.__I18N_DICT['zh-HK'], {
+  "从智能能力到现场交付，": "從智能能力到現場交付，",
+  "一套系统完整负责": "一套系統完整負責",
+  "做出一个“会说话的虚拟人”并不难。真正的挑战，是让它在复杂线下环境中听得清、答得准、稳定运行，并随着业务持续更新。2077.AI 从底层技术、现场设备到运营后台统一构建，让 AI 虚拟员工真正进入服务现场。": "做出一個「會說話的虛擬人」並不難。真正的挑戰，是讓它在複雜線下環境中聽得清、答得準、穩定運行，並隨著業務持續更新。2077.AI 從底層技術、現場設備到營運後台統一構建，讓 AI 虛擬員工真正進入服務現場。",
+  "全栈自研，能力原生协同": "全棧自研，能力原生協同",
+  "AI Agent、3D 虚拟人、交互引擎、CMS 管理平台与终端硬件一体化研发。不是把四套产品勉强接在一起，而是让每一层从设计之初就共享同一套数据、接口与交付标准。": "AI Agent、3D 虛擬人、互動引擎、CMS 管理平台與終端硬件一體化研發。不是把四套產品勉強接在一起，而是讓每一層從設計之初就共享同一套數據、接口與交付標準。",
+  "大脑决策层": "大腦決策層", "平台管理层": "平台管理層", "渲染交互层": "渲染互動層", "终端硬件层": "終端硬件層",
+  "一个团队设计": "一個團隊設計", "一套标准交付": "一套標準交付",
+  "一家交付，责任不分段": "一家交付，責任不分段",
+  "从需求设计、安装部署到持续运维，由同一个团队负责到底。": "從需求設計、安裝部署到持續運維，由同一個團隊負責到底。",
+  "需求梳理与方案设计": "需求梳理與方案設計", "软硬一体化安装部署": "軟硬一體化安裝部署", "持续运维与系统保障": "持續運維與系統保障",
+  "为真实现场设计": "為真實現場設計",
+  "针对商场、医院、政务大厅等嘈杂声场持续优化，让用户在现场自然开口也能被准确理解。": "針對商場、醫院、政務大廳等嘈雜聲場持續優化，讓用戶在現場自然開口也能被準確理解。",
+  "多语言自然切换": "多語言自然切換",
+  "普通话、粤语与英语使用同一套知识和服务流程，无需切换服务入口。": "普通話、粵語與英語使用同一套知識和服務流程，無需切換服務入口。",
+  "“洗手间在哪个方向？”": "「洗手間在哪個方向？」", "“洗手間喺邊個方向？”": "「洗手間喺邊個方向？」",
+  "普通话": "普通話", "粤语": "粵語", "切换语言演示": "切換語言演示",
+  "交付之后，持续产生价值": "交付之後，持續產生價值",
+  "每一次问询都会进入运营后台，形成需求趋势、内容缺口和服务表现，让终端从一次性交付变成持续优化的数字服务资产。": "每一次問詢都會進入營運後台，形成需求趨勢、內容缺口和服務表現，讓終端從一次性交付變成持續優化的數碼服務資產。",
+  "有效回答率": "有效回答率", "持续服务": "持續服務", "本月触达增长": "本月觸達增長", "需求峰值 +37%": "需求峰值 +37%"
+});
+Object.assign(window.__I18N_DICT.en, {
+  "从智能能力到现场交付，": "From intelligence to on-site delivery,",
+  "一套系统完整负责": "one system takes full responsibility",
+  "做出一个“会说话的虚拟人”并不难。真正的挑战，是让它在复杂线下环境中听得清、答得准、稳定运行，并随着业务持续更新。2077.AI 从底层技术、现场设备到运营后台统一构建，让 AI 虚拟员工真正进入服务现场。": "Making a talking virtual human is not difficult. The real challenge is hearing clearly, answering accurately and operating reliably in complex physical spaces while continuously adapting to the business. 2077.AI unifies core technology, on-site devices and the operations platform so AI virtual employees can truly work where service happens.",
+  "全栈自研，能力原生协同": "Full-stack in-house, designed to work as one",
+  "AI Agent、3D 虚拟人、交互引擎、CMS 管理平台与终端硬件一体化研发。不是把四套产品勉强接在一起，而是让每一层从设计之初就共享同一套数据、接口与交付标准。": "The AI Agent, 3D avatar, interaction engine, CMS and terminal hardware are developed as one system. Instead of forcing four products together, every layer shares the same data, interfaces and delivery standards from day one.",
+  "大脑决策层": "Decision intelligence", "平台管理层": "Operations platform", "渲染交互层": "Avatar interaction", "终端硬件层": "Terminal hardware",
+  "一个团队设计": "Designed by one team", "一套标准交付": "Delivered to one standard",
+  "一家交付，责任不分段": "One team delivers, one team owns the result",
+  "从需求设计、安装部署到持续运维，由同一个团队负责到底。": "One team owns everything from solution design and deployment to ongoing operations.",
+  "需求梳理与方案设计": "Requirements and solution design", "软硬一体化安装部署": "Integrated software and hardware deployment", "持续运维与系统保障": "Continuous operations and system assurance",
+  "为真实现场设计": "Engineered for real-world spaces",
+  "针对商场、医院、政务大厅等嘈杂声场持续优化，让用户在现场自然开口也能被准确理解。": "Continuously tuned for noisy malls, hospitals and public-service halls, so natural on-site speech can still be understood accurately.",
+  "多语言自然切换": "Natural multilingual service",
+  "普通话、粤语与英语使用同一套知识和服务流程，无需切换服务入口。": "Mandarin, Cantonese and English share the same knowledge and service workflows, with no need to switch entry points.",
+  "“洗手间在哪个方向？”": "“Which way is the restroom?”", "“洗手間喺邊個方向？”": "“Which way is the restroom?”",
+  "普通话": "Mandarin", "粤语": "Cantonese", "切换语言演示": "Switch language demo",
+  "交付之后，持续产生价值": "Value continues after deployment",
+  "每一次问询都会进入运营后台，形成需求趋势、内容缺口和服务表现，让终端从一次性交付变成持续优化的数字服务资产。": "Every inquiry enters the operations platform to reveal demand trends, content gaps and service performance, turning the terminal from a one-off delivery into a continuously improving digital service asset.",
+  "有效回答率": "Answer success", "持续服务": "Continuous service", "本月触达增长": "Monthly reach growth", "需求峰值 +37%": "Demand peak +37%"
+});

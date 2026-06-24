@@ -82,6 +82,27 @@
 
 ## 交接记录（倒序，最新在上）
 
+### 2026-06-24 · Codex：新增并重做首页 Why Us 工业 Bento 模块
+
+根据用户提供的 `D:/Downloads/runoob-test (3).html`，在首页现场服务 5 个要点模块后新增 Why Us，并保留 Gemini Demo 的浅色工业 Bento 信息架构，但重写了动画、交互和响应式。
+
+- `index.html`：新增 `#moat.why-section`，内容为：
+  1. 全栈自研：4 层系统模块自动扣合、扫描并显示 `4 in 1 System Ready`。
+  2. 一家交付：需求、部署、运维三阶段按顺序推进并完成。
+  3. 真实现场：嘈杂声场动态收敛为中心人声信号，信号识别率随之提升。
+  4. 多语言：普通话 / 粤语 / English 自动轮换，按钮可真实点击切换。
+  5. 持续运营：KPI、柱状趋势、扫描游标与需求峰值提示共同演示。
+- 动画不再依赖 hover：模块进入视区后使用 `IntersectionObserver` 分批启动；点击卡片或按 Enter / Space 可重播；语言演示进入视区自动轮换、离开后暂停。
+- 响应式：桌面 3 列 Bento，1920 下最大宽度 `1760px`；1080 以下改 2 列；720 以下完全单列，不再压缩桌面结构。
+- 可访问性：卡片支持键盘重播，多语言使用真实 button；`prefers-reduced-motion` 下直接展示完成状态，不隐藏内容。
+- 原页面后方旧版深色 Why Us 与新模块内容重复，已改为 `#moat-legacy` 并设置 `hidden`，新模块接管原 `#moat` 锚点。旧 HTML/CSS/JS 暂时保留，后续确认新版定稿后可清理。
+- `i18n.js`：补充新模块全部主要文案的 zh-HK / en 映射。
+- 验证：`node --check i18n.js`、`node --check site.js`、首页内联脚本解析、CSS 大括号计数通过；浏览器实测 1280×720、1920×1080、390×844，无横向溢出，多语言点击切换有效。
+
+注意：
+- `DESIGN_GUIDELINES.md` 是用户上一轮要求生成的设计规范文档，目前仍是未跟踪文件，本提交不应误带本地 `.claude` 配置或 `product_photo/`。
+- 旧版 `moat-acc` / `cmp-*` CSS 和 `#moatAcc` JS 因 legacy 区块隐藏已不再产生可见效果，可以在用户确认新版后单独清理。
+
 ### 2026-06-24 · Codex：按新原型重做现场服务第 2 点「入口不需要学习」
 
 根据用户提供的 `D:/Downloads/runoob-test (2).html`，替换首页 `#pain` 模块第 2 点右侧视觉。改动已同步到桌面 sticky 版和移动端内联版。

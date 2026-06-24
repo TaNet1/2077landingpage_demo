@@ -1545,6 +1545,502 @@
         .lang-opt:hover { background: #f1eefb; color: var(--brand-primary); }
         .lang-opt.active { background: linear-gradient(120deg, rgba(146, 85, 254, 0.12), rgba(236, 0, 250, 0.1)); color: var(--brand-primary); }
 
+        /* ===== Why us: industrial bento system ===== */
+        .why-section {
+            --why-ink: #17171a;
+            --why-muted: #73737b;
+            --why-line: rgba(15, 15, 18, .09);
+            --why-surface: #f4f4f6;
+            position: relative;
+            padding: 132px 40px 144px;
+            overflow: hidden;
+            color: var(--why-ink);
+            background: #fff;
+        }
+        .why-wrap { width: 100%; max-width: 1760px; margin: 0 auto; }
+        .why-head {
+            display: grid;
+            grid-template-columns: minmax(0, 760px) minmax(280px, 520px);
+            justify-content: space-between;
+            align-items: end;
+            gap: 72px;
+            margin-bottom: 68px;
+        }
+        .why-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            color: #8f16d2;
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: .14em;
+            text-transform: uppercase;
+        }
+        .why-eyebrow::before { content: ''; width: 26px; height: 1px; background: #bd00ff; }
+        .why-title {
+            margin: 0;
+            max-width: 760px;
+            font-family: 'Sora', var(--font-main);
+            font-size: clamp(40px, 4.2vw, 68px);
+            font-weight: 720;
+            line-height: 1.12;
+            letter-spacing: 0;
+        }
+        .why-lead {
+            margin: 0 0 4px;
+            color: var(--why-muted);
+            font-size: 17px;
+            line-height: 1.8;
+        }
+        .why-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            grid-template-rows: repeat(3, 300px);
+            gap: 18px;
+        }
+        .why-card {
+            --why-accent: #bd00ff;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            padding: clamp(26px, 2.2vw, 38px);
+            overflow: hidden;
+            border: 1px solid var(--why-line);
+            border-radius: 18px;
+            background: var(--why-surface);
+            box-shadow: 0 2px 14px rgba(0,0,0,.025);
+            opacity: 0;
+            transform: translateY(28px);
+            transition:
+                opacity .75s cubic-bezier(.2,.8,.2,1),
+                transform .75s cubic-bezier(.2,.8,.2,1),
+                background .35s ease,
+                border-color .35s ease,
+                box-shadow .35s ease;
+            cursor: pointer;
+            isolation: isolate;
+        }
+        .why-section.is-visible .why-card {
+            opacity: 1;
+            transform: translateY(0);
+            transition-delay: calc(var(--why-index) * 90ms);
+        }
+        .why-card:hover,
+        .why-card:focus-visible {
+            border-color: rgba(0,0,0,.16);
+            background: #fff;
+            box-shadow: 0 20px 60px rgba(20,20,28,.07);
+            outline: none;
+        }
+        .why-card:focus-visible { box-shadow: 0 0 0 3px rgba(189,0,255,.16), 0 20px 60px rgba(20,20,28,.07); }
+        .why-card-main { grid-column: span 2; grid-row: span 2; }
+        .why-card-ops { grid-column: span 2; flex-direction: row; align-items: stretch; gap: 42px; }
+        .why-card-copy { position: relative; z-index: 4; max-width: 620px; }
+        .why-card-kicker {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 13px;
+            color: #909096;
+            font-family: 'Sora', var(--font-main);
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+        }
+        .why-card-kicker b {
+            min-width: 30px;
+            padding: 4px 7px;
+            border-radius: 6px;
+            color: #55555c;
+            background: #e6e6e9;
+            font-size: 11px;
+            text-align: center;
+        }
+        .why-card h3 { margin: 0 0 10px; font-size: clamp(20px, 1.55vw, 27px); font-weight: 720; line-height: 1.25; }
+        .why-card p { margin: 0; max-width: 620px; color: var(--why-muted); font-size: 14px; line-height: 1.7; }
+        .why-card-main h3 { font-size: clamp(27px, 2.2vw, 38px); }
+        .why-card-main p { max-width: 680px; font-size: 15px; }
+        .why-replay {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            z-index: 5;
+            display: grid;
+            width: 32px;
+            height: 32px;
+            place-items: center;
+            border: 1px solid rgba(0,0,0,.08);
+            border-radius: 50%;
+            color: #8a8a91;
+            background: rgba(255,255,255,.64);
+            opacity: 0;
+            transition: opacity .25s ease, transform .35s ease;
+            pointer-events: none;
+        }
+        .why-replay svg { width: 14px; height: 14px; }
+        .why-card:hover .why-replay,
+        .why-card:focus-visible .why-replay { opacity: 1; }
+        .why-card:active .why-replay { transform: rotate(-100deg); }
+        .why-visual { position: relative; z-index: 2; flex: 1; min-height: 0; }
+
+        /* 01 full-stack assembly */
+        .why-stack-stage {
+            display: grid;
+            grid-template-columns: minmax(300px, 680px) 170px;
+            align-items: center;
+            justify-content: center;
+            gap: clamp(28px, 5vw, 82px);
+            width: min(92%, 1000px);
+            height: 100%;
+            margin: 12px auto 0;
+        }
+        .why-stack {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            width: 100%;
+            padding: 14px;
+        }
+        .why-stack-shell {
+            position: absolute;
+            inset: 6px;
+            border: 1.5px solid #242429;
+            border-radius: 13px;
+            opacity: 0;
+            transform: scale(.985);
+        }
+        .why-stack-layer {
+            position: relative;
+            display: grid;
+            grid-template-columns: 38px minmax(0,1fr) auto;
+            align-items: center;
+            gap: 13px;
+            min-height: 58px;
+            padding: 0 18px 0 12px;
+            overflow: hidden;
+            border: 1px solid rgba(0,0,0,.15);
+            border-radius: 10px;
+            background: rgba(255,255,255,.9);
+            box-shadow: 0 5px 18px rgba(0,0,0,.035);
+        }
+        .why-stack-layer::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, transparent, rgba(189,0,255,.09), transparent);
+            transform: translateX(-110%);
+        }
+        .why-layer-icon {
+            display: grid;
+            width: 34px;
+            height: 34px;
+            place-items: center;
+            border-radius: 8px;
+            color: #5b1a7b;
+            background: rgba(189,0,255,.08);
+        }
+        .why-layer-icon svg { width: 17px; height: 17px; }
+        .why-layer-name { min-width: 0; font-size: 14px; font-weight: 680; }
+        .why-layer-tag {
+            padding: 5px 8px;
+            border-radius: 5px;
+            color: #7d7d84;
+            background: #f0f0f2;
+            font-size: 10px;
+            font-weight: 650;
+            white-space: nowrap;
+        }
+        .why-stack-status { display: flex; flex-direction: column; gap: 18px; }
+        .why-status-ring {
+            position: relative;
+            display: grid;
+            width: 116px;
+            height: 116px;
+            place-items: center;
+            border: 1px solid rgba(0,0,0,.08);
+            border-radius: 50%;
+            background: rgba(255,255,255,.65);
+        }
+        .why-status-ring::before {
+            content: '';
+            position: absolute;
+            inset: 9px;
+            border: 2px solid transparent;
+            border-top-color: #bd00ff;
+            border-right-color: #7000ff;
+            border-radius: 50%;
+            opacity: .18;
+        }
+        .why-status-ring strong { font-family: 'Sora'; font-size: 25px; }
+        .why-status-ring span { position: absolute; bottom: 25px; color: #8b8b91; font-size: 9px; letter-spacing: .08em; }
+        .why-stack-note { color: #85858c; font-size: 11px; line-height: 1.6; text-align: center; }
+        .why-card.is-playing .why-stack { animation: whyStackGap 7.2s cubic-bezier(.85,0,.15,1) both; }
+        .why-card.is-playing .why-stack-shell { animation: whyShellLock 7.2s cubic-bezier(.85,0,.15,1) both; }
+        .why-card.is-playing .why-stack-layer::after { animation: whyLayerScan 7.2s ease both; }
+        .why-card.is-playing .why-status-ring::before { animation: whyStatusSpin 2.2s linear 1.7s 2; }
+        .why-card.is-playing .why-status-ring strong { animation: whyStatusValue 7.2s ease both; }
+
+        /* 02 delivery sequence */
+        .why-delivery {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 19px;
+            height: 100%;
+            padding: 12px 4px 0;
+        }
+        .why-delivery::before {
+            content: '';
+            position: absolute;
+            left: 9px;
+            top: 20%;
+            bottom: 18%;
+            width: 1px;
+            background: #d7d7db;
+        }
+        .why-delivery::after {
+            content: '';
+            position: absolute;
+            left: 8px;
+            top: 20%;
+            width: 3px;
+            height: 0;
+            border-radius: 9px;
+            background: linear-gradient(#242429, #bd00ff);
+        }
+        .why-step {
+            position: relative;
+            display: grid;
+            grid-template-columns: 20px minmax(0,1fr) auto;
+            align-items: center;
+            gap: 12px;
+            color: #77777f;
+            font-size: 13px;
+            opacity: .45;
+        }
+        .why-step-dot {
+            z-index: 1;
+            width: 18px;
+            height: 18px;
+            border: 2px solid #c9c9ce;
+            border-radius: 5px;
+            background: var(--why-surface);
+        }
+        .why-step em { color: #aaaab0; font-size: 10px; font-style: normal; }
+        .why-card.is-playing .why-delivery::after { animation: whyDeliveryLine 5.8s cubic-bezier(.2,.8,.2,1) both; }
+        .why-card.is-playing .why-step { animation: whyStepOn 5.8s ease both; animation-delay: calc(var(--step) * .48s); }
+        .why-card.is-playing .why-step-dot { animation: whyStepCheck 5.8s ease both; animation-delay: calc(var(--step) * .48s); }
+
+        /* 03 real-world noise filtering */
+        .why-audio {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 100%;
+            gap: 22px;
+        }
+        .why-audio-head { display: flex; align-items: center; justify-content: space-between; color: #96969c; font-size: 10px; }
+        .why-audio-head b { color: #5e5e65; font-size: 11px; }
+        .why-wave {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            height: 84px;
+        }
+        .why-wave i {
+            width: 6px;
+            height: var(--noise);
+            border-radius: 999px;
+            background: #cfcfd4;
+            transform-origin: center;
+        }
+        .why-audio-foot { display: grid; grid-template-columns: 1fr auto; gap: 14px; align-items: center; }
+        .why-signal-track { height: 4px; overflow: hidden; border-radius: 9px; background: #dddde1; }
+        .why-signal-track span { display: block; width: 18%; height: 100%; border-radius: inherit; background: #1d1d21; }
+        .why-signal-score { font-family: 'Sora'; font-size: 12px; font-weight: 700; }
+        .why-card.is-playing .why-wave i { animation: whyNoiseFocus 6.4s ease-in-out infinite; animation-delay: var(--delay); }
+        .why-card.is-playing .why-signal-track span { animation: whySignalScore 6.4s ease-in-out infinite; }
+
+        /* 04 multilingual switch */
+        .why-language { display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 22px; height: 100%; }
+        .why-language-copy { position: relative; width: 100%; height: 34px; overflow: hidden; text-align: center; }
+        .why-language-copy span {
+            position: absolute;
+            inset: 0;
+            display: grid;
+            place-items: center;
+            font-size: clamp(17px, 1.4vw, 22px);
+            font-weight: 680;
+            opacity: 0;
+            transform: translateY(16px);
+            transition: opacity .45s ease, transform .45s cubic-bezier(.2,.8,.2,1);
+        }
+        .why-language-copy span.active { opacity: 1; transform: translateY(0); }
+        .why-language-switch {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            width: min(100%, 260px);
+            padding: 4px;
+            border-radius: 11px;
+            background: #e5e5e8;
+        }
+        .why-lang-btn {
+            position: relative;
+            z-index: 1;
+            padding: 8px 4px;
+            border: 0;
+            border-radius: 8px;
+            color: #88888f;
+            background: transparent;
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: color .3s ease, background .3s ease, box-shadow .3s ease;
+        }
+        .why-lang-btn.active { color: #202024; background: #fff; box-shadow: 0 3px 12px rgba(0,0,0,.08); }
+
+        /* 05 operations dashboard */
+        .why-card-ops .why-card-copy { flex: 0 0 min(38%, 460px); align-self: center; }
+        .why-ops {
+            position: relative;
+            flex: 1;
+            min-width: 0;
+            display: grid;
+            grid-template-rows: auto 1fr;
+            gap: 16px;
+            padding: 2px 0;
+        }
+        .why-ops-kpis { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; }
+        .why-kpi {
+            padding: 12px 14px;
+            border: 1px solid rgba(0,0,0,.07);
+            border-radius: 10px;
+            background: rgba(255,255,255,.66);
+        }
+        .why-kpi span { display: block; margin-bottom: 5px; color: #929298; font-size: 9px; }
+        .why-kpi strong { font-family: 'Sora'; font-size: 17px; }
+        .why-chart {
+            position: relative;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-around;
+            gap: 10px;
+            min-height: 118px;
+            padding: 17px 16px 10px;
+            overflow: hidden;
+            border-top: 1px solid rgba(0,0,0,.12);
+            border-bottom: 1px solid rgba(0,0,0,.12);
+            background-image: linear-gradient(rgba(0,0,0,.035) 1px, transparent 1px);
+            background-size: 100% 25%;
+        }
+        .why-chart-bar {
+            position: relative;
+            width: 11%;
+            height: var(--bar);
+            border-radius: 5px 5px 2px 2px;
+            background: #d8d8dc;
+            transform: scaleY(.08);
+            transform-origin: bottom;
+        }
+        .why-chart-bar:nth-of-type(5) { background: #28282d; }
+        .why-chart-scan {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            width: 1px;
+            background: #bd00ff;
+            opacity: 0;
+        }
+        .why-chart-tip {
+            position: absolute;
+            top: 8px;
+            left: 0;
+            padding: 5px 7px;
+            border-radius: 5px;
+            color: #fff;
+            background: #202024;
+            font-size: 9px;
+            font-weight: 700;
+            opacity: 0;
+            white-space: nowrap;
+        }
+        .why-card.is-playing .why-chart-bar { animation: whyBarGrow 6.2s cubic-bezier(.2,.8,.2,1) infinite; animation-delay: calc(var(--bar-i) * 90ms); }
+        .why-card.is-playing .why-chart-scan { animation: whyChartScan 6.2s cubic-bezier(.2,.8,.2,1) infinite; }
+        .why-card.is-playing .why-chart-tip { animation: whyChartTip 6.2s cubic-bezier(.2,.8,.2,1) infinite; }
+
+        @keyframes whyStackGap {
+            0%, 12%, 92%, 100% { gap: 12px; transform: scale(.985); }
+            29%, 76% { gap: 2px; transform: scale(1); }
+        }
+        @keyframes whyShellLock { 0%, 24%, 86%, 100% { opacity: 0; } 35%, 76% { opacity: 1; transform: scale(1); } }
+        @keyframes whyLayerScan { 0%, 34% { transform: translateX(-110%); } 53%, 100% { transform: translateX(110%); } }
+        @keyframes whyStatusSpin { to { transform: rotate(360deg); opacity: .8; } }
+        @keyframes whyStatusValue { 0%, 24%, 88%,100% { opacity: .45; } 34%,78% { opacity: 1; color: #7c14b5; } }
+        @keyframes whyDeliveryLine { 0%,10% { height: 0; } 52%,100% { height: 62%; } }
+        @keyframes whyStepOn { 0%,8% { opacity: .38; color: #77777f; } 23%,86% { opacity: 1; color: #242429; } 100% { opacity: .6; } }
+        @keyframes whyStepCheck { 0%,8% { border-color: #c9c9ce; background: var(--why-surface); } 23%,86% { border-color: #222227; background: #222227; box-shadow: inset 0 0 0 4px #222227, inset 0 0 0 6px #fff; } 100% { opacity: .7; } }
+        @keyframes whyNoiseFocus {
+            0%,32%,100% { height: var(--noise); background: #cfcfd4; }
+            48%,78% { height: 8px; background: #dedee2; }
+            54%,72% { height: calc(8px + var(--voice, 0px)); background: var(--voice-color, #dedee2); }
+        }
+        @keyframes whySignalScore { 0%,32%,100% { width: 18%; } 50%,78% { width: 94%; background: linear-gradient(90deg,#222227,#bd00ff); } }
+        @keyframes whyBarGrow { 0%,12%,100% { transform: scaleY(.08); } 28%,82% { transform: scaleY(1); } }
+        @keyframes whyChartScan { 0%,18% { left: 0; opacity: 0; } 30% { opacity: 1; } 76% { left: 88%; opacity: 1; } 88%,100% { left: 88%; opacity: 0; } }
+        @keyframes whyChartTip { 0%,20% { left: 0; opacity: 0; transform: translateY(5px); } 31% { opacity: 1; } 76% { left: calc(88% - 44px); opacity: 1; transform: translateY(0); } 88%,100% { opacity: 0; } }
+
+        @media (max-width: 1080px) {
+            .why-section { padding: 106px 28px 116px; }
+            .why-head { grid-template-columns: 1fr; gap: 26px; margin-bottom: 48px; }
+            .why-lead { max-width: 760px; }
+            .why-grid { grid-template-columns: repeat(2,minmax(0,1fr)); grid-template-rows: 520px 290px 290px; }
+            .why-card-main { grid-column: span 2; grid-row: span 1; }
+            .why-card-ops { grid-column: span 2; }
+            .why-stack-stage { width: 100%; grid-template-columns: minmax(0,1fr) 140px; }
+        }
+        @media (max-width: 720px) {
+            .why-section { padding: 88px 20px 96px; }
+            .why-title { font-size: 38px; }
+            .why-lead { font-size: 15px; }
+            .why-grid { display: flex; flex-direction: column; gap: 14px; }
+            .why-card { min-height: 370px; padding: 25px 22px; }
+            .why-card-main { min-height: 610px; }
+            .why-card-ops { min-height: 560px; flex-direction: column; gap: 24px; }
+            .why-card-ops .why-card-copy { flex: none; align-self: stretch; }
+            .why-stack-stage { grid-template-columns: 1fr; align-content: center; gap: 22px; width: 100%; }
+            .why-stack { padding: 4px; }
+            .why-stack-layer { grid-template-columns: 34px minmax(0,1fr); min-height: 54px; padding-right: 12px; }
+            .why-layer-tag { display: none; }
+            .why-stack-status { flex-direction: row; align-items: center; justify-content: center; }
+            .why-status-ring { width: 88px; height: 88px; }
+            .why-status-ring strong { font-size: 20px; }
+            .why-status-ring span { bottom: 17px; }
+            .why-stack-note { max-width: 130px; text-align: left; }
+            .why-replay { opacity: .65; }
+            .why-ops-kpis { gap: 6px; }
+            .why-kpi { padding: 10px 8px; }
+            .why-kpi strong { font-size: 14px; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .why-card { opacity: 1; transform: none; transition: none; }
+            .why-card *,
+            .why-card *::before,
+            .why-card *::after { animation: none !important; transition-duration: .01ms !important; }
+            .why-stack { gap: 2px; }
+            .why-stack-shell { opacity: 1; transform: scale(1); }
+            .why-step { opacity: 1; color: #242429; }
+            .why-step-dot { border-color: #222227; background: #222227; box-shadow: inset 0 0 0 4px #222227, inset 0 0 0 6px #fff; }
+            .why-signal-track span { width: 94%; background: linear-gradient(90deg,#222227,#bd00ff); }
+            .why-chart-bar { transform: scaleY(1); }
+        }
+
         /* ===== Moat: expanding accordion + comparison ===== */
         .moat-acc { display: flex; gap: 14px; height: 340px; }
         .moat-acc-item {
@@ -2179,6 +2675,139 @@
         </div>
     </section>
 
+    <!-- WHY US: full-stack delivery bento -->
+    <section id="moat" class="why-section" data-clickspark-theme="light">
+        <div class="why-wrap">
+            <header class="why-head">
+                <div>
+                    <div class="why-eyebrow">Why 2077.AI</div>
+                    <h2 class="why-title">从智能能力到现场交付，<br>一套系统完整负责</h2>
+                </div>
+                <p class="why-lead">做出一个“会说话的虚拟人”并不难。真正的挑战，是让它在复杂线下环境中听得清、答得准、稳定运行，并随着业务持续更新。2077.AI 从底层技术、现场设备到运营后台统一构建，让 AI 虚拟员工真正进入服务现场。</p>
+            </header>
+
+            <div class="why-grid">
+                <article class="why-card why-card-main" style="--why-index:0;--why-accent:#bd00ff" data-why-card tabindex="0">
+                    <span class="why-replay" aria-hidden="true"><i data-lucide="rotate-ccw"></i></span>
+                    <div class="why-card-copy">
+                        <div class="why-card-kicker"><b>01</b> Full-stack System</div>
+                        <h3>全栈自研，能力原生协同</h3>
+                        <p>AI Agent、3D 虚拟人、交互引擎、CMS 管理平台与终端硬件一体化研发。不是把四套产品勉强接在一起，而是让每一层从设计之初就共享同一套数据、接口与交付标准。</p>
+                    </div>
+                    <div class="why-visual why-stack-stage">
+                        <div class="why-stack">
+                            <div class="why-stack-shell"></div>
+                            <div class="why-stack-layer">
+                                <span class="why-layer-icon"><i data-lucide="brain-circuit"></i></span>
+                                <span class="why-layer-name">大脑决策层</span>
+                                <span class="why-layer-tag">AI Agent / LLM</span>
+                            </div>
+                            <div class="why-stack-layer">
+                                <span class="why-layer-icon"><i data-lucide="layout-dashboard"></i></span>
+                                <span class="why-layer-name">平台管理层</span>
+                                <span class="why-layer-tag">CMS / Data</span>
+                            </div>
+                            <div class="why-stack-layer">
+                                <span class="why-layer-icon"><i data-lucide="scan-face"></i></span>
+                                <span class="why-layer-name">渲染交互层</span>
+                                <span class="why-layer-tag">UE / 3D Avatar</span>
+                            </div>
+                            <div class="why-stack-layer">
+                                <span class="why-layer-icon"><i data-lucide="cpu"></i></span>
+                                <span class="why-layer-name">终端硬件层</span>
+                                <span class="why-layer-tag">Sensor / Edge</span>
+                            </div>
+                        </div>
+                        <div class="why-stack-status">
+                            <div class="why-status-ring"><strong>4 in 1</strong><span>System Ready</span></div>
+                            <div class="why-stack-note">一个团队设计<br>一套标准交付</div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="why-card" style="--why-index:1;--why-accent:#7000ff" data-why-card tabindex="0">
+                    <span class="why-replay" aria-hidden="true"><i data-lucide="rotate-ccw"></i></span>
+                    <div class="why-card-copy">
+                        <div class="why-card-kicker"><b>02</b> One-team Delivery</div>
+                        <h3>一家交付，责任不分段</h3>
+                        <p>从需求设计、安装部署到持续运维，由同一个团队负责到底。</p>
+                    </div>
+                    <div class="why-visual why-delivery">
+                        <div class="why-step" style="--step:0"><span class="why-step-dot"></span><span>需求梳理与方案设计</span><em>Plan</em></div>
+                        <div class="why-step" style="--step:1"><span class="why-step-dot"></span><span>软硬一体化安装部署</span><em>Deploy</em></div>
+                        <div class="why-step" style="--step:2"><span class="why-step-dot"></span><span>持续运维与系统保障</span><em>Operate</em></div>
+                    </div>
+                </article>
+
+                <article class="why-card" style="--why-index:2;--why-accent:#242429" data-why-card tabindex="0">
+                    <span class="why-replay" aria-hidden="true"><i data-lucide="rotate-ccw"></i></span>
+                    <div class="why-card-copy">
+                        <div class="why-card-kicker"><b>03</b> On-site Reliability</div>
+                        <h3>为真实现场设计</h3>
+                        <p>针对商场、医院、政务大厅等嘈杂声场持续优化，让用户在现场自然开口也能被准确理解。</p>
+                    </div>
+                    <div class="why-visual why-audio">
+                        <div class="why-audio-head"><span>Ambient Noise</span><b>Voice Focus</b></div>
+                        <div class="why-wave">
+                            <i style="--noise:78%;--delay:-.2s"></i><i style="--noise:34%;--delay:-.5s"></i><i style="--noise:92%;--delay:-.9s"></i>
+                            <i style="--noise:48%;--delay:-.1s"></i><i style="--noise:68%;--voice:22px;--voice-color:#333338;--delay:-.7s"></i>
+                            <i style="--noise:96%;--voice:52px;--voice-color:#bd00ff;--delay:-.4s"></i>
+                            <i style="--noise:55%;--voice:30px;--voice-color:#333338;--delay:-.8s"></i><i style="--noise:84%;--delay:-.3s"></i>
+                            <i style="--noise:28%;--delay:-.6s"></i><i style="--noise:72%;--delay:-1s"></i><i style="--noise:42%;--delay:-.25s"></i>
+                        </div>
+                        <div class="why-audio-foot"><div class="why-signal-track"><span></span></div><div class="why-signal-score">94.8%</div></div>
+                    </div>
+                </article>
+
+                <article class="why-card" style="--why-index:3;--why-accent:#bd00ff" data-why-card tabindex="0">
+                    <div class="why-card-copy">
+                        <div class="why-card-kicker"><b>04</b> Multilingual Service</div>
+                        <h3>多语言自然切换</h3>
+                        <p>普通话、粤语与英语使用同一套知识和服务流程，无需切换服务入口。</p>
+                    </div>
+                    <div class="why-visual why-language" data-why-language>
+                        <div class="why-language-copy">
+                            <span class="active" data-lang-copy="zh">“洗手间在哪个方向？”</span>
+                            <span data-lang-copy="yue">“洗手間喺邊個方向？”</span>
+                            <span data-lang-copy="en">“Which way is the restroom?”</span>
+                        </div>
+                        <div class="why-language-switch" role="group" aria-label="切换语言演示">
+                            <button class="why-lang-btn active" type="button" data-lang="zh">普通话</button>
+                            <button class="why-lang-btn" type="button" data-lang="yue">粤语</button>
+                            <button class="why-lang-btn" type="button" data-lang="en">English</button>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="why-card why-card-ops" style="--why-index:4;--why-accent:#7000ff" data-why-card tabindex="0">
+                    <span class="why-replay" aria-hidden="true"><i data-lucide="rotate-ccw"></i></span>
+                    <div class="why-card-copy">
+                        <div class="why-card-kicker"><b>05</b> Continuous Operations</div>
+                        <h3>交付之后，持续产生价值</h3>
+                        <p>每一次问询都会进入运营后台，形成需求趋势、内容缺口和服务表现，让终端从一次性交付变成持续优化的数字服务资产。</p>
+                    </div>
+                    <div class="why-visual why-ops">
+                        <div class="why-ops-kpis">
+                            <div class="why-kpi"><span>有效回答率</span><strong>98.6%</strong></div>
+                            <div class="why-kpi"><span>持续服务</span><strong>24 / 7</strong></div>
+                            <div class="why-kpi"><span>本月触达增长</span><strong>+37%</strong></div>
+                        </div>
+                        <div class="why-chart">
+                            <span class="why-chart-scan"></span><span class="why-chart-tip">需求峰值 +37%</span>
+                            <i class="why-chart-bar" style="--bar:38%;--bar-i:0"></i>
+                            <i class="why-chart-bar" style="--bar:54%;--bar-i:1"></i>
+                            <i class="why-chart-bar" style="--bar:47%;--bar-i:2"></i>
+                            <i class="why-chart-bar" style="--bar:69%;--bar-i:3"></i>
+                            <i class="why-chart-bar" style="--bar:88%;--bar-i:4"></i>
+                            <i class="why-chart-bar" style="--bar:74%;--bar-i:5"></i>
+                            <i class="why-chart-bar" style="--bar:94%;--bar-i:6"></i>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
     <!-- PRODUCT LOGIC (感知 → 决策 → 表现) -->
     <section id="logic" class="py-32 px-10 bg-white has-grainient">
         <div class="grainient-bg" data-grainient="light"></div>
@@ -2446,7 +3075,7 @@
     </section>
 
     <!-- MOAT (dark, 全自研) -->
-    <section id="moat" class="py-32 px-10 bg-black text-white relative overflow-hidden has-grainient">
+    <section id="moat-legacy" hidden aria-hidden="true" class="py-32 px-10 bg-black text-white relative overflow-hidden has-grainient">
         <div class="grainient-bg" data-grainient="dark"></div>
         <div class="absolute inset-0 opacity-20">
             <div id="moatBg1" class="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_30%_30%,#9255fe_0%,transparent_40%)]"></div>
@@ -3556,6 +4185,78 @@
                 root.addEventListener('mouseleave', () => { if (downX === null) start(); });
                 show(0); start();
             });
+        })();
+
+        // Why us: play meaningful card demos on entry; click/keyboard replays a card.
+        (function () {
+            const section = document.querySelector('.why-section');
+            if (!section) return;
+            const cards = Array.from(section.querySelectorAll('[data-why-card]'));
+            const replay = (card) => {
+                card.classList.remove('is-playing');
+                void card.offsetWidth;
+                card.classList.add('is-playing');
+            };
+            const start = () => {
+                section.classList.add('is-visible');
+                cards.forEach((card, index) => window.setTimeout(() => replay(card), index * 110));
+            };
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (!entry.isIntersecting) return;
+                    start();
+                    observer.disconnect();
+                });
+            }, { threshold: 0.14 });
+            observer.observe(section);
+            cards.forEach((card) => {
+                card.addEventListener('click', (event) => {
+                    if (event.target.closest('.why-lang-btn')) return;
+                    replay(card);
+                });
+                card.addEventListener('keydown', (event) => {
+                    if (event.key !== 'Enter' && event.key !== ' ') return;
+                    event.preventDefault();
+                    replay(card);
+                });
+            });
+
+            const language = section.querySelector('[data-why-language]');
+            if (!language) return;
+            const buttons = Array.from(language.querySelectorAll('[data-lang]'));
+            const copies = Array.from(language.querySelectorAll('[data-lang-copy]'));
+            const order = buttons.map((button) => button.dataset.lang);
+            let activeIndex = 0;
+            let timer = null;
+            const showLanguage = (key) => {
+                const nextIndex = order.indexOf(key);
+                if (nextIndex < 0) return;
+                activeIndex = nextIndex;
+                buttons.forEach((button) => button.classList.toggle('active', button.dataset.lang === key));
+                copies.forEach((copy) => copy.classList.toggle('active', copy.dataset.langCopy === key));
+            };
+            const stopLanguage = () => {
+                if (timer) window.clearInterval(timer);
+                timer = null;
+            };
+            const startLanguage = () => {
+                stopLanguage();
+                timer = window.setInterval(() => {
+                    showLanguage(order[(activeIndex + 1) % order.length]);
+                }, 2800);
+            };
+            buttons.forEach((button) => {
+                button.addEventListener('click', (event) => {
+                    event.stopPropagation();
+                    showLanguage(button.dataset.lang);
+                    startLanguage();
+                });
+            });
+            const languageObserver = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => entry.isIntersecting ? startLanguage() : stopLanguage());
+            }, { threshold: 0.35 });
+            languageObserver.observe(language);
+            window.addEventListener('pagehide', stopLanguage, { once: true });
         })();
 
         // Moat: expanding accordion (hover/click to open)

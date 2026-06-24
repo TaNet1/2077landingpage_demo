@@ -1735,15 +1735,21 @@
         .why-data-bus svg { width: 100%; height: 100%; overflow: visible; }
         .why-bus-line,
         .why-bus-flow { fill: none; vector-effect: non-scaling-stroke; }
-        .why-bus-line { stroke: rgba(35,32,39,.2); stroke-width: 1.4; stroke-dasharray: 4 5; }
-        .why-bus-flow {
-            stroke: url(#why-bus-flow-gradient);
-            stroke-width: 2.4;
+        .why-bus-line {
+            stroke: #bd00ff;
+            stroke-width: 1.8;
             stroke-linecap: round;
-            stroke-dasharray: 46 374;
+            opacity: .9;
+            filter: drop-shadow(0 0 3px rgba(189,0,255,.22));
+        }
+        .why-bus-flow {
+            stroke: rgba(255,255,255,.98);
+            stroke-width: 3;
+            stroke-linecap: round;
+            stroke-dasharray: 28 392;
             stroke-dashoffset: 420;
             opacity: 0;
-            filter: drop-shadow(0 0 5px rgba(189,0,255,.4));
+            filter: drop-shadow(0 0 4px #fff) drop-shadow(0 0 8px rgba(189,0,255,.65));
         }
         .why-stack-status {
             position: relative;
@@ -1761,12 +1767,15 @@
             width: 27px;
             height: 1px;
         }
-        .why-stack-status::before { background: rgba(35,32,39,.2); }
+        .why-stack-status::before {
+            background: #bd00ff;
+            box-shadow: 0 0 4px rgba(189,0,255,.28);
+        }
         .why-stack-status::after {
-            background: linear-gradient(90deg, transparent, #bd00ff 48%, #7000ff 72%, transparent);
+            background: linear-gradient(90deg, transparent, #fff 42%, #fff 58%, transparent);
             background-size: 200% 100%;
             opacity: 0;
-            filter: drop-shadow(0 0 4px rgba(189,0,255,.45));
+            filter: drop-shadow(0 0 4px #fff) drop-shadow(0 0 7px rgba(189,0,255,.7));
         }
         .why-status-ring {
             position: relative;
@@ -1861,74 +1870,110 @@
         .why-card.is-playing .why-step { animation: whyStepOn 5.8s ease both; animation-delay: calc(var(--step) * .48s); }
         .why-card.is-playing .why-step-dot { animation: whyStepCheck 5.8s ease both; animation-delay: calc(var(--step) * .48s); }
 
-        /* 03 real-world noise filtering */
-        .why-audio {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
+        /* 03 acoustic channel for real-world environments */
+        .why-acoustic {
+            position: relative;
             height: 100%;
-            gap: 17px;
+            min-height: 152px;
+            overflow: hidden;
+            border: 1px solid rgba(0,0,0,.055);
+            border-radius: 13px;
+            background:
+                radial-gradient(circle at 1px 1px, rgba(0,0,0,.055) 1px, transparent 1.2px) 0 0 / 20px 20px,
+                rgba(255,255,255,.52);
+            box-shadow: inset 0 2px 18px rgba(0,0,0,.018);
         }
-        .why-audio-head { display: flex; align-items: center; justify-content: space-between; color: #96969c; font-size: 10px; }
-        .why-audio-head span { letter-spacing: .08em; text-transform: uppercase; }
-        .why-noise-state {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            color: #65138c;
-            font-size: 10px;
-            font-weight: 750;
-        }
-        .why-noise-state::before {
-            content: '';
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background: #bd00ff;
-            box-shadow: 0 0 0 0 rgba(189,0,255,.26);
-            animation: whyNoisePulse 1.8s ease-out infinite;
-        }
-        .why-wave {
-            position: relative;
+        .why-mic-array {
+            position: absolute;
+            z-index: 8;
+            top: 13px;
+            left: 50%;
             display: flex;
             align-items: center;
-            justify-content: center;
-            gap: 6px;
-            flex: 0 0 72px;
-            height: 72px;
-            padding: 0 14px;
-            overflow: hidden;
-            border-radius: 12px;
-            background: rgba(255,255,255,.38);
-        }
-        .why-wave::before {
-            content: '';
-            position: absolute;
-            left: 50%;
-            top: 10px;
-            bottom: 10px;
-            width: 54px;
-            border-left: 1px solid rgba(189,0,255,.12);
-            border-right: 1px solid rgba(189,0,255,.12);
+            justify-content: space-evenly;
+            width: 162px;
+            height: 22px;
+            padding: 0 11px;
+            border: 1px solid rgba(0,0,0,.12);
+            border-radius: 99px;
+            background: #f7f7f9;
+            box-shadow: 0 7px 16px rgba(0,0,0,.05);
             transform: translateX(-50%);
-            background: linear-gradient(90deg, transparent, rgba(189,0,255,.06), transparent);
         }
-        .why-wave i {
-            position: relative;
-            z-index: 1;
-            width: 7px;
-            height: var(--noise);
-            border-radius: 999px;
-            background: #c9c7ce;
+        .why-mic-array i { width: 4px; height: 4px; border-radius: 50%; background: #c8c8ce; }
+        .why-acoustic-shield {
+            position: absolute;
+            z-index: 2;
+            top: 25px;
+            left: 50%;
+            width: 76%;
+            height: 105px;
+            transform: translateX(-50%);
+            opacity: 0;
+        }
+        .why-acoustic-shield svg { width: 100%; height: 100%; }
+        .why-acoustic-shield path { fill: url(#why-acoustic-gradient); filter: blur(6px); }
+        .why-ambient-noise { position: absolute; z-index: 1; inset: 0; }
+        .why-chaos {
+            position: absolute;
+            display: flex;
+            align-items: center;
+            gap: 3px;
+        }
+        .why-chaos:nth-child(1) { top: 38%; left: 10%; }
+        .why-chaos:nth-child(2) { top: 33%; right: 13%; }
+        .why-chaos:nth-child(3) { top: 65%; left: 21%; }
+        .why-chaos:nth-child(4) { top: 62%; right: 18%; }
+        .why-chaos i { width: 3px; height: var(--chaos-h); border-radius: 99px; background: #c9c8ce; animation: whyChaosJitter .55s ease-in-out infinite alternate; animation-delay: var(--chaos-delay); }
+        .why-voice-wave {
+            position: absolute;
+            z-index: 5;
+            bottom: 24px;
+            left: 50%;
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            height: 74px;
+            transform: translateX(-50%);
+            opacity: 0;
+            -webkit-mask-image: linear-gradient(to top, #000 34%, transparent 100%);
+            mask-image: linear-gradient(to top, #000 34%, transparent 100%);
+        }
+        .why-voice-wave i {
+            width: 4px;
+            height: var(--voice-h);
+            border-radius: 99px;
+            background: #bd00ff;
+            box-shadow: 0 0 7px rgba(189,0,255,.35);
             transform-origin: center;
+            animation: whyVoiceBar var(--voice-speed) linear infinite;
+            animation-delay: var(--voice-delay);
         }
-        .why-audio-foot { display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 16px; align-items: end; }
-        .why-noise-metric span { display: block; margin-bottom: 4px; color: #909097; font-size: 9px; }
-        .why-noise-metric strong { font-family: 'Sora'; font-size: 18px; font-weight: 720; }
-        .why-noise-meter { align-self: center; width: 100%; height: 5px; overflow: hidden; border-radius: 99px; background: #d9d7dd; }
-        .why-noise-meter span { display: block; width: 12%; height: 100%; border-radius: inherit; background: linear-gradient(90deg,#25242a,#bd00ff); }
-        .why-card.is-playing .why-wave i { animation: whyNoiseFocus 5.2s cubic-bezier(.45,0,.2,1) infinite; animation-delay: var(--delay); }
-        .why-card.is-playing .why-noise-meter span { animation: whyNoiseMeter 5.2s cubic-bezier(.45,0,.2,1) infinite; }
+        .why-people {
+            position: absolute;
+            z-index: 6;
+            right: 10%;
+            bottom: 15px;
+            left: 10%;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+        }
+        .why-person { position: relative; display: grid; width: 30px; height: 30px; place-items: center; border: 1px solid rgba(0,0,0,.12); border-radius: 50%; color: #9b9ba2; background: #fff; box-shadow: 0 4px 10px rgba(0,0,0,.04); }
+        .why-person svg { width: 14px; height: 14px; }
+        .why-person::before,
+        .why-person::after { content: ''; position: absolute; inset: 50%; border: 1px solid currentColor; border-radius: 50%; opacity: 0; }
+        .why-person::after { animation-delay: 1.15s !important; }
+        .why-acoustic-state { position: absolute; z-index: 9; right: 12px; bottom: 9px; color: #73119e; font-size: 9px; font-weight: 720; }
+        .why-card.is-playing .why-ambient-noise { animation: whyChaosSuppress 8s cubic-bezier(.25,1,.5,1) infinite; }
+        .why-card.is-playing .why-mic-array { animation: whyMicGlow 8s cubic-bezier(.25,1,.5,1) infinite; }
+        .why-card.is-playing .why-mic-array i { animation: whyMicHole 8s cubic-bezier(.25,1,.5,1) infinite; }
+        .why-card.is-playing .why-acoustic-shield { animation: whyShieldActivate 8s cubic-bezier(.25,1,.5,1) infinite; }
+        .why-card.is-playing .why-voice-wave { animation: whyWaveActivate 8s cubic-bezier(.25,1,.5,1) infinite; }
+        .why-card.is-playing .why-person::before,
+        .why-card.is-playing .why-person::after { animation: whySoundRipple 2.8s linear infinite; }
+        .why-card.is-playing .why-person-noise { animation: whyPersonSuppress 8s cubic-bezier(.25,1,.5,1) infinite; }
+        .why-card.is-playing .why-person-target { animation: whyTargetPerson 8s cubic-bezier(.25,1,.5,1) infinite; }
 
         /* 04 multilingual switch */
         .why-language { display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 22px; height: 100%; }
@@ -2062,17 +2107,39 @@
         @keyframes whyDeliveryLine { 0%,10% { height: 0; } 52%,100% { height: 62%; } }
         @keyframes whyStepOn { 0%,8% { opacity: .38; color: #77777f; } 23%,86% { opacity: 1; color: #242429; } 100% { opacity: .6; } }
         @keyframes whyStepCheck { 0%,8% { border-color: #c9c9ce; background: var(--why-surface); } 23%,86% { border-color: #222227; background: #222227; box-shadow: inset 0 0 0 4px #222227, inset 0 0 0 6px #fff; } 100% { opacity: .7; } }
-        @keyframes whyNoisePulse {
-            0% { box-shadow: 0 0 0 0 rgba(189,0,255,.28); }
-            75%,100% { box-shadow: 0 0 0 7px rgba(189,0,255,0); }
+        @keyframes whyChaosJitter { from { transform: scaleY(.55); } to { transform: scaleY(1.45); } }
+        @keyframes whyChaosSuppress {
+            0%,20%,100% { opacity: 1; filter: blur(0); transform: scale(1); }
+            36%,82% { opacity: .13; filter: blur(6px); transform: scale(.96); }
         }
-        @keyframes whyNoiseFocus {
-            0%,20%,100% { height: var(--noise); background: #c9c7ce; transform: scaleY(.82); opacity: .82; }
-            32% { height: var(--noise); transform: scaleY(.62); }
-            48%,78% { height: 7px; background: #dedce1; transform: scaleY(1); opacity: .62; }
-            55%,72% { height: calc(9px + var(--voice, 0px)); background: var(--voice-color, #dedce1); opacity: 1; box-shadow: 0 0 14px var(--voice-glow, transparent); }
+        @keyframes whyMicGlow {
+            0%,20%,100% { border-color: rgba(0,0,0,.12); box-shadow: 0 7px 16px rgba(0,0,0,.05); }
+            36%,82% { border-color: rgba(189,0,255,.3); box-shadow: 0 8px 25px rgba(189,0,255,.13); }
         }
-        @keyframes whyNoiseMeter { 0%,20%,100% { width: 12%; } 48%,78% { width: 86%; } }
+        @keyframes whyMicHole { 0%,20%,100% { background: #c8c8ce; box-shadow: none; } 36%,82% { background: #bd00ff; box-shadow: 0 0 6px #bd00ff; } }
+        @keyframes whyShieldActivate {
+            0%,22%,94%,100% { opacity: 0; transform: translateX(-50%) scaleY(.82); }
+            36%,82% { opacity: 1; transform: translateX(-50%) scaleY(1); }
+        }
+        @keyframes whyWaveActivate {
+            0%,25%,92%,100% { opacity: 0; transform: translateX(-50%) translateY(22px) scale(.7); }
+            38%,82% { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
+        }
+        @keyframes whyVoiceBar {
+            0%,100% { transform: scaleY(.35); opacity: .62; }
+            31% { transform: scaleY(1); opacity: 1; }
+            58% { transform: scaleY(.52); opacity: .78; }
+            79% { transform: scaleY(.84); opacity: .92; }
+        }
+        @keyframes whySoundRipple { from { inset: 50%; opacity: .28; } to { inset: -20px; opacity: 0; } }
+        @keyframes whyPersonSuppress {
+            0%,20%,100% { opacity: 1; filter: blur(0); transform: translateY(0) scale(1); }
+            36%,82% { opacity: .28; filter: blur(2px); transform: translateY(5px) scale(.9); }
+        }
+        @keyframes whyTargetPerson {
+            0%,20%,100% { color: #9b9ba2; border-color: rgba(0,0,0,.12); box-shadow: 0 4px 10px rgba(0,0,0,.04); }
+            36%,82% { color: #bd00ff; border-color: rgba(189,0,255,.35); box-shadow: 0 0 0 5px rgba(189,0,255,.07), 0 5px 16px rgba(189,0,255,.11); }
+        }
         @keyframes whyBarGrow { 0%,12%,100% { transform: scaleY(.08); } 28%,82% { transform: scaleY(1); } }
         @keyframes whyChartScan { 0%,18% { left: 0; opacity: 0; } 30% { opacity: 1; } 76% { left: 88%; opacity: 1; } 88%,100% { left: 88%; opacity: 0; } }
         @keyframes whyChartTip { 0%,20% { left: 0; opacity: 0; transform: translateY(5px); } 31% { opacity: 1; } 76% { left: calc(88% - 44px); opacity: 1; transform: translateY(0); } 88%,100% { opacity: 0; } }
@@ -2120,14 +2187,15 @@
             .why-card-main.is-playing .why-status-ring::after { animation: whyStatusSpin 8s linear infinite 1s !important; }
             .why-step { opacity: 1; color: #242429; }
             .why-step-dot { border-color: #222227; background: #222227; box-shadow: inset 0 0 0 4px #222227, inset 0 0 0 6px #fff; }
-            .why-noise-meter span { width: 86%; }
             .why-chart-bar { transform: scaleY(1); }
-            .why-card-audio .why-wave i {
-                animation: whyNoiseFocus 7.5s cubic-bezier(.45,0,.2,1) infinite !important;
-                animation-delay: var(--delay) !important;
-            }
-            .why-card-audio .why-noise-meter span { animation: whyNoiseMeter 7.5s cubic-bezier(.45,0,.2,1) infinite !important; }
-            .why-card-audio .why-noise-state::before { animation: whyNoisePulse 2.4s ease-out infinite !important; }
+            .why-card-audio.is-playing .why-ambient-noise { animation: whyChaosSuppress 12s cubic-bezier(.25,1,.5,1) infinite !important; }
+            .why-card-audio.is-playing .why-mic-array { animation: whyMicGlow 12s cubic-bezier(.25,1,.5,1) infinite !important; }
+            .why-card-audio.is-playing .why-mic-array i { animation: whyMicHole 12s cubic-bezier(.25,1,.5,1) infinite !important; }
+            .why-card-audio.is-playing .why-acoustic-shield { animation: whyShieldActivate 12s cubic-bezier(.25,1,.5,1) infinite !important; }
+            .why-card-audio.is-playing .why-voice-wave { animation: whyWaveActivate 12s cubic-bezier(.25,1,.5,1) infinite !important; }
+            .why-card-audio.is-playing .why-person-noise { animation: whyPersonSuppress 12s cubic-bezier(.25,1,.5,1) infinite !important; }
+            .why-card-audio.is-playing .why-person-target { animation: whyTargetPerson 12s cubic-bezier(.25,1,.5,1) infinite !important; }
+            .why-card-audio.is-playing .why-voice-wave i { animation: whyVoiceBar 1.2s linear infinite !important; animation-delay: var(--voice-delay) !important; }
         }
 
         /* ===== FAQ: editorial two-column accordion ===== */
@@ -2970,19 +3038,44 @@
                         <h3>为真实现场设计</h3>
                         <p>针对商场、医院、政务大厅等嘈杂声场持续优化，让用户在现场自然开口也能被准确理解。</p>
                     </div>
-                    <div class="why-visual why-audio">
-                        <div class="why-audio-head"><span>现场声场</span><b class="why-noise-state">实时降噪处理中</b></div>
-                        <div class="why-wave">
-                            <i style="--noise:78%;--delay:-.2s"></i><i style="--noise:34%;--delay:-.5s"></i><i style="--noise:92%;--delay:-.9s"></i>
-                            <i style="--noise:48%;--delay:-.1s"></i><i style="--noise:68%;--voice:22px;--voice-color:#333338;--delay:-.7s"></i>
-                            <i style="--noise:96%;--voice:54px;--voice-color:#bd00ff;--voice-glow:rgba(189,0,255,.2);--delay:-.4s"></i>
-                            <i style="--noise:55%;--voice:30px;--voice-color:#333338;--delay:-.8s"></i><i style="--noise:84%;--delay:-.3s"></i>
-                            <i style="--noise:28%;--delay:-.6s"></i><i style="--noise:72%;--delay:-1s"></i><i style="--noise:42%;--delay:-.25s"></i>
+                    <div class="why-visual why-acoustic">
+                        <div class="why-ambient-noise" aria-hidden="true">
+                            <span class="why-chaos"><i style="--chaos-h:12px;--chaos-delay:-.1s"></i><i style="--chaos-h:24px;--chaos-delay:-.3s"></i><i style="--chaos-h:16px;--chaos-delay:-.2s"></i></span>
+                            <span class="why-chaos"><i style="--chaos-h:18px;--chaos-delay:-.2s"></i><i style="--chaos-h:10px;--chaos-delay:-.5s"></i><i style="--chaos-h:26px;--chaos-delay:-.1s"></i></span>
+                            <span class="why-chaos"><i style="--chaos-h:20px;--chaos-delay:-.4s"></i><i style="--chaos-h:14px;--chaos-delay:-.1s"></i></span>
+                            <span class="why-chaos"><i style="--chaos-h:10px;--chaos-delay:-.6s"></i><i style="--chaos-h:22px;--chaos-delay:-.3s"></i><i style="--chaos-h:12px;--chaos-delay:-.4s"></i></span>
                         </div>
-                        <div class="why-audio-foot">
-                            <div class="why-noise-meter"><span></span></div>
-                            <div class="why-noise-metric"><span>环境噪声抑制</span><strong>-32 dB</strong></div>
+                        <div class="why-mic-array" aria-label="顶部麦克风阵列">
+                            <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
                         </div>
+                        <div class="why-acoustic-shield" aria-hidden="true">
+                            <svg viewBox="0 0 300 130" preserveAspectRatio="none">
+                                <defs>
+                                    <linearGradient id="why-acoustic-gradient" x1="0" y1="0" x2="0" y2="1">
+                                        <stop offset="0" stop-color="#bd00ff" stop-opacity=".18"/>
+                                        <stop offset="1" stop-color="#bd00ff" stop-opacity=".015"/>
+                                    </linearGradient>
+                                </defs>
+                                <path d="M105 0 H195 L245 130 H55 Z"/>
+                            </svg>
+                        </div>
+                        <div class="why-voice-wave" aria-hidden="true">
+                            <i style="--voice-h:18px;--voice-speed:.85s;--voice-delay:-.2s"></i>
+                            <i style="--voice-h:34px;--voice-speed:1.1s;--voice-delay:-.7s"></i>
+                            <i style="--voice-h:52px;--voice-speed:.95s;--voice-delay:-.4s"></i>
+                            <i style="--voice-h:70px;--voice-speed:1.05s;--voice-delay:-.8s"></i>
+                            <i style="--voice-h:86px;--voice-speed:.8s;--voice-delay:-.3s"></i>
+                            <i style="--voice-h:66px;--voice-speed:1.15s;--voice-delay:-.9s"></i>
+                            <i style="--voice-h:44px;--voice-speed:.9s;--voice-delay:-.5s"></i>
+                            <i style="--voice-h:28px;--voice-speed:.75s;--voice-delay:-.1s"></i>
+                            <i style="--voice-h:16px;--voice-speed:1s;--voice-delay:-.6s"></i>
+                        </div>
+                        <div class="why-people">
+                            <span class="why-person why-person-noise"><i data-lucide="user"></i></span>
+                            <span class="why-person why-person-target"><i data-lucide="user"></i></span>
+                            <span class="why-person why-person-noise"><i data-lucide="user"></i></span>
+                        </div>
+                        <span class="why-acoustic-state">目标人声已锁定</span>
                     </div>
                 </article>
 

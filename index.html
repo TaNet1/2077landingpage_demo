@@ -1726,19 +1726,48 @@
             font-weight: 650;
             white-space: nowrap;
         }
-        .why-data-bus { position: relative; align-self: stretch; min-width: 100px; }
+        .why-data-bus {
+            position: relative;
+            align-self: center;
+            min-width: 100px;
+            height: 256px;
+        }
         .why-data-bus svg { width: 100%; height: 100%; overflow: visible; }
         .why-bus-line,
         .why-bus-flow { fill: none; vector-effect: non-scaling-stroke; }
         .why-bus-line { stroke: rgba(35,32,39,.2); stroke-width: 1.4; stroke-dasharray: 4 5; }
         .why-bus-flow {
-            stroke: #bd00ff;
-            stroke-width: 2;
-            stroke-dasharray: 420;
+            stroke: url(#why-bus-flow-gradient);
+            stroke-width: 2.4;
+            stroke-linecap: round;
+            stroke-dasharray: 46 374;
             stroke-dashoffset: 420;
-            filter: drop-shadow(0 0 4px rgba(189,0,255,.18));
+            opacity: 0;
+            filter: drop-shadow(0 0 5px rgba(189,0,255,.4));
         }
-        .why-stack-status { display: flex; flex-direction: column; align-items: center; gap: 18px; }
+        .why-stack-status {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 18px;
+        }
+        .why-stack-status::before,
+        .why-stack-status::after {
+            content: '';
+            position: absolute;
+            top: 58px;
+            left: 0;
+            width: 27px;
+            height: 1px;
+        }
+        .why-stack-status::before { background: rgba(35,32,39,.2); }
+        .why-stack-status::after {
+            background: linear-gradient(90deg, transparent, #bd00ff 48%, #7000ff 72%, transparent);
+            background-size: 200% 100%;
+            opacity: 0;
+            filter: drop-shadow(0 0 4px rgba(189,0,255,.45));
+        }
         .why-status-ring {
             position: relative;
             display: grid;
@@ -1753,19 +1782,31 @@
             content: '';
             position: absolute;
             inset: 9px;
-            border: 2px solid transparent;
-            border-top-color: #bd00ff;
-            border-right-color: #7000ff;
             border-radius: 50%;
-            opacity: .18;
+            background: conic-gradient(from 205deg, transparent 0 12%, rgba(189,0,255,.16) 18% 48%, transparent 58% 100%);
+            -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 2px), #000 calc(100% - 2px));
+            mask: radial-gradient(farthest-side, transparent calc(100% - 2px), #000 calc(100% - 2px));
+            opacity: .65;
+        }
+        .why-status-ring::after {
+            content: '';
+            position: absolute;
+            inset: 9px;
+            border-radius: 50%;
+            background: conic-gradient(from 205deg, transparent 0 2%, #bd00ff 8%, #7000ff 14%, transparent 22% 100%);
+            -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 3px));
+            mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 3px));
+            opacity: 0;
+            filter: drop-shadow(0 0 5px rgba(189,0,255,.5));
         }
         .why-status-ring strong { font-family: 'Sora'; font-size: 25px; }
         .why-status-ring span { position: absolute; bottom: 25px; color: #8b8b91; font-size: 9px; letter-spacing: .08em; }
         .why-stack-note { color: #85858c; font-size: 11px; line-height: 1.6; text-align: center; }
         .why-card.is-playing .why-stack-layer { animation: whyModuleLock 6.8s cubic-bezier(.16,1,.3,1) both; animation-delay: calc(var(--module) * 90ms); }
         .why-card.is-playing .why-stack-layer::after { animation: whyLayerScan 6.8s ease both; animation-delay: calc(var(--module) * 90ms); }
-        .why-card.is-playing .why-bus-flow { animation: whyBusFlow 6.8s cubic-bezier(.16,1,.3,1) infinite; animation-delay: calc(var(--flow) * 110ms); }
-        .why-card.is-playing .why-status-ring::before { animation: whyStatusSpin 2.2s linear 1.7s 2; }
+        .why-card.is-playing .why-bus-flow { animation: whyBusFlow 4.6s linear infinite; animation-delay: calc(var(--flow) * 140ms); }
+        .why-card.is-playing .why-stack-status::after { animation: whyStatusBridge 4.6s linear infinite .5s; }
+        .why-card.is-playing .why-status-ring::after { animation: whyStatusSpin 4.6s linear infinite .62s; }
         .why-card.is-playing .why-status-ring strong { animation: whyStatusValue 7.2s ease both; }
 
         /* 02 delivery sequence */
@@ -2003,12 +2044,20 @@
         }
         @keyframes whyLayerScan { 0%, 34% { transform: translateX(-110%); } 53%, 100% { transform: translateX(110%); } }
         @keyframes whyBusFlow {
-            0%,18% { stroke-dashoffset: 420; opacity: 0; }
-            30% { opacity: 1; }
-            62%,78% { stroke-dashoffset: 0; opacity: 1; }
-            92%,100% { stroke-dashoffset: -420; opacity: 0; }
+            0% { stroke-dashoffset: 420; opacity: 0; }
+            8%,82% { opacity: 1; }
+            100% { stroke-dashoffset: 0; opacity: 0; }
         }
-        @keyframes whyStatusSpin { to { transform: rotate(360deg); opacity: .8; } }
+        @keyframes whyStatusBridge {
+            0%,12% { background-position: 200% 0; opacity: 0; }
+            20%,72% { opacity: 1; }
+            86%,100% { background-position: -100% 0; opacity: 0; }
+        }
+        @keyframes whyStatusSpin {
+            0%,12% { transform: rotate(0); opacity: 0; }
+            22%,82% { opacity: 1; }
+            100% { transform: rotate(360deg); opacity: 0; }
+        }
         @keyframes whyStatusValue { 0%, 24%, 88%,100% { opacity: .45; } 34%,78% { opacity: 1; color: #7c14b5; } }
         @keyframes whyDeliveryLine { 0%,10% { height: 0; } 52%,100% { height: 62%; } }
         @keyframes whyStepOn { 0%,8% { opacity: .38; color: #77777f; } 23%,86% { opacity: 1; color: #242429; } 100% { opacity: .6; } }
@@ -2063,7 +2112,12 @@
             .why-card *,
             .why-card *::before,
             .why-card *::after { animation: none !important; transition-duration: .01ms !important; }
-            .why-bus-flow { stroke-dashoffset: 0; opacity: 1; }
+            .why-card-main.is-playing .why-bus-flow {
+                animation: whyBusFlow 8s linear infinite !important;
+                animation-delay: calc(var(--flow) * 180ms) !important;
+            }
+            .why-card-main.is-playing .why-stack-status::after { animation: whyStatusBridge 8s linear infinite .8s !important; }
+            .why-card-main.is-playing .why-status-ring::after { animation: whyStatusSpin 8s linear infinite 1s !important; }
             .why-step { opacity: 1; color: #242429; }
             .why-step-dot { border-color: #222227; background: #222227; box-shadow: inset 0 0 0 4px #222227, inset 0 0 0 6px #fff; }
             .why-noise-meter span { width: 86%; }
@@ -2872,15 +2926,22 @@
                             </div>
                         </div>
                         <div class="why-data-bus" aria-hidden="true">
-                            <svg viewBox="0 0 220 260" preserveAspectRatio="none">
-                                <path class="why-bus-line" d="M0 34 C110 34 104 130 220 130"/>
-                                <path class="why-bus-line" d="M0 98 C110 98 104 130 220 130"/>
-                                <path class="why-bus-line" d="M0 162 C110 162 104 130 220 130"/>
-                                <path class="why-bus-line" d="M0 226 C110 226 104 130 220 130"/>
-                                <path class="why-bus-flow" style="--flow:0" d="M0 34 C110 34 104 130 220 130"/>
-                                <path class="why-bus-flow" style="--flow:1" d="M0 98 C110 98 104 130 220 130"/>
-                                <path class="why-bus-flow" style="--flow:2" d="M0 162 C110 162 104 130 220 130"/>
-                                <path class="why-bus-flow" style="--flow:3" d="M0 226 C110 226 104 130 220 130"/>
+                            <svg viewBox="0 0 220 256" preserveAspectRatio="none">
+                                <defs>
+                                    <linearGradient id="why-bus-flow-gradient" x1="0" y1="0" x2="1" y2="0">
+                                        <stop offset="0" stop-color="#7000ff" stop-opacity=".05"/>
+                                        <stop offset=".55" stop-color="#bd00ff"/>
+                                        <stop offset="1" stop-color="#ec00fa"/>
+                                    </linearGradient>
+                                </defs>
+                                <path class="why-bus-line" d="M0 32 C110 32 104 128 220 128"/>
+                                <path class="why-bus-line" d="M0 96 C110 96 104 128 220 128"/>
+                                <path class="why-bus-line" d="M0 160 C110 160 104 128 220 128"/>
+                                <path class="why-bus-line" d="M0 224 C110 224 104 128 220 128"/>
+                                <path class="why-bus-flow" style="--flow:0" d="M0 32 C110 32 104 128 220 128"/>
+                                <path class="why-bus-flow" style="--flow:1" d="M0 96 C110 96 104 128 220 128"/>
+                                <path class="why-bus-flow" style="--flow:2" d="M0 160 C110 160 104 128 220 128"/>
+                                <path class="why-bus-flow" style="--flow:3" d="M0 224 C110 224 104 128 220 128"/>
                             </svg>
                         </div>
                         <div class="why-stack-status">

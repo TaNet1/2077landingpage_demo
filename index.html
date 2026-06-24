@@ -1593,7 +1593,7 @@
         .why-grid {
             display: grid;
             grid-template-columns: repeat(3, minmax(0, 1fr));
-            grid-template-rows: repeat(3, 320px);
+            grid-template-rows: 320px 380px 320px;
             gap: 18px;
         }
         .why-card {
@@ -1757,15 +1757,16 @@
             flex-direction: column;
             align-items: center;
             gap: 18px;
+            transform: translateY(26px);
         }
         .why-stack-status::before,
         .why-stack-status::after {
             content: '';
             position: absolute;
-            top: 58px;
-            left: 0;
-            width: 27px;
-            height: 1px;
+            top: 57px;
+            left: -2px;
+            width: 31px;
+            height: 2px;
         }
         .why-stack-status::before {
             background: #bd00ff;
@@ -1871,10 +1872,12 @@
         .why-card.is-playing .why-step-dot { animation: whyStepCheck 5.8s ease both; animation-delay: calc(var(--step) * .48s); }
 
         /* 03 acoustic channel for real-world environments */
+        .why-card-audio { gap: 22px; }
+        .why-card-audio .why-card-copy { flex: 0 0 auto; }
         .why-acoustic {
             position: relative;
             height: 100%;
-            min-height: 152px;
+            min-height: 198px;
             overflow: hidden;
             border: 1px solid rgba(0,0,0,.055);
             border-radius: 13px;
@@ -2147,7 +2150,7 @@
         @media (max-width: 1080px) {
             .why-section { padding: 106px 28px 116px; }
             .why-head { margin-bottom: 48px; }
-            .why-grid { grid-template-columns: repeat(2,minmax(0,1fr)); grid-template-rows: 520px 310px 310px; }
+            .why-grid { grid-template-columns: repeat(2,minmax(0,1fr)); grid-template-rows: 520px 360px 310px; }
             .why-card-main { grid-column: span 2; grid-row: span 1; }
             .why-card-ops { grid-column: span 2; }
             .why-stack-stage { width: 100%; grid-template-columns: minmax(0,1fr) minmax(80px,.35fr) 130px; }
@@ -2164,7 +2167,9 @@
             .why-stack { padding: 4px; }
             .why-stack-layer { grid-template-columns: 34px minmax(0,1fr); min-height: 54px; padding-right: 12px; }
             .why-layer-tag { display: none; }
-            .why-stack-status { flex-direction: row; align-items: center; justify-content: center; }
+            .why-stack-status { flex-direction: row; align-items: center; justify-content: center; transform: none; }
+            .why-stack-status::before,
+            .why-stack-status::after { display: none; }
             .why-data-bus { display: none; }
             .why-status-ring { width: 88px; height: 88px; }
             .why-status-ring strong { font-size: 20px; }

@@ -1828,3 +1828,60 @@ Object.assign(window.__I18N_DICT.en, {
   "AI洞察：建议为餐饮增加“供应酒类”标签": "AI insight: add an “alcohol served” tag for dining",
   "AI洞察：16:00-17:00 为高峰，建议加派巡场": "AI insight: 16:00–17:00 is peak — add floor staff"
 });
+
+// Homepage product capabilities
+Object.assign(window.__I18N_DICT['zh-HK'], {
+  "一台设备，": "一台設備，",
+  "就是一个超级服务中枢": "就是一個超級服務中樞",
+  "虚拟员工不再只是等待点击的信息屏。从主动感知、意图理解和自然表达，到界面调度、动态导航与运营分析，十项能力在同一终端内协同完成现场服务闭环。": "虛擬員工不再只是等待點擊的資訊屏。從主動感知、意圖理解和自然表達，到介面調度、動態導航與營運分析，十項能力在同一終端內協同完成現場服務閉環。",
+  "专家级意图解析": "專家級意圖解析", "与智能问答": "與智能問答",
+  "依托 Agentic Workflow 与企业级 RAG 混合架构，系统能够拆解多重、模糊诉求，并严格依据企业知识和业务规则组织专业答案。": "依託 Agentic Workflow 與企業級 RAG 混合架構，系統能夠拆解多重、模糊訴求，並嚴格依據企業知識和業務規則組織專業答案。",
+  "正在解析复合诉求": "正在解析複合訴求", "餐饮推荐": "餐飲推薦", "儿童友好 · 亲子餐椅": "兒童友好 · 親子餐椅", "泊车查询": "泊車查詢", "调取实时车位与优惠": "調取實時車位與優惠",
+  "主动感知与": "主動感知與", "精准拾音": "精準拾音",
+  "视觉传感器主动发现服务对象，十麦克风阵列结合现场降噪、声源定位和热词识别，在复杂声场中提取清晰人声并锁定真实诉求。": "視覺感測器主動發現服務對象，十麥克風陣列結合現場降噪、聲源定位和熱詞識別，在複雜聲場中提取清晰人聲並鎖定真實訴求。",
+  "多语言一键": "多語言一鍵", "无缝切换": "無縫切換",
+  "普通话、粤语和英语等多语种共享同一套知识库与服务流程，识别、理解和回答同步切换，为不同客群提供一致的服务标准。": "普通話、粵語和英語等多語種共享同一套知識庫與服務流程，識別、理解和回答同步切換，為不同客群提供一致的服務標準。",
+  "超写实数字人": "超寫實數字人", "驱动引擎": "驅動引擎",
+  "基于虚幻引擎实时渲染高精度形象，通过语音驱动唇形、表情与动作，让数字员工在长时间现场服务中保持自然、稳定和有温度的表达。": "基於虛幻引擎實時渲染高精度形象，通過語音驅動唇形、表情與動作，讓數字員工在長時間現場服務中保持自然、穩定和有溫度的表達。",
+  "品牌专属工作空间": "品牌專屬工作空間", "高度定制": "高度定制",
+  "从虚拟人形象、行业制服和场景背景，到人物站位、功能入口和屏幕布局，均可依据品牌 VI 与现场业务进行深度定制。": "從虛擬人形象、行業制服和場景背景，到人物站位、功能入口和屏幕佈局，均可依據品牌 VI 與現場業務進行深度定制。",
+  "界面智能调度与": "介面智能調度與", "协同呈现": "協同呈現",
+  "虚拟人在回答的同时，可自动调度大屏内容、网页和业务组件，在画中画、重点放大与全屏模式之间平滑切换，把复杂信息真正讲清楚。": "虛擬人在回答的同時，可自動調度大屏內容、網頁和業務組件，在畫中畫、重點放大與全屏模式之間平滑切換，把複雜資訊真正講清楚。",
+  "场景化内容矩阵与": "場景化內容矩陣與", "千人千面推荐": "千人千面推薦",
+  "系统根据用户在对话中表达的偏好，实时筛选网页和业务内容，将固定信息展示升级为面向当前用户的动态推荐。": "系統根據用戶在對話中表達的偏好，實時篩選網頁和業務內容，將固定資訊展示升級為面向當前用戶的動態推薦。",
+  "跨端接力的全域": "跨端接力的全域", "动态导航": "動態導航",
+  "一句话生成室内跨层路线，并将当前位置、关键节点和目的地同步展示；用户还可扫码把路线带到手机端，继续完成离屏导航。": "一句話生成室內跨層路線，並將當前位置、關鍵節點和目的地同步展示；用戶還可掃碼把路線帶到手機端，繼續完成離屏導航。",
+  "开放 API 与": "開放 API 與", "深度指令控制": "深度指令控制",
+  "标准接口允许企业系统实时调用虚拟人的播报、动作、表情和屏幕界面，将数字员工嵌入现有业务流程，而不是形成新的信息孤岛。": "標準接口允許企業系統實時調用虛擬人的播報、動作、表情和屏幕介面，將數字員工嵌入現有業務流程，而不是形成新的資訊孤島。",
+  "交互数据沉淀与": "互動數據沉澱與", "AI 敏捷运营": "AI 敏捷營運",
+  "每次问询都会结构化进入运营后台，持续形成热点需求、内容缺口和服务表现，并由 AI 自动输出可执行的优化建议。": "每次問詢都會結構化進入營運後台，持續形成熱點需求、內容缺口和服務表現，並由 AI 自動輸出可執行的優化建議。",
+  "总交互": "總互動", "需求增长": "需求增長", "发现新增高频需求": "發現新增高頻需求"
+});
+
+Object.assign(window.__I18N_DICT.en, {
+  "一台设备，": "One device,",
+  "就是一个超级服务中枢": "a complete service command center",
+  "虚拟员工不再只是等待点击的信息屏。从主动感知、意图理解和自然表达，到界面调度、动态导航与运营分析，十项能力在同一终端内协同完成现场服务闭环。": "The virtual employee is more than a screen waiting to be tapped. Ten capabilities work together on one terminal, from perception and intent understanding to UI orchestration, navigation and operational insight.",
+  "专家级意图解析": "Expert intent parsing", "与智能问答": "and intelligent Q&A",
+  "依托 Agentic Workflow 与企业级 RAG 混合架构，系统能够拆解多重、模糊诉求，并严格依据企业知识和业务规则组织专业答案。": "Agentic workflows and enterprise RAG break down complex or ambiguous requests and generate professional answers grounded in business knowledge and rules.",
+  "正在解析复合诉求": "Parsing multiple intents", "餐饮推荐": "Dining recommendation", "儿童友好 · 亲子餐椅": "Kid-friendly · high chairs", "泊车查询": "Parking inquiry", "调取实时车位与优惠": "Live spaces and parking offers",
+  "主动感知与": "Active perception and", "精准拾音": "precise voice capture",
+  "视觉传感器主动发现服务对象，十麦克风阵列结合现场降噪、声源定位和热词识别，在复杂声场中提取清晰人声并锁定真实诉求。": "Vision sensors identify visitors while a ten-microphone array combines noise reduction, source localization and hotword recognition to isolate clear speech in complex spaces.",
+  "多语言一键": "One-tap multilingual", "无缝切换": "service switching",
+  "普通话、粤语和英语等多语种共享同一套知识库与服务流程，识别、理解和回答同步切换，为不同客群提供一致的服务标准。": "Mandarin, Cantonese, English and other languages share one knowledge base and service flow, keeping recognition, understanding and answers consistent.",
+  "超写实数字人": "Photorealistic avatar", "驱动引擎": "rendering engine",
+  "基于虚幻引擎实时渲染高精度形象，通过语音驱动唇形、表情与动作，让数字员工在长时间现场服务中保持自然、稳定和有温度的表达。": "Real-time Unreal Engine rendering combines speech-driven lip sync, expressions and motion for natural, reliable and human service over long operating hours.",
+  "品牌专属工作空间": "Brand-specific workspace", "高度定制": "deep customization",
+  "从虚拟人形象、行业制服和场景背景，到人物站位、功能入口和屏幕布局，均可依据品牌 VI 与现场业务进行深度定制。": "Avatar appearance, uniforms, backgrounds, positioning, service shortcuts and screen layout can all be tailored to the brand and on-site workflow.",
+  "界面智能调度与": "Intelligent UI orchestration", "协同呈现": "and coordinated presentation",
+  "虚拟人在回答的同时，可自动调度大屏内容、网页和业务组件，在画中画、重点放大与全屏模式之间平滑切换，把复杂信息真正讲清楚。": "While speaking, the avatar can orchestrate webpages and business components across picture-in-picture, focused and full-screen modes to explain complex information clearly.",
+  "场景化内容矩阵与": "Contextual content and", "千人千面推荐": "personalized recommendations",
+  "系统根据用户在对话中表达的偏好，实时筛选网页和业务内容，将固定信息展示升级为面向当前用户的动态推荐。": "Preferences expressed in conversation filter live web and business content, turning fixed displays into recommendations for the person currently asking.",
+  "跨端接力的全域": "Cross-device, continuous", "动态导航": "dynamic navigation",
+  "一句话生成室内跨层路线，并将当前位置、关键节点和目的地同步展示；用户还可扫码把路线带到手机端，继续完成离屏导航。": "A single request generates indoor, cross-floor routes with live waypoints, and visitors can scan to continue the journey on their phones.",
+  "开放 API 与": "Open APIs and", "深度指令控制": "fine-grained control",
+  "标准接口允许企业系统实时调用虚拟人的播报、动作、表情和屏幕界面，将数字员工嵌入现有业务流程，而不是形成新的信息孤岛。": "Standard APIs let enterprise systems control speech, motion, expressions and screen UI in real time, embedding the virtual employee into existing workflows.",
+  "交互数据沉淀与": "Interaction intelligence and", "AI 敏捷运营": "AI-assisted operations",
+  "每次问询都会结构化进入运营后台，持续形成热点需求、内容缺口和服务表现，并由 AI 自动输出可执行的优化建议。": "Every inquiry becomes structured operational data, revealing demand, content gaps and service performance while AI produces actionable recommendations.",
+  "总交互": "Total interactions", "需求增长": "Demand growth", "发现新增高频需求": "New high-frequency demand detected"
+});

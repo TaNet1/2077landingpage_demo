@@ -82,6 +82,97 @@
 
 ## 交接记录（倒序，最新在上）
 
+### 2026-06-24 · Claude：4 个待办（额度快用尽，先记 HANDOFF 再做；未做完的请接力）
+
+用户给了 4 个任务，按下面做。**做到哪算哪，没做完的下一棒继续；都在 `index.html`（#pain + why-section 内联 CSS/JS），动 i18n 的概率低。**
+
+1. **[x] Why Us 第5点仪表盘：第1套(type-bar)高亮柱颜色改品牌紫**。当前扫描后高亮柱是黑色 `#1d1d1f`。改 `.type-bar .bar-wrapper.highlight .bar-shape` 的 `background` 为品牌紫（建议 `linear-gradient(180deg,#bd00ff,#7000ff)` + 紫色 glow `box-shadow`）。位置：index.html `.type-bar .bar-wrapper.highlight .bar-shape` 那条（约 1319 行）。
+
+2. **[x] #pain 第5点「进入时几个报告叠一起」瞬时 bug 仍在**。根因（看用户截图2才确认）：**不是报告卡自己叠**，是 **state4(功能组件:室内实景导航/商铺导引/场内设施/周边景点/周边交通) 和 state5(报告) 在 crossfade 时同时可见**。我之前「未激活背面卡 opacity0」只解决了报告卡之间，没解决 state4↔state5 重叠。**方案**：改 `.service-visual-state` 的过渡，让**离场 state 快速消失、入场 state 略延迟淡入**，避免两层同时出现。具体：base(inactive) `transition: opacity .18s ease, transform .82s …, visibility 0s linear .18s`；`.active` `transition: opacity .55s ease .12s, transform .82s …, visibility 0s`（入场延迟 .12s 让离场先走完）。`[data-visual="5"]` 和 `[data-visual="5"].active` 两条也同步改成这个快出/延迟入。位置：约 824-845 行 `.service-visual-state` 系列。
+
+3. **[x] Why Us 第1点连线**：用户说线还是「插到圆心」——其实线已到 740≈圆左缘 738，但 **`.why-bus-flow` 的大 drop-shadow glow(0 0 8px)** 糊进圆里看着像到圆心。要做两件：(a) 让线/流光**干净止于圆左缘**——可把 8 条 path 的 `H284` 往回收一点(如 `H276`≈736，差 ~2px 不到边缘)或减小 `.why-bus-flow`/`.why-bus-line` 的 drop-shadow 半径，别糊进圆心；(b) **左侧4条线的流光(`.why-bus-flow` whyBusFlow)要和圆里一直转的紫色流光(`.why-status-ring::after` whyStatusSpin)联动**——两者周期都已是 4.6s，可让 bus-flow 流到圆缘的时刻正好接上 ring 的转动（调 animation-delay 对齐，或让 bus-flow 结束相位 = ring spin 起始相位）。位置：`.why-bus-line/.why-bus-flow`(约1736-1753)、`.why-status-ring::after`/`whyStatusSpin`、HTML path d(约3108-3124，含 `H284`)。
+
+4. **[x] Why Us 第5点仪表盘：切换场景时上方3个KPI块整体消失再出现，改成「块常驻、只有内容淡出淡入」**。当前 `.kpi-box` 初始 `opacity:0 translateY`，靠 `.state-loaded` 显形；play() 每轮 remove state-loaded → 块消失再现。**改**：`.kpi-box` 常驻 `opacity:1; transform:none`；只给内部 `.k-label/.k-val-wrapper` 加 `transition:opacity .3s` + `.kpi-box.swapping` 时它们 opacity:0。JS play() 里：换数前给每个 box 加 `.swapping`(内容淡出)，`setTimeout(~350ms)` 后更新文字并移除 `.swapping`(淡入)。移除/忽略原 `.state-loaded .kpi-box` 依赖。位置：CSS `.kpi-box`(约1284)、`.state-loaded .kpi-box`(约1293)；JS 仪表盘 IIFE 的 `kpiBoxes.forEach(...textContent...)`（约4663）。
+
+> 注：Why Us 仪表盘在浅色 `.why-card-ops` 里，用户开了 reduced-motion，相关过渡已在 `@media(prefers-reduced-motion)` 用 `.why-card-ops …!important` 放行（约2370+），新加的 kpi 文字淡入若被 reduced-motion 压成瞬变，记得也在那里补 `.why-card-ops .k-label/.k-val-wrapper { transition:opacity .3s!important }`。
+
+### 2026-06-25 · Codex：接力完成 Claude 的 4 个待办
+
+- 核对并保留 Claude 已完成的仪表盘品牌紫高亮柱，以及 KPI 容器常驻、内容淡出更新再淡入的逻辑。
+- 为 reduced-motion 环境补回 `.k-label/.k-val-wrapper` 的 `opacity .3s` 过渡，避免 KPI 内容瞬间跳变。
+- 服务场景状态切换改成旧画面 `180ms` 快速淡出、新画面延迟 `120ms` 后以 `550ms` 淡入；第 5 点同步采用相同策略。
+- 浏览器真实滚动从第 4 点切换到第 5 点时，入场初期旧画面 opacity 已降至约 `0.003`，稳定后只有第 5 点可见。
+- Why 第 1 点的 8 条 SVG path 终点从 `H284` 收回到 `H276`，紫色底线去除外发光，白色流光只保留 `2px` 柔光。
+- 实测连线终点与圆环左缘距离约 `1.55px`，不会插入圆内；流光与圆环保持同周期，并调整圆环延迟以在总线光束接近终点时接续。
+- 验证仪表盘高亮柱为 `#bd00ff → #7000ff` 渐变，KPI 文字过渡为 `0.3s`，页面无横向溢出、无 JavaScript error。
+
+### 2026-06-24 · Claude：修正——单块仪表盘应在 Why Us 第5点（不是 #pain 第5点）
+
+上一条把 `point5.html` 仪表盘错放进了 `#pain`「为什么AI虚拟人天然适合服务场景」第5点。用户指出搞错对象：要换的是 **Why 2077.AI(`#moat`) 第5点**（`.why-card-ops`「交付之后，持续产生价值 / Continuous Operations」）。本轮把两边对调回正确位置：
+
+- **`#pain` 第5点 → 还原成报告卡组**（4 张 `.report-card` 扇形叠放 + 点击置顶 JS）。CSS/HTML(桌面 sticky+移动两份)/JS/移动端媒体规则全部恢复。保留上一轮「背面卡内容隐藏」的解重影修复，并**新增**：`#pain` state5 未激活时背面卡 `opacity:0`（`...[data-visual="5"]:not(.active) .report-card:not([data-slot=0])`），切到第5点时背面卡才淡入——根治任务1「刚滑到第5点几个报告闪一下叠一起」的瞬时重影。
+- **Why Us 第5点 → 换成 point5.html 仪表盘**：`.why-ops` 内容换成 `.dashboard-ui`（3 KPI + 多形态图表轮播 + AI 扫描 + 洞察气泡）。`.why-ops` 改 `display:flex` 让仪表盘填满；white 面板加可读边框。这里是**浅色区块**，正好配 point5 的浅色设计。
+- **仪表盘 CSS** 保留在原 #pain CSS 区（`.dashboard-ui`/`.kpi-*`/`.chart-*`/`.bar-*`/`.ai-*`/`.pos-*`），`.service-dashboard` 这条已还原成报告卡容器。
+- **JS**：仪表盘时间轴改成 `document.querySelectorAll('.dashboard-ui').forEach(initDashboard)`（initDashboard 参数直接是 dashboard-ui）；报告卡 bringForward IIFE 恢复（targets `.service-dashboard`）。两者并存、互不干扰（#pain 无 dashboard-ui，why 无 report-card）。
+- **reduced-motion**：Why Us 仪表盘是 transition 驱动，在 `.why-card *{transition:.01ms}` 下会瞬变，已在 reduced-motion 块用 `.why-card-ops .bar-wrapper/.ai-scanner/.kpi-box/.bar-shape/.bar-dot/.ai-insight-tooltip` 的 `!important` 恢复过渡，用户(开了减少动态)也能看到柱子生长/扫描/气泡。
+- i18n（KPI/气泡的 zh-HK/en）沿用上一轮已补的；`__i18nTr` 渲染时翻译。
+
+验证：`#pain` 第5点 4 张报告卡回归、未激活时背面卡 opacity0(无闪叠)、激活后淡入；Why Us 第5点 dashboard-ui 唯一一个、KPI/7柱/扫描/气泡都动、浅色卡好看；1180/1440/mobile 无横向溢出、无 console error。未提交。
+
+### 2026-06-24 · Claude：现场服务第5点重做 + Why Us 连线/滑块/降噪/收尾 5 项
+
+用户 5 点反馈，全部完成。改动在 `index.html`（#pain + why-section 内联 CSS/DOM/JS）+ `i18n.js`。浏览器实测 1440 + mobile、zh-CN/en、reduced-motion(预览即是)，无 console error、无横向溢出。
+
+1. **第5点「报告叠在一起」transient bug** → 由第 5 点重做（任务5）根治：不再是 4 张报告卡叠放（fan stack），改成单块仪表盘，切到第 5 点不会再有多报告重叠。
+2. **Why 第1点 连线**：上一轮线已到球边缘（实测线右端 740 ≈ 球左缘 738）但仍残留「球向左伸出的短线」=`.why-stack-status::after`（动画白桥）。本轮把 `.why-stack-status::before,::after` 全部 `display:none`，只靠延伸到球缘的汇流线 + 沿线流光，无多余短线、不插到圆心。
+3. **Why 第4点 语言滑块不丝滑**：根因——用户开了 reduced-motion，全局 `.why-card *{transition-duration:.01ms}` 把 knob 的 `transform` 过渡压成瞬变（snap）。已在 reduced-motion 媒体查询里用 `!important` 恢复 `.why-card-lang .why-lang-knob/.why-lang-opt/.why-asr-line` 的过渡，自动播和点击都顺滑。
+4. **Why 第3点 未收音(idle)动画没了**：根因同上——reduced-motion 把环境噪声柱 `whyChaosJitter`、人物声波 `whySoundRipple` 杀掉了（之前只 re-enable 了 suppress/shield/wave）。本轮在 reduced-motion 里补回 `.why-card-audio.is-playing .why-chaos i`(抖动) + `.why-person::before/::after`(声波) 的 `!important` 放行，对齐 `point3.html` 的 idle 杂波动画。
+5. **第5点 按 `point5.html` 重做**：把深色玻璃报告卡组整段换成 `point5.html` 的浅色运营仪表盘——顶部 3 个 KPI + 底部多形态图表（柱状/棒棒糖/面积三套场景轮播）+ AI 激光扫描 + 智能洞察气泡，JS 时间轴 8s 一轮、3 场景循环。桌面 sticky 版 + 移动内联版**两份 DOM 都换了**；旧 `.report-*` CSS/JS（含点击置顶 bringForward）已删除（grep 确认 0 残留 report-card 元素）。
+   - **i18n**：仪表盘文案是 JS 动态注入（i18n 的 TreeWalker 在 load 时跑、抓不到），所以用 `window.__i18nTr()` 在渲染时按当前语言翻译 KPI label/value/unit + 洞察气泡；`i18n.js` 末尾补了这批 zh-HK/en。坑：`__i18nTr` 用 `dict[s]||s`，空串会被当 falsy 退回原文，所以单位「次」en 映射成一个空格（不可见）而非空串。
+   - 容器：`.service-dashboard` 从深色叠卡改成浅色卡片（#fbfbfd 圆角 + 阴影）裹住 `.dashboard-ui`；高度 452（桌面）；移动端 KPI 改竖排、图表压低，`.service-mobile-visual[target=5]` 高度改 auto。
+   - #pain 是普通 transition 驱动（非 .why-card），不受 reduced-motion 全局规则影响，仪表盘动画在 reduced-motion 下照常。
+
+验证：第5点真实滚动到位时只有 1 个 state active（无重叠）、仪表盘 KPI/柱子/扫描/气泡都动、en 下文案翻译正常；第1点线到边缘无残留短线；第3/4点 reduced-motion 下动画已恢复。未提交（等用户确认）。
+
+### 2026-06-24 · Claude：Why Us 六处修改（连线/点击不重置/流程动画/降噪锁定/第4点改版+可点击）
+
+用户对首页 Why Us（`#moat`）提了 6 点，全部完成。改动在 `index.html`（why-section 内联 CSS + DOM + JS）+ `i18n.js`。浏览器实测：1440 / mobile，zh-CN + en，reduced-motion(预览本身就是)，无 console error、无横向溢出。
+
+1. **第1点 连线接上球**：`.why-data-bus` 四条 SVG 线汇合后到 `220 128` 就是个圆头端点，和球(`.why-status-ring`)向左伸出的 `::before` 短线之间有缝/有明显端点。改：8 条 path（4 实线 + 4 流光）末尾都加 `H284` 直线段，让汇合后的单线一路延伸到球左缘（实测线右端 740 ≈ 球左 738，重叠 2px、对齐球竖直中点）；并把现在多余的 `.why-stack-status::before` 短线 `display:none`。流光 `.why-bus-flow` 也随之流进球里。
+2. **卡片点击不再重置动画**：原 `[data-why-card]` 点击/Enter 会 `replay()`（移除+重加 `is-playing`）重启动画。已删除该点击/键盘监听 → 进入视区自动播一次即可，点击不重置。`.why-card` 的 `cursor:pointer` 改 `default`。
+3. **第2点 流程小icon流转动画**：给 `.why-step-dot` 加 `::after` 紫色环，`whyStepFlow` 让三个点按 Plan→Deploy→Operate 顺序依次发脉冲、3s 循环，表达流程流转。
+4. **第3点 「目标人声已锁定」只在收音时亮**：原来一直显示。改 `.why-acoustic-state` 默认 `opacity:0`，`whyStateReveal` 跟 8s 降噪周期走——只在「收音/锁定」段(38%–80%，与声波/漏斗激活同步)淡入亮起，其余时间隐藏；并加了个小脉冲点。
+5. **第4点 文案改版**：标题「多语言自然切换」→「一键切换语言，自然流转」；正文换成「支持普通话、粤语及英语等多语种的一键切换。底层打通同一套知识库体系，多语言实时流式识别解析，毫秒级无缝接待多国客流。」i18n 补了新标题/正文的 zh-HK + en（英文正文我写得比中文精简，避免英文 4–5 行把卡片撑爆）。
+6. **第4点 可点击切换语言**：把上一版纯 CSS 自动轮播改成 JS 驱动——语言块改成真 `<button>`，点击即切到该语言（knob 滑过去、对应流式转写样例打字出现）。进入视区自动每 3.6s 轮播，点击后从该语言重新计时。EQ/录音点/光标用 CSS 持续动；打字用 `whyAsrType`（reduced-motion 下不跑动画，文字直接显示，保证用户能看到内容）。
+
+布局：第4点正文变长，把 `.why-grid` 行高从上轮的 `320/400/360` 调成 `320/400/392`（1080 断点 `520/400/392`），并把第4点视觉 gap 16→12、`.why-asr` 上下 padding 13→11，确保中英文都不裁切/不和正文重叠（实测 en switch 与正文间距 +,zh 充裕；mobile 间距 +16）。
+
+reduced-motion：新动画都在 `@media(prefers-reduced-motion)` 里按既有套路用 `.why-card-flow / .why-card-audio / .why-card-lang .is-playing ... !important` 重新放行（第2点环、第3点状态、第4点 EQ/点/光标）。新增类：card2 `why-card-flow`。删除了旧的 `whyLangKnob/whyLangOpt/whyAsrL1-3/whyAsrEq` keyframes（纯 CSS 轮播版已弃用）。未提交（等用户确认）。
+
+### 2026-06-24 · Claude：修复现场服务第5点报告卡「重叠/重影」
+
+用户反馈「为什么虚拟人天然适合服务场景」(`#pain` serviceScene) 第 5 点右侧报告卡组，刚滑到时内容重叠。
+
+- **根因**：第 5 点是 4 张 `.report-card` 的扇形叠放卡组（点击置顶）。背面卡（slot 1/2/3）只靠卡片级 `opacity`(--o .8/.54/.3) 压暗，但**卡内文字没单独压暗**——标题等子元素仍是满不透明度，加上向右下偏移，背面卡的标题/内容就「重叠/重影」压在前卡上方（截图里能读到「需求热词报告/时段热力报告/反馈优化报告」等多张卡标题叠在一起）。
+- **修复**（`index.html` 一处 CSS，约 1376 行）：把原来「部分压暗」(main-grid .34 / metrics .2 …) 改成**背面卡内容整体隐藏** `.report-card[data-slot]:not([data-slot="0"]) > * { opacity:0; pointer-events:none }`，只保留卡面底色 + 顶部渐变线，背面卡变成干净的层叠面板（不再有可读文字溢到前卡）。子元素加 `transition: opacity .4s`，**点击某张背面卡置顶后其内容会淡入**（slot 变 0 → 规则不再命中 → 内容显示）。
+- 同一条 CSS 同时作用于桌面 sticky 版和移动内联版两份拷贝，移动端也一并干净。
+- 验证（浏览器实测 1440）：强制 state5 激活后，背面卡 `report-head` opacity=0、前卡=1；点击「时段热力报告」置顶 → 它 opacity 变 1、其余变 0，置顶+淡入正常；无 console error。未提交（等用户确认）。
+
+### 2026-06-24 · Claude：Why Us 第4点重做（语言切换+流式转写）+ 第3点降噪卡解挤
+
+按用户给的 `D:/Downloads/runoob-test (7).html` 原型，重做首页 Why Us（`#moat`）第 4 点「多语言自然切换」卡片，并给第 3 点「为真实现场设计」解挤。全部在 `index.html`（why-section 内联 CSS + DOM + JS）+ `i18n.js`，浏览器实测通过（1440/1120/375 + zh-CN/en + reduced-motion）。
+
+1. **第 4 点改成原型样式（滑块切换 + 流式转写终端）**：
+   - 旧版是「一句引用 + 3 个可点按钮（JS 轮播）」。新版 = 苹果式物理滑块（`.why-lang-switch` + `.why-lang-knob`，knob 用 `translateX(0/100%/200%)` 在 3 档间滑，CSS 纯动画）+ 下方 ASR 终端（`.why-asr`：录音点脉冲 + 流式转写标签 + EQ 声波 + `clip-path` 打字式逐字出字）。3 句样例语料（普通话/粤语/英语）18s 循环（每句 6s）。
+   - **语言数沿用站点既有的 3 种（普通话/粤语/English），没采用原型里的 4 种（原型多了日语）**——因为全站文案/能力都只声明这 3 种，加日语会和卡片描述「普通话、粤语与英语」及产品口径冲突。样例语料是「语言演示」，i18n 不翻译（en/zh-HK 下保持原语言），只给 UI 词「流式转写」补了 zh-HK/en。
+   - **原型的手指游标没移植**（小卡放不下、易显乱），核心的滑块+终端样式都在。
+   - ⚠️ **reduced-motion**：用户环境开了「减少动态」，`@media(prefers-reduced-motion)` 里 `.why-card *{animation:none}` 会把新动画也关掉 → 已仿照降噪卡(card-audio)的做法，用 `.why-card-lang.is-playing ...!important` 把 knob/opt/stream/eq/dot/caret 动画重新放行。新 `<article>` 加了 `why-card-lang` 类做钩子。实测预览本身就是 reduced-motion，动画照常跑。
+   - 删了原 `[data-why-language]` 的 JS 轮播块（新卡纯 CSS 驱动）；卡片点击/Enter 仍会 `replay()`（移除/重加 `is-playing`）重启动画。
+2. **第 3 点降噪卡解挤**：根因是 `.why-acoustic min-height:198px` 比可用高度大 → 底部被 `overflow:hidden` 裁掉（英文 3 行文案下更明显）。改：`min-height:0` 让它按 flex 填充可用空间（不再强制溢出）；`.why-card-audio` gap 22→18；声波/漏斗/人物位置微调（shield top25→28/h105→92、wave bottom24→26/h74→62、people bottom15→16）。
+3. **bento 行高加大**：`.why-grid` `grid-template-rows: 320 380 320 → 320 400 360`（1080 断点 `520 360 310 → 520 400 360`）。第 2 行 +20 给第 3 点降噪卡（兼带第 1 点全栈卡更多空间），第 3 行 +40 给第 4 点新终端卡（兼带第 5 点运营卡，图表更高，观感更好）。
+
+验证：无 console error；1440 下 zh-CN copy123/visual172、en copy147/visual149 均不裁切；第3点底部留白 33px 不再裁切；375 移动端无横向溢出；reduced-motion 下新动画正常。未提交（等用户确认）。
+
 ### 2026-06-24 · Codex：联系商务标题单行 + 移除刷新图标 + 强化现场降噪动画
 
 按用户截图和反馈完成：

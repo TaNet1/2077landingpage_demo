@@ -1767,6 +1767,8 @@ Object.assign(window.__I18N_DICT['zh-HK'], {
   "为真实现场设计": "為真實現場設計",
   "针对商场、医院、政务大厅等嘈杂声场持续优化，让用户在现场自然开口也能被准确理解。": "針對商場、醫院、政務大廳等嘈雜聲場持續優化，讓用戶在現場自然開口也能被準確理解。",
   "多语言自然切换": "多語言自然切換",
+  "一键切换语言，自然流转": "一鍵切換語言，自然流轉",
+  "支持普通话、粤语及英语等多语种的一键切换。底层打通同一套知识库体系，多语言实时流式识别解析，毫秒级无缝接待多国客流。": "支援普通話、粵語及英語等多語種的一鍵切換。底層打通同一套知識庫體系，多語言實時流式識別解析，毫秒級無縫接待多國客流。",
   "普通话、粤语与英语使用同一套知识和服务流程，无需切换服务入口。": "普通話、粵語與英語使用同一套知識和服務流程，無需切換服務入口。",
   "“洗手间在哪个方向？”": "「洗手間在哪個方向？」", "“洗手間喺邊個方向？”": "「洗手間喺邊個方向？」",
   "普通话": "普通話", "粤语": "粵語", "切换语言演示": "切換語言演示",
@@ -1788,6 +1790,8 @@ Object.assign(window.__I18N_DICT.en, {
   "为真实现场设计": "Engineered for real-world spaces",
   "针对商场、医院、政务大厅等嘈杂声场持续优化，让用户在现场自然开口也能被准确理解。": "Continuously tuned for noisy malls, hospitals and public-service halls, so natural on-site speech can still be understood accurately.",
   "多语言自然切换": "Natural multilingual service",
+  "一键切换语言，自然流转": "One-tap language switching, natural flow",
+  "支持普通话、粤语及英语等多语种的一键切换。底层打通同一套知识库体系，多语言实时流式识别解析，毫秒级无缝接待多国客流。": "One-tap switching across Mandarin, Cantonese and English — one shared knowledge base with real-time streaming recognition.",
   "普通话、粤语与英语使用同一套知识和服务流程，无需切换服务入口。": "Mandarin, Cantonese and English share the same knowledge and service workflows, with no need to switch entry points.",
   "“洗手间在哪个方向？”": "“Which way is the restroom?”", "“洗手間喺邊個方向？”": "“Which way is the restroom?”",
   "普通话": "Mandarin", "粤语": "Cantonese", "切换语言演示": "Switch language demo",
@@ -1797,8 +1801,30 @@ Object.assign(window.__I18N_DICT.en, {
 });
 
 Object.assign(window.__I18N_DICT['zh-HK'], {
-  "现场声场": "現場聲場", "实时降噪处理中": "即時降噪處理中", "环境噪声抑制": "環境噪聲抑制"
+  "现场声场": "現場聲場", "实时降噪处理中": "即時降噪處理中", "环境噪声抑制": "環境噪聲抑制",
+  "流式转写": "流式轉寫"
 });
 Object.assign(window.__I18N_DICT.en, {
-  "现场声场": "On-site sound field", "实时降噪处理中": "Live noise reduction", "环境噪声抑制": "Ambient noise suppression"
+  "现场声场": "On-site sound field", "实时降噪处理中": "Live noise reduction", "环境噪声抑制": "Ambient noise suppression",
+  "流式转写": "Live transcription"
+});
+
+// Point 5 operations dashboard (JS-rendered scenarios)
+Object.assign(window.__I18N_DICT['zh-HK'], {
+  "总交互量": "總交互量", "日均交互量": "日均交互量", "未满足需求首位": "未滿足需求首位",
+  "泊车": "泊車", "导航热点": "導航熱點", "美食": "美食", "单项点击数": "單項點擊數",
+  "用户痛点": "用戶痛點", "缺少酒类标识": "缺少酒類標識", "客流最高峰": "客流最高峰",
+  "峰值交互量": "峰值交互量", "超出均值": "超出均值",
+  "AI洞察：“泊车”需求未满足，建议优化导视": "AI洞察：「泊車」需求未滿足，建議優化導視",
+  "AI洞察：建议为餐饮增加“供应酒类”标签": "AI洞察：建議為餐飲增加「供應酒類」標籤",
+  "AI洞察：16:00-17:00 为高峰，建议加派巡场": "AI洞察：16:00-17:00 為高峰，建議加派巡場"
+});
+Object.assign(window.__I18N_DICT.en, {
+  "总交互量": "Total interactions", "日均交互量": "Daily avg interactions", "未满足需求首位": "Top unmet need",
+  "泊车": "Parking", "导航热点": "Navigation hotspot", "美食": "Food", "单项点击数": "Item clicks",
+  "用户痛点": "User pain point", "缺少酒类标识": "No alcohol labels", "客流最高峰": "Peak traffic",
+  "峰值交互量": "Peak interactions", "超出均值": "Above average", "次": " ",
+  "AI洞察：“泊车”需求未满足，建议优化导视": "AI insight: unmet “parking” demand — improve signage",
+  "AI洞察：建议为餐饮增加“供应酒类”标签": "AI insight: add an “alcohol served” tag for dining",
+  "AI洞察：16:00-17:00 为高峰，建议加派巡场": "AI insight: 16:00–17:00 is peak — add floor staff"
 });

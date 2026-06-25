@@ -1833,7 +1833,6 @@ Object.assign(window.__I18N_DICT.en, {
 Object.assign(window.__I18N_DICT['zh-HK'], {
   "一台设备，": "一台設備，",
   "就是一个超级服务中枢": "就是一個超級服務中樞",
-  "虚拟员工不再只是等待点击的信息屏。从主动感知、意图理解和自然表达，到界面调度、动态导航与运营分析，十项能力在同一终端内协同完成现场服务闭环。": "虛擬員工不再只是等待點擊的資訊屏。從主動感知、意圖理解和自然表達，到介面調度、動態導航與營運分析，十項能力在同一終端內協同完成現場服務閉環。",
   "专家级意图解析": "專家級意圖解析", "与智能问答": "與智能問答",
   "依托 Agentic Workflow 与企业级 RAG 混合架构，系统能够拆解多重、模糊诉求，并严格依据企业知识和业务规则组织专业答案。": "依託 Agentic Workflow 與企業級 RAG 混合架構，系統能夠拆解多重、模糊訴求，並嚴格依據企業知識和業務規則組織專業答案。",
   "正在解析复合诉求": "正在解析複合訴求", "餐饮推荐": "餐飲推薦", "儿童友好 · 亲子餐椅": "兒童友好 · 親子餐椅", "泊车查询": "泊車查詢", "调取实时车位与优惠": "調取實時車位與優惠",
@@ -1861,7 +1860,6 @@ Object.assign(window.__I18N_DICT['zh-HK'], {
 Object.assign(window.__I18N_DICT.en, {
   "一台设备，": "One device,",
   "就是一个超级服务中枢": "a complete service command center",
-  "虚拟员工不再只是等待点击的信息屏。从主动感知、意图理解和自然表达，到界面调度、动态导航与运营分析，十项能力在同一终端内协同完成现场服务闭环。": "The virtual employee is more than a screen waiting to be tapped. Ten capabilities work together on one terminal, from perception and intent understanding to UI orchestration, navigation and operational insight.",
   "专家级意图解析": "Expert intent parsing", "与智能问答": "and intelligent Q&A",
   "依托 Agentic Workflow 与企业级 RAG 混合架构，系统能够拆解多重、模糊诉求，并严格依据企业知识和业务规则组织专业答案。": "Agentic workflows and enterprise RAG break down complex or ambiguous requests and generate professional answers grounded in business knowledge and rules.",
   "正在解析复合诉求": "Parsing multiple intents", "餐饮推荐": "Dining recommendation", "儿童友好 · 亲子餐椅": "Kid-friendly · high chairs", "泊车查询": "Parking inquiry", "调取实时车位与优惠": "Live spaces and parking offers",

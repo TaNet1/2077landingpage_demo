@@ -165,6 +165,21 @@
 - 英文最长文案仍在对应行高度内，无文字与演示重叠。
 - `capabilities.js` 无浏览器 console error。
 
+### 2026-06-25 · Codex：产品能力间距、文案与 GSAP 优化
+
+- 修正宽屏左右间距：`.pc-wrap` 从 `max-width:1560px` 调整为与 `.why-wrap` 相同的 `max-width:1760px`。
+- 浏览器在 `1920px` 视口实测：Why 与产品能力两部分均为 `left:77.5px / right:1837.5px / width:1760px`。
+- 删除模块标题右侧说明段落，并从 `i18n.js` 删除对应繁体中文和英文映射。
+- `.pc-head` 从双列改为单列，主标题最大宽度调整为 `980px`。
+- `capabilities.js` 接入 GSAP + ScrollTrigger：
+  - Eyebrow 从左侧淡入，主标题从下方揭示。
+  - 每一项文字与视觉舞台根据左右布局从相反方向错层进场。
+  - 舞台使用轻量 `clip-path + scale` 展开。
+  - 普通动态环境下，内部演示随滚动产生 `-16px → 16px` 的轻量纵向视差。
+  - 用户开启 reduced-motion 时仍保留更短距离的 GSAP 进场，但关闭持续滚动视差。
+- 保留原有 IntersectionObserver，仅负责能力内部循环动画的视区启停；GSAP 只负责页面级滚动呈现，两套逻辑职责分离。
+- 1920px、1280px、390px 均已验证，移动端文档横向溢出为 `0`。
+
 ### 2026-06-24 · Claude：修正——单块仪表盘应在 Why Us 第5点（不是 #pain 第5点）
 
 上一条把 `point5.html` 仪表盘错放进了 `#pain`「为什么AI虚拟人天然适合服务场景」第5点。用户指出搞错对象：要换的是 **Why 2077.AI(`#moat`) 第5点**（`.why-card-ops`「交付之后，持续产生价值 / Continuous Operations」）。本轮把两边对调回正确位置：

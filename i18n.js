@@ -71,7 +71,7 @@ window.__I18N_DICT = {
     '多语接待，沟通受阻': '多語接待，溝通受阻',
     '面对国际客群与方言用户，人工难以全语种覆盖，沟通效率低、信息易出错，服务半径受到限制。': '面對國際客群與方言使用者，人力難以全語種覆蓋，溝通效率低、資訊易出錯，服務半徑受到限制。',
     // logic
-    '三者协同': '三者協同', '从感知到表现，一套完整的智能闭环': '從感知到表現，一套完整的智能閉環',
+    '三者协同': '三者協同',
     '传感器精准感知、Agent 智慧决策、数字人温度传递 —— 三者协同，让 AI 真正"听得懂、想得清、说得暖"。': '感測器精準感知、Agent 智能決策、數碼人溫度傳遞 —— 三者協同，讓 AI 真正「聽得懂、想得清、說得暖」。',
     'PERCEPTION · 感知': 'PERCEPTION · 感知', '传感器精准感知': '感測器精準感知',
     '10 麦克风阵列 + 双目摄像头，主动收音无需唤醒，空间降噪、讲话人追踪，让交互自然贴心。': '10 麥克風陣列 + 雙目攝影機，主動收音無需喚醒，空間降噪、講話人追蹤，讓互動自然貼心。',
@@ -84,7 +84,6 @@ window.__I18N_DICT = {
     '4 万面建模': '4 萬面建模', '唇形同步': '唇形同步', '情绪表情': '情緒表情', '实时渲染': '即時渲染',
     '感知': '感知', '决策': '決策', '表现': '表現', '毫秒级流水线并行处理，反应自然且迅速': '毫秒級流水線並行處理，反應自然且迅速',
     // capabilities
-    '全栈 AI 虚拟人能力矩阵': '全棧 AI 虛擬人能力矩陣',
     '从形象克隆到知识推理，从情感感知到多终端部署，2077.AI 提供端到端的数字员工技术闭环。': '從形象複製到知識推理，從情感感知到多終端部署，2077.AI 提供端到端的數碼員工技術閉環。',
     '超写实形象克隆': '超寫實形象複製',
     '基于 3D 扫描与神经网络渲染，1:1 还原真人外貌、微表情与肢体动作，肉眼难辨真伪。': '基於 3D 掃描與神經網絡渲染，1:1 還原真人外貌、微表情與肢體動作，肉眼難辨真偽。',
@@ -297,7 +296,7 @@ window.__I18N_DICT = {
     '多语接待，沟通受阻': 'Multilingual reception blocked',
     '面对国际客群与方言用户，人工难以全语种覆盖，沟通效率低、信息易出错，服务半径受到限制。': 'Facing international and dialect-speaking visitors, human staff cannot cover every language; communication is slow and error-prone, limiting your service reach.',
     // logic
-    '三者协同': 'Three in concert', '从感知到表现，一套完整的智能闭环': 'From perception to expression — one complete intelligent loop',
+    '三者协同': 'Three in concert',
     '传感器精准感知、Agent 智慧决策、数字人温度传递 —— 三者协同，让 AI 真正"听得懂、想得清、说得暖"。': 'Precise sensing, smart Agent decisions and warm digital-human delivery work in concert, so the AI truly understands, reasons clearly and responds with warmth.',
     'PERCEPTION · 感知': 'PERCEPTION', '传感器精准感知': 'Precise sensing',
     '10 麦克风阵列 + 双目摄像头，主动收音无需唤醒，空间降噪、讲话人追踪，让交互自然贴心。': '10-mic array plus stereo cameras pick up sound proactively with no wake word; spatial denoising and speaker tracking make interaction natural and thoughtful.',
@@ -310,7 +309,6 @@ window.__I18N_DICT = {
     '4 万面建模': '40k-face modeling', '唇形同步': 'Lip sync', '情绪表情': 'Emotive expression', '实时渲染': 'Real-time rendering',
     '感知': 'Perception', '决策': 'Decision', '表现': 'Expression', '毫秒级流水线并行处理，反应自然且迅速': 'Millisecond pipelined parallel processing — natural and instant',
     // capabilities
-    '全栈 AI 虚拟人能力矩阵': 'Full-stack AI virtual-human capability matrix',
     '从形象克隆到知识推理，从情感感知到多终端部署，2077.AI 提供端到端的数字员工技术闭环。': 'From avatar cloning to knowledge reasoning, from emotional sensing to multi-device deployment, 2077.AI delivers an end-to-end digital-employee technology loop.',
     '超写实形象克隆': 'Hyper-real avatar cloning',
     '基于 3D 扫描与神经网络渲染，1:1 还原真人外貌、微表情与肢体动作，肉眼难辨真伪。': 'Built on 3D scanning and neural rendering, it reproduces a real persons looks, micro-expressions and body motion 1:1, indistinguishable to the eye.',

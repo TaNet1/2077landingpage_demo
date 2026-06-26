@@ -1,0 +1,208 @@
+/* ===== Backend / 幻真 CMS dark section (#backend) =====
+   Adapted from the standalone backend_CMS.html prototype. ALL selectors are
+   scoped under #backend and prefixed bc- so they never collide with the global
+   page.css (.eyebrow/.btn/.btn-primary) or the Why-Us dashboard (.dashboard-ui,
+   which has its own JS initialiser). Pure-CSS animation — no JS needed. */
+
+#backend.bc-section {
+    position: relative;
+    background: #08090c;
+    color: #fff;
+    overflow: hidden;
+    /* local design tokens (NOT in :root — keep them off the global brand vars) */
+    --bc-bg-panel: #0d0e12;
+    --bc-glass-bg: rgba(255, 255, 255, 0.04);
+    --bc-glass-border: rgba(255, 255, 255, 0.08);
+    --bc-glass-hover: rgba(189, 0, 255, 0.3);
+    --bc-purple: #bd00ff;
+    --bc-grad: linear-gradient(135deg, #bd00ff 0%, #7000ff 100%);
+    --bc-body: #a1a1a6;
+    --bc-muted: #6e6e73;
+    --bc-ease: cubic-bezier(0.16, 1, 0.3, 1);
+    --bc-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+#backend .grainient-bg { z-index: 0; opacity: .55; }
+#backend .bc-wrap {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 1760px;
+    margin: 0 auto;
+    padding: 120px 40px;
+    line-height: 1.6;
+}
+
+/* ---------- 1. opener ---------- */
+#backend .bc-head { margin-bottom: 80px; max-width: 900px; }
+#backend .bc-eyebrow {
+    display: inline-block; padding: 6px 12px; border-radius: 20px;
+    background: rgba(189,0,255,0.1); border: 1px solid rgba(189,0,255,0.2);
+    color: var(--bc-purple); font-size: 13px; font-weight: 600; letter-spacing: 1px; margin-bottom: 24px;
+}
+#backend .bc-title { font-size: 48px; font-weight: 700; letter-spacing: -1px; margin-bottom: 24px; line-height: 1.2; }
+#backend .bc-sub { font-size: 18px; color: var(--bc-body); line-height: 1.8; }
+
+/* ---------- 2. capability cards (4x2) ---------- */
+#backend .bc-cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-bottom: 160px; }
+#backend .bc-card {
+    /* No backdrop-filter: 14 of these sit over the animated Grainient canvas and
+       blurring the backdrop every scroll frame tanks scroll smoothness. The card
+       bg is a flat translucent panel over the solid #08090c base instead. */
+    background: rgba(255, 255, 255, 0.045); border: 1px solid var(--bc-glass-border);
+    border-radius: 24px; padding: 32px;
+    transition: all 0.5s var(--bc-ease); display: flex; flex-direction: column; gap: 16px;
+}
+#backend .bc-card:hover {
+    border-color: var(--bc-glass-hover); transform: translateY(-4px);
+    background: rgba(255,255,255,0.06); box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+}
+#backend .bc-card-icon {
+    width: 48px; height: 48px; border-radius: 12px; background: rgba(189,0,255,0.05);
+    border: 1px solid rgba(189,0,255,0.15); display: flex; align-items: center; justify-content: center;
+    color: var(--bc-purple); transition: 0.4s;
+}
+#backend .bc-card-icon svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+#backend .bc-card:hover .bc-card-icon { background: var(--bc-grad); color: #fff; border-color: transparent; box-shadow: 0 8px 20px rgba(189,0,255,0.3); }
+#backend .bc-card-title { font-size: 18px; font-weight: 600; }
+#backend .bc-card-text { font-size: 14px; color: var(--bc-body); line-height: 1.7; }
+
+/* ---------- 3 & 4. dashboard + report viewport ---------- */
+#backend .bc-dash { display: flex; gap: 80px; align-items: center; margin-bottom: 160px; }
+#backend .bc-dash-text { flex: 0 0 500px; }
+#backend .bc-dash-title {
+    font-size: 32px; font-weight: 600; margin-bottom: 16px;
+    background: linear-gradient(to right, #fff, #a1a1a6); -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+#backend .bc-dash-desc { font-size: 16px; color: var(--bc-body); margin-bottom: 40px; }
+#backend .bc-modules { display: flex; flex-direction: column; gap: 16px; }
+#backend .bc-module { display: flex; align-items: flex-start; gap: 12px; font-size: 15px; color: #fff; }
+#backend .bc-module span { color: var(--bc-body); }
+#backend .bc-mdot { width: 6px; height: 6px; background: var(--bc-purple); border-radius: 50%; margin-top: 8px; box-shadow: 0 0 8px var(--bc-purple); flex: 0 0 auto; }
+
+#backend .bc-ui {
+    flex: 1; min-width: 0; height: 500px; background: var(--bc-bg-panel); border: 1px solid var(--bc-glass-border);
+    border-radius: 20px; box-shadow: 0 30px 60px rgba(0,0,0,0.6); position: relative; overflow: hidden;
+    display: flex; flex-direction: column;
+}
+#backend .bc-ui-header { height: 48px; border-bottom: 1px solid var(--bc-glass-border); display: flex; align-items: center; padding: 0 20px; gap: 8px; }
+#backend .bc-ui-dot { width: 12px; height: 12px; border-radius: 50%; background: #333; }
+#backend .bc-ui-dot:nth-child(1) { background: #ff5f56; }
+#backend .bc-ui-dot:nth-child(2) { background: #ffbd2e; }
+#backend .bc-ui-dot:nth-child(3) { background: #27c93f; }
+#backend .bc-ui-body { flex: 1; display: flex; padding: 24px; gap: 24px; position: relative; }
+#backend .bc-ui-side { width: 140px; display: flex; flex-direction: column; gap: 12px; }
+#backend .bc-ui-nav { height: 32px; border-radius: 6px; background: var(--bc-glass-bg); opacity: 0.5; }
+#backend .bc-ui-nav.active { background: rgba(189,0,255,0.1); border: 1px solid rgba(189,0,255,0.2); opacity: 1; }
+#backend .bc-ui-main { flex: 1; display: flex; flex-direction: column; gap: 20px; min-width: 0; }
+#backend .bc-ui-kpis { display: flex; gap: 16px; height: 80px; }
+#backend .bc-ui-kpi { flex: 1; background: var(--bc-glass-bg); border: 1px solid var(--bc-glass-border); border-radius: 12px; padding: 16px; }
+#backend .bc-ui-kpi-val { height: 20px; width: 60%; background: #fff; border-radius: 4px; margin-bottom: 8px; opacity: 0.8; }
+#backend .bc-ui-kpi-sub { height: 10px; width: 40%; background: var(--bc-muted); border-radius: 4px; opacity: 0.5; }
+#backend .bc-ui-chart { flex: 1; background: var(--bc-glass-bg); border: 1px solid var(--bc-glass-border); border-radius: 12px; display: flex; align-items: flex-end; padding: 20px; gap: 12px; }
+#backend .bc-ui-bar { flex: 1; background: var(--bc-muted); border-radius: 4px 4px 0 0; opacity: 0.3; transform-origin: bottom; animation: bcGrow 6s infinite alternate var(--bc-spring); }
+#backend .bc-ui-bar:nth-child(3), #backend .bc-ui-bar:nth-child(5) { background: var(--bc-purple); opacity: 0.8; }
+#backend .bc-ui-bar:nth-child(1) { height: 30%; }
+#backend .bc-ui-bar:nth-child(2) { height: 50%; }
+#backend .bc-ui-bar:nth-child(3) { height: 90%; }
+#backend .bc-ui-bar:nth-child(4) { height: 60%; }
+#backend .bc-ui-bar:nth-child(5) { height: 80%; }
+#backend .bc-ui-bar:nth-child(6) { height: 40%; }
+
+#backend .bc-modal {
+    /* Rest at right:24px and slide with transform (GPU, no per-frame layout).
+       bg is ~0.95 opaque so dropping backdrop-filter is visually a no-op. */
+    position: absolute; top: 60px; right: 24px; width: 360px; height: calc(100% - 80px);
+    background: rgba(20,21,26,0.97); border: 1px solid rgba(189,0,255,0.3);
+    border-radius: 16px; box-shadow: -20px 0 40px rgba(0,0,0,0.5); padding: 24px;
+    display: flex; flex-direction: column; gap: 16px;
+    transform: translateX(420px);
+    animation: bcSlide 8s infinite var(--bc-ease); z-index: 20;
+}
+#backend .bc-modal-title { font-size: 16px; font-weight: 600; color: #fff; border-bottom: 1px solid var(--bc-glass-border); padding-bottom: 12px; display: flex; justify-content: space-between; align-items: center; }
+#backend .bc-modal-tag { font-size: 10px; background: var(--bc-purple); padding: 2px 6px; border-radius: 4px; }
+#backend .bc-modal-block { background: var(--bc-glass-bg); padding: 12px; border-radius: 8px; border: 1px solid var(--bc-glass-border); }
+#backend .bc-modal-block-title { font-size: 12px; color: var(--bc-purple); margin-bottom: 8px; font-weight: 600; }
+#backend .bc-modal-line { height: 8px; background: var(--bc-muted); border-radius: 4px; margin-bottom: 6px; opacity: 0.6; }
+
+@keyframes bcGrow { 0% { transform: scaleY(0.2); } 100% { transform: scaleY(1); } }
+@keyframes bcSlide { 0%, 30% { transform: translateX(420px); } 40%, 90% { transform: translateX(0); } 100% { transform: translateX(420px); } }
+
+#backend:not(.bc-inview) .bc-ui-bar,
+#backend:not(.bc-inview) .bc-modal,
+#backend:not(.bc-inview) .bc-wheel-ring {
+    animation-play-state: paused;
+}
+
+/* ---------- 5. real-data waterfall ---------- */
+#backend .bc-data { margin-bottom: 160px; }
+#backend .bc-data-head { text-align: center; margin-bottom: 60px; }
+#backend .bc-data-head h3 { font-size: 32px; font-weight: 600; margin-bottom: 16px; }
+#backend .bc-data-head p { font-size: 16px; color: var(--bc-body); }
+#backend .bc-data-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+#backend .bc-data-card {
+    background: var(--bc-glass-bg); border: 1px solid var(--bc-glass-border); border-radius: 16px;
+    padding: 24px; transition: 0.4s;
+}
+#backend .bc-data-card:hover { background: rgba(255,255,255,0.06); border-color: rgba(189,0,255,0.3); }
+#backend .bc-dc-num { font-size: 36px; font-family: 'Sora', sans-serif; font-weight: 800; color: #fff; line-height: 1; margin-bottom: 12px; }
+#backend .bc-dc-num span { font-size: 16px; font-weight: 500; color: var(--bc-purple); margin-left: 4px; }
+#backend .bc-dc-text { font-size: 14px; color: var(--bc-body); line-height: 1.6; }
+#backend .bc-dc-text strong { color: #fff; font-weight: 600; }
+
+/* ---------- 6 & 7. flywheel + CTA ---------- */
+#backend .bc-fly { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 100px 0 0; border-top: 1px solid var(--bc-glass-border); position: relative; }
+#backend .bc-wheel { width: 300px; height: 300px; border-radius: 50%; position: relative; margin-bottom: 60px; display: flex; align-items: center; justify-content: center; border: 1px dashed rgba(255,255,255,0.1); }
+#backend .bc-wheel-center { text-align: center; z-index: 10; }
+#backend .bc-wheel-center h4 { font-size: 20px; color: var(--bc-purple); margin-bottom: 8px; }
+#backend .bc-wheel-center p { font-size: 12px; color: var(--bc-muted); }
+#backend .bc-wheel-node {
+    position: absolute; padding: 8px 16px; background: #111; border: 1px solid var(--bc-glass-border);
+    border-radius: 20px; font-size: 13px; font-weight: 600; color: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.5); z-index: 5; white-space: nowrap;
+}
+#backend .bc-wheel-n1 { top: -20px; left: 50%; transform: translateX(-50%); border-color: var(--bc-purple); }
+#backend .bc-wheel-n2 { right: -40px; top: 50%; transform: translateY(-50%); }
+#backend .bc-wheel-n3 { bottom: -20px; left: 50%; transform: translateX(-50%); }
+#backend .bc-wheel-n4 { left: -40px; top: 50%; transform: translateY(-50%); }
+#backend .bc-wheel-ring {
+    position: absolute; inset: -2px; border-radius: 50%;
+    background: conic-gradient(from 0deg, transparent 70%, var(--bc-purple) 100%);
+    mask-image: radial-gradient(transparent 148px, black 150px);
+    -webkit-mask-image: radial-gradient(transparent 148px, black 150px);
+    animation: bcSpin 4s linear infinite; pointer-events: none;
+}
+@keyframes bcSpin { 100% { transform: rotate(360deg); } }
+
+#backend .bc-cta-title { font-size: 40px; font-weight: 700; margin-bottom: 40px; }
+#backend .bc-cta-btns { display: flex; gap: 20px; }
+#backend .bc-btn { padding: 16px 32px; border-radius: 30px; font-size: 16px; font-weight: 600; cursor: pointer; transition: 0.3s; text-decoration: none; display: inline-block; }
+#backend .bc-btn-primary { background: var(--bc-grad); color: #fff; border: none; box-shadow: 0 10px 20px rgba(189,0,255,0.3); }
+#backend .bc-btn-primary:hover { box-shadow: 0 15px 30px rgba(189,0,255,0.5); transform: translateY(-2px); }
+#backend .bc-btn-secondary { background: rgba(255, 255, 255, 0.05); border: 1px solid var(--bc-glass-border); color: #fff; }
+#backend .bc-btn-secondary:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.2); }
+
+/* ---------- responsive ---------- */
+@media (max-width: 1440px) {
+    #backend .bc-cards { grid-template-columns: repeat(2, 1fr); }
+    #backend .bc-dash { flex-direction: column; }
+    #backend .bc-dash-text { flex: none; width: 100%; max-width: 100%; }
+    #backend .bc-ui { width: 100%; }
+}
+@media (max-width: 768px) {
+    #backend .bc-wrap { padding: 60px 20px; }
+    #backend .bc-title { font-size: 32px; }
+    #backend .bc-cards { grid-template-columns: 1fr; }
+    #backend .bc-data-grid { grid-template-columns: 1fr; }
+    #backend .bc-cta-btns { flex-direction: column; }
+    #backend .bc-ui { height: 600px; }
+    #backend .bc-ui-body { flex-direction: column; }
+    #backend .bc-ui-side { width: 100%; flex-direction: row; }
+    #backend .bc-ui-nav { flex: 1; }
+    #backend .bc-modal { width: calc(100% - 48px); right: 24px !important; bottom: 24px; top: auto; height: auto; animation: none; transform: none; }
+}
+
+/* reduced-motion: stop the looping UI/report/flywheel animation, keep content visible */
+@media (prefers-reduced-motion: reduce) {
+    #backend .bc-ui-bar { animation: none; transform: scaleY(1); }
+    #backend .bc-modal { animation: none; transform: translateX(0); }
+    #backend .bc-wheel-ring { animation: none; }
+}

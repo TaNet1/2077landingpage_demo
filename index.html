@@ -17,6 +17,7 @@
     <script src="i18n.js"></script>
     <link rel="stylesheet" href="grainient.css">
     <link rel="stylesheet" href="capabilities.css?v=20260625-3">
+    <link rel="stylesheet" href="backend.css?v=20260626-2">
     <script type="module" src="grainient.js"></script>
     <script>
         tailwind.config = {
@@ -3526,203 +3527,165 @@
         </div>
     </section>
 
-    <!-- PRODUCT LOGIC (感知 → 决策 → 表现) -->
-    <section id="logic" class="py-32 px-10 bg-white has-grainient">
-        <div class="grainient-bg" data-grainient="light"></div>
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-16 reveal">
-                <h2 class="text-sm font-bold tracking-widest text-purple-600 mb-4 uppercase">三者协同</h2>
-                <h3 class="text-4xl md:text-5xl font-sora font-bold mb-6">从感知到表现，一套完整的智能闭环</h3>
-                <p class="text-gray-500 max-w-2xl mx-auto">传感器精准感知、Agent 智慧决策、数字人温度传递 —— 三者协同，让 AI 真正"听得懂、想得清、说得暖"。</p>
-            </div>
-            <div class="logic-grid reveal">
-                <div class="logic-line"></div>
+    <!-- BACKEND / 幻真 CMS 运营平台 (dark) -->
+    <section id="backend" class="bc-section has-grainient" data-clickspark-theme="dark">
+        <div class="grainient-bg" data-grainient="dark"></div>
+        <div class="bc-wrap">
 
-                <div class="logic-card">
-                    <span class="logic-num">01</span>
-                    <div class="logic-icon"><i data-lucide="radar" class="w-7 h-7"></i></div>
-                    <span class="logic-tag">感知</span>
-                    <h4>传感器精准感知</h4>
-                    <p>10 麦克风阵列 + 双目摄像头，主动收音无需唤醒，空间降噪、讲话人追踪，让交互自然贴心。</p>
-                    <div class="logic-chips">
-                        <span class="logic-chip">10 麦克风阵列</span>
-                        <span class="logic-chip">双目摄像头</span>
-                        <span class="logic-chip">空间降噪</span>
-                        <span class="logic-chip">讲话人追踪</span>
+            <!-- 1. opener -->
+            <div class="bc-head">
+                <div class="bc-eyebrow">幻真 CMS 运营平台</div>
+                <h2 class="bc-title">一个后台，管住设备、内容、形象、声音与数据</h2>
+                <p class="bc-sub">即配即用，不懂代码也能运营。从设备上线、内容更新到形象与声音调校，全部在同一个后台完成——而你的每一次交互，都会在这里沉淀成可分析的数据资产。</p>
+            </div>
+
+            <!-- 2. capability cards (4x2) -->
+            <div class="bc-cards">
+                <div class="bc-card">
+                    <div class="bc-card-icon"><svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg></div>
+                    <div class="bc-card-title">即配即用</div>
+                    <div class="bc-card-text">开箱即可运营，零代码上手。设备、内容、形象一站式配置，单点验证后即可标准化复制扩点。</div>
+                </div>
+                <div class="bc-card">
+                    <div class="bc-card-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg></div>
+                    <div class="bc-card-title">设备统一管控</div>
+                    <div class="bc-card-text">所有终端集中纳管：登记、实时控制、模式切换一屏掌握，在线率与交互时长实时可见。</div>
+                </div>
+                <div class="bc-card">
+                    <div class="bc-card-icon"><svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg></div>
+                    <div class="bc-card-title">内容库自主维护</div>
+                    <div class="bc-card-text">问答知识、资料库随改随生效。多格式上传、批量编辑、问答预处理，知识越用越准。</div>
+                </div>
+                <div class="bc-card">
+                    <div class="bc-card-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg></div>
+                    <div class="bc-card-title">多语言识别更准</div>
+                    <div class="bc-card-text">配有简繁中文/粤语/英文及谐音别名纠错词典，顾客怎么说都对得上，识别更稳。</div>
+                </div>
+                <div class="bc-card">
+                    <div class="bc-card-icon"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></div>
+                    <div class="bc-card-title">形象与声音定制</div>
+                    <div class="bc-card-text">形象发型自由配置；可通过 SSML 规则逐条校准发音停顿，品牌地名读音地道自然。</div>
+                </div>
+                <div class="bc-card">
+                    <div class="bc-card-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg></div>
+                    <div class="bc-card-title">网页万物可调用</div>
+                    <div class="bc-card-text">统一管理意图与网页内容，支持接入业务 API。一句话即可调出商铺、导航并讲解。</div>
+                </div>
+                <div class="bc-card">
+                    <div class="bc-card-icon"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg></div>
+                    <div class="bc-card-title">个性化迎宾</div>
+                    <div class="bc-card-text">为 VIP/会员识别到场专属问候；能力独立开关，不留存普通到访顾客隐私数据。</div>
+                </div>
+                <div class="bc-card">
+                    <div class="bc-card-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg></div>
+                    <div class="bc-card-title">合规与私有化</div>
+                    <div class="bc-card-text">敏感词过滤、预设兜底、权限分级与私有化部署。数据隔离不商用，放心交付。</div>
+                </div>
+            </div>
+
+            <!-- 3 & 4. dashboard + auto report -->
+            <div class="bc-dash">
+                <div class="bc-dash-text">
+                    <div class="bc-eyebrow">看得见的运营 · 选时段即导出</div>
+                    <h3 class="bc-dash-title">配置只是入口，沉淀才是壁垒</h3>
+                    <p class="bc-dash-desc">计数器只数得出「来了多少人」，答不出「他们想要什么」。幻真把顾客的每一次提问，都变成一条带标签的真实需求信号。后台首页即是实时看板，选定时段，一键导出由大模型生成的《运营分析报告》。</p>
+                    <div class="bc-modules">
+                        <div class="bc-module"><div class="bc-mdot"></div><div><strong>总览摘要</strong> <span>· 交互总量、日均、主动反馈</span></div></div>
+                        <div class="bc-module"><div class="bc-mdot"></div><div><strong>时间趋势</strong> <span>· 日 / 周 / 时段高峰规律</span></div></div>
+                        <div class="bc-module"><div class="bc-mdot"></div><div><strong>用户需求</strong> <span>· 咨询大类与热门实体 Top 榜</span></div></div>
+                        <div class="bc-module"><div class="bc-mdot"></div><div><strong>潜在需求</strong> <span>· 未满足查询 → 招商参考</span></div></div>
+                        <div class="bc-module"><div class="bc-mdot"></div><div><strong>运营洞察</strong> <span>· 大模型生成可执行建议</span></div></div>
                     </div>
                 </div>
 
-                <div class="logic-card">
-                    <span class="logic-num">02</span>
-                    <div class="logic-icon"><i data-lucide="brain-circuit" class="w-7 h-7"></i></div>
-                    <span class="logic-tag">决策</span>
-                    <h4>Agent 智慧决策</h4>
-                    <p>把用户口语化需求转化为清晰指令，自主规划最优流程，让"人找功能"变成"功能随人转"。</p>
-                    <div class="logic-chips">
-                        <span class="logic-chip">意图理解</span>
-                        <span class="logic-chip">流程规划</span>
-                        <span class="logic-chip">多轮记忆</span>
-                        <span class="logic-chip">RAG 增强</span>
-                    </div>
-                </div>
-
-                <div class="logic-card">
-                    <span class="logic-num">03</span>
-                    <div class="logic-icon"><i data-lucide="message-circle-heart" class="w-7 h-7"></i></div>
-                    <span class="logic-tag">表现</span>
-                    <h4>数字人温度传递</h4>
-                    <p>4 万面游戏级建模，语音 / 唇形 / 表情精准同步，会共情、能亲和沟通的"有温度服务者"。</p>
-                    <div class="logic-chips">
-                        <span class="logic-chip">4 万面建模</span>
-                        <span class="logic-chip">唇形同步</span>
-                        <span class="logic-chip">情绪表情</span>
-                        <span class="logic-chip">实时渲染</span>
-                    </div>
-                </div>
-            </div>
-            <div class="flex items-center justify-center gap-3 mt-12 reveal">
-                <span class="text-sm font-semibold px-4 py-2 rounded-full bg-purple-50 text-purple-600">感知</span>
-                <i data-lucide="arrow-right" class="w-4 h-4 text-gray-300"></i>
-                <span class="text-sm font-semibold px-4 py-2 rounded-full bg-purple-50 text-purple-600">决策</span>
-                <i data-lucide="arrow-right" class="w-4 h-4 text-gray-300"></i>
-                <span class="text-sm font-semibold px-4 py-2 rounded-full bg-purple-50 text-purple-600">表现</span>
-                <span class="ml-2 text-sm text-gray-400">毫秒级流水线并行处理，反应自然且迅速</span>
-            </div>
-        </div>
-    </section>
-
-    <!-- Core Capabilities -->
-    <section class="py-24 px-10 bg-slate-50 overflow-hidden has-grainient">
-        <div class="grainient-bg" data-grainient="light"></div>
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-16 reveal">
-                <h2 class="text-sm font-bold tracking-widest text-purple-600 mb-4 uppercase">核心能力</h2>
-                <h3 class="text-4xl md:text-5xl font-sora font-bold mb-6">全栈 AI 虚拟人能力矩阵</h3>
-                <p class="text-gray-500 max-w-2xl mx-auto">从形象克隆到知识推理，从情感感知到多终端部署，2077.AI 提供端到端的数字员工技术闭环。</p>
-            </div>
-            <div class="cap-wrap reveal">
-                <!-- selectable list -->
-                <div class="cap-list" id="capList">
-                    <div class="cap-item active" style="--accent:#9255fe">
-                        <div class="cap-row">
-                            <div class="cap-mini"><i data-lucide="scan-face" class="w-5 h-5"></i></div>
-                            <h4>超写实形象克隆</h4>
-                            <span class="cap-idx">01</span>
+                <div class="bc-ui" aria-hidden="true">
+                    <div class="bc-ui-header"><div class="bc-ui-dot"></div><div class="bc-ui-dot"></div><div class="bc-ui-dot"></div></div>
+                    <div class="bc-ui-body">
+                        <div class="bc-ui-side">
+                            <div class="bc-ui-nav"></div><div class="bc-ui-nav"></div><div class="bc-ui-nav active"></div><div class="bc-ui-nav"></div>
                         </div>
-                        <p class="cap-desc">基于 3D 扫描与神经网络渲染，1:1 还原真人外貌、微表情与肢体动作，肉眼难辨真伪。</p>
-                        <div class="cap-prog"><span></span></div>
-                    </div>
-                    <div class="cap-item" style="--accent:#3b82f6">
-                        <div class="cap-row">
-                            <div class="cap-mini"><i data-lucide="speech" class="w-5 h-5"></i></div>
-                            <h4>情感语音合成</h4>
-                            <span class="cap-idx">02</span>
-                        </div>
-                        <p class="cap-desc">非模板化 TTS，实时注入情绪参数，让数字人说话有抑扬顿挫，真正实现"声情并茂"。</p>
-                        <div class="cap-prog"><span></span></div>
-                    </div>
-                    <div class="cap-item" style="--accent:#ec4899">
-                        <div class="cap-row">
-                            <div class="cap-mini"><i data-lucide="message-square-plus" class="w-5 h-5"></i></div>
-                            <h4>多轮意图推理</h4>
-                            <span class="cap-idx">03</span>
-                        </div>
-                        <p class="cap-desc">支持 50+ 轮超长上下文记忆，精准识别用户隐性需求，主动追问澄清，告别答非所问。</p>
-                        <div class="cap-prog"><span></span></div>
-                    </div>
-                    <div class="cap-item" style="--accent:#f97316">
-                        <div class="cap-row">
-                            <div class="cap-mini"><i data-lucide="eye" class="w-5 h-5"></i></div>
-                            <h4>视觉感知交互</h4>
-                            <span class="cap-idx">04</span>
-                        </div>
-                        <p class="cap-desc">搭载摄像头视觉模组，支持人脸识别、视线追踪与手势识别，实现"看"着用户说话。</p>
-                        <div class="cap-prog"><span></span></div>
-                    </div>
-                    <div class="cap-item" style="--accent:#6366f1">
-                        <div class="cap-row">
-                            <div class="cap-mini"><i data-lucide="file-stack" class="w-5 h-5"></i></div>
-                            <h4>企业知识大脑</h4>
-                            <span class="cap-idx">05</span>
-                        </div>
-                        <p class="cap-desc">支持 PDF、Word、Excel、网页等多格式文档秒级解析，自动构建可更新、可溯源的知识图谱。</p>
-                        <div class="cap-prog"><span></span></div>
-                    </div>
-                    <div class="cap-item" style="--accent:#10b981">
-                        <div class="cap-row">
-                            <div class="cap-mini"><i data-lucide="plug-zap" class="w-5 h-5"></i></div>
-                            <h4>全渠道一键发布</h4>
-                            <span class="cap-idx">06</span>
-                        </div>
-                        <p class="cap-desc">同一份数字人资产，同步分发至 APP、小程序、网页、自助大屏、短视频直播间，多端体验一致。</p>
-                        <div class="cap-prog"><span></span></div>
-                    </div>
-                </div>
-
-                <!-- stage -->
-                <div class="cap-stage" id="capStage">
-                    <div class="cap-panel active" style="--accent:#9255fe">
-                        <div class="cap-glow"></div>
-                        <div class="cap-bigic"><i data-lucide="scan-face" class="w-9 h-9"></i></div>
-                        <div class="mt-auto">
-                            <span class="text-xs font-bold tracking-[0.2em] uppercase" style="color:#c4b5fd">超写实克隆</span>
-                            <h3 class="text-3xl font-sora font-bold text-white mt-3 mb-3">超写实形象克隆</h3>
-                            <p class="text-white/55 leading-relaxed mb-6 max-w-md">基于 3D 扫描与神经网络渲染，1:1 还原真人外貌、微表情与肢体动作，肉眼难辨真伪。</p>
-                            <div class="flex flex-wrap gap-2.5"><span class="cap-chip">3D 扫描重建</span><span class="cap-chip">神经渲染</span><span class="cap-chip">微表情还原</span><span class="cap-chip">1:1 拟真</span></div>
+                        <div class="bc-ui-main">
+                            <div class="bc-ui-kpis">
+                                <div class="bc-ui-kpi"><div class="bc-ui-kpi-val"></div><div class="bc-ui-kpi-sub"></div></div>
+                                <div class="bc-ui-kpi"><div class="bc-ui-kpi-val"></div><div class="bc-ui-kpi-sub"></div></div>
+                                <div class="bc-ui-kpi"><div class="bc-ui-kpi-val"></div><div class="bc-ui-kpi-sub"></div></div>
+                            </div>
+                            <div class="bc-ui-chart">
+                                <div class="bc-ui-bar"></div><div class="bc-ui-bar"></div><div class="bc-ui-bar"></div><div class="bc-ui-bar"></div><div class="bc-ui-bar"></div><div class="bc-ui-bar"></div>
+                            </div>
                         </div>
                     </div>
-                    <div class="cap-panel" style="--accent:#3b82f6">
-                        <div class="cap-glow"></div>
-                        <div class="cap-bigic"><i data-lucide="speech" class="w-9 h-9"></i></div>
-                        <div class="mt-auto">
-                            <span class="text-xs font-bold tracking-[0.2em] uppercase" style="color:#93c5fd">情感语音</span>
-                            <h3 class="text-3xl font-sora font-bold text-white mt-3 mb-3">情感语音合成</h3>
-                            <p class="text-white/55 leading-relaxed mb-6 max-w-md">非模板化 TTS，实时注入情绪参数，让数字人说话有抑扬顿挫，真正实现"声情并茂"。</p>
-                            <div class="flex flex-wrap gap-2.5"><span class="cap-chip">情绪参数注入</span><span class="cap-chip">非模板 TTS</span><span class="cap-chip">多音色</span><span class="cap-chip">声情并茂</span></div>
+                    <div class="bc-modal">
+                        <div class="bc-modal-title">AI 运营分析报告 <span class="bc-modal-tag">Auto-Generated</span></div>
+                        <div class="bc-modal-block">
+                            <div class="bc-modal-block-title">✦ 潜在需求识别</div>
+                            <div class="bc-modal-line" style="width: 100%;"></div>
+                            <div class="bc-modal-line" style="width: 80%;"></div>
                         </div>
-                    </div>
-                    <div class="cap-panel" style="--accent:#ec4899">
-                        <div class="cap-glow"></div>
-                        <div class="cap-bigic"><i data-lucide="message-square-plus" class="w-9 h-9"></i></div>
-                        <div class="mt-auto">
-                            <span class="text-xs font-bold tracking-[0.2em] uppercase" style="color:#f9a8d4">意图推理</span>
-                            <h3 class="text-3xl font-sora font-bold text-white mt-3 mb-3">多轮意图推理</h3>
-                            <p class="text-white/55 leading-relaxed mb-6 max-w-md">支持 50+ 轮超长上下文记忆，精准识别用户隐性需求，主动追问澄清，告别答非所问。</p>
-                            <div class="flex flex-wrap gap-2.5"><span class="cap-chip">50+ 轮记忆</span><span class="cap-chip">隐性需求识别</span><span class="cap-chip">主动澄清</span></div>
-                        </div>
-                    </div>
-                    <div class="cap-panel" style="--accent:#f97316">
-                        <div class="cap-glow"></div>
-                        <div class="cap-bigic"><i data-lucide="eye" class="w-9 h-9"></i></div>
-                        <div class="mt-auto">
-                            <span class="text-xs font-bold tracking-[0.2em] uppercase" style="color:#fdba74">视觉感知</span>
-                            <h3 class="text-3xl font-sora font-bold text-white mt-3 mb-3">视觉感知交互</h3>
-                            <p class="text-white/55 leading-relaxed mb-6 max-w-md">搭载摄像头视觉模组，支持人脸识别、视线追踪与手势识别，实现"看"着用户说话。</p>
-                            <div class="flex flex-wrap gap-2.5"><span class="cap-chip">人脸识别</span><span class="cap-chip">视线追踪</span><span class="cap-chip">手势识别</span></div>
-                        </div>
-                    </div>
-                    <div class="cap-panel" style="--accent:#6366f1">
-                        <div class="cap-glow"></div>
-                        <div class="cap-bigic"><i data-lucide="file-stack" class="w-9 h-9"></i></div>
-                        <div class="mt-auto">
-                            <span class="text-xs font-bold tracking-[0.2em] uppercase" style="color:#a5b4fc">知识大脑</span>
-                            <h3 class="text-3xl font-sora font-bold text-white mt-3 mb-3">企业知识大脑</h3>
-                            <p class="text-white/55 leading-relaxed mb-6 max-w-md">支持 PDF、Word、Excel、网页等多格式文档秒级解析，自动构建可更新、可溯源的知识图谱。</p>
-                            <div class="flex flex-wrap gap-2.5"><span class="cap-chip">多格式解析</span><span class="cap-chip">知识图谱</span><span class="cap-chip">可溯源</span><span class="cap-chip">秒级解析</span></div>
-                        </div>
-                    </div>
-                    <div class="cap-panel" style="--accent:#10b981">
-                        <div class="cap-glow"></div>
-                        <div class="cap-bigic"><i data-lucide="plug-zap" class="w-9 h-9"></i></div>
-                        <div class="mt-auto">
-                            <span class="text-xs font-bold tracking-[0.2em] uppercase" style="color:#6ee7b7">全渠道发布</span>
-                            <h3 class="text-3xl font-sora font-bold text-white mt-3 mb-3">全渠道一键发布</h3>
-                            <p class="text-white/55 leading-relaxed mb-6 max-w-md">同一份数字人资产，同步分发至 APP、小程序、网页、自助大屏、短视频直播间，多端体验一致。</p>
-                            <div class="flex flex-wrap gap-2.5"><span class="cap-chip">APP / 小程序</span><span class="cap-chip">大屏直播</span><span class="cap-chip">多端一致</span></div>
+                        <div class="bc-modal-block">
+                            <div class="bc-modal-block-title">✦ 运营优化建议</div>
+                            <div class="bc-modal-line" style="width: 90%;"></div>
+                            <div class="bc-modal-line" style="width: 100%;"></div>
+                            <div class="bc-modal-line" style="width: 60%;"></div>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <!-- 5. real-data sample -->
+            <div class="bc-data">
+                <div class="bc-data-head">
+                    <h3>一份真实报告，长什么样？</h3>
+                    <p>提取自某头部商业综合体单周真实运营数据。不止告诉你发生了什么，更告诉你下一步该做什么。</p>
+                </div>
+                <div class="bc-data-grid">
+                    <div class="bc-card bc-data-card">
+                        <div class="bc-dc-num">1,147<span>次</span></div>
+                        <div class="bc-dc-text"><strong>周交互量，日均 80.1 次</strong><br>证明客流真实在用，不是摆设。</div>
+                    </div>
+                    <div class="bc-card bc-data-card">
+                        <div class="bc-dc-num">16:00<span style="margin:0;">-17:00</span></div>
+                        <div class="bc-dc-text"><strong>为全天高峰时段</strong><br>比平均每小时高出 259%，人力排班有了精准锚点。</div>
+                    </div>
+                    <div class="bc-card bc-data-card">
+                        <div class="bc-dc-num">68.1<span>%</span></div>
+                        <div class="bc-dc-text"><strong>「设施及服务」咨询占比</strong><br>用户最核心诉求被量化，导视与基础服务优化方向清晰。</div>
+                    </div>
+                    <div class="bc-card bc-data-card">
+                        <div class="bc-dc-num">193<span>次</span></div>
+                        <div class="bc-dc-text"><strong>导航栏「美食」点击居首</strong><br>进店前的预设意图可见，直接反哺餐饮招商与楼层调整。</div>
+                    </div>
+                    <div class="bc-card bc-data-card" style="border-color: rgba(189,0,255,0.4); background: rgba(189,0,255,0.05);">
+                        <div class="bc-dc-num" style="font-size: 28px; color: var(--bc-purple);">「泊车」<span style="color:#fff;">未入驻</span></div>
+                        <div class="bc-dc-text"><strong>被高频查询 10 次却未入驻</strong><br>把未被满足的长尾需求，直接变成招商部门的民意参考。</div>
+                    </div>
+                    <div class="bc-card bc-data-card">
+                        <div class="bc-dc-num">👍 👎</div>
+                        <div class="bc-dc-text"><strong>点赞/点踩逐条留痕</strong><br>好答案沉淀为知识库范本，差答案精准定位待优化盲区。</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 6 & 7. flywheel + CTA -->
+            <div class="bc-fly">
+                <div class="bc-wheel">
+                    <div class="bc-wheel-ring"></div>
+                    <div class="bc-wheel-center">
+                        <h4>正向飞轮</h4>
+                        <p>越用越聪明</p>
+                    </div>
+                    <div class="bc-wheel-node bc-wheel-n1">服务体验</div>
+                    <div class="bc-wheel-node bc-wheel-n2">数据沉淀</div>
+                    <div class="bc-wheel-node bc-wheel-n3">分析优化</div>
+                    <div class="bc-wheel-node bc-wheel-n4">知识更新</div>
+                </div>
+                <h2 class="bc-cta-title">把沉默的客流，变成会说话的数据</h2>
+                <div class="bc-cta-btns">
+                    <a href="contact.html" class="bc-btn bc-btn-primary">预约后台演示</a>
+                    <a href="contact.html" class="bc-btn bc-btn-secondary">获取一份样例报告</a>
+                </div>
+            </div>
+
         </div>
     </section>
 
@@ -4446,7 +4409,6 @@
             para('#hero .hero-pio-wrap', 30, '#hero', 'top top', 'bottom top', 1.15);
             // NOTE: no parallax on '#pain .service-scene-wrap' — it transforms the
             // wrapper of the sticky right panel and breaks position:sticky alignment.
-            para('#logic > .max-w-7xl', 18, '#logic');
             para('#moatBg1', 58, '#moat');
             para('#moatBg2', -58, '#moat');
             para('#moat > .max-w-7xl', 18, '#moat');
@@ -4795,28 +4757,17 @@
             if (track) track.innerHTML += track.innerHTML;
         });
 
-        // Interactive capabilities showcase (hover/click to select + auto-advance)
+        // Backend CMS: keep loop animations paused until the section is near the viewport.
         (function () {
-            const items = Array.from(document.querySelectorAll('#capList .cap-item'));
-            const panels = Array.from(document.querySelectorAll('#capStage .cap-panel'));
-            if (!items.length) return;
-            let cur = 0, timer = null;
-            const DURATION = 5000;
-            function set(i) {
-                cur = i;
-                items.forEach((it, idx) => it.classList.toggle('active', idx === i));
-                panels.forEach((p, idx) => p.classList.toggle('active', idx === i));
-            }
-            function play() { stop(); timer = setInterval(() => set((cur + 1) % items.length), DURATION); }
-            function stop() { if (timer) { clearInterval(timer); timer = null; } }
-            items.forEach((it, i) => {
-                it.addEventListener('mouseenter', () => { set(i); stop(); });
-                it.addEventListener('mouseleave', play);
-                it.addEventListener('click', () => set(i));
-            });
-            const stage = document.getElementById('capStage');
-            if (stage) { stage.addEventListener('mouseenter', stop); stage.addEventListener('mouseleave', play); }
-            set(0); play();
+            const backend = document.getElementById('backend');
+            if (!backend) return;
+            const setActive = (active) => backend.classList.toggle('bc-inview', active);
+            if (!('IntersectionObserver' in window)) { setActive(true); return; }
+            const io = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => setActive(entry.isIntersecting));
+            }, { rootMargin: '28% 0px 28% 0px', threshold: 0.01 });
+            io.observe(backend);
+            window.addEventListener('pagehide', () => io.disconnect(), { once: true });
         })();
 
         // Service operations dashboard (point 5): JS-driven timeline cycling business

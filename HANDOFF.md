@@ -82,6 +82,32 @@
 
 ## 交接记录（倒序，最新在上）
 
+### 2026-06-26 · Codex：删除旧闭环/旧能力矩阵并收敛滚动性能
+
+用户追加两个删除任务，并反馈页面滚动仍有卡顿。本轮处理：
+
+1. **删除旧「从感知到表现，一套完整的智能闭环」整段**：移除了首页 `#logic` section。
+2. **删除旧「全栈 AI 虚拟人能力矩阵」整段**：移除了旧 `Core Capabilities` section（含 `#capList/#capStage`）。注意：保留了前面新做的 `#capabilities`「Product Capabilities」十大能力模块，它不是用户这次点名要删的旧标题。
+3. **清理无用运行逻辑**：删除 `#logic` 的 GSAP 视差绑定 `para('#logic > .max-w-7xl', ...)`，删除旧能力矩阵的 hover/click/auto-advance 初始化脚本，避免空查询和无用定时器。
+4. **进一步优化滚动性能**：给 `#backend` 后台段增加 `bc-inview` 视口开关，`backend.css` 中默认暂停 `.bc-ui-bar`、`.bc-modal`、`.bc-wheel-ring` 的循环动画；只有后台段接近视口时才恢复运行，离开后暂停，减少滚动期间的持续合成压力。
+
+验证：`node --check i18n.js`、`node --check site.js`、首页内联脚本语法检查、`git diff --check` 均通过；浏览器实测 `#logic/#capList/#capStage` 均不存在，旧标题文本不存在，`#capabilities/#backend` 保留；页面横向溢出为 `0`；`#backend` 初始动画为 `paused`，滚入视区后为 `running`；无新增 console error（仅 Tailwind CDN 原有 warning）。
+
+### 2026-06-26 · Claude：Product Capabilities 后新增「幻真 CMS 运营平台」暗色后台段(#backend)
+
+用户给了参考原型 `D:/Downloads/backend_CMS.html`，要求在首页 `#capabilities`（Product Capabilities 十大能力）**之后**、`#logic`（产品逻辑）之前，新增一段介绍**后台/幻真 CMS 运营能力**的内容，**背景用暗色**。
+
+- **新文件 `backend.css`**：照搬原型样式，但**所有类名加 `bc-` 前缀且 scope 在 `#backend` 下**。原型用了 `.eyebrow`/`.btn`/`.btn-primary`/`.dashboard-ui` 等通用类——会撞 `page.css`（`.eyebrow/.btn`）和 Why Us 仪表盘（`.dashboard-ui`，它的 JS 还会 `querySelectorAll('.dashboard-ui').forEach(initDashboard)`，不隔离会被错误初始化）。原型的 `:root` 设计 token 也**没放进全局 `:root`**，而是 scope 到 `#backend` 内（`--bc-*`），避免覆盖站点品牌色。keyframes 重命名 `uiGrow→bcGrow`/`slideReport→bcSlide`/`spin→bcSpin`。
+- **`index.html`**：在 3527 行 `#capabilities` 的 `</section>` 后插入 `<section id="backend" class="bc-section has-grainient" data-grainient="dark">`。结构=开场(eyebrow+标题+副文) + 8 张能力卡(4×2) + 看板/报告演示(纯 CSS 动画：KPI/柱状图 `bcGrow`、AI报告弹窗 `bcSlide` 8s 循环滑入) + 真实数据样例(6 张大数字卡，「泊车未入驻」卡紫色高亮) + 正向飞轮(`bcSpin` 旋转光环) + CTA(两个按钮均 `→ contact.html`)。**纯 CSS 驱动，没加 JS**。`<head>` 引入 `backend.css?v=20260626-2`。背景用站点既有的 `data-grainient="dark"` 暗色 Grainient + `#08090c` 实底。
+- **`i18n.js`**：末尾追加 zh-HK + en 两个 `Object.assign` 块，覆盖本段全部中文文本节点（注意 i18n 的 `tr()` 用 `zh.trim()` 做 key、`zh.replace(key,t)` 回填，所以带 `✦`/前后空格的节点 key 要写 trim 后的形态；纯数字/英文节点如 `1,147`/`16:00`/`Auto-Generated`/`👍 👎` 不含 CJK 不会被 walk，无需翻译。`次` 已有全局映射→en 为一个空格，未重复定义）。
+- 响应式沿用原型断点：>1440 卡片 4 列、看板左右排；≤1440 卡片 2 列、看板上下堆叠；≤768 全单列、报告弹窗固定在底部不滑动。补了 `prefers-reduced-motion` 降级（停 `bcGrow/bcSlide/bcSpin`，内容静止可见）。
+
+验证（浏览器实测）：1600 四列+看板并排、1280 两列、375 单列，三档均 `docScrollW==winW` 无横向溢出；zh-CN/zh-HK/en 三语标题/CTA 均正确切换；`.dashboard-ui` 全页仍只有 1 个(Why Us)，无 `bc-` 与全局类冲突；无 console error。`node --check i18n.js` 通过。
+
+**追加（用户反馈"滑动变卡"后的性能修复，`backend.css` v2）**：根因两处，都是照搬原型带进来的：(1) `.bc-card` 上的 `backdrop-filter: blur(16px)` 实际作用到 **14 张卡**（8 能力卡 + 6 数据卡都带 `.bc-card`），它们叠在动态 Grainient canvas 上，滚动时每帧重采样模糊背景 → 卡顿（和之前 #pain 报告卡同一个坑）。已**全段移除 backdrop-filter**（卡片改纯半透明面板 `rgba(255,255,255,.045)`、弹窗底色提到 `.97` 几乎不透、次按钮去模糊），grep 确认该段 backdrop-filter 元素数=0，视觉几乎无变化（深色实底上模糊本就看不出）。(2) `.bc-modal` 的 `bcSlide` 动画原在动 `right` 属性 → **每帧 layout 重排**且 8s 循环常驻；已改成 `transform: translateX(420px↔0)`（GPU 合成，不碰主线程）。配套改了 base/`reduced-motion`/移动端三处的 modal 复位（base `right:24px`+`translateX(420px)`、reduced-motion `translateX(0)`、移动端 `transform:none`）。剩余循环动画(`bcGrow`/`bcSlide`/`bcSpin`)全是 transform，对滚动近零开销。注意：预览开了 reduced-motion 看不到这些动画，需在正常浏览器实滚确认手感；若仍有残留，下一步可加 IntersectionObserver 让动画仅在 `#backend` 进视区时才跑。
+
+**未提交（等用户确认）**。
+
 ### 2026-06-25 · Claude：再修 #pain 第5点「进入时几个报告闪一下叠一起」
 
 用户第 N 次反馈：4→5 滚动进入第5点时，右侧报告卡会先重叠闪一下再正常（很短）。之前的「未激活背面卡 opacity0 / 切到才淡入」没根治。本轮两手：

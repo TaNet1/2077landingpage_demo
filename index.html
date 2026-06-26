@@ -841,7 +841,7 @@
             visibility: visible;
             transform: scale(1) translateY(0);
             transition:
-                opacity .55s ease .12s,
+                opacity .5s ease .2s,
                 transform .82s cubic-bezier(.22,.61,.36,1),
                 visibility 0s linear 0s;
         }
@@ -851,7 +851,7 @@
         }
         .service-visual-state[data-visual="5"].active {
             transform: none;
-            transition: opacity .55s ease .12s, visibility 0s linear 0s;
+            transition: opacity .5s ease .2s, visibility 0s linear 0s;
         }
         .service-mobile-visual { display: none; }
         .service-vis-map {
@@ -1298,12 +1298,11 @@
             text-align: left;
             color: #fff;
             background:
-                radial-gradient(circle at 80% 0%, rgba(236,0,250,0.18), transparent 34%),
-                linear-gradient(135deg, rgba(255,255,255,0.075), rgba(255,255,255,0.028));
+                linear-gradient(0deg, rgba(16,12,24,.55), rgba(16,12,24,.55)),
+                radial-gradient(circle at 80% 0%, rgba(236,0,250,0.2), transparent 34%),
+                linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03));
             border: 1px solid rgba(255,255,255,0.10);
             box-shadow: 0 30px 90px rgba(0,0,0,0.42);
-            backdrop-filter: blur(18px);
-            -webkit-backdrop-filter: blur(18px);
             cursor: pointer;
             transform: translate3d(var(--x), var(--y), 0) scale(var(--s));
             opacity: var(--o);
@@ -1387,9 +1386,16 @@
         /* Back cards show only their tinted surface; content hidden so titles don't ghost over the front card. */
         .report-card > * { transition: opacity .4s ease; }
         .report-card[data-slot]:not([data-slot="0"]) > * { opacity: 0; pointer-events: none; }
-        /* During the cross-fade INTO point 5, show only the front card; the fanned back
-           cards fade in once the state is active — kills the brief "stacked reports" flash. */
-        .service-sticky-visual .service-visual-state[data-visual="5"]:not(.active) .report-card[data-slot]:not([data-slot="0"]) { opacity: 0; }
+        /* The fanned back cards stay hidden during the 4→5 cross-fade and only fade in
+           AFTER point 5 has settled (delay > the state fade-in). So scrolling into point 5
+           shows just the front card first — never a flash of several reports overlapping. */
+        .service-sticky-visual .service-visual-state[data-visual="5"] .report-card[data-slot]:not([data-slot="0"]) {
+            opacity: 0;
+            transition: opacity .4s ease .5s;
+        }
+        .service-sticky-visual .service-visual-state[data-visual="5"].active .report-card[data-slot]:not([data-slot="0"]) {
+            opacity: var(--o);
+        }
         .report-mini-list { display: grid; gap: 10px; }
         .report-mini-item {
             display: grid;
@@ -2372,6 +2378,8 @@
             .why-card-lang.is-playing .why-asr-dot { animation: whyAsrDot 1.2s infinite alternate !important; }
             .why-card-lang.is-playing .why-asr-eq i { animation: whyAsrBounce .6s infinite alternate !important; }
             .why-card-lang.is-playing .why-asr-caret { animation: whyAsrBlink .8s steps(1) infinite !important; }
+            /* streaming-transcription typewriter reveal must run under reduced-motion too */
+            .why-card-lang.is-playing .why-asr-line.active { animation: whyAsrType 1.4s steps(24, end) !important; }
             .why-card-flow.is-playing .why-step-dot::after { animation: whyStepFlow 3.6s ease-out infinite !important; animation-delay: calc(var(--step) * .6s) !important; }
             .why-card-audio.is-playing .why-acoustic-state { animation: whyStateReveal 12s cubic-bezier(.25,1,.5,1) infinite !important; }
             /* idle-state ambient noise must keep jittering + sound ripples under reduced-motion */

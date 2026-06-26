@@ -82,6 +82,17 @@
 
 ## 交接记录（倒序，最新在上）
 
+### 2026-06-25 · Claude：再修 #pain 第5点「进入时几个报告闪一下叠一起」
+
+用户第 N 次反馈：4→5 滚动进入第5点时，右侧报告卡会先重叠闪一下再正常（很短）。之前的「未激活背面卡 opacity0 / 切到才淡入」没根治。本轮两手：
+
+1. **状态交叉淡入零重叠**：`.service-visual-state.active` 与 `[data-visual="5"].active` 的 opacity 入场延迟从 `.12s` 调到 `.2s`（离场是 `.18s` 快出）→ 旧画面先全淡出、新画面才开始淡入，state4(功能组件)和 state5(报告) 不再有同时可见的窗口。
+2. **背面扇形卡延后出现**：把背面卡（slot 1/2/3）改成——在 state5 里默认 `opacity:0`，仅 `.active` 时变 `--o`，且 `transition: opacity .4s ease .5s`（**.5s 延迟**）。即进入第5点后先只显示最前面那张报告，等状态淡入+滚动都稳定（>.5s）后扇形背卡才淡入。快速滚过/边界来回切（<.5s）时背卡根本不会出现，从而**杜绝「几个报告同时闪现」**。位置 `index.html`：`.service-visual-state(.active)` 约 839/852 行；背面卡规则约 1390 行。
+
+注意/坑：预览 tab 在后台时 rAF/setTimeout 被节流，**没法用 eval 逐帧采样这个过渡**，本轮靠 CSS 时序逻辑 + 静止态验收（settled 时扇形 1/.8/.54/.3 正常、只 state5 active、无 console error）。#pain 不受 reduced-motion 影响（过渡照跑）。
+
+**追加（用户反馈"还有一丝闪"后）**：根因确认是报告卡的 `backdrop-filter: blur(18px)`——4 张卡叠放、每张毛玻璃在 opacity 过渡+滚动时重绘采样彼此 → 鬼影闪。已**移除 `.report-card` 的 backdrop-filter**，改用半透明深色底打底（`linear-gradient(0deg, rgba(16,12,24,.55), …)` 叠在原紫色/白色渐变上）保持深色玻璃观感。视觉几乎无变化（深色区块上毛玻璃本就主要是糊深色背景），但消除了重绘闪。位置 `.report-card` background（约 1300 行）。
+
 ### 2026-06-24 · Claude：4 个待办（额度快用尽，先记 HANDOFF 再做；未做完的请接力）
 
 用户给了 4 个任务，按下面做。**做到哪算哪，没做完的下一棒继续；都在 `index.html`（#pain + why-section 内联 CSS/JS），动 i18n 的概率低。**
